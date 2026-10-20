@@ -1,24 +1,32 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#21",
-  "sourceDigest": "sha256:1b0c798375e1cdf057b007244cdb8633ff78d0610a07565103cee703826dd6ca",
-  "capturedAt": "2026-10-20T18:13:04Z",
+  "ticket": "Etdev2/Captains-academy-#18",
+  "sourceDigest": "sha256:9bebf969cc9d84cd14502bde2e997746dd694c302c4b4c1b795988d21a0a0325",
+  "capturedAt": "2026-10-20T18:25:06Z",
   "result": "PASS",
   "verification": {
-    "command": "grep -n 'Long Beach' docs/product/DECISIONS.md",
-    "fixture": "DECISIONS.md and arcade-regs-check-2026-10-20.md on this branch"
+    "command": "head -3 docs/adr/0001-arcade-game-stack.md",
+    "fixture": "ADR 0001, DECISIONS.md and the builder worklog on this branch"
   },
   "commands": [
     {
-      "command": "grep -n 'Long Beach' docs/product/DECISIONS.md",
+      "command": "head -3 docs/adr/0001-arcade-game-stack.md",
       "exitCode": 0
     },
     {
-      "command": "grep -n 'G10a' docs/product/DECISIONS.md docs/product/arcade-regs-check-2026-10-20.md",
+      "command": "grep -n 'adr/0001' docs/product/DECISIONS.md",
       "exitCode": 0
     },
     {
-      "command": "grep -c 'still links' docs/product/DECISIONS.md",
+      "command": "grep -n 'waits on Et' docs/adr/0001-arcade-game-stack.md",
+      "exitCode": 0
+    },
+    {
+      "command": "grep -n 'never writes to the sea-time log' docs/adr/0001-arcade-game-stack.md",
+      "exitCode": 0
+    },
+    {
+      "command": "test -f docs/team/worklog/2026-10-20-03-builder.md",
       "exitCode": 0
     }
   ],
@@ -27,7 +35,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "G19 and Next step 4 name the Long Beach docking prototype, G10a records Et's gates, and the open exam check asks for the NMC's confirmation"
+      "shows": "the ADR follows the grilling, no longer claims Et's approval, lets the license screen read sea-time status, and the builder worklog exists"
     }
   ],
   "noBehaviorReason": "docs only; no app code"

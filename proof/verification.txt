@@ -1,14 +1,20 @@
-$ grep -n 'Long Beach' docs/product/DECISIONS.md
-69:- **G19.** First build one playable level, docking in Long Beach harbor. Et chose this level on 2026-10-20 and said it may go ahead. Et plays it and decides whether it is fun enough. Then the sea-time log (A3), then the full game.
-95:4. Build the Long Beach docking prototype (G19) once the web lane's verification command exists.
+$ head -3 docs/adr/0001-arcade-game-stack.md
+---
+status: accepted
+---
 [exit 0]
 
-$ grep -n 'G10a' docs/product/DECISIONS.md docs/product/arcade-regs-check-2026-10-20.md
-docs/product/DECISIONS.md:54:- **G10a.** Three things must be done before the OUPV (six-pack) boss level is built and before launch: the NMC confirms the exam numbers, Q301 is listed only under Limited OUPV (GLI08), and a Coast Guard reviewer reviews the game. Et decided this on 2026-10-20, 10:26 to 10:52 AM PT. The Q301 listing is already correct in `arcade-regs-check-2026-10-20.md`.
-docs/product/DECISIONS.md:89:- Get the NMC to confirm the guide's exam counts, passing marks, module mappings and the Q165 and Q352 upgrade conditions before the OUPV boss level is built (G10a). Chief Of Staff did not open the announcement PDFs or check the NVICs, MMIBs and CFR one by one.
-docs/product/arcade-regs-check-2026-10-20.md:135:Chief Of Staff checked the guide's status later on 2026-10-20 and posted the result on PR #21. The NMC examinations page, refreshed in September 2026, still links MCP-MA-NMC2-08(01), and no later notice was found that replaces it. The values in sections 1 to 3 match that check. Chief Of Staff did not open the announcement PDFs or check the NVICs, MMIBs and CFR one by one, so the exam facts stay open until the NMC confirms them. Et made that confirmation a gate before the OUPV boss level is built (DECISIONS.md G10a).
+$ grep -n 'adr/0001' docs/product/DECISIONS.md
+41:The stack, decided in issue #18, is strict TypeScript, Phaser 4.2.1 (pinned) and Vite, web first. See [ADR 0001](../adr/0001-arcade-game-stack.md).
 [exit 0]
 
-$ grep -c 'still links' docs/product/DECISIONS.md
-1
+$ grep -n 'waits on Et' docs/adr/0001-arcade-game-stack.md
+7:Et asked for the most optimal stack: strict enough to prevent bugs, easy for agents to write in, and no costly rewrites later. On 2026-10-20 Chief Of Staff and Claude settled the choice, after Claude's verified review and an independent Codex review (issue #18). Et answered the question of how the game relates to the Unity simulator. The merge waits on Et's approval. A later grilling session that day (PR #21) parked the Unity simulator, and this ADR follows that session.
+[exit 0]
+
+$ grep -n 'never writes to the sea-time log' docs/adr/0001-arcade-game-stack.md
+22:- **Game time never counts as sea time.** The game never writes to the sea-time log and never credits game activity as sea time. The license screen (DECISIONS.md G18) may read sea-time status to show it.
+[exit 0]
+
+$ test -f docs/team/worklog/2026-10-20-03-builder.md
 [exit 0]
