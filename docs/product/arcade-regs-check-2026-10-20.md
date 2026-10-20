@@ -1,135 +1,144 @@
 # Arcade game regulation check, 2026-10-20
 
-Checked by Sounding Larboard (uscg-regs, subagent of Bosun Larboard) on 2026-10-20 for the four arcade-game items under "To verify before building" in `docs/product/DECISIONS.md`.
+Beacon Shoal, Codex acting as uscg-regs, rechecked the four requested facts on 2026-10-20. This report supersedes Sounding Larboard's earlier search-summary findings for exam requirements and horn lengths. The earlier sample-question reuse research remains in the appendix, outside this verification task.
 
-## How the sources were reached
+## How verification works
 
-None of the primary sites could be opened this session. Every attempt failed:
+A fact is `verified` only when this session opened and read the relevant government source text. Search summaries are leads only. Opening an error page does not count as reading its document.
 
-| Host | curl | WebFetch |
+The eCFR, Cornell and govinfo sources opened. NOAA's current Coast Pilot opened and supplied the International Rule 32 text. NMC and NAVCEN attempts failed. The NMC examinations page also showed Access Denied in a browser. These failures describe this session's access, not whether those sites work for other readers.
+
+| Requested fact | Status | Read the supporting primary text directly? |
 | --- | --- | --- |
-| www.ecfr.gov | proxy refused the connection (403) | DNS lookup failed |
-| www.law.cornell.edu | proxy refused (403) | DNS lookup failed |
-| www.govinfo.gov | proxy refused (403) | DNS lookup failed |
-| www.dco.uscg.mil (NMC) | proxy refused (403) | DNS lookup failed |
-| www.uscg.mil | proxy refused (403) | DNS lookup failed |
-| www.navcen.uscg.gov | proxy refused (403) | DNS lookup failed |
-| www.federalregister.gov, downloads.regulations.gov, www.imo.org | not tried | DNS lookup failed |
-| github.com (control test) | not tried | loaded |
+| Rules exam question counts, passing marks and license variants | `unverified` | No. The NMC guide and sample were blocked |
+| License module lists, upgrade modules and currency of the 2014 guide | `unverified` | No. The NMC pages and guide were blocked |
+| Non-Rules module counts and passing marks | `unverified` | No. The NMC guide was blocked |
+| Inland and International Rule 32 blast lengths | `verified` | Yes. eCFR and NOAA |
 
-The only working channel was the WebSearch tool. It returns a summary written by a search model, with short quotes from the pages it indexed. Every answer below comes from those summaries. Where a summary quoted an official page (eCFR, dco.uscg.mil, govinfo), this file names that page, but nobody in this session opened it. Under the uscg-regs rules every item below is therefore `unverified` until someone reads the primary text directly.
+## 1. Rules of the Road counts and passing marks
 
-Confidence levels mean this:
+Status: `unverified`. No exam passing mark or question count below has been signed off.
 
-- High: several independent summaries quote the same official wording, and nothing conflicts.
-- Medium: the figure traces to one official document, or the official document is old.
-- Low: the figure rests on third-party sites, or the sources conflict.
+The earlier report proposed the following answers. They remain leads, not current requirements established by this session.
 
-## 1. Passing score for the Rules of the Road module
+| License or variant | Proposed module | Proposed questions | Proposed pass mark | Primary text read? |
+| --- | --- | --- | --- | --- |
+| OUPV near coastal | Q100, International and Inland | 50 | 90%, 45 correct | No |
+| OUPV Great Lakes and inland | Q100, or Q300 Inland on request | 50 | 90%, 45 correct | No |
+| Master 25, 50 and 100 GRT | Q100, subject to route and Inland-only options | 50 | 90%, 45 correct | No |
+| Master under 200 GRT | Q100, subject to route | 50 | 90%, 45 correct | No |
+| Inland-only Rules variant | Q300 | 50 | 90%, 45 correct | No |
+| Limited OUPV, GLI08 | Q301, Inland | 50 | 80%, 40 correct | No |
 
-Status: `unverified`. Confidence: medium.
+The proposed answer is that Q100's count and passing mark do not change among OUPV, Master 25/50/100 GRT and Master under 200 GRT. The proposed Q301 exception means that 90% must not be treated as universal across every Rules module. Neither claim is verified. The conditions for choosing Q300 and any resulting COLREGS limitation also remain unverified.
 
-The Rules of the Road module for deck officer exams is Q100, "Rules of the Road: International and Inland". It has 50 multiple-choice questions and a passing score of 90, so a candidate needs 45 right. The same Q100 module appears in every deck exam code checked, so the mark does not change between OUPV, Master or Mate under 100 GRT, Master or Mate under 200 GRT, and the unlimited Mate and Master exams:
+Citation sought: NMC, Deck and Engineering Guide for the Administration of Merchant Marine Examinations, MCP-MA-NMC2-08, effective 24 March 2014, module tables for Q100, Q300 and Q301.
 
-| Exam code | Endorsement | Rules of the Road module |
+Exact URLs opened:
+
+- https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/deck_engineering_guide_as_of_3_24_14.pdf. HTTP 403. Document not read.
+- https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/q100_ror_inland-international.pdf. HTTP 403. Sample not read.
+- https://www.dco.uscg.mil/nmc/exams/ONC07-Q100-Q172/. HTTP 403. Module page not read.
+
+The regulation context was read directly. 46 CFR 11.903 requires examinations for OUPV and the relevant Master endorsements. 46 CFR 11.901 allows examination content to vary with credential limitations. Neither section establishes the proposed numeric marks or counts.
+
+- https://www.ecfr.gov/current/title-46/chapter-I/subchapter-B/part-11/subpart-I/section-11.903. Read directly on 2026-10-20.
+- https://www.ecfr.gov/current/title-46/chapter-I/subchapter-B/part-11/subpart-I/section-11.901. Read directly on 2026-10-20.
+
+## 2. Required modules and the 2014 guide
+
+Status: `unverified`. The following module mapping preserves the earlier report's leads. Each code, module assignment and mark still needs direct confirmation from NMC. Question counts and marks are collected in section 3.
+
+| Exam code and license | Proposed original-exam modules |
+| --- | --- |
+| ONC07, OUPV near coastal | Q100 Rules, Q170 Deck General/Safety, Q171 Navigation General Near Coastal, Q172 Chart Plot |
+| GLI07, OUPV Great Lakes and inland | Q100 or Q300 Rules, Q356 Deck General/Safety, Q357 Navigation General Great Lakes and Inland, Q358 Chart Plot |
+| ONC06, Master under 100 GRT near coastal | Q100 Rules, Q160 Deck General, Q161 Deck Safety, Q162 Navigation General Near Coastal, Q163 Chart Plot |
+| GLI06, Master under 100 GRT Great Lakes and inland | Q100, with the Q300 alternative still to check, Q347 Deck General, Q348 Deck Safety, Q349 Navigation General Great Lakes and Inland, Q350 Chart Plot |
+| OUPV to Master under 100 GRT near coastal | Q165 Navigation and Deck General/Safety, eligibility and any additional modules still to check |
+| OUPV to Master under 100 GRT inland | Q352 Navigation and Deck General/Safety, eligibility and any additional modules still to check |
+
+Do not infer that every module offered on an NMC sample page is required for an original credential. The earlier report identifies Q164 as a renewal exercise and Q165/Q352 as upgrade modules. Those distinctions and the same-route conditions for a one-module upgrade remain unverified.
+
+Citation sought: NMC exam-code module pages and MCP-MA-NMC2-08.
+
+| Exact URL opened | Result | Read the document directly? |
 | --- | --- | --- |
-| ONC01 | Master or Chief Mate, unlimited | Q100 |
-| ONC02 | Second Mate, Third Mate | Q100 |
-| ONC05 | Master or Mate under 200 GRT | Q100 |
-| ONC06 | Master or Mate under 100 GRT, near coastal | Q100 |
-| ONC07 | OUPV, near coastal | Q100 |
-| GLI06 | Master or Mate under 100 GRT, Great Lakes and inland | Q100 |
-| GLI07 | OUPV, Great Lakes and inland | Q100, or Q300 on request |
+| https://www.dco.uscg.mil/nmc/examinations/ | HTTP 403, browser also showed Access Denied | No |
+| https://www.dco.uscg.mil/nmc/exams/ONC07-Q100-Q172/ | HTTP 403 | No |
+| https://www.dco.uscg.mil/nmc/exams/GLI07-OUPV-great-lakes-and-inland-Q100-Q358/ | Retrieval error | No |
+| https://www.dco.uscg.mil/nmc/exams/ONC06-Master-LT-100-GRT-Q100-Q161/ | Retrieval error | No |
+| https://www.dco.uscg.mil/nmc/exams/ONC06-master-LT-100-GRT-Q162-Q165/ | Retrieval error | No |
+| https://www.dco.uscg.mil/nmc/exams/GLI06-master-or-mate-LT-100-GRT-Q100-Q352/ | Retrieval error | No |
+| https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/deck_engineering_guide_as_of_3_24_14.pdf | HTTP 403 | No |
 
-There are two exceptions:
+Whether the 2014 guide is still current is `unverified`. A search result locating an old PDF does not establish that NMC still uses it. This session could not read the current examinations page, a revision notice or a replacement guide. Do not label the 2014 table current until that question is resolved.
 
-- Q300, "Rules of the Road: Inland", is an Inland-only module, also 50 questions at 90. A Great Lakes and inland applicant takes Q100 unless they ask for Q300. Taking Q300 puts a COLREGS limitation on the credential.
-- Q301, "Rules of the Road: Inland", belongs to the Limited OUPV exam (GLI08). One summary of the NMC guide gives it a passing score of 80, not 90. This is the only source for that figure.
+46 CFR 11.910 gives endorsement subject categories, not the NMC Q-code tables or the proposed marks. Read directly on 2026-10-20 at https://www.ecfr.gov/current/title-46/chapter-I/subchapter-B/part-11/subpart-I/section-11.910. Its retrieved text did not include Table 2, so this session did not verify the full subject matrix from that page.
 
-No section of 46 CFR turned up that sets the 90 figure. The searches found only the Part 11 table of contents, which lists 46 CFR 11.910 as "Subjects for deck officer endorsements". The passing scores come from the NMC's exam guide, not from the regulation text.
+46 CFR 11.457(c) says the under-100-GRT Master and Mate tonnage increments depend on qualifying experience under 11.422. Read directly on 2026-10-20 at https://www.ecfr.gov/current/title-46/chapter-I/subchapter-B/part-11/subpart-D/section-11.457. This supports the distinction between tonnage and exam requirements but does not independently verify ONC06/GLI06 or the shared exam claim.
 
-Sources:
+## 3. Non-Rules passing marks and question counts
 
-- NMC, "Deck and Engineering Guide for the Administration of Merchant Marine Examinations", MCP-MA-NMC2-08(01), as of 24 March 2014. https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/deck_engineering_guide_as_of_3_24_14.pdf. Not reached. Search summaries quote its tables: Q100 at 50 questions and 90, Q300 at 50 and 90, Q301 at 50 and 80. A third-party copy is at https://www.marineradvancement.com/pdfUSCG/3Exam_Guide_on_and_after_3_24_14.pdf (also not reached).
-- NMC exam code pages, such as https://www.dco.uscg.mil/nmc/examinations/ and https://www.dco.uscg.mil/nmc/exams/ONC07-Q100-Q172/. Not reached. Summaries quote the module lists in the table above.
-- NMC "approval to test" notice as republished at https://www.seafarers.org/nmc-approval-to-test/. Not reached. A summary quotes it listing Q100 at 90 under the current regulations.
-- A November 2021 N-MERPAC public comment at https://downloads.regulations.gov/USCG-2021-0742-0002/attachment_1.pdf says some Rules of the Road and navigation exams pass at 87 to 90 percent. This is a public comment, not NMC policy. The 87 figure matches the NMC guide's Q115 chart plot module for unlimited mates, not a Rules of the Road module.
+Status: `unverified`. The proposed general answer is 70% for the general and safety modules and 90% for the small-vessel Chart Plot modules, with 10 Chart Plot questions and 9 correct needed. This is limited to the modules below. It is not a claim about every Coast Guard examination.
 
-Open question for the NMC: is the 2014 guide still the current source for module passing scores and question counts, or has a later guide replaced it?
-
-## 2. Exam modules for each license
-
-Status: `unverified`. Confidence: medium for the module lists, low for some pass marks.
-
-The NMC organizes exams by exam code. Each code covers one endorsement and lists its modules. Near coastal codes start with ONC and Great Lakes and inland codes start with GLI. The module content differs by waters, so near coastal and inland are different exams, not one exam with an extra chapter.
-
-### OUPV, near coastal (ONC07)
-
-| Module | Title | Questions | Pass |
+| Module | Proposed questions from earlier research | Proposed pass mark | Primary text read? |
 | --- | --- | --- | --- |
-| Q100 | Rules of the Road: International and Inland | 50 | 90 |
-| Q170 | Deck General/Safety | 50 | 70 |
-| Q171 | Navigation General: Near Coastal | 50 | 70 |
-| Q172 | Chart Plot (the 2014 guide calls it "Navigation Problems: Chart Plot") | 10 | 90 |
+| Q170 Deck General/Safety | 50 | 70% | No |
+| Q171 Navigation General Near Coastal | 50 | 70% | No |
+| Q172 Chart Plot | 10 | 90% | No |
+| Q356 Deck General/Safety | Not established | Not established | No |
+| Q357 Navigation General Great Lakes and Inland | Not established | Not established | No |
+| Q358 Chart Plot | Not established | Not established | No |
+| Q160 Deck General | 50 | 70% | No |
+| Q161 Deck Safety | 50 | 70% | No |
+| Q162 Navigation General Near Coastal | 50 | 70% | No |
+| Q163 Chart Plot | 10 | 90% | No |
+| Q347 Deck General | 50 | 70% | No |
+| Q348 Deck Safety | 50 | 70% | No |
+| Q349 Navigation General Great Lakes and Inland | 50 | 70% | No |
+| Q350 Chart Plot | 10 | 90% | No |
+| Q165 Navigation and Deck General/Safety | Not established | Not established | No |
+| Q352 Navigation and Deck General/Safety | 50 | 70% | No |
 
-### OUPV, Great Lakes and inland (GLI07)
+Citation sought: NMC MCP-MA-NMC2-08, module question-count and passing-score tables.
 
-| Module | Title | Questions | Pass |
-| --- | --- | --- | --- |
-| Q100 or Q300 | Rules of the Road: International and Inland, or Inland only | 50 | 90 |
-| Q356 | Deck General/Safety | not found | not found |
-| Q357 | Navigation General: Great Lakes and Inland | not found | not found |
-| Q358 | Chart Plot | not found | not found |
+Exact URL opened: https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/deck_engineering_guide_as_of_3_24_14.pdf. HTTP 403. Document not read directly.
 
-### Master or Mate under 100 GRT, near coastal (ONC06)
+The Part 10 source opened at https://www.ecfr.gov/current/title-46/chapter-I/subchapter-B/part-10. It did not provide direct evidence for these module counts and passing marks. Reading credential regulations does not substitute for reading NMC's exam tables.
 
-| Module | Title | Questions | Pass |
-| --- | --- | --- | --- |
-| Q100 | Rules of the Road: International and Inland | 50 | 90 |
-| Q160 | Deck General | 50 (third-party) | 70 |
-| Q161 | Deck Safety | 50 (third-party) | 70 |
-| Q162 | Navigation General: Near Coastal | 50 (third-party) | 70 (third-party) |
-| Q163 | Navigation Problems: Chart Plot | 10 | 90 |
-| Q164 | Renewal open-book exercise | not part of an original exam | |
-| Q165 | Navigation and Deck General/Safety | raise in grade from OUPV near coastal only | |
+## 4. Short and prolonged blasts
 
-### Master or Mate under 100 GRT, Great Lakes and inland (GLI06)
+Status: `verified` for both Inland and International, checked on 2026-10-20.
 
-| Module | Title | Questions | Pass |
-| --- | --- | --- | --- |
-| Q100 | Rules of the Road: International and Inland | 50 | 90 |
-| Q347 | Deck General | 50 | 70 |
-| Q348 | Deck Safety | 50 | 70 |
-| Q349 | Navigation General: Great Lakes and Inland | 50 | 70 |
-| Q350 | Navigation Problems: Chart Plot | 10 | 90 |
-| Q352 | Navigation and Deck General/Safety | 50 | 70, raise in grade from OUPV only |
+| Rule set | Answer | Citation | Exact URL opened | Read directly? |
+| --- | --- | --- | --- | --- |
+| Inland | Short blast about 1 second. Prolonged blast 4 to 6 seconds | 33 CFR 83.32(b) and 83.32(c) | https://www.ecfr.gov/current/title-33/chapter-I/subchapter-E/part-83/subpart-D/section-83.32 | Yes |
+| International | Short blast about 1 second. Prolonged blast 4 to 6 seconds | COLREGS Rule 32(b) and 32(c), printed in NOAA U.S. Coast Pilot 8, Navigation Rules, page 376, paragraphs 242 and 243, dated 18 October 2026 | https://nauticalcharts.noaa.gov/publications/coast-pilot/files/cp8/CPB8_AppendixA_WEB.pdf | Yes. Read the PDF text and inspected page 376 |
 
-### 25, 50 and 100 GRT
+The NOAA publication identifies its text as an amalgamation of International COLREGS and Inland Rules. Its opening legend marks text unique to each set. Rule 32's shared definitions have no such marker. This is a direct government publication of the rule text, not a training-school account.
 
-The Master 25, 50 and 100 GRT ratings are one endorsement, "Master of vessels of less than 100 GRT", issued in tonnage steps. The step comes from the tonnage of the vessels in the applicant's sea time, not from a different exam. A summary of the eCFR text of 46 CFR 11.457 quotes: "All endorsements issued for Master or Mate of vessels of less than 100 GRT are issued in tonnage increments based on the applicant's qualifying experience in accordance with the provisions of § 11.422." So a 25-ton and a 100-ton candidate take the same ONC06 or GLI06 exam. The tonnage percentages belong to the sea-time log and need their own check against 46 CFR 11.422.
+Other exact URLs opened:
 
-### Master or Mate under 200 GRT (ONC05), for reference
+- https://www.law.cornell.edu/cfr/text/33/83.32. Read directly. The LII copy agrees with eCFR but is not the government primary source used for verification.
+- https://www.govinfo.gov/link/cfr/33/83?link-type=pdf&year=mostrecent. Opened the official 2025 Part 83 PDF. eCFR supplied the current Inland definitions used above.
+- https://navcen.uscg.gov/navigation-rules-amalgamated. HTTP 403. Not read.
+- https://www.navcen.uscg.gov/navigation-rules-amalgamated. HTTP 403. Not read.
+- https://navcen.uscg.gov/sites/default/files/pdf/navRules/Handbook/Nav%20Rules%20Handbook_Corrected_08-12-2024.pdf. HTTP 403. Not read.
+- https://www.navcen.uscg.gov/sites/default/files/pdf/navRules/33_USC_1601_1608_1982_72COLREG.pdf. HTTP 403. Not read.
+- https://navcen.uscg.gov/sites/default/files/pdf/navRules/navrules.pdf. HTTP 403. Not read.
 
-The module range is Q100 to Q159. A U.S. Army credentialing page (https://www.cool.osd.mil/army/credential/index.html?cert=master200below5560&moc=88k, not reached) lists Q100 Rules of the Road, Q150 Deck General, Q151 Deck Safety and Q153 Navigation Problems: Chart Plot, and an NMC sample file name points to Q152 Navigation General: Oceans or Near Coastal. Confidence: low.
+G16 agrees with the verified text. A 1-second short blast and a 5-second prolonged blast fit these definitions. The earlier report's suggested 1.5-second short-blast test limit is an engineering proposal, not a tolerance stated by Rule 32.
 
-### Raise in grade and the game
+## Decisions and remaining work
 
-An OUPV holder moving to Master under 100 GRT takes one combined module (Q165 near coastal, Q352 inland) instead of the full set. A license badge for "OUPV to 100-Ton upgrade" would map to a different set of chapters than a fresh 100-ton badge.
+Only the horn-length item can leave the verification list. Keep the three exam items, including the question of the 2014 guide's currency.
 
-Sources:
+No verified fact contradicts G5, G10, G16 or G17. Those decisions were not edited. The possible Q301 80% exception needs a primary-source check before anyone asks Et to extend G10 to Limited OUPV.
 
-- NMC exam pages, not reached: https://www.dco.uscg.mil/nmc/exams/ONC07-Q100-Q172/, https://www.dco.uscg.mil/nmc/exams/ONC06-Master-LT-100-GRT-Q100-Q161/, https://www.dco.uscg.mil/nmc/exams/ONC06-master-LT-100-GRT-Q162-Q165/, https://www.dco.uscg.mil/nmc/exams/GLI06-master-or-mate-LT-100-GRT-Q100-Q352/, https://www.dco.uscg.mil/nmc/exams/great-lakes-and-inland-endorsements/, https://www.dco.uscg.mil/nmc/exams/oceans_or_near_coastal_endorsements/.
-- The 2014 NMC exam guide named under item 1, for question counts and pass marks.
-- 46 CFR 11.457 at https://www.ecfr.gov/current/title-46/chapter-I/subchapter-B/part-11/subpart-D/section-11.457, not reached.
-- Third-party, leads only: https://www.marineradvancement.com/deckMateMaster50-100-200GRT.html (Q162 pass mark), https://www.seasources.net/Master_25_50_100%20Ton.html (GLI06 module list), https://www.edumaritime.net/uscg-exams/deck-officer-exams-great-lakes-and-inland (Inland-only Rules option).
+Next, read the current NMC tables from a connection that can reach them, or obtain NMC confirmation of the guide revision and the missing module values. No app code, rule tables or tests changed in this documentation task.
 
-Open questions for the NMC:
-
-- The current pass marks and question counts for Q356, Q357 and Q358 (OUPV inland).
-- Whether Q162's pass mark is 70.
-- Whether any of these module numbers changed after the 2014 guide. The exam code pages were indexed with ages of roughly two to five years.
-
-## 3. Reusing the Coast Guard's sample exam questions
+## Appendix. Earlier sample-question reuse research
 
 Status: `unverified`, and it needs `counsel`. Confidence: medium on the law and where the samples live, low on whether every question and illustration is free of third-party rights.
 
@@ -159,32 +168,3 @@ Open questions:
 - For `counsel`: may a commercial app reproduce NMC sample question text, and under what attribution?
 - For the NMC: who writes the sample questions and draws the illustrations, and are any of them under third-party copyright?
 
-## 4. Short and prolonged blasts (Rule 32)
-
-Status: `unverified`. Confidence: high.
-
-- A short blast is "a blast of about one second's duration".
-- A prolonged blast is "a blast of from four to six seconds' duration".
-
-The Inland and International definitions match word for word. The rule sets differ in how the blasts are used, not in their length. Under Inland Rule 34 one short blast means "I intend to leave you on my port side", a signal of intent. A commentary in the search results calls the International Rule 34 signals signals of action, not intent. This session did not see the International Rule 34 wording, so the game's horn-signal levels need their own check against both texts. Inland also has signals the International rules lack, such as one prolonged blast when leaving a dock or berth.
-
-Sources:
-
-- Inland: 33 CFR 83.32, https://www.ecfr.gov/current/title-33/chapter-I/subchapter-E/part-83/subpart-D/section-83.32, and https://www.law.cornell.edu/cfr/text/33/83.32. Not reached. Search summaries quote "about one second" and "four to six seconds" from both. The Federal Register notice of 28 August 2012, "Changes to the Inland Navigation Rules", carries the same wording (https://www.federalregister.gov/documents/2012/08/28/2012-18364/changes-to-the-inland-navigation-rules, not reached).
-- International: COLREGS 1972, Rule 32. The IMO text was not found. The USCG amalgamated rules at https://navcen.uscg.gov/navigation-rules-amalgamated (not reached) and NOAA's U.S. Coast Pilot 8, Appendix A, dated 11 Oct 2026 (https://nauticalcharts.noaa.gov/publications/coast-pilot/files/cp8/CPB8_AppendixA_WEB.pdf, not reached) give the same lengths, per search summaries. Secondary copies of the wording: https://www.cultofsea.com/colregs/part-d-sound-and-light-signals-rules-32-37/rule-32-definitions/.
-
-G16's figures are right. For the game:
-
-- Play a short blast at 1 second.
-- Play a prolonged blast at 5 seconds, so it sits in the middle of the legal range.
-- A test should fail if a short blast runs past about 1.5 seconds or a prolonged blast falls outside 4 to 6 seconds.
-
-## What this means for DECISIONS.md
-
-These are suggestions for Bosun Larboard and Et. This file does not change the register.
-
-- G10. The passing mark for the Rules of the Road boss is 90 percent, the same for OUPV, every Master under 100 GRT tonnage step, and Master or Mate under 200 GRT. Q100 has 50 questions, so a boss in exam format is 50 questions with 45 needed to pass. The other chapters' bosses pass at 70, except Chart Plotting at 90 (10 questions). The register should also stop calling the sample questions a bank. One sample exam per module is too few for two clean runs, so most boss questions must be written by the academy.
-- G5. "Deck General and Safety" is one module for OUPV (Q170 or Q356) but two modules for Master under 100 GRT (Q160 and Q161, or Q347 and Q348). If chapters follow modules one for one, the Master license needs separate Deck General and Deck Safety chapters. Navigation General also differs by waters (Near Coastal against Great Lakes and Inland). Either split by waters or make the waters a level setting, as G6 does for the rule sets.
-- G17. "100-Ton Exam Ready" covers 25, 50 and 100 GRT, because they share one exam. The OUPV to Master upgrade uses a single combined module (Q165 or Q352), so it needs its own badge mapping if the game offers one.
-- G16. No change. A short blast is about 1 second and a prolonged blast 4 to 6 seconds, the same Inland and International.
-- To verify before building. Keep all four items open until someone reads the primary pages directly. They are listed as unreached under each item. Add the sample-question reuse question to `counsel`'s list.
