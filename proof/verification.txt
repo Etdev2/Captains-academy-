@@ -1,0 +1,7 @@
+$ ruby -ryaml -e 'YAML.load_file(".github/workflows/claude.yml"); puts "yaml ok"'
+yaml ok
+[exit 0]
+
+$ grep -n 'secrets.CLAUDE_CODE_OAUTH_TOKEN' .github/workflows/claude.yml
+50:          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+[exit 0]
