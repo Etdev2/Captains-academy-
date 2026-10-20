@@ -1,20 +1,28 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#18",
-  "sourceDigest": "sha256:9570e565d98fb8711af9aae9a6aa02367518e7926f9eff327a8f93b443131b99",
-  "capturedAt": "2026-10-20T15:22:52Z",
+  "ticket": "Etdev2/Captains-academy-#21",
+  "sourceDigest": "sha256:c0e00e6508bcd7b239aa245f7e94c08e25fd63409a3a410a8370adba90ec73f3",
+  "capturedAt": "2026-10-20T18:35:06Z",
   "result": "PASS",
   "verification": {
-    "command": "/workspace/venv/bin/python -c \"import yaml;yaml.safe_load(open('.github/workflows/claude.yml'));print('yaml ok')\"",
-    "fixture": "The workflow file on this branch (PR #20): claude.yml with WebFetch and WebSearch allowed"
+    "command": "grep -n 'For Chapter 1 it writes them' docs/product/DECISIONS.md",
+    "fixture": "DECISIONS.md G10 and G20 and the session worklog on this branch"
   },
   "commands": [
     {
-      "command": "/workspace/venv/bin/python -c \"import yaml;yaml.safe_load(open('.github/workflows/claude.yml'));print('yaml ok')\"",
+      "command": "grep -n 'For Chapter 1 it writes them' docs/product/DECISIONS.md",
       "exitCode": 0
     },
     {
-      "command": "grep -n 'WebFetch,WebSearch' .github/workflows/claude.yml",
+      "command": "grep -c 'Each later chapter' docs/product/DECISIONS.md",
+      "exitCode": 0
+    },
+    {
+      "command": "grep -n 'own source citation in later chapters' docs/product/DECISIONS.md",
+      "exitCode": 0
+    },
+    {
+      "command": "test -f docs/team/worklog/2026-10-20-04-decisions-recorder.md",
       "exitCode": 0
     }
   ],
@@ -23,8 +31,8 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "the workflow YAML parses and claude_args lists the two web tools"
+      "shows": "G10 limits the Navigation Rules source and rule-number tag to Chapter 1, G20 matches it, and the session's worklog exists"
     }
   ],
-  "noBehaviorReason": "workflow config only; no app code"
+  "noBehaviorReason": "docs only; no app code"
 }
