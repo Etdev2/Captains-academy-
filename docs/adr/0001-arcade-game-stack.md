@@ -4,7 +4,7 @@ status: accepted
 
 # The arcade game is built on strict TypeScript, Phaser 4 and Vite
 
-Et asked for the most optimal stack: strict enough to prevent bugs, easy for agents to write in, and no costly rewrites later. On 2026-10-20 Chief Of Staff and Claude settled the choice, after Claude's verified review and an independent Codex review (issue #18). Et answered the question of how the game relates to the Unity simulator, and Et approves the merge. A later grilling session that day (PR #21) parked the Unity simulator, and this ADR follows that session.
+Et asked for the most optimal stack: strict enough to prevent bugs, easy for agents to write in, and no costly rewrites later. On 2026-10-20 Chief Of Staff and Claude settled the choice, after Claude's verified review and an independent Codex review (issue #18). Et answered the question of how the game relates to the Unity simulator. The merge waits on Et's approval. A later grilling session that day (PR #21) parked the Unity simulator, and this ADR follows that session.
 
 ## Decision
 
@@ -19,7 +19,7 @@ Et asked for the most optimal stack: strict enough to prevent bugs, easy for age
 
 ## Guardrails
 
-- **Game time never counts as sea time.** The game has no code path into the sea-time log.
+- **Game time never counts as sea time.** The game never writes to the sea-time log and never credits game activity as sea time. The license screen (DECISIONS.md G18) may read sea-time status to show it.
 - **The game never says a player qualifies.** It follows the same wording rule as the sea-time log ("appears to meet", with what is still needed).
 - **No sharing with Fish Log Book.** The arcade game shares no code, database or accounts with it.
 
@@ -33,5 +33,5 @@ Et asked for the most optimal stack: strict enough to prevent bugs, easy for age
 
 - The academy has one game engine, Phaser. If the Unity simulator comes back, or the arcade game moves to another engine, that is a new ADR that supersedes this one.
 - The verification command (#12) must cover this stack. It runs, cheapest first: `npm ci`, `tsc --noEmit`, ESLint with `--max-warnings=0` and import-boundary rules, Prettier, Vitest with required replay tests, mission JSON validation, `vite build`, a minimal Playwright smoke test, and `npm audit --omit=dev`.
-- Open for Et later: the web payment provider and cross-device sync, pricing, how realistic the physics should be, Apple and Google developer accounts, and a Coast Guard content reviewer.
+- Open for Et later: the web payment provider, pricing, how realistic the physics should be, Apple and Google developer accounts, and who the Coast Guard reviewer is (DECISIONS.md G10a requires one before launch). Cross-device sync of progress is settled (DECISIONS.md G4).
 - Before store launch, test on a real low-end Android WebView for frame time, memory, touch lag, pause and resume, and context loss.
