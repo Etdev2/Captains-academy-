@@ -31,6 +31,13 @@ Changes to a settled decision need an explicit call from Et. A parked item is no
 - **Waters:** real harbors from NOAA electronic charts, starting with one harbor.
 - **Simulator time is never sea time.** Proposed as a firm line; objections welcome.
 
+### Arcade game
+Decided 2026-10-20 in issue #18. See [ADR 0001](../adr/0001-arcade-game-stack.md).
+- **Separate product.** The top-down 2D arcade game (phone and web) is separate from the simulator. Unity stays the simulator engine until Et decides after the arcade game launches.
+- **Stack:** strict TypeScript, Phaser 4.2.1 (pinned) and Vite, in a fresh project. Web first; Capacitor and native billing come after the browser game validates gameplay.
+- **Architecture:** a Phaser-free `src/sim` (deterministic, no Phaser physics), `src/game` for rendering, `src/platform` for purchases. Both payment SDKs sit behind one Entitlements interface.
+- **Game time is never sea time,** and the game never says a player qualifies.
+
 ### Flashcards
 - **Colors mean real navigation-light colors.** Example: a red and a green light together means a vessel heading straight at you.
 - **Scope:** night lights, day shapes and sound signals.
@@ -41,6 +48,7 @@ Changes to a settled decision need an explicit call from Et. A parked item is no
 ## Open (parked by Elliott)
 - **Course type:** Coast Guard-approved course with our exam, study aid first, or partner with an approved school.
 - **Pricing:** what's free and what's paid. To decide with the marketing team.
+- **Arcade game follow-ups:** the web payment provider and cross-device sync, how realistic the physics should be, Apple and Google developer accounts, a Coast Guard content reviewer, and whether the arcade game later replaces Unity as the simulator engine (Et decides after launch).
 
 ## To verify before building
 The regulation sites (ecfr.gov, law.cornell.edu) were unreachable from the session, so these figures come from Coast Guard guidance and training-school summaries.
