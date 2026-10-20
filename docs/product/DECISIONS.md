@@ -38,6 +38,8 @@ Changes to a settled decision need an explicit call from Et. A parked item is no
 ### Arcade game
 The aim: a player who clears every level of a chapter can pass that part of the Coast Guard exam. Working title "Rules of the Road Arcade"; the real name is chosen with marketing.
 
+The stack, decided in issue #18, is strict TypeScript, Phaser 4.2.1 (pinned) and Vite, web first. See [ADR 0001](../adr/0001-arcade-game-stack.md).
+
 Build
 - **G1.** A web game built with Phaser, separate from the realistic simulator. It lives in this repo at its own address (such as `/play`) and uses the academy login, Supabase project and mastery record.
 - **G2.** 2D first: a top-down harbor for steering levels and a "bridge view" of lights on the horizon. 3D views come later only if players want them.
