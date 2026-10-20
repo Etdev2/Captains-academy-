@@ -51,6 +51,7 @@ Chapters and levels
 - **G8.** Level length and phone orientation depend on the level type. Rapid-fire levels play in portrait with one thumb; steering levels play in landscape. Mouse and keyboard work on desktop.
 - **G9.** The game and the flashcards share one mastery record per rule and situation. A situation missed in one shows up in the other.
 - **G10.** Each chapter ends in a boss level in exam format: timed multiple-choice questions. The academy writes its own questions from the official rule text (the Coast Guard's Navigation Rules book, which prints COLREGS and the Inland Rules in 33 CFR 83). The Coast Guard's sample exams are too few to reuse and some of their content may be copyrighted, so they guide question style only and nothing is copied from them. `uscg-regs` checks each question against the current rule text and tags it with its rule number. The player clears the boss by scoring at the real module's passing mark on two separate runs: 90% for Rules of the Road, 70% for most other modules, and 90% for Chart Plotting, pending verification.
+- **G10a.** Three things must be done before the OUPV (six-pack) boss level is built and before launch: the NMC confirms the exam numbers, Q301 is listed only under Limited OUPV (GLI08), and a Coast Guard reviewer reviews the game. Et decided this on 2026-10-20, 10:26 to 10:52 AM PT. The Q301 listing is already correct in `arcade-regs-check-2026-10-20.md`.
 
 Feel
 - **G11.** A wrong answer costs one of three hull hearts and plays a replay of about 5 seconds that shows the right move and cites the rule. The missed situation comes back later in the level and in later levels.
@@ -65,7 +66,7 @@ Badges and the license screen
 - **G18.** One license screen per license shows the Exam Ready badge, the sea-time status ("appears to meet" plus what is still needed) and the rest of the checklist (physical, drug test, TWIC, courses).
 
 Order
-- **G19.** First build one playable level, lights rapid-fire. Et plays it and decides whether it is fun enough. Then the sea-time log (A3), then the full game.
+- **G19.** First build one playable level, docking in Long Beach harbor. Et chose this level on 2026-10-20 and said it may go ahead. Et plays it and decides whether it is fun enough. Then the sea-time log (A3), then the full game.
 
 Teaching
 - **G20.** The game teaches with four methods from learning research. Perceptual learning: many fast visual examples, each classified by the player with instant feedback, until recognition is automatic. Retrieval practice: the player recalls every answer instead of rereading it. Spaced repetition: missed situations come back at growing intervals. Interleaving: levels mix situation types so the player learns to tell them apart. Every visual is paired with words and its rule number. Three rules keep it fun: all teaching happens through play, in the replay after a miss and a one-line rule citation; nothing stops the player for more than 5 seconds to read or watch; and a level that is correct but boring gets redesigned, never shipped.
@@ -84,13 +85,11 @@ The items below still need primary-source verification.
 - Whether the Coast Guard has an accepted way to estimate tonnage for boats without an official figure.
 - That Unreal Engine still has no web export (only matters if the Unity simulator comes back).
 - What the Coast Guard requires to approve a course and its online proctored exam.
-The 2026-10-20 follow-up verified both Rule 32 blast lengths. Et's supplied NMC guide confirms the 2014 exam tables. The remaining exam checks are whether that guide is still current and whether the tables have changed. See `arcade-regs-check-2026-10-20.md`.
-- Confirm that the guide's Rules counts and marks remain current, including Q100 and Q300 at 50 questions and 90%, and Limited OUPV Q301 at 50 questions and 80%.
-- Confirm that the guide's ONC07, GLI07, ONC06 and GLI06 module mappings and Q165/Q352 upgrade conditions remain current, including the inland-route restriction on Q300.
-- Confirm that the guide's listed general modules still pass at 70% and its Chart Plot modules still use 10 questions at 90%.
+The 2026-10-20 follow-up verified both Rule 32 blast lengths. Et's supplied NMC guide, MCP-MA-NMC2-08(01) of August 2014, gives the exam tables. Chief Of Staff found that the NMC examinations page, refreshed in September 2026, still links that guide, and found no later notice that replaces it. See `arcade-regs-check-2026-10-20.md`.
+- Get the NMC to confirm the guide's exam counts, passing marks, module mappings and the Q165 and Q352 upgrade conditions before the OUPV boss level is built (G10a). Chief Of Staff did not open the announcement PDFs or check the NVICs, MMIBs and CFR one by one.
 
 ## Next steps
 1. Write the academy's verification command and required checks, so it can leave stage 0.
 2. Settle the parked items: course type and pricing.
 3. Verify the figures listed above against the current regulations.
-4. Build the one-level arcade prototype (G19) once the web lane's verification command exists.
+4. Build the Long Beach docking prototype (G19) once the web lane's verification command exists.

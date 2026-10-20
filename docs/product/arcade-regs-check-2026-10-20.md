@@ -130,6 +130,10 @@ The Q300 route restriction needs accurate badge and question selection, but does
 
 Next, obtain a current NMC page or an NMC response identifying the guide in use and confirming whether these specific tables have changed. The supplied copy alone does not answer that question.
 
+## Update after this report
+
+Chief Of Staff checked the guide's status later on 2026-10-20 and posted the result on PR #21. The NMC examinations page, refreshed in September 2026, still links MCP-MA-NMC2-08(01), and no later notice was found that replaces it. The values in sections 1 to 3 match that check. Chief Of Staff did not open the announcement PDFs or check the NVICs, MMIBs and CFR one by one, so the exam facts stay open until the NMC confirms them. Et made that confirmation a gate before the OUPV boss level is built (DECISIONS.md G10a).
+
 ## Appendix. Earlier sample-question reuse research
 
 Status: `unverified`, and it needs `counsel`. Confidence: medium on the law and where the samples live, low on whether every question and illustration is free of third-party rights.
