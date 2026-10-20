@@ -5,3 +5,6 @@ $ grep -n 'For Chapter 1 it writes them' docs/product/DECISIONS.md
 $ grep -c 'Each later chapter' docs/product/DECISIONS.md
 1
 [exit 0]
+
+$ test -f docs/team/worklog/2026-10-20-04-builder.md
+[exit 0]
