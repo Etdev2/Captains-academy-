@@ -1,6 +1,3 @@
-$ bash -n scripts/verify.sh
-[exit 0]
-
 $ bash scripts/verify.test.sh
 ok   empty project skips all nine steps
 ok   app code without package.json fails
@@ -19,31 +16,69 @@ verify.test.sh: 10 passed, 0 failed.
 $ bash scripts/verify.sh
 
 ==> Node version and npm ci
-SKIP: there is no package.json
+
+added 144 packages, and audited 145 packages in 7s
+
+45 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
 
 ==> tsc --noEmit
-SKIP: there is no tsconfig.json
 
 ==> eslint --max-warnings=0
-SKIP: there is no ESLint config
 
 ==> prettier --check
-SKIP: there is no Prettier config
+Checking formatting...
+All matched files use Prettier code style!
 
 ==> mission JSON validation
-SKIP: no mission JSON yet
+ok   long-beach-docking.json
 
 ==> vitest (unit, adversarial, golden replay)
-SKIP: there are no Vitest test files
+
+ RUN  v4.1.11 /home/user/Captains-academy-
+
+
+ Test Files  2 passed (2)
+      Tests  16 passed (16)
+   Start at  19:23:36
+   Duration  760ms (transform 493ms, setup 0ms, import 770ms, tests 236ms, environment 0ms)
+
 
 ==> vite build
-SKIP: there is no Vite config
+vite v7.3.6 building client environment for production...
+transforming...
+node_modules/zod/v4/core/util.js (400:0): A comment
+
+"// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+
+in "node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+node_modules/zod/v4/core/regexes.js (74:0): A comment
+
+"/** Anchors a pattern source. The interpolation lives here rather than at the call site because
+ * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it
+ * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
+
+in "node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+✓ 106 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/play/index.html              1.27 kB │ gzip:   0.61 kB
+dist/assets/play-BGpuo2g_.js  1,488.24 kB │ gzip: 402.05 kB
+✓ built in 8.25s
 
 ==> playwright smoke test
-SKIP: there is no Playwright config
+
+Running 2 tests using 2 workers
+
+  ✓  1 [phone-landscape] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (4.2s)
+  ✓  2 [desktop] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (4.9s)
+
+  2 passed (7.2s)
 
 ==> npm audit --omit=dev
-SKIP: no package-lock.json yet
+found 0 vulnerabilities
 
-verify.sh passed: 0 step(s) ran, 9 skipped.
+verify.sh passed: 9 step(s) ran, 0 skipped.
 [exit 0]
