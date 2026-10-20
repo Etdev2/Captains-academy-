@@ -1,0 +1,337 @@
+{
+  "version": 1,
+  "generatedBy": "scripts/sync-template-skills.sh",
+  "sources": [
+    {
+      "id": "matt-pocock",
+      "repository": "https://github.com/mattpocock/skills",
+      "commit": "49dd158d1076134a641b33efb035946536778336",
+      "license": "MIT"
+    },
+    {
+      "id": "pstack",
+      "repository": "https://github.com/backnotprop/pstack",
+      "commit": "3a604672c46cd8187d2b19980eae0a34f9f91138",
+      "license": "MIT"
+    }
+  ],
+  "skills": [
+    {
+      "name": "grilling",
+      "source": "matt-pocock",
+      "path": "skills/productivity/grilling/SKILL.md",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "befdff1e27a1dfe2a294d5871169ac1afe16d983911daa4f32627514a48c1e15"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "1411d7df7d99b7e621a1ff8283c8133cc2464be63d064e52d8ce169c6800ee9b"
+        }
+      ]
+    },
+    {
+      "name": "grill-with-docs",
+      "source": "matt-pocock",
+      "path": "skills/engineering/grill-with-docs/SKILL.md",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "7de372c13488f1ee96cc11cd8907b56b6809cc93eef776eeddd37de6b6cbe3fe"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "94cd0ab161fb468a836349f5ed482ba58ce8e709a05c57ce533d739dbd35cca9"
+        }
+      ]
+    },
+    {
+      "name": "wayfinder",
+      "source": "matt-pocock",
+      "path": "skills/engineering/wayfinder/SKILL.md",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "9be7b478c389605a24517d27752f278933588da97a1b5921b165f455edf4c5b7"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "88bc81a11a6d52ac67aeaa76b8b619e387020d47c5133a4dd4927fd15c4ad073"
+        }
+      ]
+    },
+    {
+      "name": "domain-modeling",
+      "source": "matt-pocock",
+      "path": "skills/engineering/domain-modeling/SKILL.md",
+      "files": [
+        {
+          "path": "ADR-FORMAT.md",
+          "sha256": "944c92aa790e8fbdc9199640b170979abb8a34ba8d0fe18c2a01a63bce140ca0"
+        },
+        {
+          "path": "GLOSSARY-FORMAT.md",
+          "sha256": "21dcc40cdec8e151a829b98ab1517c1867bc444e3665134a98c6983411996801"
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "7b925d7b1e341a2eeae33ad68a8a8c0ab889a38ddd22a7598e4c240e5a7556a3"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "f6bf2aa996c6e6f53fdd0708e18a0d16a56aed8322cca59fedbe3c0d2c75f06b"
+        }
+      ]
+    },
+    {
+      "name": "to-spec",
+      "source": "matt-pocock",
+      "path": "skills/engineering/to-spec/SKILL.md",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "43ad9cf318e5e7d3d1fa360253a37021796dc87a0c2e595ad262661a10f85088"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "1c5b4d1e3d8e52287ef19cc2742fdbbfae1914ac75d33af3e4c8174f08cc55bb"
+        }
+      ]
+    },
+    {
+      "name": "to-tickets",
+      "source": "matt-pocock",
+      "path": "skills/engineering/to-tickets/SKILL.md",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "56ec23c5b2782785d4e65bff9e315b6d3aeb4ef977c174a219e99489fada1995"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "21bc6215fffcd7614e9f772bb1760e87cc5fc7dcc707e7d282bc9414267a6090"
+        }
+      ]
+    },
+    {
+      "name": "architect",
+      "source": "pstack",
+      "path": "skills/architect/SKILL.md",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "cb2507870a6a6dda4283a3e9642b813f9df5da41b7d78c310c4309d9091d7827"
+        },
+        {
+          "path": "references/design-red-flags.md",
+          "sha256": "d0e639e4cc588ec865f930d3a4111faad60987ae36925917e319d7ceca7c69ce"
+        },
+        {
+          "path": "references/rationale-template.md",
+          "sha256": "0cedfccdc7b47fc881febd5a8293eecbc542c20f8df825639904a8102d2eb5d3"
+        },
+        {
+          "path": "references/runner-prompt.md",
+          "sha256": "21dd5314aab778c5007228027a4591d97693fbec6ab86524037772b63f40948e"
+        }
+      ]
+    },
+    {
+      "name": "codebase-design",
+      "source": "matt-pocock",
+      "path": "skills/engineering/codebase-design/SKILL.md",
+      "files": [
+        {
+          "path": "DEEPENING.md",
+          "sha256": "f3dd099ce99289bd213914d8ee3e2429b78309c3957ca4583f7659551b1d53c1"
+        },
+        {
+          "path": "DESIGN-IT-TWICE.md",
+          "sha256": "52b52e75655a27aea59c6966b410bac82448968ad46ef1ebb9f07c274e3ae010"
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "2c20617f87ec8af6a434859f381b2f061a69b530444e74eb39e78bb016a6d1e2"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "edebc9e4fcfe102114012575eaa9600b9b5fd08c311664f389c36e7bc717740f"
+        }
+      ]
+    },
+    {
+      "name": "principle-type-system-discipline",
+      "source": "pstack",
+      "path": "skills/principle-type-system-discipline/SKILL.md",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "c83da8031ffb4c86410030d3e261f659598fca2b7d8158fd9dc269d70a3a025e"
+        }
+      ]
+    },
+    {
+      "name": "tdd",
+      "source": "matt-pocock",
+      "path": "skills/engineering/tdd/SKILL.md",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "5505d25bbaa8fc14a79e4d20163936958992a2995b7f1dd1d6197edc9ed722e0"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "ea6f01cf1b8c06a4b0f5b649d74b1b8ce8685e72af1b38d70d877693e092af0b"
+        },
+        {
+          "path": "mocking.md",
+          "sha256": "3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef"
+        },
+        {
+          "path": "tests.md",
+          "sha256": "859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a"
+        }
+      ]
+    },
+    {
+      "name": "create-verification-skill",
+      "source": "pstack",
+      "path": "skills/create-verification-skill/SKILL.md",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "dce6a835a30a6547cab3fa742ea94c2487c947349f0289fbe3a312c539761bf5"
+        },
+        {
+          "path": "references/feature-map-example/README.md",
+          "sha256": "cb7bd782cf89968a4ba3d58a5151db837430db92d19a6f52a906973b77b516ba"
+        },
+        {
+          "path": "references/feature-map-example/create-note.md",
+          "sha256": "644a44c74f35d38c2feb7cd05a0121fdebbb623e8dc376c185b565a581d1ccf7"
+        },
+        {
+          "path": "references/feature-map-example/search.md",
+          "sha256": "6e87b9e7f2791a7776ba1bb83f371cd285c306c67f19d245cc4dd6ca3015c823"
+        }
+      ]
+    },
+    {
+      "name": "show-me-your-work",
+      "source": "pstack",
+      "path": "skills/show-me-your-work/SKILL.md",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "4debc5860a7b389e4496f5b908340e4bb79cddabf36e5d56cab399a0a299df35"
+        },
+        {
+          "path": "references/decision-log-template.tsv",
+          "sha256": "6779378006a2f5225e8c06deb84f1d913fb532041ebbb6e50d94600bfe3f4b76"
+        },
+        {
+          "path": "scripts/log.sh",
+          "sha256": "a65a4bc5fb7cdeadbdb7b7ff1ca4682f4d9c42420942b2977cd17b46c4ac338e"
+        }
+      ]
+    },
+    {
+      "name": "code-review",
+      "source": "matt-pocock",
+      "path": "skills/engineering/code-review/SKILL.md",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "09eb147f793e4647949edd32dbad278f0554dfb56e0d46b699cd4c2c55bf0357"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "8229ca854e11dc8e6aef2131ee03f31fb1561cf905fab9ccc325180cf3331352"
+        }
+      ]
+    },
+    {
+      "name": "blast-radius",
+      "source": "pstack",
+      "path": "skills/blast-radius/SKILL.md",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "2e10745b97f5862323dcda3b29ca60d56b5c3c98e37020085d26b48efbe0a436"
+        }
+      ]
+    },
+    {
+      "name": "interrogate",
+      "source": "pstack",
+      "path": "skills/interrogate/SKILL.md",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "cdf25c6a9a3e7741a1027387eb5e3bf7c65f17330566c5f093f118f2287db4ae"
+        },
+        {
+          "path": "references/code-quality-review.md",
+          "sha256": "79162fda183eafd40d51661fbb5e151c7ba250f89e506ba17f5bd135dcbd50a8"
+        },
+        {
+          "path": "references/lead-judgment.md",
+          "sha256": "6e5bdf5670eb34017692e9b6c546f36ac7552e6bb9f3f2f3429164fcc46a9361"
+        },
+        {
+          "path": "references/reviewer-prompt.md",
+          "sha256": "e0598e254792b56de39bb16b1e6db559b03a522fdc54b98f942d254090920ae6"
+        },
+        {
+          "path": "references/rubric.md",
+          "sha256": "a85aa801abbaf14434f00579440abc0d8e2723227ba8bf57de7cca8d6e7d2f25"
+        }
+      ]
+    },
+    {
+      "name": "correct",
+      "source": "pstack",
+      "path": "skills/correct/SKILL.md",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "bf482bacc972b3f124a4af8bf9364b4b3e280cb5845e44c326ea4f4565e5c904"
+        }
+      ]
+    },
+    {
+      "name": "maintain-verification-skill",
+      "source": "pstack",
+      "path": "skills/maintain-verification-skill/SKILL.md",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "5943f7747da6aafcf5c1063c988e725c97e415866f5c7746279012f35cb49815"
+        }
+      ]
+    },
+    {
+      "name": "recall",
+      "source": "pstack",
+      "path": "skills/recall/SKILL.md",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "d5c39c7d80afcde16c494cf33247a82ccf58a3d140be85c27a45b96b52618a7e"
+        }
+      ]
+    },
+    {
+      "name": "unslop",
+      "source": "pstack",
+      "path": "skills/unslop/SKILL.md",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "195411d320b5b328f9f642baf59757ed19aaf0931c0838740e0aca273d538dc1"
+        }
+      ]
+    }
+  ]
+}

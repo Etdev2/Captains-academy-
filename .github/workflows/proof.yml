@@ -1,0 +1,23 @@
+name: Proof
+
+# Checks the proof bundle on every pull request (Sweet Potato ADR 0005). Lane
+# checks such as build, lint and tests come from the lane template in Sweet
+# Potato issue #4 and live in their own workflow.
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # The digest must match the pull request's own head commit, not GitHub's
+      # synthetic merge ref.
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - run: bash scripts/check-proof.sh .
