@@ -22,11 +22,11 @@
 
 | Field | Value |
 | --- | --- |
-| Clock out (UTC) | 2026-10-20 16:26 |
+| Clock out (UTC) | 2026-10-20 16:49 |
 | Outcome | finished/handoff |
 | Pull requests | none |
 | Tokens | |
 | Token standing | unavailable |
 | Token coverage | |
 | Handoff to | uscg-regs |
-| Note | Arcade game decisions recorded in docs/product/DECISIONS.md. uscg-regs still has to verify the four new facts under "To verify before building" before the prototype is built. |
+| Note | Arcade game decisions G1 to G20 recorded in docs/product/DECISIONS.md, updated after Sounding Larboard's regs check. The four facts stay unverified because the network blocked every primary source; uscg-regs rechecks once Et allows those domains. |
