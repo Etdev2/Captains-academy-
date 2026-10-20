@@ -1,24 +1,20 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#21",
-  "sourceDigest": "sha256:1b0c798375e1cdf057b007244cdb8633ff78d0610a07565103cee703826dd6ca",
-  "capturedAt": "2026-10-20T18:13:04Z",
+  "sourceDigest": "sha256:05e1a7fc0df2a4f8155e9280c927a0b51b8eea36eb41c4233edcc0d6ccdcdb4b",
+  "capturedAt": "2026-10-20T18:23:58Z",
   "result": "PASS",
   "verification": {
-    "command": "grep -n 'Long Beach' docs/product/DECISIONS.md",
-    "fixture": "DECISIONS.md and arcade-regs-check-2026-10-20.md on this branch"
+    "command": "grep -n 'For Chapter 1 it writes them' docs/product/DECISIONS.md",
+    "fixture": "DECISIONS.md G10 on this branch"
   },
   "commands": [
     {
-      "command": "grep -n 'Long Beach' docs/product/DECISIONS.md",
+      "command": "grep -n 'For Chapter 1 it writes them' docs/product/DECISIONS.md",
       "exitCode": 0
     },
     {
-      "command": "grep -n 'G10a' docs/product/DECISIONS.md docs/product/arcade-regs-check-2026-10-20.md",
-      "exitCode": 0
-    },
-    {
-      "command": "grep -c 'still links' docs/product/DECISIONS.md",
+      "command": "grep -c 'Each later chapter' docs/product/DECISIONS.md",
       "exitCode": 0
     }
   ],
@@ -27,7 +23,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "G19 and Next step 4 name the Long Beach docking prototype, G10a records Et's gates, and the open exam check asks for the NMC's confirmation"
+      "shows": "G10 limits the Navigation Rules source and rule-number tag to Chapter 1 and has later chapters name their own source"
     }
   ],
   "noBehaviorReason": "docs only; no app code"

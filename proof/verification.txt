@@ -1,14 +1,7 @@
-$ grep -n 'Long Beach' docs/product/DECISIONS.md
-69:- **G19.** First build one playable level, docking in Long Beach harbor. Et chose this level on 2026-10-20 and said it may go ahead. Et plays it and decides whether it is fun enough. Then the sea-time log (A3), then the full game.
-95:4. Build the Long Beach docking prototype (G19) once the web lane's verification command exists.
+$ grep -n 'For Chapter 1 it writes them' docs/product/DECISIONS.md
+53:- **G10.** Each chapter ends in a boss level in exam format: timed multiple-choice questions. The academy writes its own questions. For Chapter 1 it writes them from the official rule text (the Coast Guard's Navigation Rules book, which prints COLREGS and the Inland Rules in 33 CFR 83). The Coast Guard's sample exams are too few to reuse and some of their content may be copyrighted, so they guide question style only and nothing is copied from them. `uscg-regs` checks each Chapter 1 question against the current rule text and tags it with its rule number. Each later chapter's boss names its own source and citation, a CFR section where one applies, when that chapter is planned, and `uscg-regs` checks those questions the same way. The player clears the boss by scoring at the real module's passing mark on two separate runs: 90% for Rules of the Road, 70% for most other modules, and 90% for Chart Plotting, pending verification.
 [exit 0]
 
-$ grep -n 'G10a' docs/product/DECISIONS.md docs/product/arcade-regs-check-2026-10-20.md
-docs/product/DECISIONS.md:54:- **G10a.** Three things must be done before the OUPV (six-pack) boss level is built and before launch: the NMC confirms the exam numbers, Q301 is listed only under Limited OUPV (GLI08), and a Coast Guard reviewer reviews the game. Et decided this on 2026-10-20, 10:26 to 10:52 AM PT. The Q301 listing is already correct in `arcade-regs-check-2026-10-20.md`.
-docs/product/DECISIONS.md:89:- Get the NMC to confirm the guide's exam counts, passing marks, module mappings and the Q165 and Q352 upgrade conditions before the OUPV boss level is built (G10a). Chief Of Staff did not open the announcement PDFs or check the NVICs, MMIBs and CFR one by one.
-docs/product/arcade-regs-check-2026-10-20.md:135:Chief Of Staff checked the guide's status later on 2026-10-20 and posted the result on PR #21. The NMC examinations page, refreshed in September 2026, still links MCP-MA-NMC2-08(01), and no later notice was found that replaces it. The values in sections 1 to 3 match that check. Chief Of Staff did not open the announcement PDFs or check the NVICs, MMIBs and CFR one by one, so the exam facts stay open until the NMC confirms them. Et made that confirmation a gate before the OUPV boss level is built (DECISIONS.md G10a).
-[exit 0]
-
-$ grep -c 'still links' docs/product/DECISIONS.md
+$ grep -c 'Each later chapter' docs/product/DECISIONS.md
 1
 [exit 0]
