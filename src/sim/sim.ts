@@ -30,6 +30,8 @@ export interface SimState {
   readonly outcome: Outcome;
   readonly dockedFrames: number;
   readonly bumps: number;
+  /** True while the hull is pressed against something, so one contact counts as one bump. */
+  readonly touching: boolean;
 }
 
 /** A mission converted once into the integer units the step function uses. */
@@ -88,6 +90,7 @@ export function initialState(level: Level): SimState {
     outcome: 'playing',
     dockedFrames: 0,
     bumps: 0,
+    touching: false,
   };
 }
 
@@ -129,9 +132,19 @@ function circleHitsRect(px: number, py: number, r: number, o: Obstacle): boolean
   return dx * dx + dy * dy < r * r;
 }
 
-function touchesSomething(level: Level, x: number, y: number, heading: number): boolean {
+// A contact ends only once the hull is this far clear, so sub-millimeter
+// creeping against a dock counts as one bump, not one per frame.
+const CONTACT_CLEARANCE_MM = 100;
+
+function touchesSomething(
+  level: Level,
+  x: number,
+  y: number,
+  heading: number,
+  marginMm = 0,
+): boolean {
   const { world, obstacles } = level.mission;
-  const r = level.hullRadiusMm;
+  const r = level.hullRadiusMm + marginMm;
   for (const [px, py] of hullCircles(level, x, y, heading)) {
     if (px - r < 0 || py - r < 0 || px + r > world.w || py + r > world.h) return true;
     for (const o of obstacles) if (circleHitsRect(px, py, r, o)) return true;
@@ -173,7 +186,8 @@ export function step(level: Level, state: SimState, input: Input): SimState {
   if (touchesSomething(level, x, y, heading)) {
     // The boat stays where it was. A soft touch is a bump; a hard one ends the level.
     const outcome: Outcome = Math.abs(state.speed) > level.maxContact ? 'hit' : 'playing';
-    return { ...state, frame, speed: 0, outcome, dockedFrames: 0, bumps: state.bumps + 1 };
+    const bumps = state.touching ? state.bumps : state.bumps + 1;
+    return { ...state, frame, speed: 0, outcome, dockedFrames: 0, bumps, touching: true };
   }
 
   const settled =
@@ -183,7 +197,8 @@ export function step(level: Level, state: SimState, input: Input): SimState {
   const dockedFrames = settled ? state.dockedFrames + 1 : 0;
   const outcome: Outcome = dockedFrames >= level.holdFrames ? 'docked' : 'playing';
 
-  return { frame, x, y, heading, speed, outcome, dockedFrames, bumps: state.bumps };
+  const touching = state.touching && touchesSomething(level, x, y, heading, CONTACT_CLEARANCE_MM);
+  return { frame, x, y, heading, speed, outcome, dockedFrames, bumps: state.bumps, touching };
 }
 
 const OUTCOME_CODE: Record<Outcome, number> = { playing: 0, docked: 1, hit: 2 };
@@ -200,6 +215,7 @@ export function hashState(state: SimState, seed = 0x811c9dc5): number {
     OUTCOME_CODE[state.outcome],
     state.dockedFrames,
     state.bumps,
+    state.touching ? 1 : 0,
   ];
   for (const v of fields) {
     // Split each value into two 32-bit halves so values past 2^31 still count.

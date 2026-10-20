@@ -7,7 +7,8 @@
     "speed": 0,
     "outcome": "hit",
     "dockedFrames": 0,
-    "bumps": 1
+    "bumps": 1,
+    "touching": true
   },
-  "traceHash": 969912117
+  "traceHash": 2241507876
 }

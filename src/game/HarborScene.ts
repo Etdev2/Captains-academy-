@@ -23,6 +23,9 @@ const MM_PER_KNOT_SECOND = 514.444;
 // corner shows all of it.
 const ZOOM = 3.2;
 const CHART_W = 240;
+// Matches the rotate-your-phone rule in play/index.html. While it applies the
+// level is hidden, so the clock and the current must not run either (G8).
+const PORTRAIT_PHONE = '(orientation: portrait) and (max-width: 900px)';
 
 // Night ocean. Navigation lights are the only red and green on screen (G15).
 const COLOR = {
@@ -253,6 +256,10 @@ export class HarborScene extends Phaser.Scene {
   }
 
   override update(_time: number, delta: number): void {
+    if (window.matchMedia(PORTRAIT_PHONE).matches) {
+      this.accumulator = 0;
+      return;
+    }
     if (this.state.outcome !== 'playing') {
       if (
         Phaser.Input.Keyboard.JustDown(this.keys.enter) ||

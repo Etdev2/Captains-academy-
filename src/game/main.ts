@@ -3,6 +3,7 @@ import missionJson from '../../missions/long-beach-docking.json';
 import { parseMission } from '../sim/mission';
 import { compileLevel } from '../sim/sim';
 import { HarborScene, VIEW_H, VIEW_W } from './HarborScene';
+import { enableOfflinePlay } from './offline';
 
 const level = compileLevel(parseMission(missionJson));
 
@@ -18,3 +19,5 @@ new Phaser.Game({
   },
   scene: new HarborScene(level),
 });
+
+void enableOfflinePlay();

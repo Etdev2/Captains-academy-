@@ -117,6 +117,26 @@ describe('boat handling', () => {
     expect(fast.outcome).toBe('hit');
   });
 
+  it('counts a sustained soft contact as one bump', () => {
+    // Bow 5 cm off the east shore, heading east, engine just engaged.
+    const bowGap = calm.hullOffsetMm + calm.hullRadiusMm + 50;
+    const start = {
+      ...initialState(calm),
+      x: (mission.world.w - 8000 - bowGap) * POS_SCALE,
+      heading: HEADING_FULL_TURN / 4,
+    };
+    const pushed = run(calm, { throttle: 1, rudder: 0 }, FRAMES_PER_SECOND * 10, start);
+    expect(pushed.outcome).toBe('playing');
+    expect(pushed.bumps).toBe(1);
+    // Back off, then nudge in again: a second, separate bump.
+    const clear = run(calm, { throttle: -1, rudder: 0 }, 30, pushed);
+    const coasted = run(calm, NO_INPUT, FRAMES_PER_SECOND * 2, clear);
+    const nudged = run(calm, { throttle: 1, rudder: 0 }, 40, coasted);
+    const again = run(calm, NO_INPUT, FRAMES_PER_SECOND * 6, nudged);
+    expect(again.outcome).toBe('playing');
+    expect(again.bumps).toBe(2);
+  });
+
   it('gives the same frames for the same inputs', () => {
     const inputs: Input[] = [
       { throttle: 1, rudder: 0 },
