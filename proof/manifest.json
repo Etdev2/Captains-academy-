@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ticket": "Etdev2/Captains-academy-#16",
+  "sourceDigest": "sha256:6b7bd5e673804b7df63ee6fff476aefa6b4b55ea772a14cef4a9143cfb4544fd",
+  "capturedAt": "2026-10-20T02:17:00Z",
+  "result": "PASS",
+  "verification": {
+    "command": "ruby -ryaml -e 'YAML.load_file(\".github/workflows/claude.yml\"); puts \"yaml ok\"'",
+    "fixture": "The workflow file on this branch; repository secret CLAUDE_CODE_OAUTH_TOKEN confirmed by gh secret list at 2026-10-20 02:16 UTC"
+  },
+  "commands": [
+    {
+      "command": "ruby -ryaml -e 'YAML.load_file(\".github/workflows/claude.yml\"); puts \"yaml ok\"'",
+      "exitCode": 0
+    },
+    {
+      "command": "grep -n 'secrets.CLAUDE_CODE_OAUTH_TOKEN' .github/workflows/claude.yml",
+      "exitCode": 0
+    }
+  ],
+  "behaviorChanged": false,
+  "evidence": [
+    {
+      "path": "proof/verification.txt",
+      "kind": "terminal",
+      "shows": "The workflow parses as YAML and reads the configured secret"
+    }
+  ],
+  "noBehaviorReason": "Adds a GitHub Actions workflow only. It changes no app behavior and runs only on GitHub after merge, so the live wake is proved by an @claude comment after Et merges."
+}
