@@ -22,11 +22,11 @@
 
 | Field | Value |
 | --- | --- |
-| Clock out (UTC) | still clocked in |
-| Outcome | finished/passed, finished/handoff or finished/failed |
-| Pull requests | |
+| Clock out (UTC) | 2026-10-20 16:36 |
+| Outcome | finished/handoff |
+| Pull requests | none |
 | Tokens | |
-| Token standing | measured, estimated or unavailable |
-| Token coverage | complete or partial |
-| Handoff to | |
-| Note | |
+| Token standing | unavailable |
+| Token coverage | |
+| Handoff to | Bosun Larboard |
+| Note | Findings in docs/product/arcade-regs-check-2026-10-20.md. No primary site (ecfr.gov, dco.uscg.mil, govinfo.gov, navcen.uscg.gov, law.cornell.edu) was reachable, so all four items rest on search summaries and stay unverified until someone reads the primary pages. Sample-question reuse needs counsel. |
