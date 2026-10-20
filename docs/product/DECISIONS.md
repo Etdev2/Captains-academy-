@@ -54,4 +54,3 @@ The regulation sites (ecfr.gov, law.cornell.edu) were unreachable from the sessi
 1. Write the academy's verification command and required checks, so it can leave stage 0.
 2. Settle the parked items: course type and pricing.
 3. Verify the figures listed above against the current regulations.
-
