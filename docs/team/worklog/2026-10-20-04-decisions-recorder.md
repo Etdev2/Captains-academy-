@@ -1,6 +1,6 @@
-### 2026-10-20 | builder | about 30m
+### 2026-10-20 | decisions recorder | about 19 minutes, 18:11 to 18:30 UTC
 
-Tiller Mooring (Claude). Et chose the second grilling session over the earlier call to keep the Unity simulator, so the records had to agree with it.
+Tiller Mooring (Claude), recording decisions for Et. Docs only: no app code was built, since the project has no verification command yet. Et chose the second grilling session over the earlier call to keep the Unity simulator, so the records had to agree with it.
 
 - Updated the decisions register: the first playable prototype is docking in Long Beach harbor, and three checks must pass before the six-pack exam boss level is built (the exam numbers confirmed by the Coast Guard's exam center, one exam code placed correctly, and a Coast Guard reviewer).
 - Narrowed the open exam question to the exam center's confirmation, because its web page still links the 2014 exam guide.
