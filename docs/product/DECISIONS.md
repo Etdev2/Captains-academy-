@@ -78,17 +78,16 @@ Teaching
 - **League safety (idea, not decided):** leagues show only a display name and rank, with no chat or direct messages, because teenagers and strangers share them. Et asked to keep it in mind and decide later.
 
 ## To verify before building
-The regulation sites (ecfr.gov, law.cornell.edu) were unreachable from the session, so these figures come from Coast Guard guidance and training-school summaries.
+The items below still need primary-source verification.
 - Recency window for each license (commonly 90 days in the last 3 years; one source said 7 years).
 - Tonnage thresholds for 25/50/100-ton Master ratings.
 - Whether the Coast Guard has an accepted way to estimate tonnage for boats without an official figure.
 - That Unreal Engine still has no web export (only matters if the Unity simulator comes back).
 - What the Coast Guard requires to approve a course and its online proctored exam.
-The 2026-10-20 check could not reach any primary source; its search-summary findings are in `arcade-regs-check-2026-10-20.md`. These stay open until someone reads the official pages.
+The 2026-10-20 follow-up verified the Inland and International Rule 32 blast lengths. NMC access remained blocked. The exam items below stay open, including whether the 2014 NMC exam guide is still current. See `arcade-regs-check-2026-10-20.md`.
 - The passing score for the Rules of the Road exam module (summaries say module Q100, 50 questions, 90% for every license in scope).
 - Which exam modules each license requires (summaries list them per exam code, such as ONC06 and GLI06), so license badges map to the right chapters.
 - The passing marks for the other modules (summaries say 70%, and 90% for Chart Plotting).
-- The official lengths of short and prolonged blasts in Rule 32 (summaries say about 1 second and 4 to 6 seconds, the same in Inland and International).
 
 ## Next steps
 1. Write the academy's verification command and required checks, so it can leave stage 0.
