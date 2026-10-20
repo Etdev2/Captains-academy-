@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#18",
-  "sourceDigest": "sha256:194654c2c4db5f1937c41befbdc1d20fcbf3ac8e15503b07cd9f4cb026a47f6a",
-  "capturedAt": "2026-10-20T18:04:54Z",
+  "sourceDigest": "sha256:26e7cd83e312385a4cb91de30e3faa26a0fb0d14538a6068bb81899a96f8e576",
+  "capturedAt": "2026-10-20T18:13:13Z",
   "result": "PASS",
   "verification": {
     "command": "head -3 docs/adr/0001-arcade-game-stack.md",
-    "fixture": "ADR 0001 and DECISIONS.md on this branch"
+    "fixture": "ADR 0001 and DECISIONS.md on this branch, with PR #21 merged in"
   },
   "commands": [
     {
@@ -15,6 +15,10 @@
     },
     {
       "command": "grep -n 'adr/0001' docs/product/DECISIONS.md",
+      "exitCode": 0
+    },
+    {
+      "command": "grep -n 'parked\\|one game engine' docs/adr/0001-arcade-game-stack.md",
       "exitCode": 0
     },
     {
@@ -27,7 +31,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "the ADR exists, DECISIONS.md links it, and the guardrails are present"
+      "shows": "the ADR follows the grilling (Unity parked, one engine), DECISIONS.md links it, and the guardrails are present"
     }
   ],
   "noBehaviorReason": "docs only; no app code"

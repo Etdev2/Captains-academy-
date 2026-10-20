@@ -5,7 +5,13 @@ status: accepted
 [exit 0]
 
 $ grep -n 'adr/0001' docs/product/DECISIONS.md
-35:Decided 2026-10-20 in issue #18. See [ADR 0001](../adr/0001-arcade-game-stack.md).
+41:The stack, decided in issue #18, is strict TypeScript, Phaser 4.2.1 (pinned) and Vite, web first. See [ADR 0001](../adr/0001-arcade-game-stack.md).
+[exit 0]
+
+$ grep -n 'parked\|one game engine' docs/adr/0001-arcade-game-stack.md
+7:Et asked for the most optimal stack: strict enough to prevent bugs, easy for agents to write in, and no costly rewrites later. On 2026-10-20 Chief Of Staff and Claude settled the choice, after Claude's verified review and an independent Codex review (issue #18). Et answered the question of how the game relates to the Unity simulator, and Et approves the merge. A later grilling session that day (PR #21) parked the Unity simulator, and this ADR follows that session.
+11:- **The arcade game, not the Unity simulator.** The top-down 2D arcade game (phone and web) is the game the academy builds. The realistic Unity simulator and the Unity 3D flashcards are parked (DECISIONS.md, Simulator and the Open list) until after the arcade game ships. The game lives in this repo at its own address, such as `/play`, and uses the academy login and Supabase project (DECISIONS.md G1).
+34:- The academy has one game engine, Phaser. If the Unity simulator comes back, or the arcade game moves to another engine, that is a new ADR that supersedes this one.
 [exit 0]
 
 $ grep -c 'never counts as sea time' docs/adr/0001-arcade-game-stack.md
