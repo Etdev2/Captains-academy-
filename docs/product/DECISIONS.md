@@ -45,12 +45,12 @@ Build
 - **G4.** No account is needed to start playing. Progress saves on the device and works offline. Signing in with the academy login syncs progress and streaks across devices and joins leagues.
 
 Chapters and levels
-- **G5.** One chapter per Coast Guard exam module: Chapter 1 Rules of the Road, then Navigation General, Deck General and Safety, and Chart Plotting. Other licenses add chapters later.
+- **G5.** One chapter per exam subject: Chapter 1 Rules of the Road, then Navigation General, Deck General, Deck Safety, and Chart Plotting. The exam modules differ by license (OUPV takes Deck General and Safety as one module; Master under 100 GRT takes them as two), so each license badge lists the chapters it needs. Where a module differs by waters (near coastal versus Great Lakes and inland), the waters are a setting inside the level, the way G6 handles rule sets. Other licenses add chapters later.
 - **G6.** Chapter 1 covers both Inland and International rules. Shared rules come first; the differences get their own levels. Every level shows which rule set is in force.
 - **G7.** Chapter 1 levels, in order: definitions and lookout, lights rapid-fire, day shapes, horn signals, pecking order (Rule 18), steady bearing (Rule 7), who gives way (Rules 13 to 17), fog and narrow channels (Rules 9, 10 and 19), then the boss.
 - **G8.** Level length and phone orientation depend on the level type. Rapid-fire levels play in portrait with one thumb; steering levels play in landscape. Mouse and keyboard work on desktop.
 - **G9.** The game and the flashcards share one mastery record per rule and situation. A situation missed in one shows up in the other.
-- **G10.** Each chapter ends in a boss level in exam format: timed multiple-choice questions from the Coast Guard's published sample questions. `uscg-regs` checks each one against the current Inland Rules (33 CFR 83) and COLREGS and tags it with its rule number. The player clears the boss by scoring at the exam's passing mark on two separate runs.
+- **G10.** Each chapter ends in a boss level in exam format: timed multiple-choice questions. The academy writes its own questions from the official rule text (the Coast Guard's Navigation Rules book, which prints COLREGS and the Inland Rules in 33 CFR 83). The Coast Guard's sample exams are too few to reuse and some of their content may be copyrighted, so they guide question style only and nothing is copied from them. `uscg-regs` checks each question against the current rule text and tags it with its rule number. The player clears the boss by scoring at the real module's passing mark on two separate runs: 90% for Rules of the Road, 70% for most other modules, and 90% for Chart Plotting, pending verification.
 
 Feel
 - **G11.** A wrong answer costs one of three hull hearts and plays a replay of about 5 seconds that shows the right move and cites the rule. The missed situation comes back later in the level and in later levels.
@@ -61,7 +61,7 @@ Feel
 - **G16.** Horn blasts use real lengths (a short blast about 1 second, a prolonged blast 4 to 6 seconds). Music builds with the player's combo. Every horn also shows as a visual pulse, so the game works muted and for deaf players.
 
 Badges and the license screen
-- **G17.** Chapter badges, such as "Rules of the Road Mastered", and license badges, such as "100-Ton Exam Ready", earned by clearing every chapter that license's exam covers. The game never says "qualified."
+- **G17.** Chapter badges, such as "Rules of the Road Mastered", and license badges, such as "100-Ton Exam Ready", earned by clearing every chapter that license's exam covers. The 25, 50 and 100 GRT ratings share one exam, so "100-Ton Exam Ready" covers all three. An OUPV-to-Master upgrade takes one combined module and needs its own chapter mapping. The game never says "qualified."
 - **G18.** One license screen per license shows the Exam Ready badge, the sea-time status ("appears to meet" plus what is still needed) and the rest of the checklist (physical, drug test, TWIC, courses).
 
 Order
@@ -81,10 +81,11 @@ The regulation sites (ecfr.gov, law.cornell.edu) were unreachable from the sessi
 - Whether the Coast Guard has an accepted way to estimate tonnage for boats without an official figure.
 - That Unreal Engine still has no web export (only matters if the Unity simulator comes back).
 - What the Coast Guard requires to approve a course and its online proctored exam.
-- The passing score for the Rules of the Road exam module (commonly cited as 90%).
-- Which exam modules each license requires, so license badges map to the right chapters.
-- That the Coast Guard's published sample exam questions are public domain and free to use.
-- The official lengths of short and prolonged blasts (Rule 32).
+The 2026-10-20 check could not reach any primary source; its search-summary findings are in `arcade-regs-check-2026-10-20.md`. These stay open until someone reads the official pages.
+- The passing score for the Rules of the Road exam module (summaries say module Q100, 50 questions, 90% for every license in scope).
+- Which exam modules each license requires (summaries list them per exam code, such as ONC06 and GLI06), so license badges map to the right chapters.
+- The passing marks for the other modules (summaries say 70%, and 90% for Chart Plotting).
+- The official lengths of short and prolonged blasts in Rule 32 (summaries say about 1 second and 4 to 6 seconds, the same in Inland and International).
 
 ## Next steps
 1. Write the academy's verification command and required checks, so it can leave stage 0.
