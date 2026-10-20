@@ -72,6 +72,7 @@ Order
 - **Pricing:** what's free and what's paid. To decide with the marketing team.
 - **Realistic Unity simulator and Unity 3D flashcards:** parked on 2026-10-20 in favor of the web arcade game. Revisit after the arcade game ships.
 - **Arcade game name:** to choose with the marketing team.
+- **League safety (idea, not decided):** leagues show only a display name and rank, with no chat or direct messages, because teenagers and strangers share them. Et asked to keep it in mind and decide later.
 
 ## To verify before building
 The regulation sites (ecfr.gov, law.cornell.edu) were unreachable from the session, so these figures come from Coast Guard guidance and training-school summaries.
