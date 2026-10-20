@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#06121f" />
+    <title>Captain's Academy: Long Beach docking</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #06121f;
+        overflow: hidden;
+        touch-action: none;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+      #game {
+        position: fixed;
+        inset: 0;
+      }
+      #rotate {
+        display: none;
+        position: fixed;
+        inset: 0;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        color: #f4d06f;
+        font:
+          600 22px/1.4 system-ui,
+          sans-serif;
+        text-align: center;
+      }
+      @media (orientation: portrait) and (max-width: 900px) {
+        #rotate {
+          display: flex;
+        }
+        #game {
+          visibility: hidden;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="game"></div>
+    <div id="rotate">Turn your phone sideways to take the helm.</div>
+    <script type="module" src="/src/game/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+# Prettier checks the app's code and config. Docs, agent files and data stay as written.
+*.md
+.claude/
+.codex/
+.github/
+agent-resources/
+docs/
+proof/
+dist/
+playwright-report/
+test-results/
+package-lock.json
+tests/replays/
