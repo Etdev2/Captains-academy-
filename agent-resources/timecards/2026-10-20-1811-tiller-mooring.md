@@ -22,11 +22,11 @@
 
 | Field | Value |
 | --- | --- |
-| Clock out (UTC) | still clocked in |
+| Clock out (UTC) | 2026-10-20 18:41 |
 | Outcome | finished/handoff |
-| Pull requests | Etdev2/Captains-academy-#21, Etdev2/Captains-academy-#22, and the G10 follow-up from claude/pr-review-queue-xhovjf |
+| Pull requests | Etdev2/Captains-academy-#21, #22, #23, and the verify.sh PR for #12 |
 | Tokens | 1,677 input, 10,945 output, 973,625 cache read, 86,262 cache write |
 | Token standing | measured |
 | Token coverage | partial |
 | Handoff to | Codex for review, then Et to approve the merge |
-| Note | Docs only. #21 merged with the Long Beach prototype, Et's gates and the narrowed NMC check. #22 follows the grilling (Unity parked). The G10 follow-up limits rule-number tagging to Chapter 1, as Et approved. Tokens read from get_session at 2026-10-20 18:13 UTC, before later work. |
+| Note | #21, #22 and #23 merged. verify.sh for #12 now runs, has ten tests and a CI workflow; it is tested only on throwaway projects so far. Tokens read from get_session at 2026-10-20 18:13 UTC, before later work. |
