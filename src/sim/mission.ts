@@ -28,6 +28,8 @@ export const missionSchema = z
     schemaVersion: z.literal(1),
     id: z.string().regex(/^[a-z0-9-]+$/),
     title: z.string().min(1),
+    // A clean docking within this time earns three stars (G12).
+    parSeconds: z.number().int().positive(),
     world: z.object({ w: positiveMm, h: positiveMm }).strict(),
     start: z
       .object({
@@ -54,6 +56,9 @@ export const missionSchema = z
         dragPer65536: z.number().int().min(0).max(65535),
         // Turn rate at full ahead speed. Slower boats turn proportionally less.
         turnDegPerSAtMax: positiveMm,
+        // With the engine in gear, prop wash over the rudder steers the boat as if
+        // it were moving at least this fast, even from a standstill.
+        engineSteerMmPerS: positiveMm,
         // Hitting anything faster than this ends the level.
         maxContactMmPerS: positiveMm,
       })

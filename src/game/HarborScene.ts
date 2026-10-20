@@ -4,8 +4,10 @@ import {
   FRAMES_PER_SECOND,
   HEADING_FULL_TURN,
   POS_SCALE,
+  distanceToSlipMm,
   hullCircles,
   initialState,
+  starsFor,
   step,
 } from '../sim/sim';
 import { loadBestFrames, saveBestFrames } from './storage';
@@ -26,6 +28,12 @@ const CHART_W = 240;
 // Matches the rotate-your-phone rule in play/index.html. While it applies the
 // level is hidden, so the clock and the current must not run either (G8).
 const PORTRAIT_PHONE = '(orientation: portrait) and (max-width: 900px)';
+// Coaching: the start hint shows this long, and the slow-down warning starts
+// this far from the slip.
+const START_HINT_FRAMES = FRAMES_PER_SECOND * 5;
+const APPROACH_MM = 35000;
+const WAKE_POINTS = 60;
+const FONT = 'system-ui, sans-serif';
 
 // Night ocean. Navigation lights are the only red and green on screen (G15).
 const COLOR = {
@@ -69,6 +77,12 @@ export class HarborScene extends Phaser.Scene {
   private chartScale = 1;
   private hud!: Phaser.GameObjects.Text;
   private banner!: Phaser.GameObjects.Text;
+  private hint!: Phaser.GameObjects.Text;
+  private slipGlow!: Phaser.GameObjects.Graphics;
+  private wake!: Phaser.GameObjects.Graphics;
+  private pointer!: Phaser.GameObjects.Graphics;
+  private pointerLabel!: Phaser.GameObjects.Text;
+  private wakePoints: [number, number][] = [];
   private keys!: Record<
     'up' | 'down' | 'left' | 'right' | 'w' | 's' | 'a' | 'd' | 'enter' | 'space',
     Phaser.Input.Keyboard.Key
@@ -87,7 +101,28 @@ export class HarborScene extends Phaser.Scene {
     this.scale_ = Math.min(VIEW_W / world.w, VIEW_H / world.h) * ZOOM;
     this.cameras.main.setBounds(0, 0, this.px(world.w), this.px(world.h));
     this.drawHarbor();
+    this.slipGlow = this.add.graphics();
+    this.wake = this.add.graphics();
     this.boat = this.add.graphics();
+    this.pointer = this.add.graphics().setScrollFactor(0).setDepth(9);
+    this.pointerLabel = this.add
+      .text(0, 0, '', { fontFamily: FONT, fontSize: '20px', fontStyle: 'bold', color: '#f4d06f' })
+      .setOrigin(0.5)
+      .setScrollFactor(0)
+      .setDepth(9);
+    this.hint = this.add
+      .text(VIEW_W / 2, 64, '', {
+        fontFamily: FONT,
+        fontSize: '28px',
+        fontStyle: 'bold',
+        align: 'center',
+        color: '#4fc3ff',
+        stroke: '#06121f',
+        strokeThickness: 6,
+      })
+      .setOrigin(0.5, 0)
+      .setScrollFactor(0)
+      .setDepth(10);
     this.drawChart();
     this.hud = this.add
       .text(16, VIEW_H - 16, '', {
@@ -128,6 +163,7 @@ export class HarborScene extends Phaser.Scene {
     this.state = initialState(this.level);
     this.accumulator = 0;
     this.shownOutcome = 'playing';
+    this.wakePoints = [];
     this.banner.setText('');
     this.render();
   }
@@ -143,6 +179,8 @@ export class HarborScene extends Phaser.Scene {
     g.lineStyle(1, COLOR.waterLine, 1);
     for (let y = 0; y < world.h; y += 10000)
       g.lineBetween(0, this.px(y), this.px(world.w), this.px(y));
+    for (let x = 0; x < world.w; x += 10000)
+      g.lineBetween(this.px(x), 0, this.px(x), this.px(world.h));
     for (const o of obstacles) {
       const color =
         o.kind === 'shore'
@@ -157,12 +195,119 @@ export class HarborScene extends Phaser.Scene {
         g.fillRoundedRect(this.px(o.x), this.px(o.y), this.px(o.w), this.px(o.h), 4);
       else g.fillRect(this.px(o.x), this.px(o.y), this.px(o.w), this.px(o.h));
     }
-    g.lineStyle(2, COLOR.slip, 0.9).strokeRect(
+    g.lineStyle(3, COLOR.slip, 1).strokeRect(
       this.px(slip.x),
       this.px(slip.y),
       this.px(slip.w),
       this.px(slip.h),
     );
+    this.add
+      .text(this.px(slip.x + slip.w / 2), this.px(slip.y + slip.h) + 14, 'DOCK HERE\n▲', {
+        fontFamily: FONT,
+        fontSize: '22px',
+        fontStyle: 'bold',
+        align: 'center',
+        color: '#f4d06f',
+      })
+      .setOrigin(0.5, 0);
+  }
+
+  /** A pulsing glow on the slip, so it reads as the goal from across the harbor. */
+  private drawSlipGlow(): void {
+    const { slip } = this.level.mission;
+    const pulse = 0.5 + 0.5 * Math.sin(this.time.now / 300);
+    const pad = 6 + 10 * pulse;
+    this.slipGlow
+      .clear()
+      .fillStyle(COLOR.gold, 0.12 + 0.18 * pulse)
+      .fillRect(
+        this.px(slip.x) - pad,
+        this.px(slip.y) - pad,
+        this.px(slip.w) + pad * 2,
+        this.px(slip.h) + pad * 2,
+      );
+  }
+
+  /** When the slip is off screen, an arrow circling the boat points to it. */
+  private drawPointer(s: SimState): void {
+    const { slip } = this.level.mission;
+    const cam = this.cameras.main;
+    const sx = this.px(slip.x + slip.w / 2) - cam.scrollX;
+    const sy = this.px(slip.y + slip.h / 2) - cam.scrollY;
+    const bx = this.px(s.x / POS_SCALE) - cam.scrollX;
+    const by = this.px(s.y / POS_SCALE) - cam.scrollY;
+    this.pointer.clear();
+    const margin = 80;
+    if (sx > margin && sx < VIEW_W - margin && sy > margin && sy < VIEW_H - margin) {
+      this.pointerLabel.setText('');
+      return;
+    }
+    const angle = Math.atan2(sy - by, sx - bx);
+    const at = (r: number, a = 0): [number, number] => [
+      bx + Math.cos(angle + a) * r,
+      by + Math.sin(angle + a) * r,
+    ];
+    const ring = 130;
+    // A long, notched chevron, so its direction reads at a glance.
+    const [tx, ty] = at(ring + 48);
+    const [mx, my] = at(ring);
+    const [nx, ny] = at(ring + 16);
+    const px = -Math.sin(angle) * 16;
+    const py = Math.cos(angle) * 16;
+    this.pointer
+      .fillStyle(COLOR.gold, 0.95)
+      .fillPoints(
+        [
+          new Phaser.Math.Vector2(tx, ty),
+          new Phaser.Math.Vector2(mx + px, my + py),
+          new Phaser.Math.Vector2(nx, ny),
+          new Phaser.Math.Vector2(mx - px, my - py),
+        ],
+        true,
+      );
+    const meters = Math.round(distanceToSlipMm(this.level, s) / 1000);
+    const [lx, ly] = at(ring + 78);
+    this.pointerLabel.setPosition(lx, ly).setText(`${meters} m`);
+  }
+
+  /** A fading trail behind the stern while the boat makes way. */
+  private drawWake(s: SimState): void {
+    const here: [number, number] = [this.px(s.x / POS_SCALE), this.px(s.y / POS_SCALE)];
+    const last = this.wakePoints[this.wakePoints.length - 1];
+    if (
+      s.outcome === 'playing' &&
+      (!last || Math.hypot(here[0] - last[0], here[1] - last[1]) > 8)
+    ) {
+      this.wakePoints.push(here);
+      if (this.wakePoints.length > WAKE_POINTS) this.wakePoints.shift();
+    }
+    const g = this.wake.clear();
+    this.wakePoints.forEach(([x, y], i) => {
+      const age = (i + 1) / this.wakePoints.length;
+      g.fillStyle(COLOR.blue, 0.05 + 0.25 * age).fillCircle(x, y, 6 + 14 * (1 - age));
+    });
+  }
+
+  /** Coaching line under the title: what to do next. */
+  private updateHint(s: SimState): void {
+    if (s.outcome !== 'playing') {
+      this.hint.setText('');
+      return;
+    }
+    const slow = Math.abs(s.speed) > this.level.maxDock;
+    const near = distanceToSlipMm(this.level, s) < APPROACH_MM;
+    const knots = (this.level.mission.slip.maxDockMmPerS / MM_PER_KNOT_SECOND).toFixed(1);
+    if (s.dockedFrames > 0) {
+      this.hint.setColor('#f4d06f').setText('Hold her there…');
+    } else if (near && slow) {
+      this.hint.setColor('#b36bff').setText(`Slow down: under ${knots} kn to dock`);
+    } else if (s.frame < START_HINT_FRAMES) {
+      this.hint
+        .setColor('#4fc3ff')
+        .setText('Bring her into the gold slip.\n▲ ahead   ▼ astern   ◀ ▶ steer');
+    } else {
+      this.hint.setText('');
+    }
   }
 
   /** A small chart of the whole harbor in the top-right corner. */
@@ -280,21 +425,25 @@ export class HarborScene extends Phaser.Scene {
 
   private render(): void {
     const s = this.state;
+    this.drawSlipGlow();
+    this.drawWake(s);
     this.drawBoat(s);
     this.cameras.main.centerOn(this.px(s.x / POS_SCALE), this.px(s.y / POS_SCALE));
+    this.drawPointer(s);
+    this.updateHint(s);
     this.chartBoat
       .clear()
       .fillStyle(COLOR.hull, 1)
       .fillCircle((s.x / POS_SCALE) * this.chartScale, (s.y / POS_SCALE) * this.chartScale, 3);
     const speedMmPerS = (s.speed * FRAMES_PER_SECOND) / POS_SCALE;
     const knots = Math.abs(speedMmPerS) / MM_PER_KNOT_SECOND;
-    const headingDeg = Math.round((s.heading / HEADING_FULL_TURN) * 360) % 360;
     const best =
       this.bestFrames === null
         ? ''
         : `   Best ${(this.bestFrames / FRAMES_PER_SECOND).toFixed(1)} s`;
     this.hud.setText(
-      `${knots.toFixed(1)} kn ${speedMmPerS < 0 ? 'astern' : ''}   Heading ${String(headingDeg).padStart(3, '0')}°   ` +
+      `${knots.toFixed(1)} kn${speedMmPerS < 0 ? ' astern' : ''}   ` +
+        `Slip ${Math.round(distanceToSlipMm(this.level, s) / 1000)} m   ` +
         `Bumps ${s.bumps}   ${(s.frame / FRAMES_PER_SECOND).toFixed(1)} s${best}`,
     );
     window.__captainsAcademy = { frame: s.frame, outcome: s.outcome, speedMmPerS };
@@ -309,9 +458,19 @@ export class HarborScene extends Phaser.Scene {
         this.bestFrames = s.frame;
         saveBestFrames(this.level.mission.id, s.frame);
       }
+      const stars = starsFor(this.level, s);
+      const par = this.level.mission.parSeconds;
+      const tip =
+        stars === 3
+          ? 'Textbook.'
+          : s.bumps > 0
+            ? 'Fewer bumps for more stars.'
+            : `Under ${par} s for three stars.`;
       this.banner.setColor('#f4d06f');
       this.banner.setText(
-        `Docked in ${(s.frame / FRAMES_PER_SECOND).toFixed(1)} s${record ? '. New best.' : '.'}\nTap or press Enter to go again.`,
+        `${'★'.repeat(stars)}${'☆'.repeat(3 - stars)}\n` +
+          `Docked in ${(s.frame / FRAMES_PER_SECOND).toFixed(1)} s${record ? ', a new best' : ''}. ${tip}\n` +
+          'Tap or press Enter to go again.',
       );
       this.cameras.main.flash(300, 244, 208, 111);
     } else if (s.outcome === 'hit') {
@@ -358,6 +517,19 @@ export class HarborScene extends Phaser.Scene {
     light(pt(-B * 0.9, L * 0.3), COLOR.portLight);
     light(pt(B * 0.9, L * 0.3), COLOR.starboardLight);
     light(pt(0, L * 0.1), COLOR.mastheadLight);
+    if (s.dockedFrames > 0) {
+      // Fills as the boat holds steady in the slip.
+      const share = Math.min(1, s.dockedFrames / this.level.holdFrames);
+      g.lineStyle(6, COLOR.gold, 1).beginPath();
+      g.arc(
+        this.px(cx),
+        this.px(cy),
+        this.px(L) + 16,
+        -Math.PI / 2,
+        -Math.PI / 2 + share * Math.PI * 2,
+      );
+      g.strokePath();
+    }
     if (import.meta.env.DEV) {
       g.lineStyle(1, COLOR.blue, 0.6);
       for (const [hx, hy] of hullCircles(this.level, s.x, s.y, s.heading)) {

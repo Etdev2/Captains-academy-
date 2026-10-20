@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "missionId": "long-beach-docking",
-  "note": "Full ahead due east from the start. The boat reaches the east shore too fast and the level ends in a hit.",
+  "note": "Full ahead on the starting heading. The boat reaches the docks too fast and the level ends in a hit.",
   "runs": [
     {
       "frames": 6000,

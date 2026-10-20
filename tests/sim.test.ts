@@ -3,6 +3,8 @@ import missionJson from '../missions/long-beach-docking.json';
 import { parseMission } from '../src/sim/mission';
 import {
   FRAMES_PER_SECOND,
+  distanceToSlipMm,
+  starsFor,
   HEADING_FULL_TURN,
   NO_INPUT,
   POS_SCALE,
@@ -75,12 +77,18 @@ describe('boat handling', () => {
   });
 
   it('gathers way ahead, never past the top speed', () => {
-    const s = run(calm, { throttle: 1, rudder: 0 }, FRAMES_PER_SECOND * 5);
+    const east = { ...initialState(calm), heading: HEADING_FULL_TURN / 4 };
+    const s = run(calm, { throttle: 1, rudder: 0 }, FRAMES_PER_SECOND * 5, east);
     expect(s.speed).toBeGreaterThan(0);
     expect(s.speed).toBeLessThanOrEqual(calm.maxAhead);
     // Heading 090: all the motion is east.
-    expect(s.x).toBeGreaterThan(initialState(calm).x);
-    expect(s.y).toBe(initialState(calm).y);
+    expect(s.x).toBeGreaterThan(east.x);
+    expect(s.y).toBe(east.y);
+  });
+
+  it('steers from a standstill once the engine is in gear', () => {
+    const kicked = step(calm, initialState(calm), { throttle: 1, rudder: 1 });
+    expect(headingDelta(kicked.heading, initialState(calm).heading)).toBeGreaterThan(0);
   });
 
   it('comes fully to rest once the throttle is released', () => {
@@ -154,5 +162,40 @@ describe('boat handling', () => {
       return h;
     };
     expect(trace()).toBe(trace());
+  });
+});
+
+describe('scoring', () => {
+  const docked = (frame: number, bumps: number): SimState => ({
+    ...initialState(level),
+    outcome: 'docked',
+    frame,
+    bumps,
+  });
+  const par = mission.parSeconds * FRAMES_PER_SECOND;
+
+  it('gives three stars for a clean docking within par', () => {
+    expect(starsFor(level, docked(par, 0))).toBe(3);
+  });
+
+  it('gives two stars for a few bumps or a slower time', () => {
+    expect(starsFor(level, docked(par, 1))).toBe(2);
+    expect(starsFor(level, docked(par + 1, 0))).toBe(2);
+  });
+
+  it('gives one star for any docking, and none for a hit', () => {
+    expect(starsFor(level, docked(par * 3, 5))).toBe(1);
+    expect(starsFor(level, { ...docked(par, 0), outcome: 'hit' })).toBe(0);
+  });
+
+  it('measures the distance to the middle of the slip', () => {
+    const { slip } = mission;
+    const inSlip = {
+      ...initialState(level),
+      x: (slip.x + slip.w / 2) * POS_SCALE,
+      y: (slip.y + slip.h / 2) * POS_SCALE,
+    };
+    expect(distanceToSlipMm(level, inSlip)).toBe(0);
+    expect(distanceToSlipMm(level, initialState(level))).toBeGreaterThan(50000);
   });
 });

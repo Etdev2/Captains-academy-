@@ -2,14 +2,15 @@
   "schemaVersion": 1,
   "id": "long-beach-docking",
   "title": "Long Beach harbor: dock in the open slip",
+  "parSeconds": 45,
   "world": {
     "w": 300000,
     "h": 180000
   },
   "start": {
-    "x": 90000,
-    "y": 105000,
-    "headingDeg": 90
+    "x": 105000,
+    "y": 80000,
+    "headingDeg": 45
   },
   "current": {
     "eastMmPerS": 30,
@@ -19,12 +20,13 @@
     "name": "Six-pack charter boat",
     "lengthMm": 9000,
     "beamMm": 3200,
-    "maxAheadMmPerS": 3000,
-    "maxAsternMmPerS": 1500,
-    "accelMmPerS2": 800,
+    "maxAheadMmPerS": 3500,
+    "maxAsternMmPerS": 1800,
+    "accelMmPerS2": 1200,
     "dragPer65536": 150,
-    "turnDegPerSAtMax": 30,
-    "maxContactMmPerS": 500
+    "turnDegPerSAtMax": 60,
+    "engineSteerMmPerS": 1500,
+    "maxContactMmPerS": 600
   },
   "obstacles": [
     {
@@ -210,7 +212,7 @@
     "h": 7500,
     "headingDeg": 0,
     "headingToleranceDeg": 15,
-    "maxDockMmPerS": 300,
+    "maxDockMmPerS": 400,
     "holdSeconds": 2
   }
 }

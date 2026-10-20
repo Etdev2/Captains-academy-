@@ -42,6 +42,7 @@ export interface Level {
   readonly accel: number;
   readonly drag: number;
   readonly turnAtMax: number;
+  readonly engineSteer: number;
   readonly maxContact: number;
   readonly maxDock: number;
   readonly currentX: number;
@@ -49,6 +50,7 @@ export interface Level {
   readonly slipHeading: number;
   readonly slipTolerance: number;
   readonly holdFrames: number;
+  readonly parFrames: number;
   readonly hullRadiusMm: number;
   readonly hullOffsetMm: number;
 }
@@ -67,6 +69,7 @@ export function compileLevel(mission: Mission): Level {
     accel: Math.trunc((boat.accelMmPerS2 * POS_SCALE) / (FRAMES_PER_SECOND * FRAMES_PER_SECOND)),
     drag: boat.dragPer65536,
     turnAtMax: Math.trunc(degreesToHeading(boat.turnDegPerSAtMax) / FRAMES_PER_SECOND),
+    engineSteer: mmPerSecondToSpeed(boat.engineSteerMmPerS),
     maxContact: mmPerSecondToSpeed(boat.maxContactMmPerS),
     maxDock: mmPerSecondToSpeed(slip.maxDockMmPerS),
     currentX: mmPerSecondToSpeed(current.eastMmPerS),
@@ -74,6 +77,7 @@ export function compileLevel(mission: Mission): Level {
     slipHeading: degreesToHeading(slip.headingDeg),
     slipTolerance: degreesToHeading(slip.headingToleranceDeg),
     holdFrames: slip.holdSeconds * FRAMES_PER_SECOND,
+    parFrames: mission.parSeconds * FRAMES_PER_SECOND,
     hullRadiusMm,
     hullOffsetMm: Math.max(0, Math.trunc(boat.lengthMm / 2) - hullRadiusMm),
   };
@@ -173,9 +177,15 @@ export function step(level: Level, state: SimState, input: Input): SimState {
   let speed = clamp(state.speed + input.throttle * level.accel, -level.maxAstern, level.maxAhead);
   speed = applyDrag(speed, level.drag);
 
-  // Rudder authority grows with speed through the water. Astern, it reverses.
+  // Rudder authority grows with water flowing past the rudder: the boat's own
+  // way, or prop wash whenever the engine is in gear, so a slow boat can still
+  // steer by giving it a kick ahead. Going astern, the rudder works backwards.
+  const flow =
+    input.throttle === 0 ? Math.abs(speed) : Math.max(Math.abs(speed), level.engineSteer);
+  const direction = speed !== 0 ? Math.sign(speed) : input.throttle;
   const heading = wrapTurn(
-    state.heading + Math.trunc((input.rudder * level.turnAtMax * speed) / level.maxAhead),
+    state.heading +
+      Math.trunc((input.rudder * direction * level.turnAtMax * flow) / level.maxAhead),
   );
 
   const t = trigIndex(heading);
@@ -227,4 +237,25 @@ export function hashState(state: SimState, seed = 0x811c9dc5): number {
     }
   }
   return h;
+}
+
+export type Stars = 0 | 1 | 2 | 3;
+
+/**
+ * Stars for a finished run (G12): three for a clean docking within par time,
+ * two for at most two bumps within twice par, one for any docking.
+ */
+export function starsFor(level: Level, state: SimState): Stars {
+  if (state.outcome !== 'docked') return 0;
+  if (state.bumps === 0 && state.frame <= level.parFrames) return 3;
+  if (state.bumps <= 2 && state.frame <= level.parFrames * 2) return 2;
+  return 1;
+}
+
+/** Straight-line distance from the boat to the middle of the slip, in mm. */
+export function distanceToSlipMm(level: Level, state: SimState): number {
+  const { slip } = level.mission;
+  const dx = Math.trunc(state.x / POS_SCALE) - (slip.x + Math.trunc(slip.w / 2));
+  const dy = Math.trunc(state.y / POS_SCALE) - (slip.y + Math.trunc(slip.h / 2));
+  return Math.round(Math.sqrt(dx * dx + dy * dy));
 }

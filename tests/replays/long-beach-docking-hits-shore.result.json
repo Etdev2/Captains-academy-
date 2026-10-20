@@ -1,14 +1,14 @@
 {
   "final": {
-    "frame": 4062,
-    "x": 73592998,
-    "y": 26880000,
-    "heading": 16384,
+    "frame": 1335,
+    "x": 40019382,
+    "y": 7511370,
+    "heading": 8192,
     "speed": 0,
     "outcome": "hit",
     "dockedFrames": 0,
     "bumps": 1,
     "touching": true
   },
-  "traceHash": 2241507876
+  "traceHash": 3210090946
 }
