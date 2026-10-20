@@ -67,6 +67,9 @@ Badges and the license screen
 Order
 - **G19.** First build one playable level, lights rapid-fire. Et plays it and decides whether it is fun enough. Then the sea-time log (A3), then the full game.
 
+Teaching
+- **G20.** The game teaches with four methods from learning research. Perceptual learning: many fast visual examples, each classified by the player with instant feedback, until recognition is automatic. Retrieval practice: the player recalls every answer instead of rereading it. Spaced repetition: missed situations come back at growing intervals. Interleaving: levels mix situation types so the player learns to tell them apart. Every visual is paired with words and its rule number. Three rules keep it fun: all teaching happens through play, in the replay after a miss and a one-line rule citation; nothing stops the player for more than 5 seconds to read or watch; and a level that is correct but boring gets redesigned, never shipped.
+
 ## Open (parked by Elliott)
 - **Course type:** Coast Guard-approved course with our exam, study aid first, or partner with an approved school.
 - **Pricing:** what's free and what's paid. To decide with the marketing team.
