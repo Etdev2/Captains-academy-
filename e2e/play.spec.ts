@@ -51,3 +51,24 @@ test('the level plays offline after one online visit', async ({ page, context })
     .poll(() => page.evaluate(() => window.__captainsAcademy?.frame ?? 0))
     .toBeGreaterThan(30);
 });
+
+test('the throttle lever stays where it is left, and the boat answers', async ({ page }) => {
+  await page.goto('/play/');
+  const canvas = page.locator('#game canvas');
+  await expect(canvas).toBeVisible();
+  const box = await canvas.boundingBox();
+  if (!box) throw new Error('no canvas');
+  // The lever track runs up the right-hand side of the 1280 x 768 game.
+  const at = (x: number, y: number) =>
+    [box.x + (x / 1280) * box.width, box.y + (y / 768) * box.height] as const;
+  await page.mouse.move(...at(1184, 478));
+  await page.mouse.down();
+  await page.mouse.move(...at(1184, 340), { steps: 5 });
+  await page.mouse.up();
+  await expect
+    .poll(() => page.evaluate(() => window.__captainsAcademy?.throttle ?? 0))
+    .toBeGreaterThan(50);
+  await expect
+    .poll(() => page.evaluate(() => window.__captainsAcademy?.speedMmPerS ?? 0))
+    .toBeGreaterThan(200);
+});

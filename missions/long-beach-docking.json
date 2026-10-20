@@ -28,6 +28,11 @@
     "engineSteerMmPerS": 1500,
     "maxContactMmPerS": 600
   },
+  "wind": {
+    "gustMmPerS": 0,
+    "gustSeconds": 5,
+    "seed": 1
+  },
   "obstacles": [
     {
       "kind": "shore",

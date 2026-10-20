@@ -6,7 +6,8 @@ import { hashState, initialState, step } from './sim';
 // many frames. Running it from the mission's start must always give the same
 // result, which the golden-replay tests check.
 
-const axis = z.union([z.literal(-1), z.literal(0), z.literal(1)]);
+// -100 to 100, like the throttle lever and the wheel.
+const axis = z.number().int().min(-100).max(100);
 
 export const replaySchema = z
   .object({

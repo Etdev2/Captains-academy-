@@ -1,0 +1,14 @@
+{
+  "final": {
+    "frame": 11963,
+    "x": 50108411,
+    "y": 6615928,
+    "heading": 64377,
+    "speed": 0,
+    "outcome": "docked",
+    "dockedFrames": 120,
+    "bumps": 2,
+    "touching": true
+  },
+  "traceHash": 3336525114
+}

@@ -5,7 +5,7 @@
   "runs": [
     {
       "frames": 6000,
-      "throttle": 1,
+      "throttle": 100,
       "rudder": 0
     }
   ]

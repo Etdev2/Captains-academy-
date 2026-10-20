@@ -1,11 +1,14 @@
 import * as Phaser from 'phaser';
-import missionJson from '../../missions/long-beach-docking.json';
+import crosswind from '../../missions/long-beach-crosswind.json';
+import firstSlip from '../../missions/long-beach-docking.json';
 import { parseMission } from '../sim/mission';
 import { compileLevel } from '../sim/sim';
 import { HarborScene, VIEW_H, VIEW_W } from './HarborScene';
 import { enableOfflinePlay } from './offline';
+import { Sound } from './sound';
 
-const level = compileLevel(parseMission(missionJson));
+// Levels in play order. A level opens once the one before it has been docked.
+const levels = [firstSlip, crosswind].map((m) => compileLevel(parseMission(m)));
 
 new Phaser.Game({
   type: Phaser.AUTO,
@@ -17,7 +20,7 @@ new Phaser.Game({
     width: VIEW_W,
     height: VIEW_H,
   },
-  scene: new HarborScene(level),
+  scene: new HarborScene(levels, new Sound()),
 });
 
 void enableOfflinePlay();

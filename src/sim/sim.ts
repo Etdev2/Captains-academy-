@@ -11,11 +11,13 @@ export const POS_SCALE = 256;
 export const HEADING_FULL_TURN = 65536;
 const HEADING_TO_TRIG = HEADING_FULL_TURN / HEADING_UNITS;
 
-export type Throttle = -1 | 0 | 1;
-export type Rudder = -1 | 0 | 1;
+/** Full ahead, full astern and hard over are 100, -100 and +/-100: a throttle lever and a wheel. */
+export const FULL = 100;
 export interface Input {
-  readonly throttle: Throttle;
-  readonly rudder: Rudder;
+  /** -100 (full astern) to 100 (full ahead). */
+  readonly throttle: number;
+  /** -100 (hard to port) to 100 (hard to starboard). */
+  readonly rudder: number;
 }
 export const NO_INPUT: Input = { throttle: 0, rudder: 0 };
 
@@ -51,6 +53,9 @@ export interface Level {
   readonly slipTolerance: number;
   readonly holdFrames: number;
   readonly parFrames: number;
+  readonly gust: number;
+  readonly gustFrames: number;
+  readonly gustSeed: number;
   readonly hullRadiusMm: number;
   readonly hullOffsetMm: number;
 }
@@ -78,6 +83,9 @@ export function compileLevel(mission: Mission): Level {
     slipTolerance: degreesToHeading(slip.headingToleranceDeg),
     holdFrames: slip.holdSeconds * FRAMES_PER_SECOND,
     parFrames: mission.parSeconds * FRAMES_PER_SECOND,
+    gust: mmPerSecondToSpeed(mission.wind.gustMmPerS),
+    gustFrames: mission.wind.gustSeconds * FRAMES_PER_SECOND,
+    gustSeed: mission.wind.seed,
     hullRadiusMm,
     hullOffsetMm: Math.max(0, Math.trunc(boat.lengthMm / 2) - hullRadiusMm),
   };
@@ -163,6 +171,15 @@ function inSlip(level: Level, x: number, y: number): boolean {
   return cx >= slip.x && cx <= slip.x + slip.w && cy >= slip.y && cy <= slip.y + slip.h;
 }
 
+/** In the slip, slow enough and lined up with it. */
+function settled(level: Level, x: number, y: number, heading: number, speed: number): boolean {
+  return (
+    inSlip(level, x, y) &&
+    Math.abs(speed) <= level.maxDock &&
+    Math.abs(headingDelta(heading, level.slipHeading)) <= level.slipTolerance
+  );
+}
+
 /** Drag that always moves speed toward zero, so the boat comes fully to rest. */
 function applyDrag(speed: number, drag: number): number {
   if (speed === 0) return 0;
@@ -170,41 +187,84 @@ function applyDrag(speed: number, drag: number): number {
   return speed > 0 ? Math.max(0, speed - loss) : Math.min(0, speed + loss);
 }
 
+/** A 32-bit integer hash: the same gusts for the same seed in every browser. */
+function hash32(seed: number, k: number): number {
+  let h = (seed ^ Math.imul(k, 0x9e3779b1)) >>> 0;
+  h = Math.imul(h ^ (h >>> 16), 0x85ebca6b) >>> 0;
+  h = Math.imul(h ^ (h >>> 13), 0xc2b2ae35) >>> 0;
+  return (h ^ (h >>> 16)) >>> 0;
+}
+
+function gustAt(level: Level, segment: number): [number, number] {
+  const h = hash32(level.gustSeed, segment);
+  const direction = h % HEADING_UNITS;
+  const strength = Math.trunc((level.gust * ((h >>> 10) % 1001)) / 1000);
+  return [
+    Math.trunc((strength * isin(direction)) / TRIG_ONE),
+    -Math.trunc((strength * icos(direction)) / TRIG_ONE),
+  ];
+}
+
+/**
+ * Wind drift for a frame, in position units per frame. Gusts change direction
+ * and strength every gustSeconds, blending smoothly from one to the next.
+ */
+export function windAt(level: Level, frame: number): [number, number] {
+  if (level.gust === 0) return [0, 0];
+  const segment = Math.trunc(frame / level.gustFrames);
+  const t = frame % level.gustFrames;
+  const [ax, ay] = gustAt(level, segment);
+  const [bx, by] = gustAt(level, segment + 1);
+  const n = level.gustFrames;
+  return [Math.trunc((ax * (n - t) + bx * t) / n), Math.trunc((ay * (n - t) + by * t) / n)];
+}
+
+const axis = (v: number): number => clamp(Math.trunc(v), -FULL, FULL);
+
 /** Advances the simulation by one 60 Hz frame. Finished levels stay as they are. */
 export function step(level: Level, state: SimState, input: Input): SimState {
   if (state.outcome !== 'playing') return state;
+  const throttle = axis(input.throttle);
+  const rudder = axis(input.rudder);
 
-  let speed = clamp(state.speed + input.throttle * level.accel, -level.maxAstern, level.maxAhead);
+  let speed = clamp(
+    state.speed + Math.trunc((throttle * level.accel) / FULL),
+    -level.maxAstern,
+    level.maxAhead,
+  );
   speed = applyDrag(speed, level.drag);
 
   // Rudder authority grows with water flowing past the rudder: the boat's own
   // way, or prop wash whenever the engine is in gear, so a slow boat can still
   // steer by giving it a kick ahead. Going astern, the rudder works backwards.
-  const flow =
-    input.throttle === 0 ? Math.abs(speed) : Math.max(Math.abs(speed), level.engineSteer);
-  const direction = speed !== 0 ? Math.sign(speed) : input.throttle;
+  const wash = Math.trunc((level.engineSteer * Math.abs(throttle)) / FULL);
+  const flow = throttle === 0 ? Math.abs(speed) : Math.max(Math.abs(speed), wash);
+  const direction = speed !== 0 ? Math.sign(speed) : Math.sign(throttle);
   const heading = wrapTurn(
     state.heading +
-      Math.trunc((input.rudder * direction * level.turnAtMax * flow) / level.maxAhead),
+      Math.trunc((rudder * direction * level.turnAtMax * flow) / (level.maxAhead * FULL)),
   );
 
   const t = trigIndex(heading);
-  const x = state.x + Math.trunc((speed * isin(t)) / TRIG_ONE) + level.currentX;
-  const y = state.y - Math.trunc((speed * icos(t)) / TRIG_ONE) + level.currentY;
+  const [windX, windY] = windAt(level, state.frame);
+  const x = state.x + Math.trunc((speed * isin(t)) / TRIG_ONE) + level.currentX + windX;
+  const y = state.y - Math.trunc((speed * icos(t)) / TRIG_ONE) + level.currentY + windY;
 
   const frame = state.frame + 1;
   if (touchesSomething(level, x, y, heading)) {
     // The boat stays where it was. A soft touch is a bump; a hard one ends the level.
-    const outcome: Outcome = Math.abs(state.speed) > level.maxContact ? 'hit' : 'playing';
     const bumps = state.touching ? state.bumps : state.bumps + 1;
-    return { ...state, frame, speed: 0, outcome, dockedFrames: 0, bumps, touching: true };
+    if (Math.abs(state.speed) > level.maxContact) {
+      return { ...state, frame, speed: 0, outcome: 'hit', dockedFrames: 0, bumps, touching: true };
+    }
+    // Lying gently against a finger pier inside the slip still counts as docked,
+    // which matters when the wind or current sets the boat onto the pier.
+    const dockedFrames = settled(level, state.x, state.y, heading, 0) ? state.dockedFrames + 1 : 0;
+    const outcome: Outcome = dockedFrames >= level.holdFrames ? 'docked' : 'playing';
+    return { ...state, frame, speed: 0, outcome, dockedFrames, bumps, touching: true };
   }
 
-  const settled =
-    inSlip(level, x, y) &&
-    Math.abs(speed) <= level.maxDock &&
-    Math.abs(headingDelta(heading, level.slipHeading)) <= level.slipTolerance;
-  const dockedFrames = settled ? state.dockedFrames + 1 : 0;
+  const dockedFrames = settled(level, x, y, heading, speed) ? state.dockedFrames + 1 : 0;
   const outcome: Outcome = dockedFrames >= level.holdFrames ? 'docked' : 'playing';
 
   const touching = state.touching && touchesSomething(level, x, y, heading, CONTACT_CLEARANCE_MM);

@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 1,
+  "id": "long-beach-crosswind",
+  "title": "Long Beach harbor: the end slip in a crosswind",
+  "parSeconds": 55,
+  "world": {
+    "w": 300000,
+    "h": 180000
+  },
+  "start": {
+    "x": 70000,
+    "y": 125000,
+    "headingDeg": 20
+  },
+  "current": {
+    "eastMmPerS": 80,
+    "southMmPerS": 30
+  },
+  "boat": {
+    "name": "Six-pack charter boat",
+    "lengthMm": 9000,
+    "beamMm": 3200,
+    "maxAheadMmPerS": 3500,
+    "maxAsternMmPerS": 1800,
+    "accelMmPerS2": 1200,
+    "dragPer65536": 150,
+    "turnDegPerSAtMax": 60,
+    "engineSteerMmPerS": 1500,
+    "maxContactMmPerS": 600
+  },
+  "wind": {
+    "gustMmPerS": 250,
+    "gustSeconds": 4,
+    "seed": 20261020
+  },
+  "obstacles": [
+    {
+      "kind": "shore",
+      "x": 0,
+      "y": 0,
+      "w": 300000,
+      "h": 8000
+    },
+    {
+      "kind": "shore",
+      "x": 0,
+      "y": 8000,
+      "w": 8000,
+      "h": 172000
+    },
+    {
+      "kind": "shore",
+      "x": 292000,
+      "y": 8000,
+      "w": 8000,
+      "h": 172000
+    },
+    {
+      "kind": "dock",
+      "x": 60000,
+      "y": 8000,
+      "w": 180000,
+      "h": 6000
+    },
+    {
+      "kind": "dock",
+      "x": 100000,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 107500,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 115000,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 122500,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 130000,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 137500,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 145000,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 152500,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 160000,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 167500,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 175000,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 182500,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 190000,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 197500,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "moored-boat",
+      "x": 117900,
+      "y": 16000,
+      "w": 3200,
+      "h": 9000
+    },
+    {
+      "kind": "moored-boat",
+      "x": 132900,
+      "y": 16000,
+      "w": 3200,
+      "h": 9000
+    },
+    {
+      "kind": "moored-boat",
+      "x": 155400,
+      "y": 16000,
+      "w": 3200,
+      "h": 9000
+    },
+    {
+      "kind": "moored-boat",
+      "x": 170400,
+      "y": 16000,
+      "w": 3200,
+      "h": 9000
+    },
+    {
+      "kind": "moored-boat",
+      "x": 185400,
+      "y": 16000,
+      "w": 3200,
+      "h": 9000
+    },
+    {
+      "kind": "breakwater",
+      "x": 8000,
+      "y": 150000,
+      "w": 122000,
+      "h": 6000
+    },
+    {
+      "kind": "breakwater",
+      "x": 170000,
+      "y": 150000,
+      "w": 122000,
+      "h": 6000
+    },
+    {
+      "kind": "moored-boat",
+      "x": 147900,
+      "y": 16000,
+      "w": 3200,
+      "h": 9000
+    }
+  ],
+  "slip": {
+    "x": 192900,
+    "y": 18500,
+    "w": 3200,
+    "h": 7500,
+    "headingDeg": 0,
+    "headingToleranceDeg": 15,
+    "maxDockMmPerS": 400,
+    "holdSeconds": 2
+  }
+}

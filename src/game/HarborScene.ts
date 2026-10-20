@@ -1,7 +1,8 @@
 import * as Phaser from 'phaser';
-import type { Input, Level, Rudder, SimState, Throttle } from '../sim/sim';
+import type { Level, SimState } from '../sim/sim';
 import {
   FRAMES_PER_SECOND,
+  FULL,
   HEADING_FULL_TURN,
   POS_SCALE,
   distanceToSlipMm,
@@ -9,12 +10,16 @@ import {
   initialState,
   starsFor,
   step,
+  windAt,
 } from '../sim/sim';
-import { loadBestFrames, saveBestFrames } from './storage';
+import { Helm } from './helm';
+import { Scenery } from './scenery';
+import type { Sound } from './sound';
+import { loadBestFrames, loadStars, saveBestFrames, saveStars } from './storage';
 
-// Draws the harbor and the boat, turns keys and touches into helm input, and
-// steps the simulation at a fixed 60 Hz. The simulation never sees wall-clock
-// time: this scene only decides how many frames to step.
+// Draws the harbor and the boat, turns the helm, keys and touches into input,
+// and steps the simulation at a fixed 60 Hz. The simulation never sees
+// wall-clock time: this scene only decides how many frames to step.
 
 export const VIEW_W = 1280;
 export const VIEW_H = 768;
@@ -24,25 +29,22 @@ const MM_PER_KNOT_SECOND = 514.444;
 // The camera shows about 90 m of harbor around the boat; the chart in the
 // corner shows all of it.
 const ZOOM = 3.2;
-const CHART_W = 240;
+const CHART_W = 220;
 // Matches the rotate-your-phone rule in play/index.html. While it applies the
 // level is hidden, so the clock and the current must not run either (G8).
 const PORTRAIT_PHONE = '(orientation: portrait) and (max-width: 900px)';
 // Coaching: the start hint shows this long, and the slow-down warning starts
 // this far from the slip.
-const START_HINT_FRAMES = FRAMES_PER_SECOND * 5;
+const START_HINT_FRAMES = FRAMES_PER_SECOND * 6;
 const APPROACH_MM = 35000;
 const WAKE_POINTS = 60;
+// The keyboard moves the throttle lever at this many percent per second.
+const LEVER_RATE = 120;
+// A short blast (Rule 32): about one second.
+const SHORT_BLAST_S = 1;
 const FONT = 'system-ui, sans-serif';
 
-// Night ocean. Navigation lights are the only red and green on screen (G15).
 const COLOR = {
-  water: 0x06121f,
-  waterLine: 0x0d2236,
-  shore: 0x1d2a2f,
-  breakwater: 0x4a5560,
-  dock: 0x8a6a45,
-  mooredHull: 0xb9c3cc,
   slip: 0xf4d06f,
   hull: 0xf2f5f7,
   deck: 0xc9d3db,
@@ -51,14 +53,17 @@ const COLOR = {
   mastheadLight: 0xffffff,
   gold: 0xf4d06f,
   blue: 0x4fc3ff,
-  purple: 0xb36bff,
-  button: 0x15324d,
+  water: 0x06121f,
+  breakwater: 0x4a5560,
+  mooredHull: 0xb9c3cc,
 };
 
 export interface DebugView {
   frame: number;
   outcome: string;
   speedMmPerS: number;
+  level: number;
+  throttle: number;
 }
 
 declare global {
@@ -67,11 +72,18 @@ declare global {
   }
 }
 
+type Keys = Record<
+  'up' | 'down' | 'left' | 'right' | 'w' | 's' | 'a' | 'd' | 'enter' | 'space' | 'h' | 'm' | 'x',
+  Phaser.Input.Keyboard.Key
+>;
+
 export class HarborScene extends Phaser.Scene {
-  private readonly level: Level;
+  private levelIndex = 0;
+  private level!: Level;
   private state!: SimState;
   private accumulator = 0;
   private scale_ = 1;
+  private scenery!: Scenery;
   private boat!: Phaser.GameObjects.Graphics;
   private chartBoat!: Phaser.GameObjects.Graphics;
   private chartScale = 1;
@@ -82,17 +94,27 @@ export class HarborScene extends Phaser.Scene {
   private wake!: Phaser.GameObjects.Graphics;
   private pointer!: Phaser.GameObjects.Graphics;
   private pointerLabel!: Phaser.GameObjects.Text;
+  private hornRings!: Phaser.GameObjects.Graphics;
+  private muteButton!: Phaser.GameObjects.Text;
   private wakePoints: [number, number][] = [];
-  private keys!: Record<
-    'up' | 'down' | 'left' | 'right' | 'w' | 's' | 'a' | 'd' | 'enter' | 'space',
-    Phaser.Input.Keyboard.Key
-  >;
-  private readonly touch = { ahead: false, astern: false, port: false, starboard: false };
+  private keys!: Keys;
+  private helm!: Helm;
   private shownOutcome = 'playing';
   private bestFrames: number | null = null;
+  private lastBumps = 0;
+  private hornUntil = 0;
 
-  constructor(level: Level) {
+  constructor(
+    private readonly levels: readonly Level[],
+    private readonly audio: Sound,
+  ) {
     super('harbor');
+  }
+
+  init(data: { levelIndex?: number }): void {
+    this.levelIndex = data.levelIndex ?? 0;
+    const level = this.levels[this.levelIndex];
+    if (!level) throw new Error(`no level ${this.levelIndex}`);
     this.level = level;
   }
 
@@ -100,63 +122,44 @@ export class HarborScene extends Phaser.Scene {
     const { world } = this.level.mission;
     this.scale_ = Math.min(VIEW_W / world.w, VIEW_H / world.h) * ZOOM;
     this.cameras.main.setBounds(0, 0, this.px(world.w), this.px(world.h));
-    this.drawHarbor();
+    this.scenery = new Scenery(this, this.level.mission, (mm) => this.px(mm));
+    this.drawSlipMarker();
     this.slipGlow = this.add.graphics();
     this.wake = this.add.graphics();
     this.boat = this.add.graphics();
-    this.pointer = this.add.graphics().setScrollFactor(0).setDepth(9);
-    this.pointerLabel = this.add
-      .text(0, 0, '', { fontFamily: FONT, fontSize: '20px', fontStyle: 'bold', color: '#f4d06f' })
-      .setOrigin(0.5)
-      .setScrollFactor(0)
-      .setDepth(9);
-    this.hint = this.add
-      .text(VIEW_W / 2, 64, '', {
-        fontFamily: FONT,
-        fontSize: '28px',
-        fontStyle: 'bold',
-        align: 'center',
-        color: '#4fc3ff',
-        stroke: '#06121f',
-        strokeThickness: 6,
-      })
-      .setOrigin(0.5, 0)
-      .setScrollFactor(0)
-      .setDepth(10);
+    this.hornRings = this.add.graphics();
     this.drawChart();
-    this.hud = this.add
-      .text(16, VIEW_H - 16, '', {
-        fontFamily: 'system-ui, sans-serif',
-        fontSize: '22px',
-        color: '#e8f1f8',
-      })
-      .setOrigin(0, 1)
-      .setScrollFactor(0)
-      .setDepth(10);
-    this.banner = this.add
-      .text(VIEW_W / 2, VIEW_H / 2 - 40, '', {
-        fontFamily: 'system-ui, sans-serif',
-        fontSize: '40px',
-        fontStyle: 'bold',
-        align: 'center',
-        color: '#f4d06f',
-      })
+    this.pointer = this.add.graphics().setScrollFactor(0).setDepth(9);
+    this.pointerLabel = this.label(0, 0, '', 20, '#f4d06f').setOrigin(0.5).setDepth(9);
+    this.hud = this.label(16, VIEW_H - 14, '', 22, '#e8f1f8').setOrigin(0, 1);
+    this.banner = this.label(VIEW_W / 2, VIEW_H / 2 - 60, '', 38, '#f4d06f')
       .setOrigin(0.5)
-      .setScrollFactor(0)
-      .setDepth(10);
-    this.add
-      .text(VIEW_W / 2, 18, this.level.mission.title, {
-        fontFamily: 'system-ui, sans-serif',
-        fontSize: '22px',
-        color: '#f4d06f',
-      })
+      .setAlign('center')
+      .setFontStyle('bold')
+      .setStroke('#06121f', 8);
+    this.hint = this.label(VIEW_W / 2, 60, '', 26, '#4fc3ff')
       .setOrigin(0.5, 0)
-      .setScrollFactor(0)
-      .setDepth(10);
+      .setAlign('center')
+      .setFontStyle('bold')
+      .setStroke('#06121f', 6);
+    this.label(VIEW_W / 2, 16, this.level.mission.title, 22, '#f4d06f').setOrigin(0.5, 0);
     this.setUpKeys();
-    this.setUpTouch();
+    this.helm = new Helm(this, { viewW: VIEW_W, viewH: VIEW_H });
+    this.setUpButtons();
+    this.input.on('pointerdown', (p: Phaser.Input.Pointer) => {
+      this.audio.unlock();
+      if (this.state.outcome !== 'playing' && !this.helm.owns(p) && p.y > 190) this.advance();
+    });
+    this.input.keyboard?.on('keydown', () => this.audio.unlock());
     this.bestFrames = loadBestFrames(this.level.mission.id);
     this.restart();
+  }
+
+  private label(x: number, y: number, text: string, size: number, color: string) {
+    return this.add
+      .text(x, y, text, { fontFamily: FONT, fontSize: `${size}px`, color })
+      .setScrollFactor(0)
+      .setDepth(10);
   }
 
   private restart(): void {
@@ -164,43 +167,38 @@ export class HarborScene extends Phaser.Scene {
     this.accumulator = 0;
     this.shownOutcome = 'playing';
     this.wakePoints = [];
+    this.lastBumps = 0;
+    this.helm.setThrottle(0);
     this.banner.setText('');
     this.render();
+  }
+
+  /** After a run: a docking moves on to the next level, anything else retries. */
+  private advance(): void {
+    const next = this.levelIndex + 1;
+    if (this.state.outcome === 'docked' && next < this.levels.length) {
+      this.scene.restart({ levelIndex: next });
+    } else {
+      this.restart();
+    }
+  }
+
+  private unlocked(index: number): boolean {
+    if (index === 0) return true;
+    const previous = this.levels[index - 1];
+    return previous !== undefined && loadStars(previous.mission.id) > 0;
   }
 
   private px(mm: number): number {
     return mm * this.scale_;
   }
 
-  private drawHarbor(): void {
-    const g = this.add.graphics();
-    const { world, obstacles, slip } = this.level.mission;
-    g.fillStyle(COLOR.water, 1).fillRect(0, 0, this.px(world.w), this.px(world.h));
-    g.lineStyle(1, COLOR.waterLine, 1);
-    for (let y = 0; y < world.h; y += 10000)
-      g.lineBetween(0, this.px(y), this.px(world.w), this.px(y));
-    for (let x = 0; x < world.w; x += 10000)
-      g.lineBetween(this.px(x), 0, this.px(x), this.px(world.h));
-    for (const o of obstacles) {
-      const color =
-        o.kind === 'shore'
-          ? COLOR.shore
-          : o.kind === 'breakwater'
-            ? COLOR.breakwater
-            : o.kind === 'dock'
-              ? COLOR.dock
-              : COLOR.mooredHull;
-      g.fillStyle(color, 1);
-      if (o.kind === 'moored-boat')
-        g.fillRoundedRect(this.px(o.x), this.px(o.y), this.px(o.w), this.px(o.h), 4);
-      else g.fillRect(this.px(o.x), this.px(o.y), this.px(o.w), this.px(o.h));
-    }
-    g.lineStyle(3, COLOR.slip, 1).strokeRect(
-      this.px(slip.x),
-      this.px(slip.y),
-      this.px(slip.w),
-      this.px(slip.h),
-    );
+  private drawSlipMarker(): void {
+    const { slip } = this.level.mission;
+    this.add
+      .graphics()
+      .lineStyle(3, COLOR.slip, 1)
+      .strokeRect(this.px(slip.x), this.px(slip.y), this.px(slip.w), this.px(slip.h));
     this.add
       .text(this.px(slip.x + slip.w / 2), this.px(slip.y + slip.h) + 14, 'DOCK HERE\n▲', {
         fontFamily: FONT,
@@ -228,6 +226,192 @@ export class HarborScene extends Phaser.Scene {
       );
   }
 
+  /** A small chart of the whole harbor in the top-right corner. */
+  private drawChart(): void {
+    const { world, obstacles, slip } = this.level.mission;
+    this.chartScale = CHART_W / world.w;
+    const c = (mm: number) => mm * this.chartScale;
+    const left = VIEW_W - CHART_W - 16;
+    const top = 16;
+    const g = this.add.graphics().setScrollFactor(0).setDepth(8);
+    g.fillStyle(COLOR.water, 0.9).fillRect(left, top, c(world.w), c(world.h));
+    g.lineStyle(1, COLOR.blue, 0.6).strokeRect(left, top, c(world.w), c(world.h));
+    for (const o of obstacles) {
+      g.fillStyle(o.kind === 'moored-boat' ? COLOR.mooredHull : COLOR.breakwater, 1);
+      g.fillRect(left + c(o.x), top + c(o.y), Math.max(1, c(o.w)), Math.max(1, c(o.h)));
+    }
+    g.fillStyle(COLOR.slip, 1).fillRect(
+      left + c(slip.x) - 1,
+      top + c(slip.y) - 1,
+      Math.max(3, c(slip.w)),
+      Math.max(3, c(slip.h)),
+    );
+    this.chartBoat = this.add.graphics({ x: left, y: top }).setScrollFactor(0).setDepth(9);
+  }
+
+  private setUpKeys(): void {
+    const kb = this.input.keyboard;
+    if (!kb) throw new Error('keyboard input is unavailable');
+    const K = Phaser.Input.Keyboard.KeyCodes;
+    this.keys = {
+      up: kb.addKey(K.UP),
+      down: kb.addKey(K.DOWN),
+      left: kb.addKey(K.LEFT),
+      right: kb.addKey(K.RIGHT),
+      w: kb.addKey(K.W),
+      s: kb.addKey(K.S),
+      a: kb.addKey(K.A),
+      d: kb.addKey(K.D),
+      enter: kb.addKey(K.ENTER),
+      space: kb.addKey(K.SPACE),
+      h: kb.addKey(K.H),
+      m: kb.addKey(K.M),
+      x: kb.addKey(K.X),
+    };
+  }
+
+  /** Sound on/off, the horn, and level buttons down the top-left. */
+  private setUpButtons(): void {
+    const button = (x: number, y: number, text: string, onTap: () => void) => {
+      const b = this.label(x, y, text, 20, '#4fc3ff')
+        .setFontStyle('bold')
+        .setBackgroundColor('#15324dcc')
+        .setPadding(14, 10, 14, 10)
+        .setInteractive({ useHandCursor: true });
+      b.on(
+        'pointerdown',
+        (_p: Phaser.Input.Pointer, _x: number, _y: number, e: Phaser.Types.Input.EventData) => {
+          e.stopPropagation();
+          this.audio.unlock();
+          onTap();
+        },
+      );
+      return b;
+    };
+    this.muteButton = button(16, 16, '', () => this.toggleMute());
+    this.updateMuteLabel();
+    button(16, 72, 'HORN', () => this.soundHorn());
+    this.levels.forEach((lvl, i) => {
+      const stars = loadStars(lvl.mission.id);
+      const open = this.unlocked(i);
+      const text = `LEVEL ${i + 1}${open ? (stars > 0 ? ' ' + '★'.repeat(stars) : '') : ' (locked)'}`;
+      const b = button(16, 128 + i * 56, text, () => {
+        if (open && i !== this.levelIndex) this.scene.restart({ levelIndex: i });
+      });
+      if (i === this.levelIndex) b.setColor('#f4d06f');
+      if (!open) b.setAlpha(0.5);
+    });
+  }
+
+  private toggleMute(): void {
+    this.audio.toggleMute();
+    this.updateMuteLabel();
+  }
+
+  private updateMuteLabel(): void {
+    this.muteButton.setText(this.audio.muted ? 'SOUND OFF' : 'SOUND ON');
+  }
+
+  private soundHorn(): void {
+    if (this.time.now < this.hornUntil) return;
+    this.hornUntil = this.time.now + SHORT_BLAST_S * 1000;
+    this.audio.horn(SHORT_BLAST_S);
+  }
+
+  override update(_time: number, delta: number): void {
+    if (window.matchMedia(PORTRAIT_PHONE).matches) {
+      this.accumulator = 0;
+      return;
+    }
+    const k = this.keys;
+    const J = Phaser.Input.Keyboard.JustDown;
+    if (J(k.m)) this.toggleMute();
+    if (J(k.h)) this.soundHorn();
+    if (this.state.outcome !== 'playing') {
+      if (J(k.enter) || J(k.space)) this.advance();
+      this.audio.silenceEngine();
+      this.render();
+      return;
+    }
+    this.readKeys(delta);
+    this.accumulator = Math.min(this.accumulator + delta, FRAME_MS * MAX_STEPS_PER_UPDATE);
+    const input = { throttle: this.helm.throttle, rudder: this.helm.rudder };
+    while (this.accumulator >= FRAME_MS && this.state.outcome === 'playing') {
+      this.state = step(this.level, this.state, input);
+      this.accumulator -= FRAME_MS;
+    }
+    this.react();
+    this.render();
+  }
+
+  /** Keys drive the same lever and wheel as the touch helm. */
+  private readKeys(deltaMs: number): void {
+    const k = this.keys;
+    const ahead = k.up.isDown || k.w.isDown;
+    const astern = k.down.isDown || k.s.isDown;
+    if (ahead !== astern) {
+      const move = (LEVER_RATE * deltaMs) / 1000;
+      this.helm.setThrottle(this.helm.throttle + (ahead ? move : -move));
+    }
+    if (Phaser.Input.Keyboard.JustDown(k.x)) this.helm.setThrottle(0);
+    if (!this.helm.steeringByTouch) {
+      const port = k.left.isDown || k.a.isDown;
+      const starboard = k.right.isDown || k.d.isDown;
+      this.helm.rudder = port === starboard ? 0 : starboard ? FULL : -FULL;
+    }
+  }
+
+  /** Sound and phone buzz for what just happened. */
+  private react(): void {
+    const s = this.state;
+    if (s.bumps > this.lastBumps) {
+      this.lastBumps = s.bumps;
+      const hard = s.outcome === 'hit';
+      this.audio.bump(hard);
+      navigator.vibrate?.(hard ? 300 : 60);
+    }
+    this.audio.engine(this.helm.throttle, Math.abs(s.speed) / this.level.maxAhead);
+  }
+
+  private render(): void {
+    const s = this.state;
+    this.scenery.update(this.time.now);
+    this.drawSlipGlow();
+    this.drawWake(s);
+    this.drawBoat(s);
+    this.drawHornRings(s);
+    this.cameras.main.centerOn(this.px(s.x / POS_SCALE), this.px(s.y / POS_SCALE));
+    this.drawPointer(s);
+    this.updateHint(s);
+    this.helm.draw();
+    this.chartBoat
+      .clear()
+      .fillStyle(COLOR.hull, 1)
+      .fillCircle((s.x / POS_SCALE) * this.chartScale, (s.y / POS_SCALE) * this.chartScale, 3);
+    const speedMmPerS = (s.speed * FRAMES_PER_SECOND) / POS_SCALE;
+    const knots = Math.abs(speedMmPerS) / MM_PER_KNOT_SECOND;
+    const best =
+      this.bestFrames === null
+        ? ''
+        : `   Best ${(this.bestFrames / FRAMES_PER_SECOND).toFixed(1)} s`;
+    const [wx, wy] = windAt(this.level, s.frame);
+    const gustKnots = (Math.hypot(wx, wy) * FRAMES_PER_SECOND) / POS_SCALE / MM_PER_KNOT_SECOND;
+    const wind = this.level.gust > 0 ? `   Gust ${gustKnots.toFixed(1)} kn` : '';
+    this.hud.setText(
+      `${knots.toFixed(1)} kn${speedMmPerS < 0 ? ' astern' : ''}   ` +
+        `Slip ${Math.round(distanceToSlipMm(this.level, s) / 1000)} m   ` +
+        `Bumps ${s.bumps}   ${(s.frame / FRAMES_PER_SECOND).toFixed(1)} s${wind}${best}`,
+    );
+    window.__captainsAcademy = {
+      frame: s.frame,
+      outcome: s.outcome,
+      speedMmPerS,
+      level: this.levelIndex,
+      throttle: this.helm.throttle,
+    };
+    if (s.outcome !== this.shownOutcome) this.showOutcome(s);
+  }
+
   /** When the slip is off screen, an arrow circling the boat points to it. */
   private drawPointer(s: SimState): void {
     const { slip } = this.level.mission;
@@ -238,14 +422,15 @@ export class HarborScene extends Phaser.Scene {
     const by = this.px(s.y / POS_SCALE) - cam.scrollY;
     this.pointer.clear();
     const margin = 80;
-    if (sx > margin && sx < VIEW_W - margin && sy > margin && sy < VIEW_H - margin) {
+    const onScreen = sx > margin && sx < VIEW_W - margin && sy > margin && sy < VIEW_H - margin;
+    if (s.outcome !== 'playing' || onScreen) {
       this.pointerLabel.setText('');
       return;
     }
     const angle = Math.atan2(sy - by, sx - bx);
-    const at = (r: number, a = 0): [number, number] => [
-      bx + Math.cos(angle + a) * r,
-      by + Math.sin(angle + a) * r,
+    const at = (r: number): [number, number] => [
+      bx + Math.cos(angle) * r,
+      by + Math.sin(angle) * r,
     ];
     const ring = 130;
     // A long, notched chevron, so its direction reads at a glance.
@@ -288,6 +473,20 @@ export class HarborScene extends Phaser.Scene {
     });
   }
 
+  /** The horn shows as rings spreading from the boat, so it works muted too (G16). */
+  private drawHornRings(s: SimState): void {
+    const g = this.hornRings.clear();
+    const left = this.hornUntil - this.time.now;
+    if (left <= 0) return;
+    const done = 1 - left / (SHORT_BLAST_S * 1000);
+    const x = this.px(s.x / POS_SCALE);
+    const y = this.px(s.y / POS_SCALE);
+    for (const lag of [0, 0.33, 0.66]) {
+      const t = (done + lag) % 1;
+      g.lineStyle(4, COLOR.blue, 0.8 * (1 - t)).strokeCircle(x, y, 60 + 160 * t);
+    }
+  }
+
   /** Coaching line under the title: what to do next. */
   private updateHint(s: SimState): void {
     if (s.outcome !== 'playing') {
@@ -304,150 +503,14 @@ export class HarborScene extends Phaser.Scene {
     } else if (s.frame < START_HINT_FRAMES) {
       this.hint
         .setColor('#4fc3ff')
-        .setText('Bring her into the gold slip.\n▲ ahead   ▼ astern   ◀ ▶ steer');
+        .setText(
+          this.level.gust > 0
+            ? 'Gusty today: the wind sets you off course.\nThrottle on the right, steer on the left.'
+            : 'Follow the gold arrow to the slip.\nThrottle on the right, steer on the left.',
+        );
     } else {
       this.hint.setText('');
     }
-  }
-
-  /** A small chart of the whole harbor in the top-right corner. */
-  private drawChart(): void {
-    const { world, obstacles, slip } = this.level.mission;
-    this.chartScale = CHART_W / world.w;
-    const c = (mm: number) => mm * this.chartScale;
-    const left = VIEW_W - CHART_W - 16;
-    const top = 16;
-    const g = this.add.graphics().setScrollFactor(0).setDepth(8);
-    g.fillStyle(COLOR.water, 0.9).fillRect(left, top, c(world.w), c(world.h));
-    g.lineStyle(1, COLOR.blue, 0.6).strokeRect(left, top, c(world.w), c(world.h));
-    for (const o of obstacles) {
-      g.fillStyle(o.kind === 'moored-boat' ? COLOR.mooredHull : COLOR.breakwater, 1);
-      g.fillRect(left + c(o.x), top + c(o.y), Math.max(1, c(o.w)), Math.max(1, c(o.h)));
-    }
-    g.fillStyle(COLOR.slip, 1).fillRect(
-      left + c(slip.x),
-      top + c(slip.y),
-      Math.max(2, c(slip.w)),
-      Math.max(2, c(slip.h)),
-    );
-    this.chartBoat = this.add.graphics({ x: left, y: top }).setScrollFactor(0).setDepth(9);
-  }
-
-  private setUpKeys(): void {
-    const kb = this.input.keyboard;
-    if (!kb) throw new Error('keyboard input is unavailable');
-    const K = Phaser.Input.Keyboard.KeyCodes;
-    this.keys = {
-      up: kb.addKey(K.UP),
-      down: kb.addKey(K.DOWN),
-      left: kb.addKey(K.LEFT),
-      right: kb.addKey(K.RIGHT),
-      w: kb.addKey(K.W),
-      s: kb.addKey(K.S),
-      a: kb.addKey(K.A),
-      d: kb.addKey(K.D),
-      enter: kb.addKey(K.ENTER),
-      space: kb.addKey(K.SPACE),
-    };
-  }
-
-  /** Four large hold-to-use buttons for one-thumb-per-side play on a phone. */
-  private setUpTouch(): void {
-    this.input.addPointer(3);
-    const size = 120;
-    const pad = 24;
-    const y = VIEW_H - size - pad - 40;
-    const buttons: [keyof typeof this.touch, number, number, string][] = [
-      ['port', pad, y, '◀'],
-      ['starboard', pad + size + 16, y, '▶'],
-      ['ahead', VIEW_W - pad - size, y - size - 16, '▲'],
-      ['astern', VIEW_W - pad - size, y, '▼'],
-    ];
-    for (const [name, x, by, label] of buttons) {
-      const bg = this.add.graphics().setScrollFactor(0).setDepth(5);
-      bg.fillStyle(COLOR.button, 0.55).fillRoundedRect(x, by, size, size, 18);
-      this.add
-        .text(x + size / 2, by + size / 2, label, { fontSize: '48px', color: '#4fc3ff' })
-        .setOrigin(0.5)
-        .setScrollFactor(0)
-        .setDepth(6);
-      const zone = this.add
-        .zone(x, by, size, size)
-        .setOrigin(0)
-        .setScrollFactor(0)
-        .setInteractive()
-        .setDepth(7);
-      const set = (on: boolean) => () => {
-        this.touch[name] = on;
-      };
-      zone.on('pointerdown', set(true));
-      zone.on('pointerup', set(false));
-      zone.on('pointerout', set(false));
-    }
-    this.input.on('pointerdown', () => {
-      if (this.state.outcome !== 'playing') this.restart();
-    });
-  }
-
-  private readInput(): Input {
-    const k = this.keys;
-    const ahead = k.up.isDown || k.w.isDown || this.touch.ahead;
-    const astern = k.down.isDown || k.s.isDown || this.touch.astern;
-    const port = k.left.isDown || k.a.isDown || this.touch.port;
-    const starboard = k.right.isDown || k.d.isDown || this.touch.starboard;
-    const throttle: Throttle = ahead === astern ? 0 : ahead ? 1 : -1;
-    const rudder: Rudder = port === starboard ? 0 : starboard ? 1 : -1;
-    return { throttle, rudder };
-  }
-
-  override update(_time: number, delta: number): void {
-    if (window.matchMedia(PORTRAIT_PHONE).matches) {
-      this.accumulator = 0;
-      return;
-    }
-    if (this.state.outcome !== 'playing') {
-      if (
-        Phaser.Input.Keyboard.JustDown(this.keys.enter) ||
-        Phaser.Input.Keyboard.JustDown(this.keys.space)
-      ) {
-        this.restart();
-      }
-      return;
-    }
-    this.accumulator = Math.min(this.accumulator + delta, FRAME_MS * MAX_STEPS_PER_UPDATE);
-    const input = this.readInput();
-    while (this.accumulator >= FRAME_MS && this.state.outcome === 'playing') {
-      this.state = step(this.level, this.state, input);
-      this.accumulator -= FRAME_MS;
-    }
-    this.render();
-  }
-
-  private render(): void {
-    const s = this.state;
-    this.drawSlipGlow();
-    this.drawWake(s);
-    this.drawBoat(s);
-    this.cameras.main.centerOn(this.px(s.x / POS_SCALE), this.px(s.y / POS_SCALE));
-    this.drawPointer(s);
-    this.updateHint(s);
-    this.chartBoat
-      .clear()
-      .fillStyle(COLOR.hull, 1)
-      .fillCircle((s.x / POS_SCALE) * this.chartScale, (s.y / POS_SCALE) * this.chartScale, 3);
-    const speedMmPerS = (s.speed * FRAMES_PER_SECOND) / POS_SCALE;
-    const knots = Math.abs(speedMmPerS) / MM_PER_KNOT_SECOND;
-    const best =
-      this.bestFrames === null
-        ? ''
-        : `   Best ${(this.bestFrames / FRAMES_PER_SECOND).toFixed(1)} s`;
-    this.hud.setText(
-      `${knots.toFixed(1)} kn${speedMmPerS < 0 ? ' astern' : ''}   ` +
-        `Slip ${Math.round(distanceToSlipMm(this.level, s) / 1000)} m   ` +
-        `Bumps ${s.bumps}   ${(s.frame / FRAMES_PER_SECOND).toFixed(1)} s${best}`,
-    );
-    window.__captainsAcademy = { frame: s.frame, outcome: s.outcome, speedMmPerS };
-    if (s.outcome !== this.shownOutcome) this.showOutcome(s);
   }
 
   private showOutcome(s: SimState): void {
@@ -459,6 +522,7 @@ export class HarborScene extends Phaser.Scene {
         saveBestFrames(this.level.mission.id, s.frame);
       }
       const stars = starsFor(this.level, s);
+      saveStars(this.level.mission.id, stars);
       const par = this.level.mission.parSeconds;
       const tip =
         stars === 3
@@ -466,12 +530,14 @@ export class HarborScene extends Phaser.Scene {
           : s.bumps > 0
             ? 'Fewer bumps for more stars.'
             : `Under ${par} s for three stars.`;
+      const hasNext = this.levelIndex + 1 < this.levels.length;
       this.banner.setColor('#f4d06f');
       this.banner.setText(
         `${'★'.repeat(stars)}${'☆'.repeat(3 - stars)}\n` +
           `Docked in ${(s.frame / FRAMES_PER_SECOND).toFixed(1)} s${record ? ', a new best' : ''}. ${tip}\n` +
-          'Tap or press Enter to go again.',
+          (hasNext ? 'Tap for the next level ▶' : 'Tap or press Enter to go again.'),
       );
+      this.audio.chime();
       this.cameras.main.flash(300, 244, 208, 111);
     } else if (s.outcome === 'hit') {
       this.banner.setColor('#b36bff');
@@ -493,21 +559,21 @@ export class HarborScene extends Phaser.Scene {
       this.px(cx + right * cos + ahead * sin),
       this.px(cy + right * sin - ahead * cos),
     ];
+    const poly = (points: [number, number][]) =>
+      points.map(([x, y]) => new Phaser.Math.Vector2(x, y));
     const L = lengthMm / 2;
     const B = beamMm / 2;
-    const hull = [pt(0, L), pt(B, L * 0.35), pt(B, -L), pt(-B, -L), pt(-B, L * 0.35)];
     g.fillStyle(COLOR.hull, 1).fillPoints(
-      hull.map(([x, y]) => new Phaser.Math.Vector2(x, y)),
+      poly([pt(0, L), pt(B, L * 0.35), pt(B, -L), pt(-B, -L), pt(-B, L * 0.35)]),
       true,
     );
-    const cabin = [
-      pt(B * 0.6, L * 0.2),
-      pt(B * 0.6, -L * 0.4),
-      pt(-B * 0.6, -L * 0.4),
-      pt(-B * 0.6, L * 0.2),
-    ];
     g.fillStyle(COLOR.deck, 1).fillPoints(
-      cabin.map(([x, y]) => new Phaser.Math.Vector2(x, y)),
+      poly([
+        pt(B * 0.6, L * 0.2),
+        pt(B * 0.6, -L * 0.4),
+        pt(-B * 0.6, -L * 0.4),
+        pt(-B * 0.6, L * 0.2),
+      ]),
       true,
     );
     const light = (p: [number, number], color: number) => {

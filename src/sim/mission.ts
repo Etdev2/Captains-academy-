@@ -63,6 +63,15 @@ export const missionSchema = z
         maxContactMmPerS: positiveMm,
       })
       .strict(),
+    // Gusts on top of the current. They change every gustSeconds, from a seeded
+    // hash, so a replay meets exactly the same wind. Zero means calm.
+    wind: z
+      .object({
+        gustMmPerS: z.number().int().min(0),
+        gustSeconds: z.number().int().min(1).max(30),
+        seed: z.number().int().min(0).max(0xffffffff),
+      })
+      .strict(),
     obstacles: z.array(obstacleSchema).min(1),
     slip: rect
       .extend({
