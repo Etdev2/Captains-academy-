@@ -1,28 +1,24 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#21",
-  "sourceDigest": "sha256:c0e00e6508bcd7b239aa245f7e94c08e25fd63409a3a410a8370adba90ec73f3",
-  "capturedAt": "2026-10-20T18:35:06Z",
+  "ticket": "Etdev2/Captains-academy-#12",
+  "sourceDigest": "sha256:fd59328a276b80f38af990cee6e31d2bf79953ff6c546d0d5fc9805de9310b6b",
+  "capturedAt": "2026-10-20T18:41:45Z",
   "result": "PASS",
   "verification": {
-    "command": "grep -n 'For Chapter 1 it writes them' docs/product/DECISIONS.md",
-    "fixture": "DECISIONS.md G10 and G20 and the session worklog on this branch"
+    "command": "bash scripts/verify.sh",
+    "fixture": "This repo with no app code yet, plus ten throwaway projects built by scripts/verify.test.sh"
   },
   "commands": [
     {
-      "command": "grep -n 'For Chapter 1 it writes them' docs/product/DECISIONS.md",
+      "command": "bash -n scripts/verify.sh",
       "exitCode": 0
     },
     {
-      "command": "grep -c 'Each later chapter' docs/product/DECISIONS.md",
+      "command": "bash scripts/verify.test.sh",
       "exitCode": 0
     },
     {
-      "command": "grep -n 'own source citation in later chapters' docs/product/DECISIONS.md",
-      "exitCode": 0
-    },
-    {
-      "command": "test -f docs/team/worklog/2026-10-20-04-decisions-recorder.md",
+      "command": "bash scripts/verify.sh",
       "exitCode": 0
     }
   ],
@@ -31,8 +27,8 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "G10 limits the Navigation Rules source and rule-number tag to Chapter 1, G20 matches it, and the session's worklog exists"
+      "shows": "verify.sh skips all nine steps on this repo and exits 0, and its tests show it fails on each missing pin, config or failing tool"
     }
   ],
-  "noBehaviorReason": "docs only; no app code"
+  "noBehaviorReason": "tooling only; no app code exists yet"
 }
