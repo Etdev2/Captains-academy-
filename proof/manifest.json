@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#21",
-  "sourceDigest": "sha256:5b2ac16a95a96ad48fd9a6cd97b694b01ca04d01abd2c7f5a651cd5efa56f310",
-  "capturedAt": "2026-10-20T18:31:03Z",
+  "sourceDigest": "sha256:c0e00e6508bcd7b239aa245f7e94c08e25fd63409a3a410a8370adba90ec73f3",
+  "capturedAt": "2026-10-20T18:35:06Z",
   "result": "PASS",
   "verification": {
     "command": "grep -n 'For Chapter 1 it writes them' docs/product/DECISIONS.md",
-    "fixture": "DECISIONS.md G10 and the session worklog on this branch, with main merged in"
+    "fixture": "DECISIONS.md G10 and G20 and the session worklog on this branch"
   },
   "commands": [
     {
@@ -15,6 +15,10 @@
     },
     {
       "command": "grep -c 'Each later chapter' docs/product/DECISIONS.md",
+      "exitCode": 0
+    },
+    {
+      "command": "grep -n 'own source citation in later chapters' docs/product/DECISIONS.md",
       "exitCode": 0
     },
     {
@@ -27,7 +31,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "G10 limits the Navigation Rules source and rule-number tag to Chapter 1, and the session's worklog exists"
+      "shows": "G10 limits the Navigation Rules source and rule-number tag to Chapter 1, G20 matches it, and the session's worklog exists"
     }
   ],
   "noBehaviorReason": "docs only; no app code"

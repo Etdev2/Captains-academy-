@@ -6,5 +6,9 @@ $ grep -c 'Each later chapter' docs/product/DECISIONS.md
 1
 [exit 0]
 
+$ grep -n 'own source citation in later chapters' docs/product/DECISIONS.md
+74:- **G20.** The game teaches with four methods from learning research. Perceptual learning: many fast visual examples, each classified by the player with instant feedback, until recognition is automatic. Retrieval practice: the player recalls every answer instead of rereading it. Spaced repetition: missed situations come back at growing intervals. Interleaving: levels mix situation types so the player learns to tell them apart. Every visual is paired with words and its citation: the rule number in Chapter 1, and the chapter's own source citation in later chapters (G10). Three rules keep it fun: all teaching happens through play, in the replay after a miss and a one-line rule citation; nothing stops the player for more than 5 seconds to read or watch; and a level that is correct but boring gets redesigned, never shipped.
+[exit 0]
+
 $ test -f docs/team/worklog/2026-10-20-04-decisions-recorder.md
 [exit 0]
