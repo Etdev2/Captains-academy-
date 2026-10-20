@@ -22,11 +22,11 @@
 
 | Field | Value |
 | --- | --- |
-| Clock out (UTC) | still clocked in |
+| Clock out (UTC) | 2026-10-20 19:23 |
 | Outcome | finished/handoff |
-| Pull requests | Etdev2/Captains-academy-#21, #22, #23, and the verify.sh PR for #12 |
+| Pull requests | Etdev2/Captains-academy-#21, #22, #23, #24, and the prototype PR for #25 |
 | Tokens | 1,677 input, 10,945 output, 973,625 cache read, 86,262 cache write |
 | Token standing | measured |
 | Token coverage | partial |
-| Handoff to | Codex for review, then Et to approve the merge |
-| Note | #21, #22 and #23 merged. verify.sh for #12 now runs, has ten tests and a CI workflow; it is tested only on throwaway projects so far. Tokens read from get_session at 2026-10-20 18:13 UTC, before later work. |
+| Handoff to | Codex for review, then Et to play the prototype and approve the merge |
+| Note | #21 to #24 merged. The #25 prototype passes verify.sh with all nine steps run. Et has not played it yet. Tokens read from get_session at 2026-10-20 18:13 UTC, before later work. |
