@@ -11,9 +11,9 @@
 | Model | Opus 5.5 (claude-opus-5-5) |
 | Effort | medium |
 | Role | Builder |
-| Task | Bring PR #21 and PR #22 in line with the latest grilling session and Et's 2026-10-20 decisions |
+| Task | Bring PR #21 and PR #22 in line with the latest grilling session and Et's 2026-10-20 decisions, then limit G10's rule-number tagging to Chapter 1 |
 | Ticket | Etdev2/Captains-academy-#21 |
-| Repo and branch | Etdev2/Captains-academy-, claude/coast-guard-arcade-game-n5um8i, then claude/issue-18-20261020-1534 |
+| Repo and branch | Etdev2/Captains-academy-, claude/coast-guard-arcade-game-n5um8i, claude/issue-18-20261020-1534, then claude/pr-review-queue-xhovjf |
 | Launched by | Et |
 | Session | https://claude.ai/code/session_01R6dVppQ9nsryYBuZQeWGQZ |
 | Clock in (UTC) | 2026-10-20 18:11 |
@@ -22,7 +22,7 @@
 
 | Field | Value |
 | --- | --- |
-| Clock out (UTC) | 2026-10-20 18:13 |
+| Clock out (UTC) | still clocked in |
 | Outcome | finished/handoff |
 | Pull requests | Etdev2/Captains-academy-#21, Etdev2/Captains-academy-#22 |
 | Tokens | 1,677 input, 10,945 output, 973,625 cache read, 86,262 cache write |
