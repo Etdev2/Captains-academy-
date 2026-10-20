@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#25",
-  "sourceDigest": "sha256:e088f65a08be1817a448b7fb14d896ddd14b2bf336a61af54e9be2422e19c7ce",
-  "capturedAt": "2026-10-20T20:06:50Z",
+  "sourceDigest": "sha256:f0c245ace7646c7467b6a757d6e770ad3d2ca2f849038869633016968726a521",
+  "capturedAt": "2026-10-20T20:28:48Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "The Long Beach docking prototype on this branch, with missions/long-beach-docking.json and the two golden replays in tests/replays/"
+    "fixture": "The Long Beach docking prototype on this branch: two missions in missions/ and three golden replays in tests/replays/"
   },
   "commands": [
     {
@@ -23,12 +23,12 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh runs all nine steps with none skipped: npm ci, tsc, ESLint, Prettier, mission validation, 22 Vitest tests including both golden replays, vite build, six Playwright tests (smoke, portrait pause, offline reload) on desktop and phone landscape, and npm audit"
+      "shows": "verify.sh runs all nine steps with none skipped: npm ci, tsc, ESLint, Prettier, validation of both missions, 29 Vitest tests including all three golden replays, vite build, eight Playwright tests (smoke, portrait pause, offline reload, touch lever) on desktop and phone landscape, and npm audit"
     },
     {
       "path": "proof/play-desktop.png",
       "kind": "screenshot",
-      "shows": "The production build at /play on desktop, seven seconds in: the boat under way with its wake, the gold arrow pointing to the slip with its distance, the start hint, and the helm buttons"
+      "shows": "The production build at /play on desktop: the throttle lever on the right set ahead, the steering slider on the left, the horn rings around the boat, the gold arrow to the slip, the sound, horn and level buttons, and ripples on the water"
     },
     {
       "path": "proof/play-phone-landscape.png",
