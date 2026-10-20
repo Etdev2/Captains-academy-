@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#21",
-  "sourceDigest": "sha256:adb6cf613c0e8f7211679f9bd43e0b62885f55e09c2e1411b2b9cc0ee2762531",
-  "capturedAt": "2026-10-20T18:30:22Z",
+  "sourceDigest": "sha256:5b2ac16a95a96ad48fd9a6cd97b694b01ca04d01abd2c7f5a651cd5efa56f310",
+  "capturedAt": "2026-10-20T18:31:03Z",
   "result": "PASS",
   "verification": {
     "command": "grep -n 'For Chapter 1 it writes them' docs/product/DECISIONS.md",
-    "fixture": "DECISIONS.md G10 and the session worklog on this branch"
+    "fixture": "DECISIONS.md G10 and the session worklog on this branch, with main merged in"
   },
   "commands": [
     {
