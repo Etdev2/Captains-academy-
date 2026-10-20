@@ -1,0 +1,42 @@
+name: Verify
+
+# Runs the project verification command (scripts/verify.sh) and its own tests
+# on every pull request and on main. Each verify step skips until its target
+# exists, so this passes on a repo with no app code yet. Native builds and
+# cap sync belong in a separate mobile workflow.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+
+      # Use the project's pinned Node once it has one.
+      - if: hashFiles('.nvmrc') != ''
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - if: hashFiles('.nvmrc') == ''
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Test verify.sh itself
+        run: bash scripts/verify.test.sh
+
+      # verify.sh runs npm ci itself; Playwright needs its browsers first.
+      - name: Install Playwright browsers
+        if: hashFiles('playwright.config.*') != ''
+        run: npm ci && npx --no-install playwright install --with-deps chromium
+
+      - name: Verify
+        run: bash scripts/verify.sh

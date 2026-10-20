@@ -4,7 +4,9 @@ set -euo pipefail
 # Project verification for the web app, cheapest step first. Run from anywhere.
 #
 # Every step skips cleanly, saying why, while its target does not exist yet,
-# and fails hard once it does. Any failure exits nonzero.
+# and fails hard once it does. Once app code exists under src/, every step
+# except mission validation is required, so a missing config fails instead of
+# skipping. Any failure exits nonzero.
 #
 # Out of scope on purpose: `cap sync` and native builds. They run in a
 # separate mobile CI later.
@@ -18,7 +20,10 @@ REPLAY_DIR="tests/replays"
 steps_run=0
 steps_skipped=0
 
-step() { echo; echo "==> $1"; }
+current_step=""
+step() { current_step=$1; echo; echo "==> $1"; }
+# A tool that fails ends the run through set -e. Name the step it failed in.
+trap 'code=$?; [ "$code" = 0 ] || echo "FAIL: step \"$current_step\" exited $code." >&2' EXIT
 skip() { echo "SKIP: $1"; steps_skipped=$((steps_skipped + 1)); }
 ran() { steps_run=$((steps_run + 1)); }
 fail() { echo "FAIL: $1" >&2; exit 1; }
@@ -29,10 +34,23 @@ run() { npx --no-install "$@"; }
 has_package=false
 [ -f package.json ] && has_package=true
 
+# App code makes every tool's config mandatory.
+app_exists=false
+if [ -n "$(find src -type f \( -name '*.ts' -o -name '*.tsx' -o -name '*.js' -o -name '*.mjs' \) -print -quit 2>/dev/null)" ]; then
+  app_exists=true
+fi
+# Skip while there is no app code; fail once there is.
+absent() {
+  if $app_exists; then fail "src/ has app code but $1."; fi
+  skip "$1"
+}
+
+sha256() { if command -v sha256sum >/dev/null; then sha256sum; else shasum -a 256; fi; }
+
 # 1. Node pin, then a clean install from the lockfile.
 step "Node version and npm ci"
 if ! $has_package; then
-  skip "no package.json yet"
+  absent "there is no package.json"
 else
   if [ -f .nvmrc ]; then
     want="$(tr -d 'v \r\n' < .nvmrc)"
@@ -60,7 +78,7 @@ fi
 # 2. Type check. The strict flags are required, not just whatever tsconfig says.
 step "tsc --noEmit"
 if [ ! -f tsconfig.json ]; then
-  skip "no tsconfig.json yet"
+  absent "there is no tsconfig.json"
 else
   cfg="$(run tsc --showConfig)"
   for opt in strict noUncheckedIndexedAccess exactOptionalPropertyTypes noImplicitOverride noFallthroughCasesInSwitch; do
@@ -83,7 +101,7 @@ for f in eslint.config.js eslint.config.mjs eslint.config.cjs eslint.config.ts e
   if [ -f "$f" ]; then eslint_config="$f"; break; fi
 done
 if [ -z "$eslint_config" ]; then
-  skip "no ESLint config yet"
+  absent "there is no ESLint config"
 else
   if [ -d src/sim ]; then
     # Rule text is checked here so a config that quietly drops a boundary fails.
@@ -109,7 +127,7 @@ if $prettier_configured; then
   run prettier --check .
   ran
 else
-  skip "no Prettier config yet"
+  absent "there is no Prettier config"
 fi
 
 # 5. Mission JSON schema validation (zod), through the project's own script.
@@ -129,15 +147,17 @@ tests_exist=false
 if [ -n "$(find src tests -type f \( -name '*.test.ts' -o -name '*.spec.ts' \) -print -quit 2>/dev/null)" ]; then
   tests_exist=true
 fi
+if [ -d src/sim ] && [ -z "$(find "$REPLAY_DIR" -type f -print -quit 2>/dev/null)" ]; then
+  fail "src/sim exists but $REPLAY_DIR has no golden replays. They are mandatory."
+fi
 if ! $tests_exist; then
-  skip "no Vitest test files yet"
+  absent "there are no Vitest test files"
 else
-  if [ -d src/sim ] && [ -z "$(find "$REPLAY_DIR" -type f -print -quit 2>/dev/null)" ]; then
-    fail "src/sim exists but $REPLAY_DIR has no golden replays. They are mandatory."
-  fi
   replay_hash() {
     if [ -d "$REPLAY_DIR" ]; then
-      find "$REPLAY_DIR" -type f -print0 | sort -z | xargs -0 -r sha256sum | sha256sum
+      # Names and contents both count, so a rename or swap is caught too.
+      find "$REPLAY_DIR" -type f -print0 | sort -z \
+        | while IFS= read -r -d '' f; do printf '%s\0' "$f"; cat "$f"; done | sha256
     else
       echo none
     fi
@@ -147,7 +167,7 @@ else
     echo "VERIFY_UPDATE_REPLAYS=1: replay files may change."
     run vitest run -u
   else
-    run vitest run --update=false
+    run vitest run
     [ "$(replay_hash)" = "$before" ] \
       || fail "A replay file under $REPLAY_DIR changed. Rerun with VERIFY_UPDATE_REPLAYS=1 if the change is intended."
   fi
@@ -160,7 +180,7 @@ if have_any vite.config.ts vite.config.js vite.config.mts vite.config.mjs; then
   run vite build
   ran
 else
-  skip "no Vite config yet"
+  absent "there is no Vite config"
 fi
 
 # 8. Browser smoke test. Browsers are installed by CI, not here.
@@ -169,7 +189,7 @@ if have_any playwright.config.ts playwright.config.js playwright.config.mts play
   run playwright test
   ran
 else
-  skip "no Playwright config yet"
+  absent "there is no Playwright config"
 fi
 
 # 9. Known vulnerabilities in shipped dependencies.
