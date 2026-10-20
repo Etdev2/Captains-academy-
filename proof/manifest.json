@@ -1,20 +1,24 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#18",
-  "sourceDigest": "sha256:9570e565d98fb8711af9aae9a6aa02367518e7926f9eff327a8f93b443131b99",
-  "capturedAt": "2026-10-20T15:22:52Z",
+  "ticket": "Etdev2/Captains-academy-#21",
+  "sourceDigest": "sha256:1b0c798375e1cdf057b007244cdb8633ff78d0610a07565103cee703826dd6ca",
+  "capturedAt": "2026-10-20T18:13:04Z",
   "result": "PASS",
   "verification": {
-    "command": "/workspace/venv/bin/python -c \"import yaml;yaml.safe_load(open('.github/workflows/claude.yml'));print('yaml ok')\"",
-    "fixture": "The workflow file on this branch (PR #20): claude.yml with WebFetch and WebSearch allowed"
+    "command": "grep -n 'Long Beach' docs/product/DECISIONS.md",
+    "fixture": "DECISIONS.md and arcade-regs-check-2026-10-20.md on this branch"
   },
   "commands": [
     {
-      "command": "/workspace/venv/bin/python -c \"import yaml;yaml.safe_load(open('.github/workflows/claude.yml'));print('yaml ok')\"",
+      "command": "grep -n 'Long Beach' docs/product/DECISIONS.md",
       "exitCode": 0
     },
     {
-      "command": "grep -n 'WebFetch,WebSearch' .github/workflows/claude.yml",
+      "command": "grep -n 'G10a' docs/product/DECISIONS.md docs/product/arcade-regs-check-2026-10-20.md",
+      "exitCode": 0
+    },
+    {
+      "command": "grep -c 'still links' docs/product/DECISIONS.md",
       "exitCode": 0
     }
   ],
@@ -23,8 +27,8 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "the workflow YAML parses and claude_args lists the two web tools"
+      "shows": "G19 and Next step 4 name the Long Beach docking prototype, G10a records Et's gates, and the open exam check asks for the NMC's confirmation"
     }
   ],
-  "noBehaviorReason": "workflow config only; no app code"
+  "noBehaviorReason": "docs only; no app code"
 }
