@@ -21,7 +21,10 @@ This repository is a Sweet Potato project. It follows the rules in Sweet Potato'
 - Read `docs/team/HOUSE-RULES.md`. Before choosing or spawning a role, read `docs/team/AI-OPERATING-SYSTEM.md`.
 - Read `docs/product/DECISIONS.md`. Build only on settled decisions, never on parked ones.
 - Use the vocabulary in `GLOSSARY.md` and the decisions in `docs/adr/` once they exist. See `docs/agents/domain.md`.
-- No framework is installed yet. When one is, name where its version's docs live here.
+- Framework docs for the pinned versions in `package.json`:
+  - Phaser 4.2.1: the agent skill files in `node_modules/phaser/skills/` and the types in `node_modules/phaser/types/phaser.d.ts`, plus https://docs.phaser.io. Check skill advice against those types before relying on it.
+  - Vite 7: https://vite.dev. Vitest 4: https://vitest.dev. Playwright 1.56: https://playwright.dev. Zod 4: https://zod.dev. typescript-eslint 8: https://typescript-eslint.io.
+- Run `bash scripts/verify.sh` before every push. Install with `npm ci`. npm 10's `npm install` fails on this dependency tree with `Cannot read properties of null (reading 'edgesOut')`, so regenerate the lockfile with `npx npm@11.21.0 install`.
 
 ## Who the product is for
 
