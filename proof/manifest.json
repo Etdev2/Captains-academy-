@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#25",
-  "sourceDigest": "sha256:a3479a5c3de589710f71640da317ab5f8724f10e1d4e7ddcf4afd0aef641e73d",
-  "capturedAt": "2026-10-20T19:23:56Z",
+  "sourceDigest": "sha256:42f9e0b8ac15a6fc649f88172f4ef3f0c9f282dc6cc515900459454b20988432",
+  "capturedAt": "2026-10-20T19:36:45Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
@@ -28,12 +28,12 @@
     {
       "path": "proof/play-desktop.png",
       "kind": "screenshot",
-      "shows": "The production build at /play on desktop: the six-pack boat under way to port with its red, green and white lights, the harbor chart top right, and the helm buttons"
+      "shows": "The production build at /play on desktop: the six-pack boat under way to port with its red, green and white lights, the harbor chart top right, and the helm buttons. Taken at 9d15942; this push changes no game code"
     },
     {
       "path": "proof/play-phone-landscape.png",
       "kind": "screenshot",
-      "shows": "The same level on a Pixel 7 held in landscape, with the thumb buttons at both edges"
+      "shows": "The same level on a Pixel 7 held in landscape, with the thumb buttons at both edges. Taken at 9d15942; this push changes no game code"
     }
   ]
 }

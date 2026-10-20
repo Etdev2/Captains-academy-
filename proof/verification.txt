@@ -17,7 +17,7 @@ $ bash scripts/verify.sh
 
 ==> Node version and npm ci
 
-added 144 packages, and audited 145 packages in 7s
+added 144 packages, and audited 145 packages in 8s
 
 45 packages are looking for funding
   run `npm fund` for details
@@ -42,8 +42,8 @@ ok   long-beach-docking.json
 
  Test Files  2 passed (2)
       Tests  16 passed (16)
-   Start at  19:23:36
-   Duration  760ms (transform 493ms, setup 0ms, import 770ms, tests 236ms, environment 0ms)
+   Start at  19:36:02
+   Duration  707ms (transform 442ms, setup 0ms, import 699ms, tests 241ms, environment 0ms)
 
 
 ==> vite build
@@ -66,16 +66,16 @@ rendering chunks...
 computing gzip size...
 dist/play/index.html              1.27 kB │ gzip:   0.61 kB
 dist/assets/play-BGpuo2g_.js  1,488.24 kB │ gzip: 402.05 kB
-✓ built in 8.25s
+✓ built in 10.08s
 
 ==> playwright smoke test
 
 Running 2 tests using 2 workers
 
-  ✓  1 [phone-landscape] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (4.2s)
-  ✓  2 [desktop] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (4.9s)
+  ✓  2 [phone-landscape] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (5.9s)
+  ✓  1 [desktop] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (6.1s)
 
-  2 passed (7.2s)
+  2 passed (9.5s)
 
 ==> npm audit --omit=dev
 found 0 vulnerabilities
