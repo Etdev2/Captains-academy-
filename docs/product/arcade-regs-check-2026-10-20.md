@@ -1,68 +1,71 @@
 # Arcade game regulation check, 2026-10-20
 
-Beacon Shoal, Codex acting as uscg-regs, rechecked the four requested facts on 2026-10-20. This report supersedes Sounding Larboard's earlier search-summary findings for exam requirements and horn lengths. The earlier sample-question reuse research remains in the appendix, outside this verification task.
+Beacon Shoal, Codex acting as uscg-regs, checked the four requested facts on 2026-10-20. Et then supplied the NMC PDF that the earlier connection could not retrieve. This update records what the document says separately from whether it remains current.
 
-## How verification works
+## Sources and verification status
 
-A fact is `verified` only when this session opened and read the relevant government source text. Search summaries are leads only. Opening an error page does not count as reading its document.
+The supplied document is NMC's Deck and Engineering Guide for the Administration of Merchant Marine Examinations, MCP-MA-NMC2-08(01). Its cover says August 2014. Its record of changes on page 3 dates version 1.0 to 25 August 2014. Its procedures apply the March 2014 examination framework. The filename's March date is not the edition date.
 
-The eCFR, Cornell and govinfo sources opened. NOAA's current Coast Pilot opened and supplied the International Rule 32 text. NMC and NAVCEN attempts failed. The NMC examinations page also showed Access Denied in a browser. These failures describe this session's access, not whether those sites work for other readers.
+Source URL attempted: https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/deck_engineering_guide_as_of_3_24_14.pdf
 
-| Requested fact | Status | Read the supporting primary text directly? |
+The official URL returned HTTP 403 in this session. Et supplied a copy named `deck_engineering_guide_as_of_3_24_14.pdf`. I directly read its text and inspected rendered pages 17, 18, 19, 27 and 28. I did not read the PDF through the primary website. The attachment's SHA-256 is `076bf4bfb3f6a4f32861a871384a2f94b4c751787b9ee7b33a329b834a4cbf38`.
+
+Under the requested verification standard, the exam facts remain `unverified` as current requirements because the primary page could not be read and the guide's current status is unknown. Their values are now confirmed in the supplied 2014 NMC document, rather than taken from search summaries.
+
+| Requested fact | What was directly read | Status as a current requirement |
 | --- | --- | --- |
-| Rules exam question counts, passing marks and license variants | `unverified` | No. The NMC guide and sample were blocked |
-| License module lists, upgrade modules and currency of the 2014 guide | `unverified` | No. The NMC pages and guide were blocked |
-| Non-Rules module counts and passing marks | `unverified` | No. The NMC guide was blocked |
-| Inland and International Rule 32 blast lengths | `verified` | Yes. eCFR and NOAA |
+| Rules counts, marks and variants | Supplied NMC guide, pages 17, 18, 19, 27 and 28 | `unverified` pending current NMC confirmation |
+| Required modules and upgrade modules | Supplied NMC guide, pages 18, 19, 27 and 28 | `unverified` pending current NMC confirmation |
+| Non-Rules counts and marks | Supplied NMC guide, pages 18, 19, 27 and 28 | `unverified` pending current NMC confirmation |
+| Inland and International Rule 32 blast lengths | Government pages and PDF in section 4 | `verified` |
 
 ## 1. Rules of the Road counts and passing marks
 
-Status: `unverified`. No exam passing mark or question count below has been signed off.
+Confirmed in the supplied 2014 document, current applicability `unverified`.
 
-The earlier report proposed the following answers. They remain leads, not current requirements established by this session.
+All rows below cite MCP-MA-NMC2-08(01) at the source URL above. The PDF copy was read directly. The primary website was not read.
 
-| License or variant | Proposed module | Proposed questions | Proposed pass mark | Primary text read? |
-| --- | --- | --- | --- | --- |
-| OUPV near coastal | Q100, International and Inland | 50 | 90%, 45 correct | No |
-| OUPV Great Lakes and inland | Q100, or Q300 Inland on request | 50 | 90%, 45 correct | No |
-| Master 25, 50 and 100 GRT | Q100, subject to route and Inland-only options | 50 | 90%, 45 correct | No |
-| Master under 200 GRT | Q100, subject to route | 50 | 90%, 45 correct | No |
-| Inland-only Rules variant | Q300 | 50 | 90%, 45 correct | No |
-| Limited OUPV, GLI08 | Q301, Inland | 50 | 80%, 40 correct | No |
+| License or variant | Exam code | Module | Questions | Passing mark | Guide page |
+| --- | --- | --- | --- | --- | --- |
+| OUPV near coastal | ONC07 | Q100, Inland and International | 50 | 90%, 45 correct | 19 |
+| Master near coastal under 100 GRT | ONC06 | Q100 | 50 | 90%, 45 correct | 18 |
+| Master oceans or near coastal under 200 GRT | ONC05 | Q100 | 50 | 90%, 45 correct | 17 |
+| Master Great Lakes and inland under 100 GRT | GLI06 | Q100, or Q300 for inland routes on request | 50 | 90%, 45 correct | 27 |
+| Master or Mate Great Lakes and inland under 200 GRT | GLI05 | Q100, or Q300 for inland routes on request | 50 | 90%, 45 correct | 27 |
+| OUPV Great Lakes and inland | GLI07 | Q100, or Q300 for inland routes on request | 50 | 90%, 45 correct | 28 |
+| Inland-only Rules variant | GLI05, GLI06 or GLI07 as applicable | Q300 | 50 | 90%, 45 correct | 27, 28 |
+| Limited OUPV | GLI08 | Q301, Inland | 50 | 80%, 40 correct | 28 |
 
-The proposed answer is that Q100's count and passing mark do not change among OUPV, Master 25/50/100 GRT and Master under 200 GRT. The proposed Q301 exception means that 90% must not be treated as universal across every Rules module. Neither claim is verified. The conditions for choosing Q300 and any resulting COLREGS limitation also remain unverified.
+Q100 has the same count and mark across these tables. The guide has one Master under-100-GRT exam table per route, not separate tables for 25, 50 and 100 GRT. The earlier direct reading of 46 CFR 11.457(c) establishes that tonnage increments depend on qualifying experience. It does not independently establish the current Q-code table.
 
-Citation sought: NMC, Deck and Engineering Guide for the Administration of Merchant Marine Examinations, MCP-MA-NMC2-08, effective 24 March 2014, module tables for Q100, Q300 and Q301.
+Correction to the earlier report: the GLI06 and GLI07 notes require Inland and International Rules for Great Lakes and inland routes. They allow the Inland module on request for inland routes, with a geographic COLREGS limitation on the MMC. The earlier wording was too broad because it offered Q300 to Great Lakes applicants too.
 
-Exact URLs opened:
+The current regulation context was read directly on 2026-10-20:
 
-- https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/deck_engineering_guide_as_of_3_24_14.pdf. HTTP 403. Document not read.
-- https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/q100_ror_inland-international.pdf. HTTP 403. Sample not read.
-- https://www.dco.uscg.mil/nmc/exams/ONC07-Q100-Q172/. HTTP 403. Module page not read.
+- 46 CFR 11.903 lists endorsements requiring examinations. https://www.ecfr.gov/current/title-46/chapter-I/subchapter-B/part-11/subpart-I/section-11.903
+- 46 CFR 11.901 allows examination content to vary with credential limitations. https://www.ecfr.gov/current/title-46/chapter-I/subchapter-B/part-11/subpart-I/section-11.901
+- 46 CFR 11.457(c) links tonnage increments to experience under 11.422. https://www.ecfr.gov/current/title-46/chapter-I/subchapter-B/part-11/subpart-D/section-11.457
 
-The regulation context was read directly. 46 CFR 11.903 requires examinations for OUPV and the relevant Master endorsements. 46 CFR 11.901 allows examination content to vary with credential limitations. Neither section establishes the proposed numeric marks or counts.
+## 2. Required modules and the guide's current status
 
-- https://www.ecfr.gov/current/title-46/chapter-I/subchapter-B/part-11/subpart-I/section-11.903. Read directly on 2026-10-20.
-- https://www.ecfr.gov/current/title-46/chapter-I/subchapter-B/part-11/subpart-I/section-11.901. Read directly on 2026-10-20.
+Confirmed in the supplied 2014 document, current applicability `unverified`.
 
-## 2. Required modules and the 2014 guide
+Each entry gives the module code, subject, question count and percentage passing mark. All rows cite MCP-MA-NMC2-08(01) at https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/deck_engineering_guide_as_of_3_24_14.pdf. The supplied PDF was read directly, the primary website was not read.
 
-Status: `unverified`. The following module mapping preserves the earlier report's leads. Each code, module assignment and mark still needs direct confirmation from NMC. Question counts and marks are collected in section 3.
+| Exam code and license | Modules, questions and passing marks | Guide page |
+| --- | --- | --- |
+| ONC07, OUPV near coastal | Q100 Rules, 50 at 90%; Q170 Deck General/Safety, 50 at 70%; Q171 Navigation General Near Coastal, 50 at 70%; Q172 Chart Plot, 10 at 90% | 19 |
+| GLI07, OUPV Great Lakes and inland | Q100 Rules, 50 at 90%, with Q300 as the inland-route alternative; Q356 Deck General/Safety, 50 at 70%; Q357 Navigation General Great Lakes and Inland, 50 at 70%; Q358 Chart Plot, 10 at 90% | 28 |
+| ONC06, Master near coastal under 100 GRT | Q100 Rules, 50 at 90%; Q160 Deck General, 50 at 70%; Q161 Deck Safety, 50 at 70%; Q162 Navigation General Near Coastal, 50 at 70%; Q163 Chart Plot, 10 at 90% | 18 |
+| GLI06, Master Great Lakes and inland under 100 GRT | Q100 Rules, 50 at 90%, with Q300 as the inland-route alternative; Q347 Deck General, 50 at 70%; Q348 Deck Safety, 50 at 70%; Q349 Navigation General Great Lakes and Inland, 50 at 70%; Q350 Chart Plot, 10 at 90% | 27 |
+| OUPV near coastal to Master near coastal under 100 GRT | Q165 Navigation and Deck General/Safety, 50 at 70% | 18 |
+| OUPV to Master Great Lakes and inland under 100 GRT | Q352 Navigation and Deck General/Safety, 50 at 70% | 27 |
 
-| Exam code and license | Proposed original-exam modules |
-| --- | --- |
-| ONC07, OUPV near coastal | Q100 Rules, Q170 Deck General/Safety, Q171 Navigation General Near Coastal, Q172 Chart Plot |
-| GLI07, OUPV Great Lakes and inland | Q100 or Q300 Rules, Q356 Deck General/Safety, Q357 Navigation General Great Lakes and Inland, Q358 Chart Plot |
-| ONC06, Master under 100 GRT near coastal | Q100 Rules, Q160 Deck General, Q161 Deck Safety, Q162 Navigation General Near Coastal, Q163 Chart Plot |
-| GLI06, Master under 100 GRT Great Lakes and inland | Q100, with the Q300 alternative still to check, Q347 Deck General, Q348 Deck Safety, Q349 Navigation General Great Lakes and Inland, Q350 Chart Plot |
-| OUPV to Master under 100 GRT near coastal | Q165 Navigation and Deck General/Safety, eligibility and any additional modules still to check |
-| OUPV to Master under 100 GRT inland | Q352 Navigation and Deck General/Safety, eligibility and any additional modules still to check |
+Q100 and Q300 are alternatives under the route notes, not two required Rules exams. The Q165 note names the near-coastal-to-near-coastal upgrade. The Q352 note says to take only that module for the stated OUPV-to-Master Great Lakes and inland upgrade. Do not apply either shortcut to every change of route or grade.
 
-Do not infer that every module offered on an NMC sample page is required for an original credential. The earlier report identifies Q164 as a renewal exercise and Q165/Q352 as upgrade modules. Those distinctions and the same-route conditions for a one-module upgrade remain unverified.
+The 2014 guide's currency remains `unverified`. The attachment establishes its contents and edition. It does not establish that NMC still administers these tables in 2026.
 
-Citation sought: NMC exam-code module pages and MCP-MA-NMC2-08.
-
-| Exact URL opened | Result | Read the document directly? |
+| Exact URL opened earlier in this session | Result | Primary text read? |
 | --- | --- | --- |
 | https://www.dco.uscg.mil/nmc/examinations/ | HTTP 403, browser also showed Access Denied | No |
 | https://www.dco.uscg.mil/nmc/exams/ONC07-Q100-Q172/ | HTTP 403 | No |
@@ -70,42 +73,27 @@ Citation sought: NMC exam-code module pages and MCP-MA-NMC2-08.
 | https://www.dco.uscg.mil/nmc/exams/ONC06-Master-LT-100-GRT-Q100-Q161/ | Retrieval error | No |
 | https://www.dco.uscg.mil/nmc/exams/ONC06-master-LT-100-GRT-Q162-Q165/ | Retrieval error | No |
 | https://www.dco.uscg.mil/nmc/exams/GLI06-master-or-mate-LT-100-GRT-Q100-Q352/ | Retrieval error | No |
-| https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/deck_engineering_guide_as_of_3_24_14.pdf | HTTP 403 | No |
+| https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/deck_engineering_guide_as_of_3_24_14.pdf | HTTP 403, later read Et's supplied copy | No on website, yes in supplied copy |
+| https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/q100_ror_inland-international.pdf | HTTP 403 | No |
 
-Whether the 2014 guide is still current is `unverified`. A search result locating an old PDF does not establish that NMC still uses it. This session could not read the current examinations page, a revision notice or a replacement guide. Do not label the 2014 table current until that question is resolved.
+46 CFR 11.910 was read directly at https://www.ecfr.gov/current/title-46/chapter-I/subchapter-B/part-11/subpart-I/section-11.910. It supplies endorsement subject categories, not these Q-code tables or marks. Its retrieved text omitted Table 2. Part 10 was opened at https://www.ecfr.gov/current/title-46/chapter-I/subchapter-B/part-10 and did not supply direct evidence for the module values.
 
-46 CFR 11.910 gives endorsement subject categories, not the NMC Q-code tables or the proposed marks. Read directly on 2026-10-20 at https://www.ecfr.gov/current/title-46/chapter-I/subchapter-B/part-11/subpart-I/section-11.910. Its retrieved text did not include Table 2, so this session did not verify the full subject matrix from that page.
+## 3. Non-Rules passing marks and counts
 
-46 CFR 11.457(c) says the under-100-GRT Master and Mate tonnage increments depend on qualifying experience under 11.422. Read directly on 2026-10-20 at https://www.ecfr.gov/current/title-46/chapter-I/subchapter-B/part-11/subpart-D/section-11.457. This supports the distinction between tonnage and exam requirements but does not independently verify ONC06/GLI06 or the shared exam claim.
+Confirmed in the supplied 2014 document, current applicability `unverified`.
 
-## 3. Non-Rules passing marks and question counts
+Citation for every row: MCP-MA-NMC2-08(01), source URL https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/deck_engineering_guide_as_of_3_24_14.pdf. Read directly in Et's PDF copy, not on the primary website.
 
-Status: `unverified`. The proposed general answer is 70% for the general and safety modules and 90% for the small-vessel Chart Plot modules, with 10 Chart Plot questions and 9 correct needed. This is limited to the modules below. It is not a claim about every Coast Guard examination.
+| Modules | Questions per module | Passing mark | Correct answers needed | Guide pages |
+| --- | --- | --- | --- | --- |
+| Q170 and Q171, OUPV near coastal general subjects | 50 | 70% | 35 | 19 |
+| Q356 and Q357, OUPV Great Lakes and inland general subjects | 50 | 70% | 35 | 28 |
+| Q160, Q161 and Q162, Master near coastal general subjects | 50 | 70% | 35 | 18 |
+| Q347, Q348 and Q349, Master Great Lakes and inland general subjects | 50 | 70% | 35 | 27 |
+| Q165 and Q352, specified OUPV-to-Master upgrades | 50 | 70% | 35 | 18, 27 |
+| Q172, Q358, Q163 and Q350, Chart Plot | 10 | 90% | 9 | 18, 19, 27, 28 |
 
-| Module | Proposed questions from earlier research | Proposed pass mark | Primary text read? |
-| --- | --- | --- | --- |
-| Q170 Deck General/Safety | 50 | 70% | No |
-| Q171 Navigation General Near Coastal | 50 | 70% | No |
-| Q172 Chart Plot | 10 | 90% | No |
-| Q356 Deck General/Safety | Not established | Not established | No |
-| Q357 Navigation General Great Lakes and Inland | Not established | Not established | No |
-| Q358 Chart Plot | Not established | Not established | No |
-| Q160 Deck General | 50 | 70% | No |
-| Q161 Deck Safety | 50 | 70% | No |
-| Q162 Navigation General Near Coastal | 50 | 70% | No |
-| Q163 Chart Plot | 10 | 90% | No |
-| Q347 Deck General | 50 | 70% | No |
-| Q348 Deck Safety | 50 | 70% | No |
-| Q349 Navigation General Great Lakes and Inland | 50 | 70% | No |
-| Q350 Chart Plot | 10 | 90% | No |
-| Q165 Navigation and Deck General/Safety | Not established | Not established | No |
-| Q352 Navigation and Deck General/Safety | 50 | 70% | No |
-
-Citation sought: NMC MCP-MA-NMC2-08, module question-count and passing-score tables.
-
-Exact URL opened: https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/deck_engineering_guide_as_of_3_24_14.pdf. HTTP 403. Document not read directly.
-
-The Part 10 source opened at https://www.ecfr.gov/current/title-46/chapter-I/subchapter-B/part-10. It did not provide direct evidence for these module counts and passing marks. Reading credential regulations does not substitute for reading NMC's exam tables.
+These general subjects pass at 70% and the listed Chart Plot modules pass at 90%. Do not extend this to all Coast Guard non-Rules modules. For example, ONC05's Q154 Navigation Problems Oceans is 10 questions at 80% on page 17. The guide says near-coastal routes do not take Q154.
 
 ## 4. Short and prolonged blasts
 
@@ -132,11 +120,15 @@ G16 agrees with the verified text. A 1-second short blast and a 5-second prolong
 
 ## Decisions and remaining work
 
-Only the horn-length item can leave the verification list. Keep the three exam items, including the question of the 2014 guide's currency.
+The uploaded guide resolves what the 2014 tables say, including the missing GLI07 and Q165 values. Current applicability remains open. The three exam items stay in DECISIONS.md as checks of the guide's current status and any later changes. The horn-length item remains removed.
 
-No verified fact contradicts G5, G10, G16 or G17. Those decisions were not edited. The possible Q301 80% exception needs a primary-source check before anyone asks Et to extend G10 to Limited OUPV.
+G5 and G17 agree with the guide's combined OUPV subjects, separate Master subjects and specified combined upgrade modules. G16 agrees with the primary Rule 32 texts.
 
-Next, read the current NMC tables from a connection that can reach them, or obtain NMC confirmation of the guide revision and the missing module values. No app code, rule tables or tests changed in this documentation task.
+G10 needs Et's call if Limited OUPV becomes a supported exam path. The supplied guide gives Q301 an 80% passing mark, while G10 says 90% for Rules of the Road. This is a documented exception in the 2014 source, with current applicability still unverified. No settled decision was edited.
+
+The Q300 route restriction needs accurate badge and question selection, but does not require changing the settled decisions. Do not offer the Inland-only module as a Great Lakes option.
+
+Next, obtain a current NMC page or an NMC response identifying the guide in use and confirming whether these specific tables have changed. The supplied copy alone does not answer that question.
 
 ## Appendix. Earlier sample-question reuse research
 
