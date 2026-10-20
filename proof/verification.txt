@@ -6,5 +6,5 @@ $ grep -c 'Each later chapter' docs/product/DECISIONS.md
 1
 [exit 0]
 
-$ test -f docs/team/worklog/2026-10-20-04-builder.md
+$ test -f docs/team/worklog/2026-10-20-04-decisions-recorder.md
 [exit 0]
