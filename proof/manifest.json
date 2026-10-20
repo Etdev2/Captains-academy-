@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#18",
-  "sourceDigest": "sha256:26e7cd83e312385a4cb91de30e3faa26a0fb0d14538a6068bb81899a96f8e576",
-  "capturedAt": "2026-10-20T18:13:13Z",
+  "sourceDigest": "sha256:9bebf969cc9d84cd14502bde2e997746dd694c302c4b4c1b795988d21a0a0325",
+  "capturedAt": "2026-10-20T18:25:06Z",
   "result": "PASS",
   "verification": {
     "command": "head -3 docs/adr/0001-arcade-game-stack.md",
-    "fixture": "ADR 0001 and DECISIONS.md on this branch, with PR #21 merged in"
+    "fixture": "ADR 0001, DECISIONS.md and the builder worklog on this branch"
   },
   "commands": [
     {
@@ -18,11 +18,15 @@
       "exitCode": 0
     },
     {
-      "command": "grep -n 'parked\\|one game engine' docs/adr/0001-arcade-game-stack.md",
+      "command": "grep -n 'waits on Et' docs/adr/0001-arcade-game-stack.md",
       "exitCode": 0
     },
     {
-      "command": "grep -c 'never counts as sea time' docs/adr/0001-arcade-game-stack.md",
+      "command": "grep -n 'never writes to the sea-time log' docs/adr/0001-arcade-game-stack.md",
+      "exitCode": 0
+    },
+    {
+      "command": "test -f docs/team/worklog/2026-10-20-03-builder.md",
       "exitCode": 0
     }
   ],
@@ -31,7 +35,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "the ADR follows the grilling (Unity parked, one engine), DECISIONS.md links it, and the guardrails are present"
+      "shows": "the ADR follows the grilling, no longer claims Et's approval, lets the license screen read sea-time status, and the builder worklog exists"
     }
   ],
   "noBehaviorReason": "docs only; no app code"
