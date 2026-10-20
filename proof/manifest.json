@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#25",
-  "sourceDigest": "sha256:07bb6c18bf5188e1a74b47babbe29bbeb0aedcb8c94e82f3388cf744007312a0",
-  "capturedAt": "2026-10-20T19:43:01Z",
+  "sourceDigest": "sha256:e088f65a08be1817a448b7fb14d896ddd14b2bf336a61af54e9be2422e19c7ce",
+  "capturedAt": "2026-10-20T20:06:50Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
@@ -23,17 +23,17 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh runs all nine steps with none skipped: npm ci, tsc, ESLint, Prettier, mission validation, 17 Vitest tests including both golden replays, vite build, six Playwright tests (smoke, portrait pause, offline reload) on desktop and phone landscape, and npm audit"
+      "shows": "verify.sh runs all nine steps with none skipped: npm ci, tsc, ESLint, Prettier, mission validation, 22 Vitest tests including both golden replays, vite build, six Playwright tests (smoke, portrait pause, offline reload) on desktop and phone landscape, and npm audit"
     },
     {
       "path": "proof/play-desktop.png",
       "kind": "screenshot",
-      "shows": "The production build at /play on desktop: the six-pack boat under way to port with its red, green and white lights, the harbor chart top right, and the helm buttons"
+      "shows": "The production build at /play on desktop, seven seconds in: the boat under way with its wake, the gold arrow pointing to the slip with its distance, the start hint, and the helm buttons"
     },
     {
       "path": "proof/play-phone-landscape.png",
       "kind": "screenshot",
-      "shows": "The same level on a Pixel 7 held in landscape, with the thumb buttons at both edges"
+      "shows": "The same moment on a Pixel 7 held in landscape"
     }
   ]
 }

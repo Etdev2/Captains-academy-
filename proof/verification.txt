@@ -17,7 +17,7 @@ $ bash scripts/verify.sh
 
 ==> Node version and npm ci
 
-added 144 packages, and audited 145 packages in 7s
+added 144 packages, and audited 145 packages in 8s
 
 45 packages are looking for funding
   run `npm fund` for details
@@ -41,9 +41,9 @@ ok   long-beach-docking.json
 
 
  Test Files  2 passed (2)
-      Tests  17 passed (17)
-   Start at  19:42:29
-   Duration  792ms (transform 440ms, setup 0ms, import 732ms, tests 272ms, environment 0ms)
+      Tests  22 passed (22)
+   Start at  20:06:18
+   Duration  700ms (transform 438ms, setup 0ms, import 697ms, tests 227ms, environment 0ms)
 
 
 ==> vite build
@@ -65,21 +65,21 @@ in "node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cann
 rendering chunks...
 computing gzip size...
 dist/play/index.html              1.27 kB │ gzip:   0.61 kB
-dist/assets/play-BZ1Z0Z3Q.js  1,488.83 kB │ gzip: 402.36 kB
-✓ built in 8.35s
+dist/assets/play-dZAK_8m4.js  1,492.48 kB │ gzip: 403.57 kB
+✓ built in 7.26s
 
 ==> playwright smoke test
 
 Running 6 tests using 2 workers
 
-  ✓  2 [phone-landscape] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (3.8s)
+  ✓  2 [phone-landscape] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (5.2s)
   ✓  1 [desktop] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (5.5s)
   ✓  3 [phone-landscape] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (2.1s)
-  ✓  4 [desktop] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (2.4s)
-  ✓  5 [phone-landscape] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (8.0s)
-  ✓  6 [desktop] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (8.3s)
+  ✓  4 [desktop] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (2.0s)
+  ✓  5 [phone-landscape] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (10.8s)
+  ✓  6 [desktop] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (11.3s)
 
-  6 passed (18.5s)
+  6 passed (20.3s)
 
 ==> npm audit --omit=dev
 found 0 vulnerabilities
