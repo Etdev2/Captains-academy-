@@ -22,11 +22,11 @@
 
 | Field | Value |
 | --- | --- |
-| Clock out (UTC) | still clocked in |
-| Outcome | finished/passed, finished/handoff or finished/failed |
-| Pull requests | |
+| Clock out (UTC) | 2026-10-20 16:26 |
+| Outcome | finished/handoff |
+| Pull requests | none |
 | Tokens | |
-| Token standing | measured, estimated or unavailable |
-| Token coverage | complete or partial |
-| Handoff to | |
-| Note | |
+| Token standing | unavailable |
+| Token coverage | |
+| Handoff to | uscg-regs |
+| Note | Arcade game decisions recorded in docs/product/DECISIONS.md. uscg-regs still has to verify the four new facts under "To verify before building" before the prototype is built. |
