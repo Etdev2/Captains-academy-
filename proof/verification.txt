@@ -1,7 +1,13 @@
-$ /workspace/venv/bin/python -c "import yaml;yaml.safe_load(open('.github/workflows/claude.yml'));print('yaml ok')"
-yaml ok
+$ head -3 docs/adr/0001-arcade-game-stack.md
+---
+status: accepted
+---
 [exit 0]
 
-$ grep -n 'WebFetch,WebSearch' .github/workflows/claude.yml
-54:            --allowedTools "WebFetch,WebSearch"
+$ grep -n 'adr/0001' docs/product/DECISIONS.md
+35:Decided 2026-10-20 in issue #18. See [ADR 0001](../adr/0001-arcade-game-stack.md).
+[exit 0]
+
+$ grep -c 'never counts as sea time' docs/adr/0001-arcade-game-stack.md
+1
 [exit 0]

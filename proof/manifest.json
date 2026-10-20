@@ -1,20 +1,24 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#18",
-  "sourceDigest": "sha256:9570e565d98fb8711af9aae9a6aa02367518e7926f9eff327a8f93b443131b99",
-  "capturedAt": "2026-10-20T15:22:52Z",
+  "sourceDigest": "sha256:194654c2c4db5f1937c41befbdc1d20fcbf3ac8e15503b07cd9f4cb026a47f6a",
+  "capturedAt": "2026-10-20T18:04:54Z",
   "result": "PASS",
   "verification": {
-    "command": "/workspace/venv/bin/python -c \"import yaml;yaml.safe_load(open('.github/workflows/claude.yml'));print('yaml ok')\"",
-    "fixture": "The workflow file on this branch (PR #20): claude.yml with WebFetch and WebSearch allowed"
+    "command": "head -3 docs/adr/0001-arcade-game-stack.md",
+    "fixture": "ADR 0001 and DECISIONS.md on this branch"
   },
   "commands": [
     {
-      "command": "/workspace/venv/bin/python -c \"import yaml;yaml.safe_load(open('.github/workflows/claude.yml'));print('yaml ok')\"",
+      "command": "head -3 docs/adr/0001-arcade-game-stack.md",
       "exitCode": 0
     },
     {
-      "command": "grep -n 'WebFetch,WebSearch' .github/workflows/claude.yml",
+      "command": "grep -n 'adr/0001' docs/product/DECISIONS.md",
+      "exitCode": 0
+    },
+    {
+      "command": "grep -c 'never counts as sea time' docs/adr/0001-arcade-game-stack.md",
       "exitCode": 0
     }
   ],
@@ -23,8 +27,8 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "the workflow YAML parses and claude_args lists the two web tools"
+      "shows": "the ADR exists, DECISIONS.md links it, and the guardrails are present"
     }
   ],
-  "noBehaviorReason": "workflow config only; no app code"
+  "noBehaviorReason": "docs only; no app code"
 }
