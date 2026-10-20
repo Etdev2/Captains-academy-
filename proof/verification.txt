@@ -1,14 +1,49 @@
-$ grep -n 'For Chapter 1 it writes them' docs/product/DECISIONS.md
-55:- **G10.** Each chapter ends in a boss level in exam format: timed multiple-choice questions. The academy writes its own questions. For Chapter 1 it writes them from the official rule text (the Coast Guard's Navigation Rules book, which prints COLREGS and the Inland Rules in 33 CFR 83). The Coast Guard's sample exams are too few to reuse and some of their content may be copyrighted, so they guide question style only and nothing is copied from them. `uscg-regs` checks each Chapter 1 question against the current rule text and tags it with its rule number. Each later chapter's boss names its own source and citation, a CFR section where one applies, when that chapter is planned, and `uscg-regs` checks those questions the same way. The player clears the boss by scoring at the real module's passing mark on two separate runs: 90% for Rules of the Road, 70% for most other modules, and 90% for Chart Plotting, pending verification.
+$ bash -n scripts/verify.sh
 [exit 0]
 
-$ grep -c 'Each later chapter' docs/product/DECISIONS.md
-1
+$ bash scripts/verify.test.sh
+ok   empty project skips all nine steps
+ok   app code without package.json fails
+ok   package.json without a Node pin fails
+ok   wrong Node major fails
+ok   missing lockfile fails
+ok   phaser with a caret range fails
+ok   app code without tsconfig fails
+ok   tsconfig without the tsc binary fails
+ok   mission JSON without validate:missions fails
+ok   a failing mission validation fails
+
+verify.test.sh: 10 passed, 0 failed.
 [exit 0]
 
-$ grep -n 'own source citation in later chapters' docs/product/DECISIONS.md
-74:- **G20.** The game teaches with four methods from learning research. Perceptual learning: many fast visual examples, each classified by the player with instant feedback, until recognition is automatic. Retrieval practice: the player recalls every answer instead of rereading it. Spaced repetition: missed situations come back at growing intervals. Interleaving: levels mix situation types so the player learns to tell them apart. Every visual is paired with words and its citation: the rule number in Chapter 1, and the chapter's own source citation in later chapters (G10). Three rules keep it fun: all teaching happens through play, in the replay after a miss and a one-line rule citation; nothing stops the player for more than 5 seconds to read or watch; and a level that is correct but boring gets redesigned, never shipped.
-[exit 0]
+$ bash scripts/verify.sh
 
-$ test -f docs/team/worklog/2026-10-20-04-decisions-recorder.md
+==> Node version and npm ci
+SKIP: there is no package.json
+
+==> tsc --noEmit
+SKIP: there is no tsconfig.json
+
+==> eslint --max-warnings=0
+SKIP: there is no ESLint config
+
+==> prettier --check
+SKIP: there is no Prettier config
+
+==> mission JSON validation
+SKIP: no mission JSON yet
+
+==> vitest (unit, adversarial, golden replay)
+SKIP: there are no Vitest test files
+
+==> vite build
+SKIP: there is no Vite config
+
+==> playwright smoke test
+SKIP: there is no Playwright config
+
+==> npm audit --omit=dev
+SKIP: no package-lock.json yet
+
+verify.sh passed: 0 step(s) ran, 9 skipped.
 [exit 0]
