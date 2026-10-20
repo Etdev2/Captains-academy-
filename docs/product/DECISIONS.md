@@ -84,10 +84,10 @@ The items below still need primary-source verification.
 - Whether the Coast Guard has an accepted way to estimate tonnage for boats without an official figure.
 - That Unreal Engine still has no web export (only matters if the Unity simulator comes back).
 - What the Coast Guard requires to approve a course and its online proctored exam.
-The 2026-10-20 follow-up verified the Inland and International Rule 32 blast lengths. NMC access remained blocked. The exam items below stay open, including whether the 2014 NMC exam guide is still current. See `arcade-regs-check-2026-10-20.md`.
-- The passing score for the Rules of the Road exam module (summaries say module Q100, 50 questions, 90% for every license in scope).
-- Which exam modules each license requires (summaries list them per exam code, such as ONC06 and GLI06), so license badges map to the right chapters.
-- The passing marks for the other modules (summaries say 70%, and 90% for Chart Plotting).
+The 2026-10-20 follow-up verified both Rule 32 blast lengths. Et's supplied NMC guide confirms the 2014 exam tables. The remaining exam checks are whether that guide is still current and whether the tables have changed. See `arcade-regs-check-2026-10-20.md`.
+- Confirm that the guide's Rules counts and marks remain current, including Q100 and Q300 at 50 questions and 90%, and Limited OUPV Q301 at 50 questions and 80%.
+- Confirm that the guide's ONC07, GLI07, ONC06 and GLI06 module mappings and Q165/Q352 upgrade conditions remain current, including the inland-route restriction on Q300.
+- Confirm that the guide's listed general modules still pass at 70% and its Chart Plot modules still use 10 questions at 90%.
 
 ## Next steps
 1. Write the academy's verification command and required checks, so it can leave stage 0.
