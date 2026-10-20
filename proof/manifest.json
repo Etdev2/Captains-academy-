@@ -1,20 +1,20 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#16",
-  "sourceDigest": "sha256:6b7bd5e673804b7df63ee6fff476aefa6b4b55ea772a14cef4a9143cfb4544fd",
-  "capturedAt": "2026-10-20T02:17:00Z",
+  "ticket": "Etdev2/Captains-academy-#18",
+  "sourceDigest": "sha256:9570e565d98fb8711af9aae9a6aa02367518e7926f9eff327a8f93b443131b99",
+  "capturedAt": "2026-10-20T15:22:52Z",
   "result": "PASS",
   "verification": {
-    "command": "ruby -ryaml -e 'YAML.load_file(\".github/workflows/claude.yml\"); puts \"yaml ok\"'",
-    "fixture": "The workflow file on this branch; repository secret CLAUDE_CODE_OAUTH_TOKEN confirmed by gh secret list at 2026-10-20 02:16 UTC"
+    "command": "/workspace/venv/bin/python -c \"import yaml;yaml.safe_load(open('.github/workflows/claude.yml'));print('yaml ok')\"",
+    "fixture": "The workflow file on this branch (PR #20): claude.yml with WebFetch and WebSearch allowed"
   },
   "commands": [
     {
-      "command": "ruby -ryaml -e 'YAML.load_file(\".github/workflows/claude.yml\"); puts \"yaml ok\"'",
+      "command": "/workspace/venv/bin/python -c \"import yaml;yaml.safe_load(open('.github/workflows/claude.yml'));print('yaml ok')\"",
       "exitCode": 0
     },
     {
-      "command": "grep -n 'secrets.CLAUDE_CODE_OAUTH_TOKEN' .github/workflows/claude.yml",
+      "command": "grep -n 'WebFetch,WebSearch' .github/workflows/claude.yml",
       "exitCode": 0
     }
   ],
@@ -23,8 +23,8 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "The workflow parses as YAML and reads the configured secret"
+      "shows": "the workflow YAML parses and claude_args lists the two web tools"
     }
   ],
-  "noBehaviorReason": "Adds a GitHub Actions workflow only. It changes no app behavior and runs only on GitHub after merge, so the live wake is proved by an @claude comment after Et merges."
+  "noBehaviorReason": "workflow config only; no app code"
 }
