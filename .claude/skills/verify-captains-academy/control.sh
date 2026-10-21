@@ -27,6 +27,26 @@ ours() {
   [ -f "$pid_file" ] && kill -0 "$(cat "$pid_file")" 2>/dev/null
 }
 
+# What vite build reads, as it sits on disk: tracked and untracked files alike,
+# staged or not. A digest of their names and contents, so any edit, new file or
+# deletion after launch shows up as a different value.
+build_inputs_digest() {
+  git ls-files -z -c -o --exclude-standard -- \
+    src missions play public vite.config.ts tsconfig.json package.json package-lock.json |
+    sort -z |
+    while IFS= read -r -d '' f; do
+      [ -f "$f" ] && sha256sum -- "$f"
+    done |
+    sha256sum | cut -d' ' -f1
+}
+
+# The bundle vite preview serves was built from the files on disk now.
+require_fresh() {
+  [ -f "$state_dir/build-inputs" ] || die "no record of what the bundle was built from. Run stop, then launch."
+  [ "$(cat "$state_dir/build-inputs")" = "$(build_inputs_digest)" ] ||
+    die "the build inputs changed since launch, so the bundle is stale. Run stop, then launch."
+}
+
 launch() {
   ours && die "an instance from this script is already running (pid $(cat "$pid_file")). Run stop first."
   if curl -fsS -o /dev/null "$url" 2>/dev/null; then
@@ -34,7 +54,10 @@ launch() {
   fi
   mkdir -p "$state_dir"
   [ -d node_modules ] || npm ci --no-audit --no-fund
+  local inputs
+  inputs="$(build_inputs_digest)"
   npx --no-install vite build --logLevel error
+  echo "$inputs" > "$state_dir/build-inputs"
   git rev-parse HEAD > "$state_dir/build-commit"
   # Its own session and process group, so stop can end npx and the server under it together.
   setsid nohup npx --no-install vite preview --host 127.0.0.1 --port "$port" --strictPort \
@@ -55,24 +78,23 @@ doctor() {
   local html
   html="$(curl -fsS "$url")" || die "$url does not answer."
   grep -q 'id="game"' <<< "$html" || die "$url answers but has no #game element: wrong app on this port?"
-  local built head
+  require_fresh
+  local built
   built="$(cat "$state_dir/build-commit")"
-  head="$(git rev-parse HEAD)"
-  if [ "$built" != "$head" ]; then
-    echo "warning: the bundle was built at ${built:0:7}, but HEAD is ${head:0:7}. Run stop, then launch." >&2
-  fi
-  if ! git diff --quiet -- src missions play public; then
-    echo "warning: src, missions, play or public has uncommitted changes the bundle may not include." >&2
-  fi
-  echo "ok: $url (pid $(cat "$pid_file"), build ${built:0:7})"
+  echo "ok: $url (pid $(cat "$pid_file"), built at ${built:0:7}, inputs $(cut -c1-12 "$state_dir/build-inputs"))"
 }
 
 drive() {
   local steps="${1:?usage: control.sh drive STEPS.json}"
   ours || die "no instance from this script is running. Run launch."
   [ -f "$steps" ] || die "no steps file at $steps."
+  require_fresh
   local run="${VERIFY_RUN:-$(date -u +%Y%m%dT%H%M%SZ)}"
   local out="$root/verify-artifacts/$run"
+  # A run folder holds one drive's evidence only, so nothing stale passes as new.
+  if [ -d "$out" ] && [ -n "$(ls -A "$out")" ]; then
+    die "verify-artifacts/$run already holds evidence from another drive. Pick a new VERIFY_RUN, or move that folder away first."
+  fi
   mkdir -p "$out"
   node "$here/drive.mjs" "$url" "$steps" "$out"
 }
@@ -95,7 +117,7 @@ stop() {
   else
     echo "no instance from this script is running"
   fi
-  rm -f "$pid_file" "$state_dir/build-commit"
+  rm -f "$pid_file" "$state_dir/build-commit" "$state_dir/build-inputs"
 }
 
 case "${1:-}" in

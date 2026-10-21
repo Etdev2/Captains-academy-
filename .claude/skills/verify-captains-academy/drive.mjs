@@ -27,6 +27,8 @@ const LEVER_HALF = 175;
 const browser = await chromium.launch();
 let context = null;
 let page = null;
+// Phone viewports drive the game with touch, the way a player does there.
+let touch = null;
 const log = [];
 let failed = null;
 
@@ -35,6 +37,20 @@ const canvasPoint = async (x, y) => {
   if (!box) throw new Error('the game canvas is not visible');
   return [box.x + (x / 1280) * box.width, box.y + (y / 768) * box.height];
 };
+// A one-finger drag as real touch events, through the Chrome DevTools Protocol,
+// since Playwright's touchscreen only taps.
+async function touchDrag(x, fromY, toY) {
+  const point = (y) => [{ x, y, id: 1 }];
+  await touch.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: point(fromY) });
+  for (let i = 1; i <= 6; i++) {
+    await touch.send('Input.dispatchTouchEvent', {
+      type: 'touchMove',
+      touchPoints: point(fromY + ((toY - fromY) * i) / 6),
+    });
+    await page.waitForTimeout(16);
+  }
+  await touch.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+}
 const readState = () => page.evaluate(() => window.__captainsAcademy ?? null);
 
 async function run(step) {
@@ -48,6 +64,7 @@ async function run(step) {
         }, step.storage);
       }
       page = await context.newPage();
+      touch = VIEWPORTS[step.viewport ?? 'desktop'].hasTouch ? await context.newCDPSession(page) : null;
       await page.goto(url);
       if (step.viewport !== 'phone-portrait') {
         await page.locator('#game canvas').waitFor({ state: 'visible' });
@@ -56,15 +73,24 @@ async function run(step) {
     }
     case 'lever': {
       const y = LEVER_MID_Y - (step.to / 100) * LEVER_HALF;
-      await page.mouse.move(...(await canvasPoint(LEVER_X[step.side], LEVER_MID_Y)));
-      await page.mouse.down();
-      await page.mouse.move(...(await canvasPoint(LEVER_X[step.side], y)), { steps: 6 });
-      await page.mouse.up();
+      const [x0, y0] = await canvasPoint(LEVER_X[step.side], LEVER_MID_Y);
+      const [, y1] = await canvasPoint(LEVER_X[step.side], y);
+      if (touch) {
+        await touchDrag(x0, y0, y1);
+      } else {
+        await page.mouse.move(x0, y0);
+        await page.mouse.down();
+        await page.mouse.move(x0, y1, { steps: 6 });
+        await page.mouse.up();
+      }
       return;
     }
-    case 'tap':
-      await page.mouse.click(...(await canvasPoint(step.x, step.y)));
+    case 'tap': {
+      const [x, y] = await canvasPoint(step.x, step.y);
+      if (touch) await page.touchscreen.tap(x, y);
+      else await page.mouse.click(x, y);
       return;
+    }
     case 'key':
       await page.keyboard.down(step.key);
       await page.waitForTimeout(step.ms ?? 100);

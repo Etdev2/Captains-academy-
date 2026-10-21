@@ -25,7 +25,7 @@ It runs `npm ci` if `node_modules/` is missing, builds the production bundle wit
 .claude/skills/verify-captains-academy/control.sh doctor
 ```
 
-It is read-only. It checks that the instance this script started is alive, that the page has the `#game` element, and warns when the bundle was built at a different commit from HEAD or when `src/`, `missions/`, `play/` or `public/` have uncommitted changes. After a warning, run `stop` and `launch` so you drive the code you mean to prove. Run doctor before the first drive and after any drive that failed.
+It is read-only. It checks that the instance this script started is alive and that the page has the `#game` element. It also fails when the bundle is stale. At launch the script records a digest of every build input as it sits on disk: `src/`, `missions/`, `play/`, `public/`, the Vite and TypeScript configs, `package.json` and the lockfile. Staged, unstaged and untracked files all count. Doctor compares that digest with the files now. After a failure, run `stop` and `launch` so you drive the code you mean to prove. Run doctor before the first drive and after any drive that failed. `drive` runs the same freshness check and refuses a stale bundle.
 
 ## Drive
 
@@ -33,7 +33,7 @@ It is read-only. It checks that the instance this script started is alive, that 
 VERIFY_RUN=levers-check .claude/skills/verify-captains-academy/control.sh drive .claude/skills/verify-captains-academy/features/steps/engine-levers.steps.json
 ```
 
-`drive.mjs` runs a JSON list of steps in Chromium and stops at the first failure. Coordinates are in the game's 1280 x 768 space and are scaled to the canvas, so the same steps work at every viewport.
+`drive.mjs` runs a JSON list of steps in Chromium and stops at the first failure. Coordinates are in the game's 1280 x 768 space and are scaled to the canvas, so the same steps work at every viewport. On the phone viewports, `lever` and `tap` send touch input (a touch drag through the Chrome DevTools Protocol, and Playwright's touchscreen tap), so the game receives `pointerType: "touch"` as it would from a thumb. On `desktop` they use the mouse.
 
 | Step | Does |
 | --- | --- |
@@ -51,7 +51,7 @@ The feature map in `features/` says which steps prove each feature, and `feature
 
 ## Evidence
 
-Each drive writes to `verify-artifacts/<VERIFY_RUN>/` (a UTC timestamp by default): `steps.log.json` with every step and the game state after it, the screenshots the steps asked for, and `failed-step-<n>.png` when a step fails. `verify-artifacts/` is ignored by git. Copy what a pull request needs into `proof/` and list it in the proof manifest.
+Each drive writes to `verify-artifacts/<VERIFY_RUN>/` (a UTC timestamp by default), and refuses a run folder that already holds files, so evidence from an earlier drive can't pass as new. Use a fresh `VERIFY_RUN` for each drive. It writes `steps.log.json` with every step and the game state after it, the screenshots the steps asked for, and `failed-step-<n>.png` when a step fails. `verify-artifacts/` is ignored by git. Copy what a pull request needs into `proof/` and list it in the proof manifest.
 
 Proof standards:
 

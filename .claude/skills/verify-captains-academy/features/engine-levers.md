@@ -23,10 +23,11 @@ Preconditions:
 - **Port alone.** Drag the port lever to 80. Step `{"do":"lever","side":"port","to":80}`. The log shows `port` above 70 and `starboard` at 0.
 - **Split to pivot.** Drag the starboard lever to -60, wait two seconds and take a screenshot. Steps `{"do":"lever","side":"starboard","to":-60}`, `{"do":"wait","ms":2000}`, `{"do":"screenshot","name":"split"}`. `starboard` is below -50, and the screenshot shows the bow swung to starboard with wash ahead of the starboard side.
 - **Keys.** Press X, then hold the up arrow. Steps `{"do":"key","key":"x"}`, `{"do":"key","key":"ArrowUp","ms":800}`. `port` and `starboard` are equal and above 50, and `speedMmPerS` grows over the next steps.
-- **Recipe.** `features/steps/engine-levers.steps.json` runs all of the above on a phone in landscape.
+- **Recipe.** `features/steps/engine-levers.steps.json` runs all of the above on a phone in landscape, so the lever drags are real touch input.
 
 ## Gotchas
 
 - A drag that starts more than 90 game pixels sideways from a lever's track, or above the AHEAD or below the ASTERN label, grabs nothing.
 - Within 8 percent of stop a lever snaps to stop, so a setting of 5 reads as 0.
+- On `desktop` a lever step is a mouse drag, which does not prove touch. Prove `lever-touch` on a phone viewport.
 - The keyboard moves levers at 120 percent per second, so an 800 ms hold from stop lands near 96, not exactly 100.
