@@ -2,15 +2,15 @@
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#27",
   "sourceDigest": "sha256:5241358e23dd74faadf9578f9c60eec0246a87146b378bb0b964a90fba9f135f",
-  "capturedAt": "2026-10-21T13:25:44Z",
+  "capturedAt": "2026-10-21T13:34:26Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.test.sh",
+    "command": "bash scripts/verify.sh",
     "fixture": "docs/team/HOUSE-RULES.md and one time card on this branch, based on main at 70f68eb; no code changed"
   },
   "commands": [
     {
-      "command": "bash scripts/verify.test.sh",
+      "command": "bash scripts/verify.sh",
       "exitCode": 0
     }
   ],
@@ -19,8 +19,8 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "scripts/verify.test.sh passes against throwaway projects"
+      "shows": "the full scripts/verify.sh passes on this branch"
     }
   ],
-  "noBehaviorReason": "Docs only: adds a house rule on when a Codex review ends, and updates a time card. No app code, config or test changed; CI runs the full verify.sh on the pull request."
+  "noBehaviorReason": "Docs only: adds a house rule on when a Codex review ends, and updates a time card. No app code, config or test changed."
 }
