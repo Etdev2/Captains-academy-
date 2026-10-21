@@ -1,9 +1,11 @@
 // Which waters count toward the part of a license's service that must be on
 // particular waters. For OUPV near coastal, that part is service on ocean or
-// near-coastal waters (46 CFR 11.467(c)). For near-coastal endorsements,
-// Great Lakes service is credited day for day, and other inland service only
-// up to half (46 CFR 10.232(b), 11.211(b), per the uscg-regs research on
-// issue #30). Inland service is left out of the part until that 50% limit is
+// near-coastal waters (46 CFR 11.467(c)). Toward an oceans or near-coastal
+// endorsement, "Service on the Great Lakes will be credited on a day-for-day
+// basis up to 100 percent of the total required service" (46 CFR
+// 11.211(b)(1), quoted from eCFR by the GitHub Claude run on PR #43). Other
+// inland service counts only up to half (46 CFR 10.232(b), 11.211(b), per the
+// uscg-regs research on issue #30). Inland service is left out of the part until that 50% limit is
 // applied; see NOT_CHECKED. Every value of WATERS has a rule.
 
 import { WATERS, type Waters } from '../entry';
@@ -42,7 +44,7 @@ export const WATERS_RULES: Readonly<Record<Waters, WatersRule>> = {
     waters: 'great-lakes',
     oceansOrNearCoastal: true,
     text: 'Great Lakes: credited day for day toward the ocean or near-coastal part of a near-coastal endorsement.',
-    cfr: ['46 CFR 10.107', '46 CFR 10.232(b)', '46 CFR 11.211(b)', '46 CFR 11.467(c)'],
+    cfr: ['46 CFR 10.107', '46 CFR 10.232(b)', '46 CFR 11.211(b)(1)', '46 CFR 11.467(c)'],
   },
   inland: {
     id: 'waters.inland',

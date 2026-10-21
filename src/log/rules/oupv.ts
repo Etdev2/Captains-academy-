@@ -1,11 +1,11 @@
-// Progress toward the sea service for OUPV near coastal: 12 months of
-// operating experience, at least 3 of them on ocean or near-coastal waters
-// (46 CFR 11.467(c), as read by the uscg-regs research on issue #30; the
-// paragraph's text itself was not reachable from the build session). A month
-// is 30 days (46 CFR 10.107), so that is 360 days, 90 of them on ocean or
-// near-coastal waters. Inside Passage service counts as near coastal
-// (10.232(b)(3)), and Great Lakes service counts day for day (10.232(b),
-// 11.211(b)).
+// Progress toward the sea service for OUPV near coastal. 46 CFR 11.467(c)
+// asks for "a minimum of 12 months of experience in the operation of vessels,
+// including at least 3 months of service on vessels operating on ocean or
+// near-coastal waters." (Quoted from eCFR by the GitHub Claude run on PR #43;
+// the build session could not reach eCFR itself.) A month is 30 days (46 CFR
+// 10.107), so that is 360 days, 90 of them on ocean or near-coastal waters.
+// Inside Passage service counts as near coastal (10.232(b)(3)), and Great
+// Lakes service counts day for day (11.211(b)(1)).
 
 import { seaTimeEntrySchema, type SeaTimeEntry, type Vessel } from '../entry';
 import type { Cfr, Rule } from './cfr';
@@ -46,7 +46,7 @@ export const OUPV_NEAR_COASTAL_REQUIREMENTS = {
       '46 CFR 10.107',
       '46 CFR 10.232(b)(3)',
       '46 CFR 10.232(b)',
-      '46 CFR 11.211(b)',
+      '46 CFR 11.211(b)(1)',
     ],
   }),
 } as const satisfies Record<string, Requirement>;

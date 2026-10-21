@@ -389,9 +389,9 @@ describe('waters for OUPV near coastal (D2)', () => {
     expect(WATERS_RULES['inside-passage'].cfr).toContain('46 CFR 10.232(b)(3)');
   });
 
-  it('counts Great Lakes service day for day, citing 10.232(b) and 11.211(b)', () => {
+  it('counts Great Lakes service day for day, citing 10.232(b) and 11.211(b)(1)', () => {
     expect(WATERS_RULES['great-lakes'].cfr).toEqual(
-      expect.arrayContaining(['46 CFR 10.232(b)', '46 CFR 11.211(b)']),
+      expect.arrayContaining(['46 CFR 10.232(b)', '46 CFR 11.211(b)(1)']),
     );
     const result = progress(days(360, '8-12', 'great-lakes'));
     expect(result.parts.oceansOrNearCoastal).toMatchObject({ creditedDays: 360, appearsMet: true });
