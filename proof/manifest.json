@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#40",
-  "sourceDigest": "sha256:19970475772922d7bf8d56c20fa6eff79f700da014acb9b4543c2df0072f3184",
-  "capturedAt": "2026-10-21T18:53:04Z",
+  "sourceDigest": "sha256:b6e8f6676c8eed578ec14d63b763881a7c3c568e5c7353c712899461674fd782",
+  "capturedAt": "2026-10-21T18:55:31Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
