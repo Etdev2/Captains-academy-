@@ -1,39 +1,26 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#25",
-  "sourceDigest": "sha256:8fb69c080c0c51fb7a9c413d4cacaf19494c66073062adae32b72155be56ce5a",
-  "capturedAt": "2026-10-21T00:44:49Z",
+  "ticket": "Etdev2/Captains-academy-#29",
+  "sourceDigest": "sha256:53b22074d33febe41d33b63c0361af01099ef218d341592d7428364485d0c376",
+  "capturedAt": "2026-10-21T11:28:28Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "The Long Beach docking prototype on this branch: two schema-2 missions in missions/ and three golden replays in tests/replays/, the docking ones re-recorded with the engine levers only"
+    "fixture": "Docs-only change to docs/product/DECISIONS.md on current main"
   },
   "commands": [
-    {
-      "command": "bash scripts/verify.test.sh",
-      "exitCode": 0
-    },
     {
       "command": "bash scripts/verify.sh",
       "exitCode": 0
     }
   ],
-  "behaviorChanged": true,
+  "behaviorChanged": false,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh runs all nine steps with none skipped: npm ci, tsc, ESLint, Prettier, validation of both missions, 32 Vitest tests including the twin-lever tests and all three golden replays, vite build, eight Playwright tests (smoke, portrait pause, offline reload, a lever under each thumb) on desktop and phone landscape, and npm audit"
-    },
-    {
-      "path": "proof/play-desktop.png",
-      "kind": "screenshot",
-      "shows": "The production build at /play on desktop, a few seconds after the port lever (left thumb) went ahead and the starboard lever (right thumb) astern: the boat pivots to starboard with prop wash on each side. No steering slider. Taken at e0632f1"
-    },
-    {
-      "path": "proof/play-phone-landscape.png",
-      "kind": "screenshot",
-      "shows": "The same moment on a Pixel 7 in landscape. Taken at e0632f1"
+      "shows": "scripts/verify.sh passes on the branch with the decision entry added"
     }
-  ]
+  ],
+  "noBehaviorReason": "Docs-only: adds decision entry G19a and cross-references in DECISIONS.md; no app code changed"
 }

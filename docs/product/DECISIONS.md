@@ -9,7 +9,7 @@ Changes to a settled decision need an explicit call from Et. A parked item is no
 ### Product shape
 - **A1.** The academy is a standalone product: its own repo, its own Supabase project (database and login). It shares nothing with Fish Log Book.
 - **A2.** The academy owns the only sea-time log. Fish Log Book gets no sea-time feature.
-- **A3.** Build the sea-time log first. The one exception is a one-level arcade prototype, built before the log to test whether the game is fun (see G19).
+- **A3.** Build the sea-time log first. The one exception is a one-level arcade prototype, built before the log to test whether the game is fun (see G19). A second exception, Chapter 1 level 2, is in G19a.
 - **A4.** One academy login across the web app and the Unity app.
 
 ### Sea-time log
@@ -68,7 +68,8 @@ Badges and the license screen
 - **G18.** One license screen per license shows the Exam Ready badge, the sea-time status ("appears to meet" plus what is still needed) and the rest of the checklist (physical, drug test, TWIC, courses).
 
 Order
-- **G19.** First build one playable level, docking in Long Beach harbor. Et chose this level on 2026-10-20 and said it may go ahead. Et plays it and decides whether it is fun enough. Then the sea-time log (A3), then the full game.
+- **G19.** First build one playable level, docking in Long Beach harbor. Et chose this level on 2026-10-20 and said it may go ahead. Et plays it and decides whether it is fun enough. Then the sea-time log (A3), then the full game. G19a adds one exception to this order.
+- **G19a.** Build-order exception to A3 and G19: Chapter 1 level 2, lights rapid-fire (issue #29), is built before the sea-time log. The sea-time log comes next, right after level 2. Sizing the log continues on issue #30 as an estimate only. Et decided this on 2026-10-21, 4:26 AM PT, when he said "start with whatever you think" and accepted Chief Of Staff's recommendation.
 
 Teaching
 - **G20.** The game teaches with four methods from learning research. Perceptual learning: many fast visual examples, each classified by the player with instant feedback, until recognition is automatic. Retrieval practice: the player recalls every answer instead of rereading it. Spaced repetition: missed situations come back at growing intervals. Interleaving: levels mix situation types so the player learns to tell them apart. Every visual is paired with words and its citation: the rule number in Chapter 1, and the chapter's own source citation in later chapters (G10). Three rules keep it fun: all teaching happens through play, in the replay after a miss and a one-line rule citation; nothing stops the player for more than 5 seconds to read or watch; and a level that is correct but boring gets redesigned, never shipped.
