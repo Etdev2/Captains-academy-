@@ -12,8 +12,8 @@ import { SEA_LOG_DB, STORES } from './schema';
 export interface SeaLog {
   /**
    * Saves a new entry or replaces one with the same id, and returns what was
-   * saved. Throws SourceChangeError, writing nothing, when the saved entry
-   * with that id has the other source.
+   * saved. Writes nothing and throws DeletedEntryError when the entry with
+   * that id was deleted, or SourceChangeError when it has the other source.
    */
   save(entry: NewSeaTimeEntry): Promise<SeaTimeEntry>;
   /** The entry with this id, deleted or not. */
@@ -37,6 +37,11 @@ export interface SeaLogOptions extends OpenOptions {
 /** A save that would change whether an entry is live or backfilled. */
 export class SourceChangeError extends Error {
   override readonly name = 'SourceChangeError';
+}
+
+/** A save to an entry that was soft-deleted. */
+export class DeletedEntryError extends Error {
+  override readonly name = 'DeletedEntryError';
 }
 
 /** A record on the device that no longer matches the entry schema. */
@@ -105,6 +110,11 @@ export async function openSeaLog(options: SeaLogOptions = {}): Promise<SeaLog> {
       await update(record.id, (existing) => {
         // Backfilled time stays backfilled: a save may never turn it into live
         // time, or live time into backfilled.
+        // A delete has to reach other devices later, so a save never undoes
+        // one. Restoring an entry needs its own deliberate operation.
+        if (existing && existing.deletedAt !== null) {
+          throw new DeletedEntryError(`Entry ${record.id} was deleted and cannot be saved again.`);
+        }
         if (existing && existing.source !== record.source) {
           throw new SourceChangeError(
             `Entry ${record.id} is ${existing.source} and cannot be saved as ${record.source}.`,

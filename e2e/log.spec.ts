@@ -141,6 +141,20 @@ test('the store refuses bad entries, soft-deletes and leaves the outbox empty', 
     const deleted = await log.softDelete(trip.id);
     const deletedAgain = await log.softDelete(trip.id);
     const tripAfter = await log.get(trip.id);
+
+    // A stale save, say from another tab, never brings a deleted entry back.
+    let resurrectRefused = '';
+    try {
+      await log.save({
+        id: trip.id,
+        source: 'live',
+        startedAt: '2026-10-21T06:00:00.000Z',
+        endedAt: '2026-10-21T12:00:00.000Z',
+      });
+    } catch (error) {
+      resurrectRefused = error instanceof Error ? error.name : String(error);
+    }
+    const tripAfterStaleSave = await log.get(trip.id);
     return {
       refused,
       sourceChangeRefused,
@@ -148,6 +162,8 @@ test('the store refuses bad entries, soft-deletes and leaves the outbox empty', 
       deleted,
       deletedAgain,
       tripDeletedAt: tripAfter?.deletedAt ?? null,
+      resurrectRefused,
+      tombstoneKept: JSON.stringify(tripAfterStaleSave) === JSON.stringify(tripAfter),
       listed: (await log.list()).map((entry) => entry.id),
       dayId: day.id,
       count: await log.count(),
@@ -161,6 +177,8 @@ test('the store refuses bad entries, soft-deletes and leaves the outbox empty', 
   expect(result.deleted).toBe(true);
   expect(result.deletedAgain).toBe(false);
   expect(result.tripDeletedAt).not.toBeNull();
+  expect(result.resurrectRefused).toBe('DeletedEntryError');
+  expect(result.tombstoneKept).toBe(true);
   expect(result.listed).toEqual([result.dayId]);
   expect(result.count).toBe(1);
   expect(result.outbox).toBe(0);
