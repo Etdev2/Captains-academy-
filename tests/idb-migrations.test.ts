@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { SEA_LOG_DB } from '../src/log/schema';
+import { ROLES_V2, SEA_LOG_DB } from '../src/log/schema';
 import { migrationsToRun, NewerVersionOnDeviceError, type Migration } from '../src/store/idb';
 
 // Which migrations a device still needs. The browser tests in e2e/log.spec.ts
@@ -35,11 +35,46 @@ describe('migrationsToRun', () => {
   });
 });
 
+// Records what a migration does to a database, without a browser.
+function recordMigration(migration: Migration | undefined) {
+  if (!migration) throw new Error('no such migration');
+  const stores: Record<
+    string,
+    { options: IDBObjectStoreParameters | undefined; indexes: string[]; rows: unknown[] }
+  > = {};
+  const db = {
+    createObjectStore(name: string, options?: IDBObjectStoreParameters) {
+      const store = { options, indexes: [] as string[], rows: [] as unknown[] };
+      stores[name] = store;
+      return {
+        createIndex: (index: string) => store.indexes.push(index),
+        put: (row: unknown) => store.rows.push(row),
+      };
+    },
+  };
+  migration(db as unknown as IDBDatabase, {} as IDBTransaction);
+  return stores;
+}
+
 describe('the sea-time log database', () => {
-  // Version 1 has shipped once this merges. Changing it would leave devices
-  // that already ran it with a different schema from new ones.
-  it('is at version 1, with one migration', () => {
+  // A shipped migration is never edited: devices that already ran it would
+  // keep a different schema from new ones.
+  it('is at version 2, with two migrations', () => {
     expect(SEA_LOG_DB.name).toBe('captains-academy-sea-log');
-    expect(SEA_LOG_DB.migrations).toHaveLength(1);
+    expect(SEA_LOG_DB.migrations).toHaveLength(2);
+  });
+
+  it('version 1 still makes the entries and outbox stores, and nothing else', () => {
+    expect(recordMigration(SEA_LOG_DB.migrations[0])).toEqual({
+      sea_time_entries: { options: { keyPath: 'id' }, indexes: ['updatedAt'], rows: [] },
+      outbox: { options: { keyPath: 'seq', autoIncrement: true }, indexes: [], rows: [] },
+    });
+  });
+
+  it('version 2 adds vessels and the seeded roles, and leaves entries alone', () => {
+    expect(recordMigration(SEA_LOG_DB.migrations[1])).toEqual({
+      vessels: { options: { keyPath: 'id' }, indexes: ['updatedAt'], rows: [] },
+      roles: { options: { keyPath: 'id' }, indexes: [], rows: ROLES_V2 },
+    });
   });
 });

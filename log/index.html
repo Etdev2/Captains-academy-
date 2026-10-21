@@ -125,6 +125,151 @@
       #check-in-area .note {
         text-align: center;
       }
+      [hidden] {
+        display: none !important;
+      }
+      .view {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .view p {
+        margin: 0;
+      }
+      #vessels-status:empty {
+        display: none;
+      }
+      h2 {
+        margin: 0;
+        font-size: 24px;
+      }
+      h3 {
+        margin: 0 0 8px;
+        font-size: 20px;
+      }
+      /* Every control is at least 56px tall, so a gloved thumb hits it. */
+      .big,
+      .row,
+      input,
+      select {
+        min-height: 56px;
+      }
+      .big {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        border: 0;
+        border-radius: 14px;
+        background: var(--button-bg);
+        color: var(--button-ink);
+        font: inherit;
+        font-weight: 800;
+        text-decoration: none;
+        touch-action: manipulation;
+      }
+      .big.plain {
+        background: var(--card);
+        color: var(--ink);
+        border: 2px solid var(--line);
+      }
+      .big.danger {
+        background: var(--card);
+        color: var(--ink);
+        border: 2px dashed var(--ink);
+      }
+      .big.danger[data-confirm='armed'] {
+        background: var(--ink);
+        color: var(--bg);
+      }
+      nav.go {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .row {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 10px 16px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .row strong {
+        font-size: 20px;
+      }
+      .row span {
+        color: var(--muted);
+      }
+      .bottom {
+        position: sticky;
+        bottom: 0;
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 12px 0 max(4px, env(safe-area-inset-bottom));
+        background: var(--bg);
+      }
+      form {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 16px;
+      }
+      label {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-weight: 700;
+      }
+      label small,
+      .hint {
+        font-weight: 400;
+        color: var(--muted);
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 8px 12px;
+        border: 2px solid var(--line);
+        border-radius: 12px;
+        background: var(--card);
+        color: var(--ink);
+        font: inherit;
+      }
+      input:focus-visible,
+      select:focus-visible,
+      .big:focus-visible,
+      .row:focus-visible {
+        outline: 3px solid var(--ink);
+        outline-offset: 2px;
+      }
+      .error {
+        margin: 0;
+        font-weight: 700;
+        color: var(--ink);
+        border-left: 6px solid var(--ink);
+        padding-left: 10px;
+      }
+      #vessel-photo-preview {
+        display: block;
+        max-width: 100%;
+        max-height: 220px;
+        border-radius: 12px;
+      }
     </style>
   </head>
   <body>
@@ -133,13 +278,114 @@
         <h1>Sea-time log</h1>
         <p id="network" role="status" aria-live="polite"></p>
       </header>
-      <section class="card" aria-label="Your log">
-        <p id="entries" data-state="opening" aria-live="polite">Opening your log…</p>
-        <p class="note">Saved on this phone. No account needed.</p>
+
+      <div id="view-home" class="view">
+        <section class="card" aria-label="Your log">
+          <p id="entries" data-state="opening" aria-live="polite">Opening your log…</p>
+          <p class="note">Saved on this phone. No account needed.</p>
+        </section>
+        <nav class="go" aria-label="Log sections">
+          <a class="big plain" href="#vessels">Vessels</a>
+          <a class="big plain" href="#roles">Roles</a>
+        </nav>
+        <section id="check-in-area" aria-label="Check in">
+          <button id="check-in" type="button" disabled>Check in</button>
+          <p class="note">Checking in and out is coming soon.</p>
+        </section>
+      </div>
+
+      <section id="view-vessels" class="view" aria-labelledby="vessels-title" hidden>
+        <h2 id="vessels-title">Vessels</h2>
+        <p id="vessels-status" class="hint" role="status" aria-live="polite"></p>
+        <p id="vessels-empty" class="hint" hidden>No vessels yet. Add the boats you work on.</p>
+        <ul id="vessel-list" class="list"></ul>
+        <div class="bottom">
+          <a id="add-vessel" class="big" href="#vessels/new">Add a vessel</a>
+          <a class="big plain" href="#">Back to the log</a>
+        </div>
       </section>
-      <section id="check-in-area" aria-label="Check in">
-        <button id="check-in" type="button" disabled>Check in</button>
-        <p class="note">Checking in and out is coming soon.</p>
+
+      <section id="view-vessel-form" class="view" aria-labelledby="vessel-form-title" hidden>
+        <h2 id="vessel-form-title">New vessel</h2>
+        <p class="hint">Only the name is needed now. Fill in the rest later.</p>
+        <form id="vessel-form" novalidate>
+          <label
+            >Name
+            <input name="name" type="text" autocomplete="off" required />
+          </label>
+          <label
+            >Official number <small>Registration or documentation number</small>
+            <input name="officialNumber" type="text" autocomplete="off" />
+          </label>
+          <label
+            >Official gross tonnage (GRT)
+            <small>As shown on the vessel's documents</small>
+            <input name="officialGrossTons" type="text" inputmode="decimal" autocomplete="off" />
+          </label>
+          <label
+            >Length in feet
+            <input name="lengthFeet" type="text" inputmode="decimal" autocomplete="off" />
+          </label>
+          <label
+            >Propulsion
+            <select name="propulsion">
+              <option value="">Not set</option>
+              <option value="motor">Motor</option>
+              <option value="sail">Sail</option>
+              <option value="auxiliary-sail">Auxiliary sail</option>
+              <option value="steam">Steam</option>
+              <option value="gas-turbine">Gas turbine</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+          <label
+            >Owner
+            <input name="owner" type="text" autocomplete="off" />
+          </label>
+          <label
+            >Horsepower
+            <input name="horsepower" type="text" inputmode="decimal" autocomplete="off" />
+          </label>
+          <label
+            >Your usual role aboard <small>New entries on this vessel start with it</small>
+            <select name="defaultRoleId">
+              <option value="">None</option>
+            </select>
+          </label>
+          <label
+            >Photo <small>Kept on this phone only</small>
+            <input name="photo" type="file" accept="image/*" />
+          </label>
+          <img id="vessel-photo-preview" alt="This vessel's photo" hidden />
+          <button id="remove-photo" class="big plain" type="button" hidden>Remove photo</button>
+          <p id="vessel-form-error" class="error" role="alert" hidden></p>
+          <div class="bottom">
+            <button id="save-vessel" class="big" type="submit">Save vessel</button>
+            <button id="delete-vessel" class="big danger" type="button" hidden>
+              Delete vessel
+            </button>
+            <a class="big plain" href="#vessels">Cancel</a>
+          </div>
+        </form>
+      </section>
+
+      <section id="view-roles" class="view" aria-labelledby="roles-title" hidden>
+        <h2 id="roles-title">Roles</h2>
+        <p class="hint">
+          The jobs you can log aboard. Set a usual role on each vessel. How each role counts toward
+          a license is not worked out yet.
+        </p>
+        <section aria-labelledby="roles-deck-title">
+          <h3 id="roles-deck-title">Deck</h3>
+          <ul id="roles-deck" class="list"></ul>
+        </section>
+        <section aria-labelledby="roles-engine-title">
+          <h3 id="roles-engine-title">Engine</h3>
+          <ul id="roles-engine" class="list"></ul>
+        </section>
+        <div class="bottom">
+          <a class="big plain" href="#">Back to the log</a>
+        </div>
       </section>
     </main>
     <script type="module" src="/src/log/main.ts"></script>
