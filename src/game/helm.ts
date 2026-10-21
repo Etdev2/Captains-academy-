@@ -1,22 +1,21 @@
 import * as Phaser from 'phaser';
 import { FULL } from '../sim/sim';
 
-// On-screen helm for one thumb per side (G8): two engine levers on the right,
-// port and starboard, that stay where they are left, like real ones, and a
-// steering slider on the left that springs back to midships when let go.
-// Grab a lever to move it alone, or the grip between them to move both
-// together. Each control follows its own finger, so several can be held at
-// once.
+// On-screen helm for one thumb per side (G8): the port engine lever on the
+// left and the starboard lever on the right, like the levers on a twin-engine
+// boat. There is no wheel: both levers ahead drive the boat ahead, and
+// splitting them turns it. Each lever stays where it is left, like a real
+// one, and follows its own finger, so both can be held at once.
 
 const GOLD = 0xf4d06f;
 const BLUE = 0x4fc3ff;
 const PANEL = 0x15324d;
 // Within this much of stop, a lever snaps to stop.
 const DETENT = 8;
-// A touch this close to the middle of the pair moves both levers.
-const BOTH_GRIP = 18;
+// How far from a lever's track a touch still grabs it.
+const REACH = 90;
 
-type Lever = 'port' | 'starboard' | 'both';
+type Lever = 'port' | 'starboard';
 
 interface Layout {
   readonly viewW: number;
@@ -26,22 +25,12 @@ interface Layout {
 export class Helm {
   port = 0;
   starboard = 0;
-  rudder = 0;
-  private readonly leverPointers = new Map<number, Lever>();
-  private wheelPointer: number | null = null;
-  private readonly levers: Phaser.GameObjects.Graphics;
-  private readonly wheel: Phaser.GameObjects.Graphics;
-  private readonly leverTrack: { portX: number; starboardX: number; top: number; bottom: number };
-  private readonly wheelTrack: { y: number; left: number; right: number };
+  private readonly pointers = new Map<number, Lever>();
+  private readonly graphics: Phaser.GameObjects.Graphics;
+  private readonly track: { portX: number; starboardX: number; top: number; bottom: number };
 
   constructor(scene: Phaser.Scene, { viewW, viewH }: Layout) {
-    this.leverTrack = {
-      portX: viewW - 156,
-      starboardX: viewW - 76,
-      top: viewH - 470,
-      bottom: viewH - 120,
-    };
-    this.wheelTrack = { y: viewH - 110, left: 70, right: 400 };
+    this.track = { portX: 96, starboardX: viewW - 96, top: viewH - 470, bottom: viewH - 120 };
     const text = (x: number, y: number, label: string, size = 18) =>
       scene.add
         .text(x, y, label, {
@@ -53,92 +42,57 @@ export class Helm {
         .setOrigin(0.5)
         .setScrollFactor(0)
         .setDepth(6);
-    const { portX, starboardX, top, bottom } = this.leverTrack;
-    const mid = (portX + starboardX) / 2;
-    text(mid, top - 30, 'AHEAD');
-    text(portX - 74, (top + bottom) / 2, 'STOP');
-    text(mid, bottom + 26, 'ASTERN');
-    text(portX, bottom + 54, 'PORT', 15);
-    text(starboardX, bottom + 54, 'STBD', 15);
-    const w = this.wheelTrack;
-    text((w.left + w.right) / 2, w.y - 56, 'STEER');
-    this.levers = scene.add.graphics().setScrollFactor(0).setDepth(6);
-    this.wheel = scene.add.graphics().setScrollFactor(0).setDepth(6);
+    const { portX, starboardX, top, bottom } = this.track;
+    const mid = (top + bottom) / 2;
+    for (const [x, name, stopX] of [
+      [portX, 'PORT', portX + 74],
+      [starboardX, 'STBD', starboardX - 74],
+    ] as const) {
+      text(x, top - 30, 'AHEAD', 16);
+      text(stopX, mid, 'STOP', 16);
+      text(x, bottom + 26, 'ASTERN', 16);
+      text(x, bottom + 54, name, 15);
+    }
+    this.graphics = scene.add.graphics().setScrollFactor(0).setDepth(6);
 
     scene.input.addPointer(3);
     scene.input.on('pointerdown', (p: Phaser.Input.Pointer) => {
       const lever = this.leverAt(p);
       if (lever) {
-        this.leverPointers.set(p.id, lever);
+        this.pointers.set(p.id, lever);
         this.moveLever(lever, p);
-      } else if (this.onWheel(p)) {
-        this.wheelPointer = p.id;
-        this.moveWheel(p);
       }
     });
     scene.input.on('pointermove', (p: Phaser.Input.Pointer) => {
-      const lever = this.leverPointers.get(p.id);
+      const lever = this.pointers.get(p.id);
       if (lever) this.moveLever(lever, p);
-      if (p.id === this.wheelPointer) this.moveWheel(p);
     });
-    const release = (p: Phaser.Input.Pointer) => {
-      this.leverPointers.delete(p.id);
-      if (p.id === this.wheelPointer) {
-        this.wheelPointer = null;
-        this.rudder = 0;
-      }
-    };
+    const release = (p: Phaser.Input.Pointer) => this.pointers.delete(p.id);
     scene.input.on('pointerup', release);
     scene.input.on('pointerupoutside', release);
     this.draw();
   }
 
-  /** Both engines together: the lever pair's average, for the engine sound. */
-  get throttle(): number {
-    return Math.trunc((this.port + this.starboard) / 2);
-  }
-
-  /** True when a touch began on one of the helm controls. */
+  /** True when a touch began on one of the levers. */
   owns(p: Phaser.Input.Pointer): boolean {
-    return this.leverAt(p) !== null || this.onWheel(p);
-  }
-
-  get steeringByTouch(): boolean {
-    return this.wheelPointer !== null;
+    return this.leverAt(p) !== null;
   }
 
   private leverAt(p: Phaser.Input.Pointer): Lever | null {
-    const { portX, starboardX, top, bottom } = this.leverTrack;
+    const { portX, starboardX, top, bottom } = this.track;
     if (p.y < top - 50 || p.y > bottom + 50) return null;
-    const mid = (portX + starboardX) / 2;
-    if (Math.abs(p.x - mid) < BOTH_GRIP) return 'both';
-    if (p.x > portX - 60 && p.x < mid) return 'port';
-    if (p.x >= mid && p.x < starboardX + 60) return 'starboard';
+    if (Math.abs(p.x - portX) < REACH) return 'port';
+    if (Math.abs(p.x - starboardX) < REACH) return 'starboard';
     return null;
   }
 
-  private onWheel(p: Phaser.Input.Pointer): boolean {
-    const { y, left, right } = this.wheelTrack;
-    return Math.abs(p.y - y) < 80 && p.x > left - 50 && p.x < right + 50;
-  }
-
   private moveLever(lever: Lever, p: Phaser.Input.Pointer): void {
-    const { top, bottom } = this.leverTrack;
+    const { top, bottom } = this.track;
     const mid = (top + bottom) / 2;
     const raw = Math.round(((mid - p.y) / ((bottom - top) / 2)) * FULL);
-    const v = Math.abs(raw) < DETENT ? 0 : raw;
-    if (lever !== 'starboard') this.port = clampLever(v);
-    if (lever !== 'port') this.starboard = clampLever(v);
-  }
-
-  private moveWheel(p: Phaser.Input.Pointer): void {
-    const { left, right } = this.wheelTrack;
-    const mid = (left + right) / 2;
-    this.rudder = Phaser.Math.Clamp(
-      Math.round(((p.x - mid) / ((right - left) / 2)) * FULL),
-      -FULL,
-      FULL,
-    );
+    const v = clampLever(Math.abs(raw) < DETENT ? 0 : raw);
+    if (lever === 'port') this.port = v;
+    else this.starboard = v;
   }
 
   setLevers(port: number, starboard: number): void {
@@ -147,40 +101,22 @@ export class Helm {
   }
 
   draw(): void {
-    const { portX, starboardX, top, bottom } = this.leverTrack;
+    const { portX, starboardX, top, bottom } = this.track;
     const mid = (top + bottom) / 2;
     const half = (bottom - top) / 2;
-    const g = this.levers.clear();
-    g.fillStyle(PANEL, 0.6).fillRoundedRect(
-      portX - 44,
-      top - 14,
-      starboardX - portX + 88,
-      bottom - top + 28,
-      20,
-    );
-    g.fillStyle(BLUE, 0.6).fillRect(portX - 34, mid - 2, starboardX - portX + 68, 4);
+    const g = this.graphics.clear();
     for (const [x, value] of [
       [portX, this.port],
       [starboardX, this.starboard],
     ] as const) {
       const knobY = mid - (value / FULL) * half;
       const color = value === 0 ? BLUE : GOLD;
+      g.fillStyle(PANEL, 0.6).fillRoundedRect(x - 44, top - 14, 88, bottom - top + 28, 20);
       g.fillStyle(BLUE, 0.25).fillRect(x - 6, top, 12, bottom - top);
+      g.fillStyle(BLUE, 0.6).fillRect(x - 30, mid - 2, 60, 4);
       g.fillStyle(color, 0.35).fillRect(x - 6, Math.min(knobY, mid), 12, Math.abs(knobY - mid));
-      g.fillStyle(color, 1).fillRoundedRect(x - 30, knobY - 20, 60, 40, 12);
+      g.fillStyle(color, 1).fillRoundedRect(x - 36, knobY - 22, 72, 44, 12);
     }
-    // The grip between the levers, for moving both at once.
-    const gripX = (portX + starboardX) / 2;
-    g.fillStyle(BLUE, 0.35).fillRoundedRect(gripX - 4, top, 8, bottom - top, 4);
-
-    const w = this.wheelTrack;
-    const wmid = (w.left + w.right) / 2;
-    const knobX = wmid + (this.rudder / FULL) * ((w.right - w.left) / 2);
-    const h = this.wheel.clear();
-    h.fillStyle(PANEL, 0.6).fillRoundedRect(w.left - 30, w.y - 36, w.right - w.left + 60, 72, 20);
-    h.fillStyle(BLUE, 0.25).fillRect(w.left, w.y - 5, w.right - w.left, 10);
-    h.fillStyle(BLUE, 0.6).fillRect(wmid - 2, w.y - 22, 4, 44);
-    h.fillStyle(this.rudder === 0 ? BLUE : GOLD, 1).fillCircle(knobX, w.y, 28);
   }
 }
 

@@ -1,8 +1,8 @@
 {
   "final": {
-    "frame": 6818,
-    "x": 38485673,
-    "y": 6426988,
+    "frame": 6824,
+    "x": 38479992,
+    "y": 6428273,
     "heading": 64919,
     "speed": 1084,
     "turnRate": 0,
@@ -11,5 +11,5 @@
     "bumps": 0,
     "touching": false
   },
-  "traceHash": 1316873053
+  "traceHash": 2701714663
 }

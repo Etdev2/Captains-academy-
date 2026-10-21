@@ -1,9 +1,9 @@
 {
   "final": {
-    "frame": 11960,
-    "x": 50124543,
-    "y": 6551297,
-    "heading": 64923,
+    "frame": 11940,
+    "x": 50130863,
+    "y": 6570160,
+    "heading": 64922,
     "speed": 0,
     "turnRate": 0,
     "outcome": "docked",
@@ -11,5 +11,5 @@
     "bumps": 1,
     "touching": true
   },
-  "traceHash": 3047683569
+  "traceHash": 1881485393
 }

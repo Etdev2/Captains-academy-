@@ -58,8 +58,8 @@ test('the engine levers stay where they are left, and the boat answers', async (
   await expect(canvas).toBeVisible();
   const box = await canvas.boundingBox();
   if (!box) throw new Error('no canvas');
-  // The two lever tracks run up the right-hand side of the 1280 x 768 game,
-  // port at x 1124 and starboard at x 1204, with a grip for both at x 1164.
+  // One lever under each thumb in the 1280 x 768 game: port at x 96 on the
+  // left, starboard at x 1184 on the right.
   const at = (x: number, y: number) =>
     [box.x + (x / 1280) * box.width, box.y + (y / 768) * box.height] as const;
   const drag = async (x: number) => {
@@ -70,11 +70,11 @@ test('the engine levers stay where they are left, and the boat answers', async (
   };
   const debug = () => page.evaluate(() => window.__captainsAcademy);
 
-  await drag(1124);
+  await drag(96);
   await expect.poll(async () => (await debug())?.port ?? 0).toBeGreaterThan(50);
   expect((await debug())?.starboard).toBe(0);
 
-  await drag(1164);
+  await drag(1184);
   await expect.poll(async () => (await debug())?.starboard ?? 0).toBeGreaterThan(50);
   await expect.poll(async () => (await debug())?.speedMmPerS ?? 0).toBeGreaterThan(200);
 });

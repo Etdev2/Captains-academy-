@@ -359,7 +359,8 @@ export class HarborScene extends Phaser.Scene {
     const input = {
       port: this.helm.port,
       starboard: this.helm.starboard,
-      rudder: this.helm.rudder,
+      // The helm has no wheel: the levers steer, and the rudder stays midships.
+      rudder: 0,
     };
     while (this.accumulator >= FRAME_MS && this.state.outcome === 'playing') {
       this.state = step(this.level, this.state, input);
@@ -370,9 +371,9 @@ export class HarborScene extends Phaser.Scene {
   }
 
   /**
-   * Keys drive the same levers and wheel as the touch helm: up and down (W, S)
-   * move both levers, Q and Z the port lever, E and C the starboard lever, and
-   * X brings both to stop.
+   * Keys drive the same levers as the touch helm: up and down (W, S) move both
+   * levers, Q and Z the port lever, E and C the starboard lever, left and right
+   * (A, D) split them to turn that way, and X brings both to stop.
    */
   private readKeys(deltaMs: number): void {
     const k = this.keys;
@@ -380,17 +381,14 @@ export class HarborScene extends Phaser.Scene {
     const lever = (ahead: boolean, astern: boolean) =>
       ahead === astern ? 0 : ahead ? move : -move;
     const both = lever(k.up.isDown || k.w.isDown, k.down.isDown || k.s.isDown);
-    const port = both + lever(k.q.isDown, k.z.isDown);
-    const starboard = both + lever(k.e.isDown, k.c.isDown);
+    // Turning to starboard means port ahead and starboard astern.
+    const twist = lever(k.right.isDown || k.d.isDown, k.left.isDown || k.a.isDown);
+    const port = both + twist + lever(k.q.isDown, k.z.isDown);
+    const starboard = both - twist + lever(k.e.isDown, k.c.isDown);
     if (port !== 0 || starboard !== 0) {
       this.helm.setLevers(this.helm.port + port, this.helm.starboard + starboard);
     }
     if (Phaser.Input.Keyboard.JustDown(k.x)) this.helm.setLevers(0, 0);
-    if (!this.helm.steeringByTouch) {
-      const port = k.left.isDown || k.a.isDown;
-      const starboard = k.right.isDown || k.d.isDown;
-      this.helm.rudder = port === starboard ? 0 : starboard ? FULL : -FULL;
-    }
   }
 
   /** Sound and phone buzz for what just happened. */
@@ -540,7 +538,7 @@ export class HarborScene extends Phaser.Scene {
         .setText(
           this.level.gust > 0
             ? 'Gusty today: the wind sets you off course.\nSplit the engine levers to pivot.'
-            : 'Follow the gold arrow to the slip.\nTwin engine levers on the right: split them to turn.',
+            : 'Follow the gold arrow to the slip.\nA lever under each thumb: split them to turn.',
         );
     } else {
       this.hint.setText('');
