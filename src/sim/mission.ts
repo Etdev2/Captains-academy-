@@ -25,7 +25,7 @@ export const obstacleSchema = rect
 
 export const missionSchema = z
   .object({
-    schemaVersion: z.literal(1),
+    schemaVersion: z.literal(2),
     id: z.string().regex(/^[a-z0-9-]+$/),
     title: z.string().min(1),
     // A clean docking within this time earns three stars (G12).
@@ -59,6 +59,11 @@ export const missionSchema = z
         // With the engine in gear, prop wash over the rudder steers the boat as if
         // it were moving at least this fast, even from a standstill.
         engineSteerMmPerS: positiveMm,
+        // Turn rate with one engine full ahead and the other full astern.
+        twinTurnDegPerS: positiveMm,
+        // How quickly the boat's swing follows the helm, out of 65536 per frame.
+        // Lower carries the swing longer, so turns start and stop later.
+        yawResponsePer65536: z.number().int().min(1).max(65536),
         // Hitting anything faster than this ends the level.
         maxContactMmPerS: positiveMm,
       })

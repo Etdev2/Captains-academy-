@@ -1,8 +1,8 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "id": "long-beach-docking",
   "title": "Long Beach harbor: dock in the open slip",
-  "parSeconds": 45,
+  "parSeconds": 40,
   "world": {
     "w": 300000,
     "h": 180000
@@ -13,7 +13,7 @@
     "headingDeg": 45
   },
   "current": {
-    "eastMmPerS": 30,
+    "eastMmPerS": 70,
     "southMmPerS": 0
   },
   "boat": {
@@ -22,16 +22,18 @@
     "beamMm": 3200,
     "maxAheadMmPerS": 3500,
     "maxAsternMmPerS": 1800,
-    "accelMmPerS2": 1200,
-    "dragPer65536": 150,
-    "turnDegPerSAtMax": 60,
+    "accelMmPerS2": 900,
+    "dragPer65536": 100,
+    "turnDegPerSAtMax": 45,
     "engineSteerMmPerS": 1500,
-    "maxContactMmPerS": 600
+    "twinTurnDegPerS": 24,
+    "yawResponsePer65536": 1400,
+    "maxContactMmPerS": 450
   },
   "wind": {
-    "gustMmPerS": 0,
+    "gustMmPerS": 150,
     "gustSeconds": 5,
-    "seed": 1
+    "seed": 20261021
   },
   "obstacles": [
     {
@@ -216,8 +218,8 @@
     "w": 3200,
     "h": 7500,
     "headingDeg": 0,
-    "headingToleranceDeg": 15,
-    "maxDockMmPerS": 400,
-    "holdSeconds": 2
+    "headingToleranceDeg": 10,
+    "maxDockMmPerS": 300,
+    "holdSeconds": 3
   }
 }

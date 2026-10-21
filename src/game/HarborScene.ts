@@ -38,7 +38,7 @@ const PORTRAIT_PHONE = '(orientation: portrait) and (max-width: 900px)';
 const START_HINT_FRAMES = FRAMES_PER_SECOND * 6;
 const APPROACH_MM = 35000;
 const WAKE_POINTS = 60;
-// The keyboard moves the throttle lever at this many percent per second.
+// The keyboard moves the engine levers at this many percent per second.
 const LEVER_RATE = 120;
 // A short blast (Rule 32): about one second.
 const SHORT_BLAST_S = 1;
@@ -63,7 +63,8 @@ export interface DebugView {
   outcome: string;
   speedMmPerS: number;
   level: number;
-  throttle: number;
+  port: number;
+  starboard: number;
 }
 
 declare global {
@@ -73,7 +74,23 @@ declare global {
 }
 
 type Keys = Record<
-  'up' | 'down' | 'left' | 'right' | 'w' | 's' | 'a' | 'd' | 'enter' | 'space' | 'h' | 'm' | 'x',
+  | 'up'
+  | 'down'
+  | 'left'
+  | 'right'
+  | 'w'
+  | 's'
+  | 'a'
+  | 'd'
+  | 'q'
+  | 'z'
+  | 'e'
+  | 'c'
+  | 'enter'
+  | 'space'
+  | 'h'
+  | 'm'
+  | 'x',
   Phaser.Input.Keyboard.Key
 >;
 
@@ -168,7 +185,7 @@ export class HarborScene extends Phaser.Scene {
     this.shownOutcome = 'playing';
     this.wakePoints = [];
     this.lastBumps = 0;
-    this.helm.setThrottle(0);
+    this.helm.setLevers(0, 0);
     this.banner.setText('');
     this.render();
   }
@@ -262,6 +279,10 @@ export class HarborScene extends Phaser.Scene {
       s: kb.addKey(K.S),
       a: kb.addKey(K.A),
       d: kb.addKey(K.D),
+      q: kb.addKey(K.Q),
+      z: kb.addKey(K.Z),
+      e: kb.addKey(K.E),
+      c: kb.addKey(K.C),
       enter: kb.addKey(K.ENTER),
       space: kb.addKey(K.SPACE),
       h: kb.addKey(K.H),
@@ -335,7 +356,11 @@ export class HarborScene extends Phaser.Scene {
     }
     this.readKeys(delta);
     this.accumulator = Math.min(this.accumulator + delta, FRAME_MS * MAX_STEPS_PER_UPDATE);
-    const input = { throttle: this.helm.throttle, rudder: this.helm.rudder };
+    const input = {
+      port: this.helm.port,
+      starboard: this.helm.starboard,
+      rudder: this.helm.rudder,
+    };
     while (this.accumulator >= FRAME_MS && this.state.outcome === 'playing') {
       this.state = step(this.level, this.state, input);
       this.accumulator -= FRAME_MS;
@@ -344,16 +369,23 @@ export class HarborScene extends Phaser.Scene {
     this.render();
   }
 
-  /** Keys drive the same lever and wheel as the touch helm. */
+  /**
+   * Keys drive the same levers and wheel as the touch helm: up and down (W, S)
+   * move both levers, Q and Z the port lever, E and C the starboard lever, and
+   * X brings both to stop.
+   */
   private readKeys(deltaMs: number): void {
     const k = this.keys;
-    const ahead = k.up.isDown || k.w.isDown;
-    const astern = k.down.isDown || k.s.isDown;
-    if (ahead !== astern) {
-      const move = (LEVER_RATE * deltaMs) / 1000;
-      this.helm.setThrottle(this.helm.throttle + (ahead ? move : -move));
+    const move = (LEVER_RATE * deltaMs) / 1000;
+    const lever = (ahead: boolean, astern: boolean) =>
+      ahead === astern ? 0 : ahead ? move : -move;
+    const both = lever(k.up.isDown || k.w.isDown, k.down.isDown || k.s.isDown);
+    const port = both + lever(k.q.isDown, k.z.isDown);
+    const starboard = both + lever(k.e.isDown, k.c.isDown);
+    if (port !== 0 || starboard !== 0) {
+      this.helm.setLevers(this.helm.port + port, this.helm.starboard + starboard);
     }
-    if (Phaser.Input.Keyboard.JustDown(k.x)) this.helm.setThrottle(0);
+    if (Phaser.Input.Keyboard.JustDown(k.x)) this.helm.setLevers(0, 0);
     if (!this.helm.steeringByTouch) {
       const port = k.left.isDown || k.a.isDown;
       const starboard = k.right.isDown || k.d.isDown;
@@ -370,7 +402,8 @@ export class HarborScene extends Phaser.Scene {
       this.audio.bump(hard);
       navigator.vibrate?.(hard ? 300 : 60);
     }
-    this.audio.engine(this.helm.throttle, Math.abs(s.speed) / this.level.maxAhead);
+    const load = Math.max(Math.abs(this.helm.port), Math.abs(this.helm.starboard));
+    this.audio.engine(load, Math.abs(s.speed) / this.level.maxAhead);
   }
 
   private render(): void {
@@ -407,7 +440,8 @@ export class HarborScene extends Phaser.Scene {
       outcome: s.outcome,
       speedMmPerS,
       level: this.levelIndex,
-      throttle: this.helm.throttle,
+      port: this.helm.port,
+      starboard: this.helm.starboard,
     };
     if (s.outcome !== this.shownOutcome) this.showOutcome(s);
   }
@@ -505,8 +539,8 @@ export class HarborScene extends Phaser.Scene {
         .setColor('#4fc3ff')
         .setText(
           this.level.gust > 0
-            ? 'Gusty today: the wind sets you off course.\nThrottle on the right, steer on the left.'
-            : 'Follow the gold arrow to the slip.\nThrottle on the right, steer on the left.',
+            ? 'Gusty today: the wind sets you off course.\nSplit the engine levers to pivot.'
+            : 'Follow the gold arrow to the slip.\nTwin engine levers on the right: split them to turn.',
         );
     } else {
       this.hint.setText('');
@@ -580,6 +614,17 @@ export class HarborScene extends Phaser.Scene {
       g.fillStyle(color, 0.25).fillCircle(p[0], p[1], 16);
       g.fillStyle(color, 1).fillCircle(p[0], p[1], 5);
     };
+    // Prop wash from each engine: aft when its lever is ahead, forward when astern.
+    for (const [side, lever] of [
+      [-B * 0.5, this.helm.port],
+      [B * 0.5, this.helm.starboard],
+    ] as const) {
+      if (lever === 0) continue;
+      const reach = (lever / FULL) * L * 0.9;
+      const [x0, y0] = pt(side, -L);
+      const [x1, y1] = pt(side, -L - reach);
+      g.lineStyle(5, COLOR.blue, 0.75).lineBetween(x0, y0, x1, y1);
+    }
     light(pt(-B * 0.9, L * 0.3), COLOR.portLight);
     light(pt(B * 0.9, L * 0.3), COLOR.starboardLight);
     light(pt(0, L * 0.1), COLOR.mastheadLight);

@@ -11,15 +11,17 @@ export const POS_SCALE = 256;
 export const HEADING_FULL_TURN = 65536;
 const HEADING_TO_TRIG = HEADING_FULL_TURN / HEADING_UNITS;
 
-/** Full ahead, full astern and hard over are 100, -100 and +/-100: a throttle lever and a wheel. */
+/** Full ahead, full astern and hard over are 100, -100 and +/-100: two engine levers and a wheel. */
 export const FULL = 100;
 export interface Input {
-  /** -100 (full astern) to 100 (full ahead). */
-  readonly throttle: number;
+  /** Port engine lever: -100 (full astern) to 100 (full ahead). */
+  readonly port: number;
+  /** Starboard engine lever: -100 (full astern) to 100 (full ahead). */
+  readonly starboard: number;
   /** -100 (hard to port) to 100 (hard to starboard). */
   readonly rudder: number;
 }
-export const NO_INPUT: Input = { throttle: 0, rudder: 0 };
+export const NO_INPUT: Input = { port: 0, starboard: 0, rudder: 0 };
 
 export type Outcome = 'playing' | 'docked' | 'hit';
 
@@ -29,6 +31,8 @@ export interface SimState {
   readonly y: number;
   readonly heading: number;
   readonly speed: number;
+  /** Heading change per frame. The hull carries its swing, so a turn starts and stops late. */
+  readonly turnRate: number;
   readonly outcome: Outcome;
   readonly dockedFrames: number;
   readonly bumps: number;
@@ -45,6 +49,8 @@ export interface Level {
   readonly drag: number;
   readonly turnAtMax: number;
   readonly engineSteer: number;
+  readonly twinTurn: number;
+  readonly yawResponse: number;
   readonly maxContact: number;
   readonly maxDock: number;
   readonly currentX: number;
@@ -75,6 +81,8 @@ export function compileLevel(mission: Mission): Level {
     drag: boat.dragPer65536,
     turnAtMax: Math.trunc(degreesToHeading(boat.turnDegPerSAtMax) / FRAMES_PER_SECOND),
     engineSteer: mmPerSecondToSpeed(boat.engineSteerMmPerS),
+    twinTurn: Math.trunc(degreesToHeading(boat.twinTurnDegPerS) / FRAMES_PER_SECOND),
+    yawResponse: boat.yawResponsePer65536,
     maxContact: mmPerSecondToSpeed(boat.maxContactMmPerS),
     maxDock: mmPerSecondToSpeed(slip.maxDockMmPerS),
     currentX: mmPerSecondToSpeed(current.eastMmPerS),
@@ -99,6 +107,7 @@ export function initialState(level: Level): SimState {
     y: start.y * POS_SCALE,
     heading: degreesToHeading(start.headingDeg),
     speed: 0,
+    turnRate: 0,
     outcome: 'playing',
     dockedFrames: 0,
     bumps: 0,
@@ -221,11 +230,22 @@ export function windAt(level: Level, frame: number): [number, number] {
 
 const axis = (v: number): number => clamp(Math.trunc(v), -FULL, FULL);
 
+/** Moves the turn rate part of the way to its target, at least one unit, never past it. */
+function swing(turnRate: number, target: number, response: number): number {
+  const gap = target - turnRate;
+  if (gap === 0) return turnRate;
+  const move = Math.trunc((gap * response) / 65536);
+  return move !== 0 ? turnRate + move : turnRate + Math.sign(gap);
+}
+
 /** Advances the simulation by one 60 Hz frame. Finished levels stay as they are. */
 export function step(level: Level, state: SimState, input: Input): SimState {
   if (state.outcome !== 'playing') return state;
-  const throttle = axis(input.throttle);
+  const port = axis(input.port);
+  const starboard = axis(input.starboard);
   const rudder = axis(input.rudder);
+  // Both engines together drive the boat ahead or astern.
+  const throttle = Math.trunc((port + starboard) / 2);
 
   let speed = clamp(
     state.speed + Math.trunc((throttle * level.accel) / FULL),
@@ -240,10 +260,15 @@ export function step(level: Level, state: SimState, input: Input): SimState {
   const wash = Math.trunc((level.engineSteer * Math.abs(throttle)) / FULL);
   const flow = throttle === 0 ? Math.abs(speed) : Math.max(Math.abs(speed), wash);
   const direction = speed !== 0 ? Math.sign(speed) : Math.sign(throttle);
-  const heading = wrapTurn(
-    state.heading +
-      Math.trunc((rudder * direction * level.turnAtMax * flow) / (level.maxAhead * FULL)),
+  const rudderTurn = Math.trunc(
+    (rudder * direction * level.turnAtMax * flow) / (level.maxAhead * FULL),
   );
+  // Split levers twist the boat: port ahead and starboard astern swings the bow
+  // to starboard, even dead in the water, because the propellers sit either
+  // side of the centerline.
+  const twinTurn = Math.trunc(((port - starboard) * level.twinTurn) / (2 * FULL));
+  const turnRate = swing(state.turnRate, rudderTurn + twinTurn, level.yawResponse);
+  const heading = wrapTurn(state.heading + turnRate);
 
   const t = trigIndex(heading);
   const [windX, windY] = windAt(level, state.frame);
@@ -255,20 +280,40 @@ export function step(level: Level, state: SimState, input: Input): SimState {
     // The boat stays where it was. A soft touch is a bump; a hard one ends the level.
     const bumps = state.touching ? state.bumps : state.bumps + 1;
     if (Math.abs(state.speed) > level.maxContact) {
-      return { ...state, frame, speed: 0, outcome: 'hit', dockedFrames: 0, bumps, touching: true };
+      return {
+        ...state,
+        frame,
+        speed: 0,
+        turnRate: 0,
+        outcome: 'hit',
+        dockedFrames: 0,
+        bumps,
+        touching: true,
+      };
     }
     // Lying gently against a finger pier inside the slip still counts as docked,
     // which matters when the wind or current sets the boat onto the pier.
     const dockedFrames = settled(level, state.x, state.y, heading, 0) ? state.dockedFrames + 1 : 0;
     const outcome: Outcome = dockedFrames >= level.holdFrames ? 'docked' : 'playing';
-    return { ...state, frame, speed: 0, outcome, dockedFrames, bumps, touching: true };
+    return { ...state, frame, speed: 0, turnRate: 0, outcome, dockedFrames, bumps, touching: true };
   }
 
   const dockedFrames = settled(level, x, y, heading, speed) ? state.dockedFrames + 1 : 0;
   const outcome: Outcome = dockedFrames >= level.holdFrames ? 'docked' : 'playing';
 
   const touching = state.touching && touchesSomething(level, x, y, heading, CONTACT_CLEARANCE_MM);
-  return { frame, x, y, heading, speed, outcome, dockedFrames, bumps: state.bumps, touching };
+  return {
+    frame,
+    x,
+    y,
+    heading,
+    speed,
+    turnRate,
+    outcome,
+    dockedFrames,
+    bumps: state.bumps,
+    touching,
+  };
 }
 
 const OUTCOME_CODE: Record<Outcome, number> = { playing: 0, docked: 1, hit: 2 };
@@ -282,6 +327,7 @@ export function hashState(state: SimState, seed = 0x811c9dc5): number {
     state.y,
     state.heading,
     state.speed,
+    state.turnRate,
     OUTCOME_CODE[state.outcome],
     state.dockedFrames,
     state.bumps,

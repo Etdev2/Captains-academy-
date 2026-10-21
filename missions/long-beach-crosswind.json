@@ -1,8 +1,8 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "id": "long-beach-crosswind",
   "title": "Long Beach harbor: the end slip in a crosswind",
-  "parSeconds": 55,
+  "parSeconds": 50,
   "world": {
     "w": 300000,
     "h": 180000
@@ -13,8 +13,8 @@
     "headingDeg": 20
   },
   "current": {
-    "eastMmPerS": 80,
-    "southMmPerS": 30
+    "eastMmPerS": 120,
+    "southMmPerS": 50
   },
   "boat": {
     "name": "Six-pack charter boat",
@@ -22,14 +22,16 @@
     "beamMm": 3200,
     "maxAheadMmPerS": 3500,
     "maxAsternMmPerS": 1800,
-    "accelMmPerS2": 1200,
-    "dragPer65536": 150,
-    "turnDegPerSAtMax": 60,
+    "accelMmPerS2": 900,
+    "dragPer65536": 100,
+    "turnDegPerSAtMax": 45,
     "engineSteerMmPerS": 1500,
-    "maxContactMmPerS": 600
+    "twinTurnDegPerS": 24,
+    "yawResponsePer65536": 1400,
+    "maxContactMmPerS": 450
   },
   "wind": {
-    "gustMmPerS": 250,
+    "gustMmPerS": 380,
     "gustSeconds": 4,
     "seed": 20261020
   },
@@ -223,8 +225,8 @@
     "w": 3200,
     "h": 7500,
     "headingDeg": 0,
-    "headingToleranceDeg": 15,
-    "maxDockMmPerS": 400,
-    "holdSeconds": 2
+    "headingToleranceDeg": 10,
+    "maxDockMmPerS": 300,
+    "holdSeconds": 3
   }
 }

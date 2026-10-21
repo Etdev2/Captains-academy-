@@ -1,14 +1,15 @@
 {
   "final": {
-    "frame": 5455,
-    "x": 38400405,
-    "y": 6484260,
-    "heading": 64651,
-    "speed": 1433,
+    "frame": 6818,
+    "x": 38485673,
+    "y": 6426988,
+    "heading": 64919,
+    "speed": 1084,
+    "turnRate": 0,
     "outcome": "docked",
-    "dockedFrames": 120,
+    "dockedFrames": 180,
     "bumps": 0,
     "touching": false
   },
-  "traceHash": 2455875048
+  "traceHash": 1316873053
 }
