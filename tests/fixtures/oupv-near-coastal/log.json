@@ -122,7 +122,7 @@
       }
     },
     {
-      "_note": "overlaps the 9 h trip the same day: the day is still counted once",
+      "_note": "overlaps the 9 h inland trip the same day: the day is counted once, and this 5 h ocean trip may count toward the ocean or near-coastal part",
       "entry": {
         "id": "00000000-0000-4000-8000-000000000007",
         "source": "live",
@@ -168,7 +168,7 @@
       }
     },
     {
-      "_note": "backfilled 12+ on the Great Lakes: one day, total only, plus the note",
+      "_note": "backfilled 12+ on the Great Lakes: one day, counted toward the ocean or near-coastal part day for day, plus the note",
       "entry": {
         "id": "00000000-0000-4000-8000-000000000010",
         "source": "backfilled",

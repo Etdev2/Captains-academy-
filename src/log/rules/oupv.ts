@@ -3,7 +3,9 @@
 // (46 CFR 11.467(c), as read by the uscg-regs research on issue #30; the
 // paragraph's text itself was not reachable from the build session). A month
 // is 30 days (46 CFR 10.107), so that is 360 days, 90 of them on ocean or
-// near-coastal waters.
+// near-coastal waters. Inside Passage service counts as near coastal
+// (10.232(b)(3)), and Great Lakes service counts day for day (10.232(b),
+// 11.211(b)).
 
 import { seaTimeEntrySchema, type SeaTimeEntry, type Vessel } from '../entry';
 import type { Cfr, Rule } from './cfr';
@@ -36,10 +38,16 @@ export const OUPV_NEAR_COASTAL_REQUIREMENTS = {
   oceansOrNearCoastal: requirement({
     id: 'oupv-near-coastal.oceans-or-near-coastal',
     label: 'Of which on ocean or near-coastal waters',
-    text: 'At least 3 of the 12 months on ocean or near-coastal waters. Inside Passage service counts as near coastal.',
+    text: 'At least 3 of the 12 months on ocean or near-coastal waters. Inside Passage service counts as near coastal, and Great Lakes service counts day for day.',
     amount: 3,
     unit: 'month',
-    cfr: ['46 CFR 11.467(c)', '46 CFR 10.107', '46 CFR 10.232(b)(3)'],
+    cfr: [
+      '46 CFR 11.467(c)',
+      '46 CFR 10.107',
+      '46 CFR 10.232(b)(3)',
+      '46 CFR 10.232(b)',
+      '46 CFR 11.211(b)',
+    ],
   }),
 } as const satisfies Record<string, Requirement>;
 
@@ -61,7 +69,17 @@ const RANK: Readonly<Record<DateCredit['outcome'], number>> = {
   'not-a-day': 0,
 };
 
-/** Each calendar day once, with the best outcome among its closed entries. */
+const best = (entries: readonly EntryCredit[]): DateCredit['outcome'] =>
+  entries
+    .map((entry) => entry.outcome as DateCredit['outcome'])
+    .reduce((top, next) => (RANK[next] > RANK[top] ? next : top));
+
+/**
+ * Each calendar day once, with the best outcome among its closed entries. The
+ * ocean or near-coastal outcome is worked out on its own, from the day's
+ * entries on waters that count toward that part, so a better entry elsewhere
+ * that day never hides it.
+ */
 export function creditDates(judged: readonly EntryCredit[]): DateCredit[] {
   const byDate = new Map<string, EntryCredit[]>();
   for (const credit of judged) {
@@ -71,27 +89,24 @@ export function creditDates(judged: readonly EntryCredit[]): DateCredit[] {
   return [...byDate.entries()]
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([date, entries]) => {
-      const outcome = entries
-        .map((entry) => entry.outcome as DateCredit['outcome'])
-        .reduce((best, next) => (RANK[next] > RANK[best] ? next : best));
-      const oceansOrNearCoastal = entries.some(
-        (entry) =>
-          entry.outcome === outcome &&
-          entry.waters !== null &&
-          WATERS_RULES[entry.waters].oceansOrNearCoastal,
+      const onRoute = entries.filter(
+        (entry) => entry.waters !== null && WATERS_RULES[entry.waters].oceansOrNearCoastal,
       );
       return {
         date,
-        outcome,
+        outcome: best(entries),
         entryIds: entries.map((entry) => entry.entryId),
-        oceansOrNearCoastal,
+        oceansOrNearCoastalOutcome: onRoute.length > 0 ? best(onRoute) : null,
       };
     });
 }
 
-function part(requirement: Requirement, dates: readonly DateCredit[]): PartProgress {
+function part(
+  requirement: Requirement,
+  outcomes: readonly (DateCredit['outcome'] | null)[],
+): PartProgress {
   const count = (outcome: DateCredit['outcome']) =>
-    dates.filter((date) => date.outcome === outcome).length;
+    outcomes.filter((each) => each === outcome).length;
   const creditedDays = count('day');
   return {
     requirement,
@@ -125,10 +140,13 @@ export function oupvNearCoastalProgress(
     .filter((entry) => entry.deletedAt === null)
     .map((entry) => creditEntry(entry, byId, options.timeZone));
   const dates = creditDates(judged);
-  const total = part(OUPV_NEAR_COASTAL_REQUIREMENTS.total, dates);
+  const total = part(
+    OUPV_NEAR_COASTAL_REQUIREMENTS.total,
+    dates.map((date) => date.outcome),
+  );
   const oceans = part(
     OUPV_NEAR_COASTAL_REQUIREMENTS.oceansOrNearCoastal,
-    dates.filter((date) => date.oceansOrNearCoastal),
+    dates.map((date) => date.oceansOrNearCoastalOutcome),
   );
   const citations = [
     ...new Set<Cfr>([

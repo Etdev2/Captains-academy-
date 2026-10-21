@@ -379,7 +379,7 @@ describe('totals', () => {
 describe('waters for OUPV near coastal (D2)', () => {
   it.each(WATERS.map((waters) => [waters] as const))('%s', (waters) => {
     const result = progress([day('2026-03-01', '8-12', { waters })]);
-    const counts = ['oceans', 'near-coastal', 'inside-passage'].includes(waters);
+    const counts = ['oceans', 'near-coastal', 'inside-passage', 'great-lakes'].includes(waters);
     expect(WATERS_RULES[waters].oceansOrNearCoastal).toBe(counts);
     expect(result.parts.total.creditedDays).toBe(1);
     expect(result.parts.oceansOrNearCoastal.creditedDays).toBe(counts ? 1 : 0);
@@ -387,6 +387,40 @@ describe('waters for OUPV near coastal (D2)', () => {
 
   it('counts Inside Passage as near coastal, citing 10.232(b)(3)', () => {
     expect(WATERS_RULES['inside-passage'].cfr).toContain('46 CFR 10.232(b)(3)');
+  });
+
+  it('counts Great Lakes service day for day, citing 10.232(b) and 11.211(b)', () => {
+    expect(WATERS_RULES['great-lakes'].cfr).toEqual(
+      expect.arrayContaining(['46 CFR 10.232(b)', '46 CFR 11.211(b)']),
+    );
+    const result = progress(days(360, '8-12', 'great-lakes'));
+    expect(result.parts.oceansOrNearCoastal).toMatchObject({ creditedDays: 360, appearsMet: true });
+  });
+
+  it('leaves inland service out of the route part, and says so under not checked', () => {
+    const result = progress(days(360, '8-12', 'inland'));
+    expect(result.parts.total.appearsMet).toBe(true);
+    expect(result.parts.oceansOrNearCoastal).toMatchObject({
+      creditedDays: 0,
+      stillNeededDays: 90,
+    });
+    expect(result.notChecked.find((item) => item.id === 'inland-toward-near-coastal')?.cfr).toEqual(
+      ['46 CFR 10.232(b)', '46 CFR 11.211(b)'],
+    );
+  });
+
+  it('works out the route part apart from the day, so a better entry elsewhere never hides it', () => {
+    const result = progress([
+      // A full inland day and a shorter near-coastal trip on a small vessel the same day.
+      trip('2026-03-01T06:00:00.000Z', 9, { waters: 'inland' }),
+      trip('2026-03-01T16:00:00.000Z', 6, { waters: 'near-coastal' }),
+    ]);
+    expect(result.dates[0]).toMatchObject({
+      outcome: 'day',
+      oceansOrNearCoastalOutcome: 'may-count',
+    });
+    expect(result.parts.total).toMatchObject({ creditedDays: 1, mayCountDays: 0 });
+    expect(result.parts.oceansOrNearCoastal).toMatchObject({ creditedDays: 0, mayCountDays: 1 });
   });
 
   it('has a rule for every waters value, in order', () => {
@@ -459,6 +493,7 @@ describe('progress, never a verdict', () => {
         'physical',
         'drug-test',
         'twic',
+        'inland-toward-near-coastal',
       ]),
     );
     expect(NOT_CHECKED.find((item) => item.id === 'tonnage-limit')?.cfr).toEqual(['46 CFR 11.422']);

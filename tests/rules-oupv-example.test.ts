@@ -38,10 +38,12 @@ describe('worked example: a fixture log to OUPV near-coastal progress', () => {
       stillNeededDays: 355,
       appearsMet: false,
     });
+    // Jun 10 (Inside Passage), Jun 11 (Great Lakes), Jul 1 and Jul 2. Jul 4's
+    // 6-hour trip and Jul 6's 5-hour ocean trip may count, kept apart.
     expect(result.parts.oceansOrNearCoastal).toMatchObject({
-      creditedDays: 3,
-      mayCountDays: 1,
-      stillNeededDays: 87,
+      creditedDays: 4,
+      mayCountDays: 2,
+      stillNeededDays: 86,
       appearsMet: false,
     });
     // 11 entries kept (the deleted one left out), 2 of them flagged not-a-day under 4 hours.

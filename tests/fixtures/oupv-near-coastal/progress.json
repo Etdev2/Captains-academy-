@@ -25,16 +25,22 @@
       "requirement": {
         "id": "oupv-near-coastal.oceans-or-near-coastal",
         "label": "Of which on ocean or near-coastal waters",
-        "text": "At least 3 of the 12 months on ocean or near-coastal waters. Inside Passage service counts as near coastal.",
+        "text": "At least 3 of the 12 months on ocean or near-coastal waters. Inside Passage service counts as near coastal, and Great Lakes service counts day for day.",
         "amount": 3,
         "unit": "month",
-        "cfr": ["46 CFR 11.467(c)", "46 CFR 10.107", "46 CFR 10.232(b)(3)"],
+        "cfr": [
+          "46 CFR 11.467(c)",
+          "46 CFR 10.107",
+          "46 CFR 10.232(b)(3)",
+          "46 CFR 10.232(b)",
+          "46 CFR 11.211(b)"
+        ],
         "days": 90
       },
-      "creditedDays": 3,
-      "mayCountDays": 1,
+      "creditedDays": 4,
+      "mayCountDays": 2,
       "unknownTonnageDays": 0,
-      "stillNeededDays": 87,
+      "stillNeededDays": 86,
       "appearsMet": false
     }
   },
@@ -43,55 +49,55 @@
       "date": "2026-06-10",
       "outcome": "day",
       "entryIds": ["00000000-0000-4000-8000-000000000009"],
-      "oceansOrNearCoastal": true
+      "oceansOrNearCoastalOutcome": "day"
     },
     {
       "date": "2026-06-11",
       "outcome": "day",
       "entryIds": ["00000000-0000-4000-8000-000000000010"],
-      "oceansOrNearCoastal": false
+      "oceansOrNearCoastalOutcome": "day"
     },
     {
       "date": "2026-06-12",
       "outcome": "not-a-day",
       "entryIds": ["00000000-0000-4000-8000-000000000011"],
-      "oceansOrNearCoastal": true
+      "oceansOrNearCoastalOutcome": "not-a-day"
     },
     {
       "date": "2026-07-01",
       "outcome": "day",
       "entryIds": ["00000000-0000-4000-8000-000000000001"],
-      "oceansOrNearCoastal": true
+      "oceansOrNearCoastalOutcome": "day"
     },
     {
       "date": "2026-07-02",
       "outcome": "day",
       "entryIds": ["00000000-0000-4000-8000-000000000002"],
-      "oceansOrNearCoastal": true
+      "oceansOrNearCoastalOutcome": "day"
     },
     {
       "date": "2026-07-03",
       "outcome": "not-a-day",
       "entryIds": ["00000000-0000-4000-8000-000000000003"],
-      "oceansOrNearCoastal": false
+      "oceansOrNearCoastalOutcome": null
     },
     {
       "date": "2026-07-04",
       "outcome": "may-count",
       "entryIds": ["00000000-0000-4000-8000-000000000004"],
-      "oceansOrNearCoastal": true
+      "oceansOrNearCoastalOutcome": "may-count"
     },
     {
       "date": "2026-07-05",
       "outcome": "not-a-day",
       "entryIds": ["00000000-0000-4000-8000-000000000005"],
-      "oceansOrNearCoastal": true
+      "oceansOrNearCoastalOutcome": "not-a-day"
     },
     {
       "date": "2026-07-06",
       "outcome": "day",
       "entryIds": ["00000000-0000-4000-8000-000000000006", "00000000-0000-4000-8000-000000000007"],
-      "oceansOrNearCoastal": false
+      "oceansOrNearCoastalOutcome": "may-count"
     }
   ],
   "entries": [
@@ -250,6 +256,12 @@
       "cfr": ["46 CFR 11.422"]
     },
     {
+      "id": "inland-toward-near-coastal",
+      "label": "Inland service toward the ocean or near-coastal part",
+      "why": "Inland service (other than the Great Lakes) may count toward a near-coastal endorsement only up to half. That limit is not applied yet, so inland days count toward the total only.",
+      "cfr": ["46 CFR 10.232(b)", "46 CFR 11.211(b)"]
+    },
+    {
       "id": "same-day-watches",
       "label": "Separate watches on one day",
       "why": "⚠️ Unverified: whether two shorter entries on one day add up to a day. Each entry is judged alone.",
@@ -280,13 +292,15 @@
       "cfr": []
     }
   ],
-  "summary": "Your logged sea time does not yet appear to meet the sea-service amount for OUPV near coastal: 355 more days in total, 87 more on ocean or near-coastal waters. The NMC decides.",
+  "summary": "Your logged sea time does not yet appear to meet the sea-service amount for OUPV near coastal: 355 more days in total, 86 more on ocean or near-coastal waters. The NMC decides.",
   "citations": [
     "46 CFR 10.107",
+    "46 CFR 10.232(b)",
     "46 CFR 10.232(b)(3)",
     "46 CFR 10.232(h)(1)",
     "46 CFR 10.232(h)(2)",
     "46 CFR 10.232(h)(3)",
+    "46 CFR 11.211(b)",
     "46 CFR 11.467(c)",
     "46 CFR 15.705"
   ]

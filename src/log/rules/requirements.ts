@@ -26,8 +26,12 @@ export interface DateCredit {
   /** The best outcome among the day's entries. */
   readonly outcome: Exclude<DayOutcome, 'open'>;
   readonly entryIds: readonly string[];
-  /** True when an entry with the day's outcome was on ocean or near-coastal waters. */
-  readonly oceansOrNearCoastal: boolean;
+  /**
+   * The best outcome among the day's entries on waters that count toward the
+   * ocean or near-coastal part, worked out apart from the day's own outcome.
+   * Null when none of them was on such waters.
+   */
+  readonly oceansOrNearCoastalOutcome: Exclude<DayOutcome, 'open'> | null;
 }
 
 /** Progress toward one requirement. */
@@ -91,6 +95,12 @@ export const NOT_CHECKED: readonly NotChecked[] = [
     label: "The license's tonnage limit",
     why: 'The tonnage a license is limited to depends on the vessels served on; that is open decision D5.',
     cfr: ['46 CFR 11.422'],
+  },
+  {
+    id: 'inland-toward-near-coastal',
+    label: 'Inland service toward the ocean or near-coastal part',
+    why: 'Inland service (other than the Great Lakes) may count toward a near-coastal endorsement only up to half. That limit is not applied yet, so inland days count toward the total only.',
+    cfr: ['46 CFR 10.232(b)', '46 CFR 11.211(b)'],
   },
   {
     id: 'same-day-watches',
