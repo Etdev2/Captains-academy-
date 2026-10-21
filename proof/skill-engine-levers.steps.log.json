@@ -1,0 +1,268 @@
+[
+  {
+    "i": 0,
+    "step": {
+      "do": "open",
+      "viewport": "phone-landscape"
+    },
+    "ok": true,
+    "state": {
+      "frame": 5,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 0,
+      "port": 0,
+      "starboard": 0
+    }
+  },
+  {
+    "i": 1,
+    "step": {
+      "do": "lever",
+      "side": "port",
+      "to": 80
+    },
+    "ok": true,
+    "state": {
+      "frame": 39,
+      "outcome": "playing",
+      "speedMmPerS": 56.953125,
+      "level": 0,
+      "port": 80,
+      "starboard": 0
+    }
+  },
+  {
+    "i": 2,
+    "step": {
+      "do": "expect",
+      "field": "port",
+      "gt": 70
+    },
+    "ok": true,
+    "state": {
+      "frame": 41,
+      "outcome": "playing",
+      "speedMmPerS": 68.203125,
+      "level": 0,
+      "port": 80,
+      "starboard": 0
+    }
+  },
+  {
+    "i": 3,
+    "step": {
+      "do": "expect",
+      "field": "starboard",
+      "eq": 0
+    },
+    "ok": true,
+    "state": {
+      "frame": 43,
+      "outcome": "playing",
+      "speedMmPerS": 79.453125,
+      "level": 0,
+      "port": 80,
+      "starboard": 0
+    }
+  },
+  {
+    "i": 4,
+    "step": {
+      "do": "lever",
+      "side": "starboard",
+      "to": -60
+    },
+    "ok": true,
+    "state": {
+      "frame": 77,
+      "outcome": "playing",
+      "speedMmPerS": 219.375,
+      "level": 0,
+      "port": 80,
+      "starboard": -59
+    }
+  },
+  {
+    "i": 5,
+    "step": {
+      "do": "wait",
+      "ms": 2000
+    },
+    "ok": true,
+    "state": {
+      "frame": 175,
+      "outcome": "playing",
+      "speedMmPerS": 310.078125,
+      "level": 0,
+      "port": 80,
+      "starboard": -59
+    }
+  },
+  {
+    "i": 6,
+    "step": {
+      "do": "expect",
+      "field": "starboard",
+      "lt": -50
+    },
+    "ok": true,
+    "state": {
+      "frame": 178,
+      "outcome": "playing",
+      "speedMmPerS": 312.1875,
+      "level": 0,
+      "port": 80,
+      "starboard": -59
+    }
+  },
+  {
+    "i": 7,
+    "step": {
+      "do": "screenshot",
+      "name": "split"
+    },
+    "ok": true,
+    "state": {
+      "frame": 193,
+      "outcome": "playing",
+      "speedMmPerS": 322.734375,
+      "level": 0,
+      "port": 80,
+      "starboard": -59
+    }
+  },
+  {
+    "i": 8,
+    "step": {
+      "do": "key",
+      "key": "x"
+    },
+    "ok": true,
+    "state": {
+      "frame": 203,
+      "outcome": "playing",
+      "speedMmPerS": 317.109375,
+      "level": 0,
+      "port": 0,
+      "starboard": 0
+    }
+  },
+  {
+    "i": 9,
+    "step": {
+      "do": "expect",
+      "field": "port",
+      "eq": 0
+    },
+    "ok": true,
+    "state": {
+      "frame": 206,
+      "outcome": "playing",
+      "speedMmPerS": 315,
+      "level": 0,
+      "port": 0,
+      "starboard": 0
+    }
+  },
+  {
+    "i": 10,
+    "step": {
+      "do": "key",
+      "key": "ArrowUp",
+      "ms": 800
+    },
+    "ok": true,
+    "state": {
+      "frame": 257,
+      "outcome": "playing",
+      "speedMmPerS": 668.671875,
+      "level": 0,
+      "port": 100,
+      "starboard": 100
+    }
+  },
+  {
+    "i": 11,
+    "step": {
+      "do": "expect",
+      "field": "port",
+      "gt": 50
+    },
+    "ok": true,
+    "state": {
+      "frame": 260,
+      "outcome": "playing",
+      "speedMmPerS": 710.15625,
+      "level": 0,
+      "port": 100,
+      "starboard": 100
+    }
+  },
+  {
+    "i": 12,
+    "step": {
+      "do": "expect",
+      "field": "starboard",
+      "gt": 50
+    },
+    "ok": true,
+    "state": {
+      "frame": 263,
+      "outcome": "playing",
+      "speedMmPerS": 751.640625,
+      "level": 0,
+      "port": 100,
+      "starboard": 100
+    }
+  },
+  {
+    "i": 13,
+    "step": {
+      "do": "wait",
+      "ms": 1500
+    },
+    "ok": true,
+    "state": {
+      "frame": 354,
+      "outcome": "playing",
+      "speedMmPerS": 1917.1875,
+      "level": 0,
+      "port": 100,
+      "starboard": 100
+    }
+  },
+  {
+    "i": 14,
+    "step": {
+      "do": "expect",
+      "field": "speedMmPerS",
+      "gt": 200
+    },
+    "ok": true,
+    "state": {
+      "frame": 357,
+      "outcome": "playing",
+      "speedMmPerS": 1953.046875,
+      "level": 0,
+      "port": 100,
+      "starboard": 100
+    }
+  },
+  {
+    "i": 15,
+    "step": {
+      "do": "screenshot",
+      "name": "both-ahead"
+    },
+    "ok": true,
+    "state": {
+      "frame": 371,
+      "outcome": "playing",
+      "speedMmPerS": 2117.8125,
+      "level": 0,
+      "port": 100,
+      "starboard": 100
+    }
+  }
+]
