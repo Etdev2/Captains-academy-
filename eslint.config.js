@@ -40,6 +40,7 @@ export default tseslint.config(
   {
     files: [
       'src/game/**',
+      'src/home/**',
       'src/platform/**',
       'src/log/**',
       'src/store/**',

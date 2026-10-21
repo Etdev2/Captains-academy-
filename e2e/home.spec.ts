@@ -50,6 +50,56 @@ test('the sea-time log link opens the log', async ({ page }) => {
   await expect(page.locator('#entries')).toHaveAttribute('data-state', 'ready');
 });
 
+// The service worker controls the page and the cache holds the front page.
+async function waitForFrontPageCopy(page: Page): Promise<void> {
+  await expect
+    .poll(() =>
+      page.evaluate(async () => {
+        const cache = await caches.open('captains-academy-offline-v1');
+        return (
+          navigator.serviceWorker.controller !== null && (await cache.match('/')) !== undefined
+        );
+      }),
+    )
+    .toBe(true);
+}
+
+async function expectFrontPageOffline(page: Page): Promise<void> {
+  await page.goto('/');
+  await expect(page.getByRole('heading', { name: "Captain's Academy" })).toBeVisible();
+  await expect(links(page).game).toBeVisible();
+  await expect(links(page).log).toBeVisible();
+}
+
+test('the front page opens offline after one online visit', async ({ page, context }) => {
+  await page.goto('/');
+  await waitForFrontPageCopy(page);
+  await context.setOffline(true);
+  await page.reload();
+  await expect(page.getByRole('heading', { name: "Captain's Academy" })).toBeVisible();
+
+  // And the log it links to opens offline from there too, once it has been visited.
+  await context.setOffline(false);
+  await links(page).log.click();
+  await expect(page.locator('#entries')).toHaveAttribute('data-state', 'ready');
+  await context.setOffline(true);
+  await page.goBack();
+  await expect(page.getByRole('heading', { name: "Captain's Academy" })).toBeVisible();
+  await links(page).log.click();
+  await expect(page.getByRole('heading', { name: 'Sea-time log' })).toBeVisible();
+});
+
+test('the front page opens offline even if only the log was visited online', async ({
+  page,
+  context,
+}) => {
+  await page.goto('/log/');
+  await expect(page.locator('#entries')).toHaveAttribute('data-state', 'ready');
+  await waitForFrontPageCopy(page);
+  await context.setOffline(true);
+  await expectFrontPageOffline(page);
+});
+
 test.describe('at iPhone width', () => {
   // iPhone 15: 393×852 CSS pixels at 3× scale.
   test.use({
