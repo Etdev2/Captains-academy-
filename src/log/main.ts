@@ -1,10 +1,11 @@
-// The sea-time log at /log (DECISIONS.md A3). This first version is the app
-// shell: it opens the store on the device, says how many entries it holds and
-// whether the phone is online, and works offline after one visit. Checking in
-// and out comes in a later change.
+// The sea-time log at /log (DECISIONS.md A3). It opens the store on the
+// device, says how many entries it holds and whether the phone is online, and
+// works offline after one visit. The vessel and role screens live in
+// src/log/screens.ts. Checking in and out comes in a later change.
 
 import { enableOffline } from '../offline/offline';
 import { NewerVersionOnDeviceError } from '../store/idb';
+import { startScreens } from './screens';
 import { openSeaLog, UnreadableEntryError, type SeaLog } from './store';
 
 declare global {
@@ -64,6 +65,7 @@ async function start(): Promise<void> {
     const count = await log.count();
     entries.dataset.count = String(count);
     showStore('ready', entryCountText(count));
+    startScreens(log);
     // Ask the browser not to clear the log when the device runs low on space.
     // Browsers may say no; the log still works, with that risk.
     void navigator.storage?.persist?.().catch(() => false);

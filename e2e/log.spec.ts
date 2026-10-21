@@ -187,7 +187,9 @@ test('the store refuses bad entries, soft-deletes and leaves the outbox empty', 
   await expect(entries(page)).toHaveText('1 entry saved on this phone.');
 });
 
-test('version 1 of the database has the entries and outbox stores', async ({ page }) => {
+test('version 2 of the database keeps the entries and outbox stores as version 1 made them', async ({
+  page,
+}) => {
   await openLog(page);
   const shape = await page.evaluate(
     (name) =>
@@ -220,8 +222,8 @@ test('version 1 of the database has the entries and outbox stores', async ({ pag
     DB,
   );
   expect(shape).toEqual({
-    version: 1,
-    stores: ['outbox', 'sea_time_entries'],
+    version: 2,
+    stores: ['outbox', 'roles', 'sea_time_entries', 'vessels'],
     entriesKey: 'id',
     indexes: ['updatedAt'],
     outboxKey: 'seq',
@@ -246,7 +248,7 @@ test('a newer database from another tab is never opened by older code', async ({
   );
   await expect(entries(page)).toHaveAttribute('data-state', 'replaced');
 
-  // This tab's code knows only version 1, so it refuses version 5 instead of guessing.
+  // This tab's code knows only version 2, so it refuses version 5 instead of guessing.
   await page.reload();
   await expect(entries(page)).toHaveAttribute('data-state', 'newer');
 });

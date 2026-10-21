@@ -36,6 +36,28 @@ describe('wording', () => {
   });
 });
 
+describe('tonnage', () => {
+  // Only the official tonnage from the vessel's documents can be entered.
+  // Any other way of working it out waits on open decision D5.
+  it('no page or script of the log offers a tonnage estimate', () => {
+    const offenders = filesUnder('src/log', 'log')
+      .filter((path) => /estimat/i.test(read(path)))
+      .map(where);
+    expect(offenders).toEqual([]);
+  });
+});
+
+describe('roles', () => {
+  // How a role counts toward a license is open decision D4. Until it is
+  // settled, nothing in the log maps a role to credit.
+  it('the log maps no role to credit', () => {
+    const offenders = filesUnder('src/log', 'log')
+      .filter((path) => /credit(s|ed)?\s*[:=]|creditFactor|creditsToward/i.test(read(path)))
+      .map(where);
+    expect(offenders).toEqual([]);
+  });
+});
+
 describe('game time is never sea time', () => {
   it('the sea-time log imports nothing from the game or the simulator', () => {
     const offenders = filesUnder('src/log').flatMap((path) =>

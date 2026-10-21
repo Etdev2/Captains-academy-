@@ -2,6 +2,7 @@
 // migrations work: never edit a shipped one, add a new one at the end.
 
 import type { DatabaseSpec } from '../store/idb';
+import type { Role } from './entry';
 
 export const STORES = {
   entries: 'sea_time_entries',
@@ -10,7 +11,44 @@ export const STORES = {
    * change adds with the academy login (A4). Nothing writes here yet.
    */
   outbox: 'outbox',
+  vessels: 'vessels',
+  /** The seeded role list. Only migrations write here. */
+  roles: 'roles',
 } as const;
+
+/**
+ * The roles version 2 seeds, frozen with that migration. A later role list
+ * arrives in a later migration that adds to this one; an id here is never
+ * reused or removed, because saved vessels and the rules engine refer to it.
+ * Nothing here says how a role credits toward a license (open decision D4).
+ */
+export const ROLES_V2: readonly Role[] = [
+  { id: 'deck.master', label: 'Master or captain', category: 'deck', position: 0 },
+  { id: 'deck.mate', label: 'Mate', category: 'deck', position: 1 },
+  { id: 'deck.pilot', label: 'Pilot', category: 'deck', position: 2 },
+  { id: 'deck.boatswain', label: 'Boatswain (bosun)', category: 'deck', position: 3 },
+  { id: 'deck.able-seaman', label: 'Able seaman', category: 'deck', position: 4 },
+  { id: 'deck.ordinary-seaman', label: 'Ordinary seaman', category: 'deck', position: 5 },
+  { id: 'deck.deckhand', label: 'Deckhand', category: 'deck', position: 6 },
+  { id: 'deck.cadet', label: 'Deck cadet', category: 'deck', position: 7 },
+  { id: 'engine.chief-engineer', label: 'Chief engineer', category: 'engine', position: 0 },
+  {
+    id: 'engine.assistant-engineer',
+    label: 'Assistant engineer',
+    category: 'engine',
+    position: 1,
+  },
+  {
+    id: 'engine.electro-technical-officer',
+    label: 'Electro-technical officer',
+    category: 'engine',
+    position: 2,
+  },
+  { id: 'engine.qmed', label: 'QMED', category: 'engine', position: 3 },
+  { id: 'engine.oiler', label: 'Oiler', category: 'engine', position: 4 },
+  { id: 'engine.wiper', label: 'Wiper', category: 'engine', position: 5 },
+  { id: 'engine.cadet', label: 'Engine cadet', category: 'engine', position: 6 },
+];
 
 export const SEA_LOG_DB: DatabaseSpec = {
   name: 'captains-academy-sea-log',
@@ -20,6 +58,13 @@ export const SEA_LOG_DB: DatabaseSpec = {
       const entries = db.createObjectStore(STORES.entries, { keyPath: 'id' });
       entries.createIndex('updatedAt', 'updatedAt');
       db.createObjectStore(STORES.outbox, { keyPath: 'seq', autoIncrement: true });
+    },
+    // Version 2: vessels keyed by id, and the seeded role list. Entries are untouched.
+    (db) => {
+      const vessels = db.createObjectStore(STORES.vessels, { keyPath: 'id' });
+      vessels.createIndex('updatedAt', 'updatedAt');
+      const roles = db.createObjectStore(STORES.roles, { keyPath: 'id' });
+      for (const role of ROLES_V2) roles.put(role);
     },
   ],
 };

@@ -17,6 +17,10 @@ export default defineConfig({
     { name: 'phone-landscape', use: { ...devices['Pixel 7 landscape'] } },
     // The sea-time log is used upright with one thumb. The game asks to be
     // turned sideways in portrait, so only the log's tests run here.
-    { name: 'phone-portrait', use: { ...devices['Pixel 7'] }, testMatch: '**/log.spec.ts' },
+    {
+      name: 'phone-portrait',
+      use: { ...devices['Pixel 7'] },
+      testMatch: ['**/log.spec.ts', '**/vessels.spec.ts'],
+    },
   ],
 });
