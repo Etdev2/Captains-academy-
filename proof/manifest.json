@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#37",
-  "sourceDigest": "sha256:b3ad429a6dac59f97ac39bcdb7db660c67a1ba139debde6c55f57ce447450dda",
-  "capturedAt": "2026-10-21T17:06:24Z",
+  "sourceDigest": "sha256:e88d9b096261df3bb8bbc1916d468efb484335529005b16b5699695ef4b95c35",
+  "capturedAt": "2026-10-21T17:15:26Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
@@ -23,7 +23,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh passes in full, including e2e/home.spec.ts: the root is the front page (200, no redirect) with exactly two links, /play/ opens the game and /log/ opens the sea-time log, and at iPhone width both links are on screen, at least 56px tall, with no sideways scroll"
+      "shows": "verify.sh passes in full, including e2e/home.spec.ts: the root is the front page (200, no redirect) with exactly two links, /play/ opens the game and /log/ opens the sea-time log, the front page opens offline after a visit to it or to the log, and at iPhone width both links are on screen, at least 56px tall, with no sideways scroll"
     },
     {
       "path": "proof/home-iphone.png",
