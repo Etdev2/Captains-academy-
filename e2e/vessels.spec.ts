@@ -376,7 +376,9 @@ test('vessel screens fit one thumb: big controls, save within reach', async ({
     expect(box?.height).toBeGreaterThanOrEqual(56);
   }
 
+  // Each screen renders after a read from the store, so wait for it before measuring.
   await page.getByRole('link', { name: 'Vessels' }).click();
+  await expect(page.getByRole('heading', { name: 'Vessels' })).toBeVisible();
   const viewport = page.viewportSize();
   if (!viewport) throw new Error('no viewport');
   const add = await page.getByRole('link', { name: 'Add a vessel' }).boundingBox();
@@ -385,6 +387,7 @@ test('vessel screens fit one thumb: big controls, save within reach', async ({
   expect(add.y + add.height).toBeLessThanOrEqual(viewport.height);
 
   await page.getByRole('link', { name: 'Add a vessel' }).click();
+  await expect(page.getByRole('heading', { name: 'New vessel' })).toBeVisible();
   for (const control of await page.locator('#vessel-form input, #vessel-form select').all()) {
     const box = await control.boundingBox();
     expect(box?.height).toBeGreaterThanOrEqual(56);
