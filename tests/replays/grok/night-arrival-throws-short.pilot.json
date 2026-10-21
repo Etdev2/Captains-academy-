@@ -1,0 +1,49 @@
+{
+ "schemaVersion": 1,
+ "level": "grok-night-arrival",
+ "note": "Throws the line from the entrance three times; each splash costs a heart.",
+ "runs": [
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": true
+  },
+  {
+   "frames": 70,
+   "throttle": 0,
+   "rudder": 0,
+   "thruster": 1,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": true
+  },
+  {
+   "frames": 70,
+   "throttle": 0,
+   "rudder": 0,
+   "thruster": -1,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": true
+  },
+  {
+   "frames": 30,
+   "throttle": 0,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  }
+ ]
+}

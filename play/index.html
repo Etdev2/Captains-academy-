@@ -46,6 +46,10 @@
   <body>
     <div id="game"></div>
     <div id="rotate">Turn your phone sideways to take the helm.</div>
+    <script>
+      // ?take=grok opens Grok's separate take on this level at /play/grok/.
+      if (new URLSearchParams(location.search).get('take') === 'grok') location.replace('./grok/');
+    </script>
     <script type="module" src="/src/game/main.ts"></script>
   </body>
 </html>

@@ -1,0 +1,10906 @@
+{
+ "schemaVersion": 1,
+ "level": "grok-night-arrival",
+ "note": "Rides the set through the gap, holds the leading lights, and throws the line at a crawl.",
+ "runs": [
+  {
+   "frames": 40,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 130,
+   "throttle": 100,
+   "rudder": 25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 57,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 4,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 4,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 4,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 4,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 4,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 4,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 100,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 40,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 3,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 75,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 60,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 50,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 16,
+   "throttle": 25,
+   "rudder": 0,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 102,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -25,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -50,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 2,
+   "throttle": 0,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 0,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": false
+  },
+  {
+   "frames": 1,
+   "throttle": 25,
+   "rudder": -75,
+   "thruster": 0,
+   "throwLine": true
+  }
+ ]
+}

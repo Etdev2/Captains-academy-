@@ -1,0 +1,21 @@
+{
+  "final": {
+    "frame": 780,
+    "x": 13506573,
+    "y": 18410314,
+    "heading": 30058,
+    "speed": -508,
+    "turnRate": -21,
+    "battery": 240,
+    "hearts": 0,
+    "outcome": "out-of-hearts",
+    "touching": true,
+    "lineHeld": false,
+    "lineCooldown": 0,
+    "onRangeFrames": 0,
+    "insideFrames": 0,
+    "moorSpeedMmPerS": 0,
+    "event": "none"
+  },
+  "traceHash": 3801126750
+}

@@ -1,0 +1,21 @@
+{
+  "final": {
+    "frame": 2202,
+    "x": 16463465,
+    "y": 3930840,
+    "heading": 1249,
+    "speed": 0,
+    "turnRate": 0,
+    "battery": 240,
+    "hearts": 3,
+    "outcome": "moored",
+    "touching": false,
+    "lineHeld": true,
+    "lineCooldown": 0,
+    "onRangeFrames": 1622,
+    "insideFrames": 1622,
+    "moorSpeedMmPerS": 186,
+    "event": "moored"
+  },
+  "traceHash": 2484602999
+}

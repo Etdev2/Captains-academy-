@@ -1,0 +1,14 @@
+{
+ "schemaVersion": 1,
+ "level": "grok-night-arrival",
+ "note": "Full ahead and hard to port into the west breakwater until the hearts run out.",
+ "runs": [
+  {
+   "frames": 1800,
+   "throttle": 100,
+   "rudder": -100,
+   "thruster": 0,
+   "throwLine": false
+  }
+ ]
+}

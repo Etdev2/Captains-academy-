@@ -1,20 +1,20 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#25",
-  "sourceDigest": "sha256:8fb69c080c0c51fb7a9c413d4cacaf19494c66073062adae32b72155be56ce5a",
-  "capturedAt": "2026-10-21T00:44:49Z",
+  "sourceDigest": "sha256:ebd8258e4afe6724b01316e38040f32e5204831a36696d7684a41d76a409a427",
+  "capturedAt": "2026-10-21T02:26:14Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.sh",
-    "fixture": "The Long Beach docking prototype on this branch: two schema-2 missions in missions/ and three golden replays in tests/replays/, the docking ones re-recorded with the engine levers only"
+    "command": "set -o pipefail; bash scripts/verify.test.sh 2>&1 | sed \"s|$(pwd)|.|g\"",
+    "fixture": "Grok's Night Arrival take on level 1 on this branch: src/sim/grok/pilot.ts, three golden pilot replays in tests/replays/grok/, and Claude's two missions and three replays unchanged"
   },
   "commands": [
     {
-      "command": "bash scripts/verify.test.sh",
+      "command": "set -o pipefail; bash scripts/verify.test.sh 2>&1 | sed \"s|$(pwd)|.|g\"",
       "exitCode": 0
     },
     {
-      "command": "bash scripts/verify.sh",
+      "command": "set -o pipefail; bash scripts/verify.sh 2>&1 | sed \"s|$(pwd)|.|g\"",
       "exitCode": 0
     }
   ],
@@ -23,17 +23,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh runs all nine steps with none skipped: npm ci, tsc, ESLint, Prettier, validation of both missions, 32 Vitest tests including the twin-lever tests and all three golden replays, vite build, eight Playwright tests (smoke, portrait pause, offline reload, a lever under each thumb) on desktop and phone landscape, and npm audit"
-    },
-    {
-      "path": "proof/play-desktop.png",
-      "kind": "screenshot",
-      "shows": "The production build at /play on desktop, a few seconds after the port lever (left thumb) went ahead and the starboard lever (right thumb) astern: the boat pivots to starboard with prop wash on each side. No steering slider. Taken at e0632f1"
-    },
-    {
-      "path": "proof/play-phone-landscape.png",
-      "kind": "screenshot",
-      "shows": "The same moment on a Pixel 7 in landscape. Taken at e0632f1"
+      "shows": "verify.test.sh passes, then verify.sh runs all nine steps with none skipped: npm ci, tsc, ESLint, Prettier, mission validation, Vitest with Claude's replays and Grok's three night-arrival replays plus handling tests, vite build with the /play/grok/ page, Playwright smoke tests for both takes on desktop and phone landscape, and npm audit. Repository paths are printed as '.'"
     }
   ]
 }
