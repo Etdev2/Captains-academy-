@@ -5,7 +5,7 @@
 // The game draws on a canvas, so there are no DOM handles inside it. Steps use
 // the game's own 1280 x 768 coordinates, scaled to the canvas, and read state
 // from window.__captainsAcademy (frame, outcome, speedMmPerS, level, port,
-// starboard).
+// starboard, muted, horn).
 import { chromium, devices } from '@playwright/test';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
