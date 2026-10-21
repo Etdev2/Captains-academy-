@@ -1,14 +1,18 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#27",
-  "sourceDigest": "sha256:5241358e23dd74faadf9578f9c60eec0246a87146b378bb0b964a90fba9f135f",
-  "capturedAt": "2026-10-21T13:34:26Z",
+  "sourceDigest": "sha256:570fb7a92ade091fad8852777a3c94d301e410149e74b00172bc17dd6ecf9e76",
+  "capturedAt": "2026-10-21T14:29:51Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "docs/team/HOUSE-RULES.md and one time card on this branch, based on main at 70f68eb; no code changed"
+    "fixture": "docs/team/HOUSE-RULES.md and one time card on this branch, merged with main at f044e70; no code changed by this PR"
   },
   "commands": [
+    {
+      "command": "bash scripts/verify.test.sh",
+      "exitCode": 0
+    },
     {
       "command": "bash scripts/verify.sh",
       "exitCode": 0
@@ -19,7 +23,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "the full scripts/verify.sh passes on this branch"
+      "shows": "the full scripts/verify.sh and verify.test.sh pass on the merged branch"
     }
   ],
   "noBehaviorReason": "Docs only: adds a house rule on when a Codex review ends, and updates a time card. No app code, config or test changed."
