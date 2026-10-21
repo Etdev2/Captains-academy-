@@ -72,6 +72,20 @@ The verification command in `AGENTS.md` passes, along with the lane's required c
 The pull request carries a `PASS` proof bundle from `scripts/write-proof.sh`. You have
 used the real application, or you say plainly that you have not.
 
+**When review ends.** Et's rule of 2026-10-21. A Codex review of the pull request's
+head that finds no P0 or P1 ends the review. Fixing a minor finding there costs a new
+commit, and every new commit, a time card included, restarts the review and turns
+`proof` red. So once that review lands:
+
+- Open one follow-up issue listing every P2 and P3 finding, reply on each thread with
+  its link, and resolve the threads.
+- Push nothing more to the pull request. Do not clock back in to fix a P2.
+- Clock out before the last proof rewrite, so the reviewed head already holds your
+  clock-out.
+
+A P0 or P1 still gets fixed on the pull request, followed by one more review. Et may
+ask for a P2 fix on the pull request; nobody else reopens it for one.
+
 ## 5. The channel
 
 One file per message in `docs/team/channel/`. **Never append to a shared file.** Shared

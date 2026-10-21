@@ -1,29 +1,26 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#32",
-  "sourceDigest": "sha256:9772ab289eb1c6b440152bf74579cbb6af34fecccb813a9a230c5d2161246266",
-  "capturedAt": "2026-10-21T12:50:09Z",
+  "ticket": "Etdev2/Captains-academy-#27",
+  "sourceDigest": "sha256:5241358e23dd74faadf9578f9c60eec0246a87146b378bb0b964a90fba9f135f",
+  "capturedAt": "2026-10-21T13:25:44Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.test.sh",
-    "fixture": "The sea-time log shell on this branch: /log with an empty IndexedDB store per Playwright context, plus the existing missions and golden replays"
+    "fixture": "docs/team/HOUSE-RULES.md and one time card on this branch, based on main at 70f68eb; no code changed"
   },
   "commands": [
     {
       "command": "bash scripts/verify.test.sh",
       "exitCode": 0
-    },
-    {
-      "command": "bash scripts/verify.sh",
-      "exitCode": 0
     }
   ],
-  "behaviorChanged": true,
+  "behaviorChanged": false,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh runs all nine steps with none skipped, including the sea-time log Vitest and Playwright tests on desktop, phone landscape and phone portrait"
+      "shows": "scripts/verify.test.sh passes against throwaway projects"
     }
-  ]
+  ],
+  "noBehaviorReason": "Docs only: adds a house rule on when a Codex review ends, and updates a time card. No app code, config or test changed; CI runs the full verify.sh on the pull request."
 }

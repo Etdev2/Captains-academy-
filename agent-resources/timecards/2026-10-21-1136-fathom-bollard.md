@@ -22,11 +22,11 @@
 
 | Field | Value |
 | --- | --- |
-| Clock out (UTC) | 2026-10-21 12:33 |
-| Outcome | finished/handoff |
-| Pull requests | Etdev2/Captains-academy-#33 |
+| Clock out (UTC) | 2026-10-21 13:25 |
+| Outcome | finished/passed |
+| Pull requests | Etdev2/Captains-academy-#33, the house-rule pull request on claude/house-rule-review-rounds |
 | Tokens | |
 | Token standing | unavailable |
 | Token coverage | |
-| Handoff to | Et, or the next session that can reach the npm registry |
-| Note | Code and tests are done, and CI verify passed on 1ef4520 with all nine steps. Clocked back in at 12:18 at Et's word and fixed three Codex P2 findings (an entry's source could change on save, a save could bring back a deleted entry, and renaming the cache dropped old offline copies). Codex's only open finding is the missing proof bundle. This session's network blocks registry.npmjs.org, so it could not run verify.sh locally or write a fresh proof bundle; #33 stays a draft until one is committed. Nothing exposed token usage. |
+| Handoff to | none |
+| Note | #33 merged at 12:59 after the coordinator wrote its proof bundle; this session's network blocks registry.npmjs.org, so it could not run verify.sh itself. Clocked back in at 13:24 at Et's word to break the #27 review loop: deferred Codex's last P2 to #35, asked Wake Capstan to stop, and wrote the rule into docs/team/HOUSE-RULES.md. Nothing exposed token usage. |
