@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#27",
-  "sourceDigest": "sha256:20e789c40da5cf4fb84cd9b778e26ae3419999fd826680f9cca19eed5abf08df",
-  "capturedAt": "2026-10-21T11:39:09Z",
+  "sourceDigest": "sha256:6741b2d529623297bd130b8ee50a1777465a6bdcd5fabc2fe4aa6c9370e6b778",
+  "capturedAt": "2026-10-21T11:52:04Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "The merged docking prototype on main plus this branch: the verify-captains-academy skill with five feature recipes, run against the production build on port 4180 with touch input on phone viewports"
+    "fixture": "The merged docking prototype on main plus this branch: the verify-captains-academy skill with five feature recipes, run against the production build on port 4180 after a clean npm ci, with touch input on phone viewports"
   },
   "commands": [
     {
@@ -28,7 +28,7 @@
     {
       "path": "proof/skill-docking-run-hit.png",
       "kind": "screenshot",
-      "shows": "control.sh drive with docking-run.steps.json on the production build built from the files at fa17769: both levers full ahead, the boat hits the docks and the hit banner shows"
+      "shows": "control.sh drive with docking-run.steps.json on the production build, after a clean npm ci, from the files at 6563f37: both levers full ahead, the boat hits the docks and the hit banner shows"
     },
     {
       "path": "proof/skill-docking-run.steps.log.json",

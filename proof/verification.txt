@@ -17,7 +17,7 @@ $ bash scripts/verify.sh
 
 ==> Node version and npm ci
 
-added 144 packages, and audited 145 packages in 8s
+added 144 packages, and audited 145 packages in 4s
 
 45 packages are looking for funding
   run `npm fund` for details
@@ -48,8 +48,8 @@ ok   long-beach-docking.json
 
  Test Files  2 passed (2)
       Tests  32 passed (32)
-   Start at  11:38:46
-   Duration  407ms (transform 263ms, setup 0ms, import 376ms, tests 200ms, environment 0ms)
+   Start at  11:51:42
+   Duration  387ms (transform 203ms, setup 0ms, import 335ms, tests 177ms, environment 0ms)
 
 
 ==> vite build
@@ -72,22 +72,22 @@ rendering chunks...
 computing gzip size...
 dist/play/index.html              1.27 kB │ gzip:   0.61 kB
 dist/assets/play-YP-xT78p.js  1,504.41 kB │ gzip: 407.54 kB
-✓ built in 5.13s
+✓ built in 3.76s
 
 ==> playwright smoke test
 
 Running 8 tests using 2 workers
 
-  ✓  1 [phone-landscape] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (5.3s)
-  ✓  2 [desktop] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (5.4s)
+  ✓  1 [phone-landscape] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (5.0s)
+  ✓  2 [desktop] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (5.1s)
   ✓  3 [phone-landscape] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (1.9s)
   ✓  4 [desktop] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (1.9s)
   ✓  5 [phone-landscape] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (4.9s)
-  ✓  6 [desktop] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (5.2s)
+  ✓  6 [desktop] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (5.3s)
   ✓  7 [phone-landscape] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (2.4s)
-  ✓  8 [desktop] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (2.5s)
+  ✓  8 [desktop] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (2.3s)
 
-  8 passed (16.2s)
+  8 passed (15.8s)
 
 ==> npm audit --omit=dev
 found 0 vulnerabilities
