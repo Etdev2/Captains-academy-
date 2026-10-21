@@ -12,7 +12,9 @@
       "speedMmPerS": 0,
       "level": 0,
       "port": 0,
-      "starboard": 0
+      "starboard": 0,
+      "muted": false,
+      "horn": false
     }
   },
   {
@@ -29,7 +31,9 @@
       "speedMmPerS": 0,
       "level": 0,
       "port": 0,
-      "starboard": 0
+      "starboard": 0,
+      "muted": false,
+      "horn": false
     }
   },
   {
@@ -41,12 +45,14 @@
     },
     "ok": true,
     "state": {
-      "frame": 9,
+      "frame": 8,
       "outcome": "playing",
       "speedMmPerS": 0,
       "level": 0,
       "port": 0,
-      "starboard": 0
+      "starboard": 0,
+      "muted": false,
+      "horn": false
     }
   },
   {
@@ -58,12 +64,14 @@
     },
     "ok": true,
     "state": {
-      "frame": 43,
+      "frame": 42,
       "outcome": "playing",
       "speedMmPerS": 73.125,
       "level": 0,
       "port": 100,
-      "starboard": 0
+      "starboard": 0,
+      "muted": false,
+      "horn": false
     }
   },
   {
@@ -75,12 +83,14 @@
     },
     "ok": true,
     "state": {
-      "frame": 77,
+      "frame": 76,
       "outcome": "playing",
       "speedMmPerS": 390.46875,
       "level": 0,
       "port": 100,
-      "starboard": 100
+      "starboard": 100,
+      "muted": false,
+      "horn": false
     }
   },
   {
@@ -93,12 +103,14 @@
     },
     "ok": true,
     "state": {
-      "frame": 1538,
+      "frame": 1537,
       "outcome": "hit",
       "speedMmPerS": 0,
       "level": 0,
       "port": 100,
-      "starboard": 100
+      "starboard": 100,
+      "muted": false,
+      "horn": false
     }
   },
   {
@@ -109,12 +121,14 @@
     },
     "ok": true,
     "state": {
-      "frame": 1538,
+      "frame": 1537,
       "outcome": "hit",
       "speedMmPerS": 0,
       "level": 0,
       "port": 100,
-      "starboard": 100
+      "starboard": 100,
+      "muted": false,
+      "horn": false
     }
   },
   {
@@ -126,12 +140,14 @@
     },
     "ok": true,
     "state": {
-      "frame": 2,
+      "frame": 1,
       "outcome": "playing",
       "speedMmPerS": 0,
       "level": 0,
       "port": 0,
-      "starboard": 0
+      "starboard": 0,
+      "muted": false,
+      "horn": false
     }
   },
   {
@@ -147,7 +163,9 @@
       "speedMmPerS": 0,
       "level": 0,
       "port": 0,
-      "starboard": 0
+      "starboard": 0,
+      "muted": false,
+      "horn": false
     }
   },
   {
@@ -159,12 +177,14 @@
     },
     "ok": true,
     "state": {
-      "frame": 99,
+      "frame": 98,
       "outcome": "playing",
       "speedMmPerS": 0,
       "level": 0,
       "port": 0,
-      "starboard": 0
+      "starboard": 0,
+      "muted": false,
+      "horn": false
     }
   },
   {
@@ -176,12 +196,14 @@
     },
     "ok": true,
     "state": {
-      "frame": 102,
+      "frame": 101,
       "outcome": "playing",
       "speedMmPerS": 0,
       "level": 0,
       "port": 0,
-      "starboard": 0
+      "starboard": 0,
+      "muted": false,
+      "horn": false
     }
   },
   {
@@ -192,12 +214,146 @@
     },
     "ok": true,
     "state": {
-      "frame": 113,
+      "frame": 112,
       "outcome": "playing",
       "speedMmPerS": 0,
       "level": 0,
       "port": 0,
-      "starboard": 0
+      "starboard": 0,
+      "muted": false,
+      "horn": false
+    }
+  },
+  {
+    "i": 12,
+    "step": {
+      "do": "lever",
+      "side": "port",
+      "to": 100
+    },
+    "ok": true,
+    "state": {
+      "frame": 167,
+      "outcome": "playing",
+      "speedMmPerS": 118.359375,
+      "level": 0,
+      "port": 100,
+      "starboard": 0,
+      "muted": false,
+      "horn": false
+    }
+  },
+  {
+    "i": 13,
+    "step": {
+      "do": "lever",
+      "side": "starboard",
+      "to": 100
+    },
+    "ok": true,
+    "state": {
+      "frame": 221,
+      "outcome": "playing",
+      "speedMmPerS": 607.265625,
+      "level": 0,
+      "port": 100,
+      "starboard": 100,
+      "muted": false,
+      "horn": false
+    }
+  },
+  {
+    "i": 14,
+    "step": {
+      "do": "waitFor",
+      "field": "outcome",
+      "eq": "hit",
+      "timeoutMs": 45000
+    },
+    "ok": true,
+    "state": {
+      "frame": 1830,
+      "outcome": "hit",
+      "speedMmPerS": 0,
+      "level": 0,
+      "port": 100,
+      "starboard": 100,
+      "muted": false,
+      "horn": false
+    }
+  },
+  {
+    "i": 15,
+    "step": {
+      "do": "key",
+      "key": "Enter"
+    },
+    "ok": true,
+    "state": {
+      "frame": 7,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 0,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false
+    }
+  },
+  {
+    "i": 16,
+    "step": {
+      "do": "wait",
+      "ms": 1000
+    },
+    "ok": true,
+    "state": {
+      "frame": 68,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 0,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false
+    }
+  },
+  {
+    "i": 17,
+    "step": {
+      "do": "expect",
+      "field": "outcome",
+      "eq": "playing"
+    },
+    "ok": true,
+    "state": {
+      "frame": 72,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 0,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false
+    }
+  },
+  {
+    "i": 18,
+    "step": {
+      "do": "expect",
+      "field": "frame",
+      "lt": 200
+    },
+    "ok": true,
+    "state": {
+      "frame": 75,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 0,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false
     }
   }
 ]

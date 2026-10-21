@@ -12,7 +12,9 @@
       "speedMmPerS": 0,
       "level": 0,
       "port": 0,
-      "starboard": 0
+      "starboard": 0,
+      "muted": false,
+      "horn": false
     }
   },
   {
@@ -29,7 +31,9 @@
       "speedMmPerS": 0,
       "level": 0,
       "port": 0,
-      "starboard": 0
+      "starboard": 0,
+      "muted": false,
+      "horn": false
     }
   },
   {
@@ -45,7 +49,9 @@
       "speedMmPerS": 0,
       "level": 0,
       "port": 0,
-      "starboard": 0
+      "starboard": 0,
+      "muted": false,
+      "horn": false
     }
   },
   {
@@ -62,7 +68,9 @@
       "speedMmPerS": 0,
       "level": 0,
       "port": 0,
-      "starboard": 0
+      "starboard": 0,
+      "muted": false,
+      "horn": false
     }
   },
   {
@@ -78,7 +86,9 @@
       "speedMmPerS": 0,
       "level": 0,
       "port": 0,
-      "starboard": 0
+      "starboard": 0,
+      "muted": false,
+      "horn": false
     }
   },
   {
@@ -97,7 +107,9 @@
       "speedMmPerS": 0,
       "level": 0,
       "port": 0,
-      "starboard": 0
+      "starboard": 0,
+      "muted": false,
+      "horn": false
     }
   },
   {
@@ -114,7 +126,9 @@
       "speedMmPerS": 0,
       "level": 1,
       "port": 0,
-      "starboard": 0
+      "starboard": 0,
+      "muted": false,
+      "horn": false
     }
   },
   {
@@ -125,12 +139,14 @@
     },
     "ok": true,
     "state": {
-      "frame": 51,
+      "frame": 52,
       "outcome": "playing",
       "speedMmPerS": 0,
       "level": 1,
       "port": 0,
-      "starboard": 0
+      "starboard": 0,
+      "muted": false,
+      "horn": false
     }
   },
   {
@@ -142,12 +158,14 @@
     },
     "ok": true,
     "state": {
-      "frame": 53,
+      "frame": 54,
       "outcome": "playing",
       "speedMmPerS": 0,
       "level": 1,
       "port": 0,
-      "starboard": 0
+      "starboard": 0,
+      "muted": false,
+      "horn": false
     }
   },
   {
@@ -158,12 +176,14 @@
     },
     "ok": true,
     "state": {
-      "frame": 60,
+      "frame": 61,
       "outcome": "playing",
       "speedMmPerS": 0,
       "level": 1,
       "port": 0,
-      "starboard": 0
+      "starboard": 0,
+      "muted": false,
+      "horn": false
     }
   }
 ]
