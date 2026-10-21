@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#25",
-  "sourceDigest": "sha256:4b484cbf66d5b9b3e67edacf25fe656c702fc22604aab4b9b1e499bc027a221b",
-  "capturedAt": "2026-10-21T00:18:52Z",
+  "sourceDigest": "sha256:992df2f4d5883b4d5e614f4218a631a17b2e8e49e52e881be6c6b12259cf67b6",
+  "capturedAt": "2026-10-21T00:36:13Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "The Long Beach docking prototype on this branch: two missions in missions/ and three golden replays in tests/replays/"
+    "fixture": "The Long Beach docking prototype on this branch: two schema-2 missions in missions/ and three golden replays in tests/replays/, re-recorded for twin engines and the harder levels"
   },
   "commands": [
     {
@@ -23,17 +23,17 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh runs all nine steps with none skipped: npm ci, tsc, ESLint, Prettier, validation of both missions, 29 Vitest tests including all three golden replays, vite build, eight Playwright tests (smoke, portrait pause, offline reload, touch lever) on desktop and phone landscape, and npm audit"
+      "shows": "verify.sh runs all nine steps with none skipped: npm ci, tsc, ESLint, Prettier, validation of both missions, 32 Vitest tests including the new twin-lever tests and all three golden replays, vite build, eight Playwright tests (smoke, portrait pause, offline reload, twin engine levers) on desktop and phone landscape, and npm audit"
     },
     {
       "path": "proof/play-desktop.png",
       "kind": "screenshot",
-      "shows": "The production build at /play on desktop: throttle lever, steering slider, horn rings, the arrow to the slip and the top-left buttons. Taken at b878f60; no game code has changed since"
+      "shows": "The production build at /play on desktop, a few seconds after the port lever went ahead and the starboard lever astern: the boat pivots to starboard with prop wash on each side, the twin levers, the steering slider and the gusty-day hint. Taken at 854fcac"
     },
     {
       "path": "proof/play-phone-landscape.png",
       "kind": "screenshot",
-      "shows": "The same moment on a Pixel 7 in landscape. Taken at b878f60; no game code has changed since"
+      "shows": "The same moment on a Pixel 7 in landscape. Taken at 854fcac"
     }
   ]
 }
