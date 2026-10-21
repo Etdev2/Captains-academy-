@@ -17,7 +17,7 @@ $ bash scripts/verify.sh
 
 ==> Node version and npm ci
 
-added 144 packages, and audited 145 packages in 3s
+added 144 packages, and audited 145 packages in 4s
 
 45 packages are looking for funding
   run `npm fund` for details
@@ -48,18 +48,13 @@ ok   long-beach-docking.json
 
  Test Files  2 passed (2)
       Tests  32 passed (32)
-   Start at  00:35:52
-   Duration  365ms (transform 214ms, setup 0ms, import 311ms, tests 176ms, environment 0ms)
+   Start at  00:44:29
+   Duration  367ms (transform 176ms, setup 0ms, import 288ms, tests 184ms, environment 0ms)
 
 
 ==> vite build
 vite v7.3.6 building client environment for production...
 transforming...
-node_modules/zod/v4/core/util.js (400:0): A comment
-
-"// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
-
-in "node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
 node_modules/zod/v4/core/regexes.js (74:0): A comment
 
 "/** Anchors a pattern source. The interpolation lives here rather than at the call site because
@@ -67,12 +62,17 @@ node_modules/zod/v4/core/regexes.js (74:0): A comment
  * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
 
 in "node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+node_modules/zod/v4/core/util.js (400:0): A comment
+
+"// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+
+in "node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
 ✓ 111 modules transformed.
 rendering chunks...
 computing gzip size...
 dist/play/index.html              1.27 kB │ gzip:   0.61 kB
-dist/assets/play-gJVDGhzm.js  1,505.74 kB │ gzip: 407.97 kB
-✓ built in 3.75s
+dist/assets/play-YP-xT78p.js  1,504.41 kB │ gzip: 407.54 kB
+✓ built in 3.95s
 
 ==> playwright smoke test
 
@@ -81,13 +81,13 @@ Running 8 tests using 2 workers
   ✓  1 [desktop] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (3.8s)
   ✓  2 [phone-landscape] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (4.7s)
   ✓  3 [desktop] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (1.9s)
-  ✓  4 [phone-landscape] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (1.9s)
-  ✓  5 [desktop] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (4.8s)
-  ✓  6 [phone-landscape] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (4.8s)
-  ✓  7 [desktop] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (2.7s)
-  ✓  8 [phone-landscape] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (2.3s)
+  ✓  4 [phone-landscape] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (1.8s)
+  ✓  5 [desktop] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (4.9s)
+  ✓  6 [phone-landscape] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (4.4s)
+  ✓  7 [desktop] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (2.3s)
+  ✓  8 [phone-landscape] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (2.2s)
 
-  8 passed (14.8s)
+  8 passed (14.3s)
 
 ==> npm audit --omit=dev
 found 0 vulnerabilities
