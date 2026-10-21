@@ -123,6 +123,8 @@ export function startScreens(log: SeaLog): void {
   const deleteButton = element('delete-vessel', HTMLButtonElement);
   const preview = element('vessel-photo-preview', HTMLImageElement);
   const removePhoto = element('remove-photo', HTMLButtonElement);
+  const photoStatus = element('photo-status', HTMLParagraphElement);
+  const saveButton = element('save-vessel', HTMLButtonElement);
   const fields = {
     name: field(form, 'name', HTMLInputElement),
     officialNumber: field(form, 'officialNumber', HTMLInputElement),
@@ -143,6 +145,11 @@ export function startScreens(log: SeaLog): void {
   let confirmTimer: ReturnType<typeof setTimeout> | undefined;
   // Each render gets a number, so a slow one never overwrites a newer screen.
   let renderCount = 0;
+  // Each photo picked gets a number too. Shrinking one takes a moment on a
+  // phone, so a result counts only while its photo is still the latest one
+  // picked on the form that picked it. Until then the form can't be saved.
+  let photoCount = 0;
+  let photoPending = false;
 
   const show = (screen: keyof typeof views) => {
     for (const [name, view] of Object.entries(views)) view.hidden = name !== screen;
@@ -162,6 +169,18 @@ export function startScreens(log: SeaLog): void {
     removePhoto.hidden = previewUrl === null;
     if (previewUrl) preview.src = previewUrl;
     else preview.removeAttribute('src');
+  };
+
+  const setPhotoPending = (pending: boolean) => {
+    photoPending = pending;
+    saveButton.disabled = pending;
+    photoStatus.textContent = pending ? 'Preparing the photo…' : '';
+  };
+
+  // Drops any photo still being prepared, so its result is ignored.
+  const forgetPendingPhoto = () => {
+    photoCount++;
+    setPhotoPending(false);
   };
 
   const disarmDelete = () => {
@@ -232,6 +251,7 @@ export function startScreens(log: SeaLog): void {
     fields.owner.value = editing?.owner ?? '';
     fields.horsepower.value = String(editing?.horsepower ?? '');
     fields.defaultRoleId.value = editing?.defaultRoleId ?? '';
+    forgetPendingPhoto();
     showPhoto(editing?.photo ?? null);
     show('vessel');
   };
@@ -315,6 +335,8 @@ export function startScreens(log: SeaLog): void {
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
+    // A photo still being prepared would be left out of the save.
+    if (photoPending) return;
     const vessel = readForm();
     if (typeof vessel === 'string') {
       showError(vessel);
@@ -333,13 +355,27 @@ export function startScreens(log: SeaLog): void {
     const file = fields.photo.files?.[0];
     if (!file) return;
     showError(null);
-    shrinkPhoto(file).then(showPhoto, () =>
-      showError('That picture could not be read. Try another one.'),
+    const turn = ++photoCount;
+    const screen = renderCount;
+    const current = () => turn === photoCount && screen === renderCount;
+    setPhotoPending(true);
+    shrinkPhoto(file).then(
+      (blob) => {
+        if (!current()) return;
+        setPhotoPending(false);
+        showPhoto(blob);
+      },
+      () => {
+        if (!current()) return;
+        setPhotoPending(false);
+        showError('That picture could not be read. Try another one.');
+      },
     );
   });
 
   removePhoto.addEventListener('click', () => {
     fields.photo.value = '';
+    forgetPendingPhoto();
     showPhoto(null);
   });
 

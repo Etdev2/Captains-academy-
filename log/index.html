@@ -137,7 +137,8 @@
       .view p {
         margin: 0;
       }
-      #vessels-status:empty {
+      #vessels-status:empty,
+      #photo-status:empty {
         display: none;
       }
       h2 {
@@ -168,6 +169,10 @@
         font-weight: 800;
         text-decoration: none;
         touch-action: manipulation;
+      }
+      .big:disabled {
+        background: var(--idle-bg);
+        color: var(--idle-ink);
       }
       .big.plain {
         background: var(--card);
@@ -356,6 +361,7 @@
             >Photo <small>Kept on this phone only</small>
             <input name="photo" type="file" accept="image/*" />
           </label>
+          <p id="photo-status" class="hint" role="status" aria-live="polite"></p>
           <img id="vessel-photo-preview" alt="This vessel's photo" hidden />
           <button id="remove-photo" class="big plain" type="button" hidden>Remove photo</button>
           <p id="vessel-form-error" class="error" role="alert" hidden></p>

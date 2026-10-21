@@ -194,6 +194,87 @@ test('a vessel is soft-deleted with two taps and stays gone after a reload', asy
   });
 });
 
+test('a photo still being prepared is never saved late, or onto another vessel', async ({
+  page,
+}) => {
+  // Shrinking a photo can take a while on a phone. Hold it until the test lets go.
+  await page.addInitScript(() => {
+    const original = window.createImageBitmap.bind(window);
+    const held: (() => void)[] = [];
+    (window as unknown as { releasePhotos: () => void }).releasePhotos = () =>
+      held.splice(0).forEach((go) => go());
+    window.createImageBitmap = ((...args: Parameters<typeof createImageBitmap>) =>
+      new Promise<void>((go) => held.push(go)).then(() =>
+        original(...args),
+      )) as typeof createImageBitmap;
+  });
+  const release = () =>
+    page.evaluate(() => (window as unknown as { releasePhotos: () => void }).releasePhotos());
+  const photoOf = (name: string) =>
+    page.evaluate(async (wanted) => {
+      const vessels = (await window.__seaTimeLog?.vessels.list()) ?? [];
+      return vessels.find((v) => v.name === wanted)?.photo?.size ?? null;
+    }, name);
+  const save = page.getByRole('button', { name: 'Save vessel' });
+
+  await openLog(page, '#vessels');
+  await addVessel(page, 'Kestrel');
+  await addVessel(page, 'Old Salt');
+
+  // While the photo is being prepared, the vessel can't be saved without it.
+  await vesselRows(page).filter({ hasText: 'Kestrel' }).click();
+  await expect(page.getByRole('heading', { name: 'Edit Kestrel' })).toBeVisible();
+  await page
+    .getByLabel('Photo')
+    .setInputFiles({ name: 'a.png', mimeType: 'image/png', buffer: PNG });
+  await expect(save).toBeDisabled();
+  await expect(page.locator('#photo-status')).toHaveText('Preparing the photo…');
+  await release();
+  await expect(save).toBeEnabled();
+  await expect(page.locator('#vessel-photo-preview')).toBeVisible();
+  await save.click();
+  await expect(page.locator('#vessels-status')).toHaveText('Saved Kestrel.');
+  expect(await photoOf('Kestrel')).toBeGreaterThan(0);
+
+  // A photo picked for one vessel and finished after moving to another is dropped.
+  await vesselRows(page).filter({ hasText: 'Old Salt' }).click();
+  await expect(page.getByRole('heading', { name: 'Edit Old Salt' })).toBeVisible();
+  await page
+    .getByLabel('Photo')
+    .setInputFiles({ name: 'b.png', mimeType: 'image/png', buffer: PNG });
+  await expect(save).toBeDisabled();
+  await page.getByRole('link', { name: 'Cancel' }).click();
+  await vesselRows(page).filter({ hasText: 'Kestrel' }).click();
+  await expect(page.getByRole('heading', { name: 'Edit Kestrel' })).toBeVisible();
+  await page
+    .getByLabel('Photo')
+    .setInputFiles({ name: 'c.png', mimeType: 'image/png', buffer: PNG });
+  await page.getByRole('link', { name: 'Cancel' }).click();
+  await vesselRows(page).filter({ hasText: 'Old Salt' }).click();
+  await expect(page.getByRole('heading', { name: 'Edit Old Salt' })).toBeVisible();
+  await release();
+  await expect(save).toBeEnabled();
+  await expect(page.locator('#vessel-photo-preview')).toBeHidden();
+  await save.click();
+  await expect(page.locator('#vessels-status')).toHaveText('Saved Old Salt.');
+  expect(await photoOf('Old Salt')).toBeNull();
+
+  // Removing the photo while a new one is being prepared drops both.
+  await vesselRows(page).filter({ hasText: 'Kestrel' }).click();
+  await expect(page.getByRole('heading', { name: 'Edit Kestrel' })).toBeVisible();
+  await page
+    .getByLabel('Photo')
+    .setInputFiles({ name: 'd.png', mimeType: 'image/png', buffer: PNG });
+  await expect(save).toBeDisabled();
+  await page.getByRole('button', { name: 'Remove photo' }).click();
+  await expect(save).toBeEnabled();
+  await release();
+  await expect(page.locator('#vessel-photo-preview')).toBeHidden();
+  await save.click();
+  await expect(page.locator('#vessels-status')).toHaveText('Saved Kestrel.');
+  expect(await photoOf('Kestrel')).toBeNull();
+});
+
 test('the form says what to fix and saves nothing until it is right', async ({ page }) => {
   await openLog(page, '#vessels/new');
   await page.getByRole('button', { name: 'Save vessel' }).click();
