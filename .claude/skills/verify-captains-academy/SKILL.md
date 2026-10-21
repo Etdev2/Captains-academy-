@@ -25,7 +25,7 @@ It runs a clean `npm ci` from the lockfile every time, builds the production bun
 .claude/skills/verify-captains-academy/control.sh doctor
 ```
 
-It is read-only. It checks that the instance this script started is alive and that the page has the `#game` element. It also fails when the bundle is stale. At launch the script records a digest of every build input as it sits on disk: `src/`, `missions/`, `play/`, `public/`, the Vite and TypeScript configs, `package.json` and the lockfile. Staged, unstaged and untracked files all count. Doctor compares that digest with the files now. After a failure, run `stop` and `launch` so you drive the code you mean to prove. Run doctor before the first drive and after any drive that failed. `drive` runs the same freshness check and refuses a stale bundle.
+It is read-only. It checks that the instance this script started is alive and that the page has the `#game` element. It also fails when the bundle is stale. At launch the script records a digest of every file in the checkout as it sits on disk, tracked, untracked or ignored, so staged edits, new files and Vite `.env` files all count. It leaves out only folders a build never reads: `.git`, `node_modules` (launch reinstalls it from the lockfile, which counts), `dist`, `verify-artifacts`, `test-results`, `playwright-report`, `proof`, `agent-resources`, `docs`, `.claude`, `.codex`, `.github`, `tests`, `e2e` and `scripts`. Doctor compares that digest with the files now. After a failure, run `stop` and `launch` so you drive the code you mean to prove. Run doctor before the first drive and after any drive that failed. `drive` runs the same freshness check and refuses a stale bundle.
 
 ## Drive
 

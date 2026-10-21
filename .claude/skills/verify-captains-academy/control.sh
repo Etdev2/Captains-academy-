@@ -27,15 +27,20 @@ ours() {
   [ -f "$pid_file" ] && kill -0 "$(cat "$pid_file")" 2>/dev/null
 }
 
-# What vite build reads, as it sits on disk: tracked and untracked files alike,
-# staged or not. A digest of their names and contents, so any edit, new file or
-# deletion after launch shows up as a different value.
+# Every file in the checkout as it sits on disk, tracked, untracked or ignored,
+# staged or not, except the folders below that a build never reads. Counting
+# everything by default means a new kind of build input, such as a Vite .env
+# file, is covered without anyone having to list it. node_modules is left out
+# because launch reinstalls it from the lockfile, which is counted.
 build_inputs_digest() {
-  git ls-files -z -c -o --exclude-standard -- \
-    src missions play public vite.config.ts tsconfig.json package.json package-lock.json |
-    sort -z |
+  find . \( -path ./.git -o -path ./node_modules -o -path ./dist -o -path ./verify-artifacts \
+      -o -path ./test-results -o -path ./playwright-report -o -path ./proof \
+      -o -path ./agent-resources -o -path ./docs -o -path ./.claude -o -path ./.codex \
+      -o -path ./.github -o -path ./tests -o -path ./e2e -o -path ./scripts \) -prune \
+    -o \( -type f -o -type l \) -print0 |
+    LC_ALL=C sort -z |
     while IFS= read -r -d '' f; do
-      [ -f "$f" ] && sha256sum -- "$f"
+      sha256sum -- "$f"
     done |
     sha256sum | cut -d' ' -f1
 }
