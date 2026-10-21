@@ -24,7 +24,8 @@ Preconditions:
 - **Hit.** Push both levers full ahead and wait. Steps `{"do":"lever","side":"port","to":100}`, `{"do":"lever","side":"starboard","to":100}`, `{"do":"waitFor","field":"outcome","eq":"hit","timeoutMs":45000}`, `{"do":"screenshot","name":"hit"}`. The boat reaches the docks in about 25 seconds, `outcome` becomes `hit`, and the screenshot shows the banner "Hit too hard. Come in slower."
 - **Retry.** Tap the water. Steps `{"do":"tap","x":640,"y":420}`, `{"do":"wait","ms":1500}`. `outcome` is `playing` again and `frame` is small.
 - **Retry by key.** Hit again, then press Enter. Steps `{"do":"lever","side":"port","to":100}`, `{"do":"lever","side":"starboard","to":100}`, `{"do":"waitFor","field":"outcome","eq":"hit","timeoutMs":45000}`, `{"do":"key","key":"Enter"}`. `outcome` is `playing` again and `frame` is small.
-- **Recipe.** `features/steps/docking-run.steps.json` covers the tap and the Enter retry.
+- **Retry by Space.** Hit a third time, then press Space. Steps as above with `{"do":"key","key":"Space"}`. `outcome` is `playing` again.
+- **Recipe.** `features/steps/docking-run.steps.json` covers the tap, Enter and Space retries.
 
 ## Gotchas
 

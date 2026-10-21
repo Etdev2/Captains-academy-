@@ -35,4 +35,4 @@ Each feature file starts with an H1 title and one paragraph describing what the 
 - [Offline play](./offline-play.md): after one online visit the level loads and runs with no network.
 - [Horn and sound](./horn-and-sound.md): the SOUND and HORN buttons and their M and H keys, the saved sound setting, and the horn's rings.
 
-Together these cover every control the game handles: the touch levers, the lever and stop keys, the SOUND, HORN and LEVEL buttons, M, H, and tap, Enter or Space to retry after a run.
+Together these drive every control the game handles, each through its own recipe step: both touch levers; every lever key and alias (↑ ↓ ← →, W S A D, Q Z, E C) and X, in `keyboard.steps.json`; the SOUND, HORN and LEVEL buttons; M and H; and tap, Enter and Space to retry after a run.

@@ -23,7 +23,8 @@ Preconditions:
 - **Port alone.** Drag the port lever to 80. Step `{"do":"lever","side":"port","to":80}`. The log shows `port` above 70 and `starboard` at 0.
 - **Split to pivot.** Drag the starboard lever to -60, wait two seconds and take a screenshot. Steps `{"do":"lever","side":"starboard","to":-60}`, `{"do":"wait","ms":2000}`, `{"do":"screenshot","name":"split"}`. `starboard` is below -50, and the screenshot shows the bow swung to starboard with wash ahead of the starboard side.
 - **Keys.** Press X, then hold the up arrow. Steps `{"do":"key","key":"x"}`, `{"do":"key","key":"ArrowUp","ms":800}`. `port` and `starboard` are equal and above 50, and `speedMmPerS` grows over the next steps.
-- **Recipe.** `features/steps/engine-levers.steps.json` runs all of the above on a phone in landscape, so the lever drags are real touch input.
+- **Every key.** Hold each lever key for 0.8 s (about 96 percent of travel), check the levers, then press X. `features/steps/keyboard.steps.json` does this on a desktop for ↑ and W (both ahead), ↓ and S (both astern), → and D (port ahead, starboard astern), ← and A (the reverse), Q and Z (port alone, ahead and astern) and E and C (starboard alone), and checks X returns both to 0 after each.
+- **Recipe.** `features/steps/engine-levers.steps.json` runs the touch and keyboard basics on a phone in landscape, so the lever drags are real touch input. `features/steps/keyboard.steps.json` covers every lever key and alias.
 
 ## Gotchas
 
