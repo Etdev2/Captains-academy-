@@ -22,11 +22,11 @@
 
 | Field | Value |
 | --- | --- |
-| Clock out (UTC) | 2026-10-21 11:57 |
+| Clock out (UTC) | 2026-10-21 12:22 |
 | Outcome | finished/handoff |
 | Pull requests | Etdev2/Captains-academy-#33 |
 | Tokens | |
 | Token standing | unavailable |
 | Token coverage | |
 | Handoff to | Et, or the next session that can reach the npm registry |
-| Note | Code and tests are done, and CI verify passed on 919be66 with all nine steps. This session's network blocks registry.npmjs.org, so it could not run verify.sh locally or write a fresh proof bundle; #33 stays a draft until one is committed. Nothing exposed token usage. |
+| Note | Code and tests are done, and CI verify passed on 7e4e2e1 with all nine steps. Clocked back in at 12:18 at Et's word to fix two Codex P2 findings (an entry's source could change on save; renaming the cache dropped old offline copies). This session's network blocks registry.npmjs.org, so it could not run verify.sh locally or write a fresh proof bundle; #33 stays a draft until one is committed. Nothing exposed token usage. |
