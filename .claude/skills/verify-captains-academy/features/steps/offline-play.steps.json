@@ -1,0 +1,9 @@
+[
+  { "do": "open", "viewport": "desktop" },
+  { "do": "waitForOfflineCache" },
+  { "do": "offline", "on": true },
+  { "do": "reload" },
+  { "do": "wait", "ms": 3000 },
+  { "do": "screenshot", "name": "offline" },
+  { "do": "expect", "field": "frame", "gt": 30 }
+]
