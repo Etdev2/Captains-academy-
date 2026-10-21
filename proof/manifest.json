@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#34",
-  "sourceDigest": "sha256:6ca6b7f68fdb7b1bcc88bb83f7f76977b98d42570d126d7a8a356f5cd4e0f41f",
-  "capturedAt": "2026-10-21T16:43:07Z",
+  "sourceDigest": "sha256:a9b9b58cea131524990cba744a90f2bb131a010163dfa77c859c6684cc98cba1",
+  "capturedAt": "2026-10-21T16:45:25Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
@@ -23,7 +23,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh passes in full, including Playwright on phone portrait and desktop: a vessel added, edited, soft-deleted and kept across online and offline reloads; official tonnage only; seeded deck and engine roles with a default per vessel; the version 1 to 2 migration keeping an entry; a photo still being prepared never saved late or onto another vessel"
+      "shows": "verify.sh passes in full, including Playwright on phone portrait and desktop: a vessel added, edited, soft-deleted and kept across online and offline reloads; official tonnage only; seeded deck and engine roles with a default per vessel; the version 1 to 2 migration keeping an entry; a photo still being prepared never saved late or onto another vessel; a double tap on Save adding one vessel"
     }
   ]
 }
