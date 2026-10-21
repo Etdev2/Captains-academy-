@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#37",
-  "sourceDigest": "sha256:c25109b74ae41f1e87ff310cebd25db45f59f4b5a6212652914e023af15c78f4",
-  "capturedAt": "2026-10-21T17:16:49Z",
+  "ticket": "Etdev2/Captains-academy-#40",
+  "sourceDigest": "sha256:19970475772922d7bf8d56c20fa6eff79f700da014acb9b4543c2df0072f3184",
+  "capturedAt": "2026-10-21T18:53:04Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "Production build served by vite preview; Playwright on desktop Chrome, Pixel 7 landscape and Pixel 7 portrait, plus an iPhone 15 viewport (393x852 at 3x, touch) for the front page"
+    "fixture": "Production build served by vite preview; Playwright on desktop Chrome, Pixel 7 landscape and Pixel 7 portrait, a fresh IndexedDB per test, and hand-built version 1 and version 2 databases for the migration tests"
   },
   "commands": [
     {
@@ -23,12 +23,37 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh passes in full, including e2e/home.spec.ts: the root is the front page (200, no redirect) with exactly two links, /play/ opens the game and /log/ opens the sea-time log, the front page opens offline after a visit to it or to the log, and at iPhone width both links are on screen, at least 56px tall, with no sideways scroll"
+      "shows": "verify.sh passes in full, including e2e/entries.spec.ts on phone portrait and desktop: check in and out kept across online and offline reloads, a second open trip refused, backfilling refused without consent and labeled backfilled with consent recorded, every under-4 entry flagged and kept, the 4-8 and 12+ notes with their CFR citations, and the version 2 to 3 migration keeping vessels and entries"
     },
     {
-      "path": "proof/home-iphone.png",
+      "path": "proof/check-in.png",
       "kind": "screenshot",
-      "shows": "the front page at iPhone 15 width (393x852 CSS px at 3x), captured by e2e/home.spec.ts during the verify.sh run above: both links on screen, no sideways scroll"
+      "shows": "Phone (Pixel 7 portrait): checked in, the home screen shows Check out and the running trip timer, captured by e2e/entries.spec.ts during the verify.sh run above"
+    },
+    {
+      "path": "proof/check-out.png",
+      "kind": "screenshot",
+      "shows": "Phone: checked out, the status line gives the trip length and flags it Not eligible: under 4 hours, captured by e2e/entries.spec.ts during the verify.sh run above"
+    },
+    {
+      "path": "proof/consent.png",
+      "kind": "screenshot",
+      "shows": "Phone: the consent step shown before any backfilled day can be saved, captured by e2e/entries.spec.ts during the verify.sh run above"
+    },
+    {
+      "path": "proof/backfilled-day.png",
+      "kind": "screenshot",
+      "shows": "Phone: the log list with a backfilled day, labeled Backfilled, with its vessel, role and waters, captured by e2e/entries.spec.ts during the verify.sh run above"
+    },
+    {
+      "path": "proof/under-4.png",
+      "kind": "screenshot",
+      "shows": "Phone: the log list with under-4 entries flagged Not eligible: under 4 hours and kept, plus the 4-8 and 12+ notes with their CFR citations, captured by e2e/entries.spec.ts during the verify.sh run above"
+    },
+    {
+      "path": "proof/offline-reload.png",
+      "kind": "screenshot",
+      "shows": "Phone: after an offline reload the open trip is still underway, captured by e2e/entries.spec.ts during the verify.sh run above"
     }
   ]
 }
