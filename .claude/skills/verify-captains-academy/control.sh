@@ -53,7 +53,9 @@ launch() {
     die "port $port already answers and this script did not start it. Pick another VERIFY_PORT."
   fi
   mkdir -p "$state_dir"
-  [ -d node_modules ] || npm ci --no-audit --no-fund
+  # A clean install from the lockfile on every launch, so the bundle is built
+  # from exactly the dependency tree the recorded inputs name.
+  npm ci --no-audit --no-fund --loglevel=error
   local inputs
   inputs="$(build_inputs_digest)"
   npx --no-install vite build --logLevel error

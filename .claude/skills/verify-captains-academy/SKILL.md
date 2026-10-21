@@ -17,7 +17,7 @@ Everything below runs from the repository root. The helper is `.claude/skills/ve
 .claude/skills/verify-captains-academy/control.sh launch
 ```
 
-It runs `npm ci` if `node_modules/` is missing, builds the production bundle with `vite build`, and serves it with `vite preview` on `127.0.0.1:4180` (`VERIFY_PORT` changes the port). It is ready when it prints `ready: http://127.0.0.1:4180/play/`. It refuses to start if the port already answers, so it never drives a server someone else started. Port 4173 belongs to the e2e tests in `verify.sh`; keep away from it.
+It runs a clean `npm ci` from the lockfile every time, builds the production bundle with `vite build`, and serves it with `vite preview` on `127.0.0.1:4180` (`VERIFY_PORT` changes the port). It is ready when it prints `ready: http://127.0.0.1:4180/play/`. It refuses to start if the port already answers, so it never drives a server someone else started. Port 4173 belongs to the e2e tests in `verify.sh`; keep away from it.
 
 ## Doctor
 
