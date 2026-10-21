@@ -1,9 +1,13 @@
-// Offline play (DECISIONS.md G4). The page caches its own files on first load
-// (see src/game/offline.ts); this worker serves them when the network is gone.
+// Offline support for every page on the site: the game at /play (DECISIONS.md
+// G4) and the sea-time log at /log (A3). Each page caches its own files on
+// first load (see src/offline/offline.ts); this worker serves them when the
+// network is gone.
 // Built files have content hashes in their names, so a cached copy never goes
 // stale: pages are fetched fresh when online and fall back to the cache.
 
-const CACHE = 'captains-academy-play-v1';
+// Must match CACHE_NAME in src/offline/offline.ts. Activating a new name
+// deletes the old cache, so old copies never linger.
+const CACHE = 'captains-academy-offline-v1';
 
 self.addEventListener('install', () => self.skipWaiting());
 
