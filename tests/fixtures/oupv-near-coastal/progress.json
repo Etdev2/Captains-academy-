@@ -1,0 +1,293 @@
+{
+  "license": {
+    "id": "oupv-near-coastal",
+    "label": "OUPV near coastal",
+    "cfr": ["46 CFR 11.467(c)"]
+  },
+  "parts": {
+    "total": {
+      "requirement": {
+        "id": "oupv-near-coastal.total",
+        "label": "Operating experience on any waters",
+        "text": "Twelve months of experience in the operation of vessels.",
+        "amount": 12,
+        "unit": "month",
+        "cfr": ["46 CFR 11.467(c)", "46 CFR 10.107"],
+        "days": 360
+      },
+      "creditedDays": 5,
+      "mayCountDays": 1,
+      "unknownTonnageDays": 0,
+      "stillNeededDays": 355,
+      "appearsMet": false
+    },
+    "oceansOrNearCoastal": {
+      "requirement": {
+        "id": "oupv-near-coastal.oceans-or-near-coastal",
+        "label": "Of which on ocean or near-coastal waters",
+        "text": "At least 3 of the 12 months on ocean or near-coastal waters. Inside Passage service counts as near coastal.",
+        "amount": 3,
+        "unit": "month",
+        "cfr": ["46 CFR 11.467(c)", "46 CFR 10.107", "46 CFR 10.232(b)(3)"],
+        "days": 90
+      },
+      "creditedDays": 3,
+      "mayCountDays": 1,
+      "unknownTonnageDays": 0,
+      "stillNeededDays": 87,
+      "appearsMet": false
+    }
+  },
+  "dates": [
+    {
+      "date": "2026-06-10",
+      "outcome": "day",
+      "entryIds": ["00000000-0000-4000-8000-000000000009"],
+      "oceansOrNearCoastal": true
+    },
+    {
+      "date": "2026-06-11",
+      "outcome": "day",
+      "entryIds": ["00000000-0000-4000-8000-000000000010"],
+      "oceansOrNearCoastal": false
+    },
+    {
+      "date": "2026-06-12",
+      "outcome": "not-a-day",
+      "entryIds": ["00000000-0000-4000-8000-000000000011"],
+      "oceansOrNearCoastal": true
+    },
+    {
+      "date": "2026-07-01",
+      "outcome": "day",
+      "entryIds": ["00000000-0000-4000-8000-000000000001"],
+      "oceansOrNearCoastal": true
+    },
+    {
+      "date": "2026-07-02",
+      "outcome": "day",
+      "entryIds": ["00000000-0000-4000-8000-000000000002"],
+      "oceansOrNearCoastal": true
+    },
+    {
+      "date": "2026-07-03",
+      "outcome": "not-a-day",
+      "entryIds": ["00000000-0000-4000-8000-000000000003"],
+      "oceansOrNearCoastal": false
+    },
+    {
+      "date": "2026-07-04",
+      "outcome": "may-count",
+      "entryIds": ["00000000-0000-4000-8000-000000000004"],
+      "oceansOrNearCoastal": true
+    },
+    {
+      "date": "2026-07-05",
+      "outcome": "not-a-day",
+      "entryIds": ["00000000-0000-4000-8000-000000000005"],
+      "oceansOrNearCoastal": true
+    },
+    {
+      "date": "2026-07-06",
+      "outcome": "day",
+      "entryIds": ["00000000-0000-4000-8000-000000000006", "00000000-0000-4000-8000-000000000007"],
+      "oceansOrNearCoastal": false
+    }
+  ],
+  "entries": [
+    {
+      "entryId": "00000000-0000-4000-8000-000000000001",
+      "source": "live",
+      "date": "2026-07-01",
+      "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
+      "waters": "near-coastal",
+      "band": "8-12",
+      "outcome": "day",
+      "notes": ["Eight hours of watchstanding or day-working is one day. Overtime adds nothing."],
+      "cfr": ["46 CFR 10.232(h)(1)", "46 CFR 10.107"]
+    },
+    {
+      "entryId": "00000000-0000-4000-8000-000000000002",
+      "source": "live",
+      "date": "2026-07-02",
+      "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
+      "waters": "near-coastal",
+      "band": "12-plus",
+      "outcome": "day",
+      "notes": [
+        "Twelve hours or more is one day. The 1½-day credit on two-watch vessels is at the Coast Guard's discretion and is never added here.",
+        "⚠️ Unverified: 46 CFR does not say how to date service that crosses midnight. A trip is credited to the day it began, and one entry is never more than one day.",
+        "May be credited as 1½ days at the Coast Guard's discretion on vessels authorized for two watches (46 CFR 10.232(h)(2), 15.705). Not added to any total."
+      ],
+      "cfr": ["46 CFR 10.232(h)(1)", "46 CFR 10.232(h)(2)", "46 CFR 15.705"]
+    },
+    {
+      "entryId": "00000000-0000-4000-8000-000000000003",
+      "source": "live",
+      "date": "2026-07-03",
+      "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
+      "waters": "inland",
+      "band": "under-4",
+      "outcome": "not-a-day",
+      "notes": ["Under 4 hours is never a day of service. The entry is kept and flagged."],
+      "cfr": ["46 CFR 10.232(h)(3)", "46 CFR 10.107"]
+    },
+    {
+      "entryId": "00000000-0000-4000-8000-000000000004",
+      "source": "live",
+      "date": "2026-07-04",
+      "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
+      "waters": "near-coastal",
+      "band": "4-8",
+      "outcome": "may-count",
+      "notes": [
+        "A day is 8 hours. On a vessel under 100 GRT, a shorter day of at least 4 hours may count if the Coast Guard accepts the schedule. Otherwise 4 to 8 hours is not a day."
+      ],
+      "cfr": ["46 CFR 10.232(h)(1)", "46 CFR 10.232(h)(3)", "46 CFR 10.107"]
+    },
+    {
+      "entryId": "00000000-0000-4000-8000-000000000005",
+      "source": "live",
+      "date": "2026-07-05",
+      "vesselId": "bbbbbbbb-2222-4222-8222-222222222222",
+      "waters": "near-coastal",
+      "band": "4-8",
+      "outcome": "not-a-day",
+      "notes": [
+        "A day is 8 hours. On a vessel under 100 GRT, a shorter day of at least 4 hours may count if the Coast Guard accepts the schedule. Otherwise 4 to 8 hours is not a day."
+      ],
+      "cfr": ["46 CFR 10.232(h)(1)", "46 CFR 10.232(h)(3)", "46 CFR 10.107"]
+    },
+    {
+      "entryId": "00000000-0000-4000-8000-000000000006",
+      "source": "live",
+      "date": "2026-07-06",
+      "vesselId": "bbbbbbbb-2222-4222-8222-222222222222",
+      "waters": "inland",
+      "band": "8-12",
+      "outcome": "day",
+      "notes": ["Eight hours of watchstanding or day-working is one day. Overtime adds nothing."],
+      "cfr": ["46 CFR 10.232(h)(1)", "46 CFR 10.107"]
+    },
+    {
+      "entryId": "00000000-0000-4000-8000-000000000007",
+      "source": "live",
+      "date": "2026-07-06",
+      "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
+      "waters": "oceans",
+      "band": "4-8",
+      "outcome": "may-count",
+      "notes": [
+        "A day is 8 hours. On a vessel under 100 GRT, a shorter day of at least 4 hours may count if the Coast Guard accepts the schedule. Otherwise 4 to 8 hours is not a day."
+      ],
+      "cfr": ["46 CFR 10.232(h)(1)", "46 CFR 10.232(h)(3)", "46 CFR 10.107"]
+    },
+    {
+      "entryId": "00000000-0000-4000-8000-000000000009",
+      "source": "backfilled",
+      "date": "2026-06-10",
+      "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
+      "waters": "inside-passage",
+      "band": "8-12",
+      "outcome": "day",
+      "notes": ["Eight hours of watchstanding or day-working is one day. Overtime adds nothing."],
+      "cfr": ["46 CFR 10.232(h)(1)", "46 CFR 10.107"]
+    },
+    {
+      "entryId": "00000000-0000-4000-8000-000000000010",
+      "source": "backfilled",
+      "date": "2026-06-11",
+      "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
+      "waters": "great-lakes",
+      "band": "12-plus",
+      "outcome": "day",
+      "notes": [
+        "Twelve hours or more is one day. The 1½-day credit on two-watch vessels is at the Coast Guard's discretion and is never added here.",
+        "May be credited as 1½ days at the Coast Guard's discretion on vessels authorized for two watches (46 CFR 10.232(h)(2), 15.705). Not added to any total."
+      ],
+      "cfr": ["46 CFR 10.232(h)(1)", "46 CFR 10.232(h)(2)", "46 CFR 15.705"]
+    },
+    {
+      "entryId": "00000000-0000-4000-8000-000000000011",
+      "source": "backfilled",
+      "date": "2026-06-12",
+      "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
+      "waters": "near-coastal",
+      "band": "under-4",
+      "outcome": "not-a-day",
+      "notes": ["Under 4 hours is never a day of service. The entry is kept and flagged."],
+      "cfr": ["46 CFR 10.232(h)(3)", "46 CFR 10.107"]
+    },
+    {
+      "entryId": "00000000-0000-4000-8000-000000000012",
+      "source": "live",
+      "date": "2026-07-08",
+      "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
+      "waters": "near-coastal",
+      "band": null,
+      "outcome": "open",
+      "notes": ["Still underway. Credited once the trip ends."],
+      "cfr": ["46 CFR 10.232(h)(1)"]
+    }
+  ],
+  "notChecked": [
+    {
+      "id": "recency",
+      "label": "Recent service",
+      "why": "How recent the service must be is open decision D3.",
+      "cfr": []
+    },
+    {
+      "id": "role-credit",
+      "label": "Which roles count",
+      "why": "Which roles aboard count toward this license is open decision D4. Every role is shown, none is filtered.",
+      "cfr": []
+    },
+    {
+      "id": "tonnage-limit",
+      "label": "The license's tonnage limit",
+      "why": "The tonnage a license is limited to depends on the vessels served on; that is open decision D5.",
+      "cfr": ["46 CFR 11.422"]
+    },
+    {
+      "id": "same-day-watches",
+      "label": "Separate watches on one day",
+      "why": "⚠️ Unverified: whether two shorter entries on one day add up to a day. Each entry is judged alone.",
+      "cfr": ["46 CFR 10.107"]
+    },
+    {
+      "id": "exam",
+      "label": "Exam",
+      "why": "Not sea time. Tracked on the license screen later.",
+      "cfr": []
+    },
+    {
+      "id": "physical",
+      "label": "Physical and medical certificate",
+      "why": "Not sea time. Tracked on the license screen later.",
+      "cfr": []
+    },
+    {
+      "id": "drug-test",
+      "label": "Drug test",
+      "why": "Not sea time. Tracked on the license screen later.",
+      "cfr": []
+    },
+    {
+      "id": "twic",
+      "label": "TWIC",
+      "why": "Not sea time. Tracked on the license screen later.",
+      "cfr": []
+    }
+  ],
+  "summary": "Your logged sea time does not yet appear to meet the sea-service amount for OUPV near coastal: 355 more days in total, 87 more on ocean or near-coastal waters. The NMC decides.",
+  "citations": [
+    "46 CFR 10.107",
+    "46 CFR 10.232(b)(3)",
+    "46 CFR 10.232(h)(1)",
+    "46 CFR 10.232(h)(2)",
+    "46 CFR 10.232(h)(3)",
+    "46 CFR 11.467(c)",
+    "46 CFR 15.705"
+  ]
+}
