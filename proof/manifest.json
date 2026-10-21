@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#27",
-  "sourceDigest": "sha256:6741b2d529623297bd130b8ee50a1777465a6bdcd5fabc2fe4aa6c9370e6b778",
-  "capturedAt": "2026-10-21T11:52:04Z",
+  "sourceDigest": "sha256:2f6ee1878b4c03dcdc67239177784c994485cf50277251469ad4f3583942de45",
+  "capturedAt": "2026-10-21T12:54:41Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
@@ -28,7 +28,7 @@
     {
       "path": "proof/skill-docking-run-hit.png",
       "kind": "screenshot",
-      "shows": "control.sh drive with docking-run.steps.json on the production build, after a clean npm ci, from the files at 6563f37: both levers full ahead, the boat hits the docks and the hit banner shows"
+      "shows": "control.sh drive with docking-run.steps.json on the production build, after a clean npm ci, from the files at 8f7c6f1: both levers full ahead, the boat hits the docks and the hit banner shows"
     },
     {
       "path": "proof/skill-docking-run.steps.log.json",

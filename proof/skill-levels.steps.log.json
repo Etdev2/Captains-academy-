@@ -24,7 +24,7 @@
     },
     "ok": true,
     "state": {
-      "frame": 12,
+      "frame": 13,
       "outcome": "playing",
       "speedMmPerS": 0,
       "level": 0,
@@ -40,7 +40,7 @@
     },
     "ok": true,
     "state": {
-      "frame": 46,
+      "frame": 49,
       "outcome": "playing",
       "speedMmPerS": 0,
       "level": 0,
@@ -57,7 +57,7 @@
     },
     "ok": true,
     "state": {
-      "frame": 48,
+      "frame": 51,
       "outcome": "playing",
       "speedMmPerS": 0,
       "level": 0,
@@ -73,7 +73,7 @@
     },
     "ok": true,
     "state": {
-      "frame": 55,
+      "frame": 58,
       "outcome": "playing",
       "speedMmPerS": 0,
       "level": 0,
@@ -125,7 +125,7 @@
     },
     "ok": true,
     "state": {
-      "frame": 48,
+      "frame": 53,
       "outcome": "playing",
       "speedMmPerS": 0,
       "level": 1,
@@ -142,7 +142,7 @@
     },
     "ok": true,
     "state": {
-      "frame": 50,
+      "frame": 55,
       "outcome": "playing",
       "speedMmPerS": 0,
       "level": 1,
@@ -158,7 +158,7 @@
     },
     "ok": true,
     "state": {
-      "frame": 58,
+      "frame": 63,
       "outcome": "playing",
       "speedMmPerS": 0,
       "level": 1,

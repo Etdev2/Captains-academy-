@@ -41,7 +41,7 @@
     },
     "ok": true,
     "state": {
-      "frame": 9,
+      "frame": 8,
       "outcome": "playing",
       "speedMmPerS": 0,
       "level": 0,
@@ -58,7 +58,7 @@
     },
     "ok": true,
     "state": {
-      "frame": 43,
+      "frame": 42,
       "outcome": "playing",
       "speedMmPerS": 73.125,
       "level": 0,
@@ -75,7 +75,7 @@
     },
     "ok": true,
     "state": {
-      "frame": 77,
+      "frame": 76,
       "outcome": "playing",
       "speedMmPerS": 390.46875,
       "level": 0,
@@ -93,7 +93,7 @@
     },
     "ok": true,
     "state": {
-      "frame": 1538,
+      "frame": 1537,
       "outcome": "hit",
       "speedMmPerS": 0,
       "level": 0,
@@ -109,7 +109,7 @@
     },
     "ok": true,
     "state": {
-      "frame": 1538,
+      "frame": 1537,
       "outcome": "hit",
       "speedMmPerS": 0,
       "level": 0,
@@ -142,7 +142,7 @@
     },
     "ok": true,
     "state": {
-      "frame": 94,
+      "frame": 95,
       "outcome": "playing",
       "speedMmPerS": 0,
       "level": 0,
@@ -159,7 +159,7 @@
     },
     "ok": true,
     "state": {
-      "frame": 97,
+      "frame": 98,
       "outcome": "playing",
       "speedMmPerS": 0,
       "level": 0,
@@ -176,7 +176,7 @@
     },
     "ok": true,
     "state": {
-      "frame": 100,
+      "frame": 101,
       "outcome": "playing",
       "speedMmPerS": 0,
       "level": 0,
@@ -192,7 +192,7 @@
     },
     "ok": true,
     "state": {
-      "frame": 112,
+      "frame": 114,
       "outcome": "playing",
       "speedMmPerS": 0,
       "level": 0,
