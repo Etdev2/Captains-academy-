@@ -29,7 +29,10 @@ describe('wording', () => {
   // The app says logged sea time "appears to meet" a requirement and never
   // that a user qualifies (G18, AGENTS.md project rules).
   it('no page, script or mission says qualify, qualifies or qualified', () => {
-    const offenders = filesUnder('src', 'log', 'play', 'public', 'missions')
+    const offenders = [
+      ...filesUnder('src', 'log', 'play', 'public', 'missions'),
+      join(root, 'index.html'),
+    ]
       .filter((path) => /qualif/i.test(read(path)))
       .map(where);
     expect(offenders).toEqual([]);
@@ -99,5 +102,27 @@ describe('offline', () => {
 
   it('the build includes the sea-time log page', () => {
     expect(read(join(root, 'vite.config.ts'))).toContain("log: 'log/index.html'");
+  });
+});
+
+describe('front page', () => {
+  // The site root links to both parts of the app, so nothing may send / elsewhere.
+  it('the build includes the front page, and nothing redirects the root away', () => {
+    expect(read(join(root, 'vite.config.ts'))).toContain("home: 'index.html'");
+    const vercel = JSON.parse(read(join(root, 'vercel.json'))) as {
+      redirects?: { source: string }[];
+      rewrites?: { source: string }[];
+    };
+    const rules = [...(vercel.redirects ?? []), ...(vercel.rewrites ?? [])];
+    expect(rules.filter((rule) => rule.source === '/')).toEqual([]);
+  });
+
+  it('links only to pages the build makes', () => {
+    const links = [...read(join(root, 'index.html')).matchAll(/href="([^"]+)"/g)].map(
+      (match) => match[1],
+    );
+    expect(links).toEqual(['/play/', '/log/']);
+    const config = read(join(root, 'vite.config.ts'));
+    for (const link of links) expect(config).toContain(`'${link?.slice(1)}index.html'`);
   });
 });

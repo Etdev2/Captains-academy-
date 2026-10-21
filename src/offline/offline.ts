@@ -1,6 +1,6 @@
-// Offline support shared by every page on the site: the game at /play
-// (DECISIONS.md G4) and the sea-time log at /log (A3: "an offline-capable,
-// phone-friendly web app"). The service worker in public/sw.js serves cached
+// Offline support shared by every page on the site: the front page at /, the
+// game at /play (DECISIONS.md G4) and the sea-time log at /log (A3: "an
+// offline-capable, phone-friendly web app"). The service worker in public/sw.js serves cached
 // files when the network is gone. This module registers it and caches the
 // files the first visit already loaded, which the worker could not see because
 // it was not installed yet. A failure only means no offline copy, never a
@@ -8,6 +8,9 @@
 
 // Must match CACHE in public/sw.js. tests/offline.test.ts checks that it does.
 export const CACHE_NAME = 'captains-academy-offline-v1';
+
+/** The site's front page, which links to the game and the sea-time log. */
+export const FRONT_PAGE = '/';
 
 export async function enableOffline(): Promise<void> {
   if (!('serviceWorker' in navigator) || !('caches' in window)) return;
@@ -20,7 +23,9 @@ export async function enableOffline(): Promise<void> {
     const cache = await caches.open(CACHE_NAME);
     // One at a time rather than addAll, which stores nothing if any single
     // file fails. A file that fails here is fetched and cached on next use.
-    const urls = [...new Set([location.pathname, ...sameOrigin])];
+    // The front page links to every other page, so it is kept too: someone
+    // who only ever opened the game or the log can still get back to it offline.
+    const urls = [...new Set([location.pathname, FRONT_PAGE, ...sameOrigin])];
     await Promise.allSettled(urls.map((url) => cache.add(url)));
   } catch {
     // Private windows and blocked storage just work online.

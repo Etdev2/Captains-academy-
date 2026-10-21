@@ -3,6 +3,5 @@
   "framework": "vite",
   "installCommand": "npm ci",
   "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "redirects": [{ "source": "/", "destination": "/play/", "permanent": false }]
+  "outputDirectory": "dist"
 }
