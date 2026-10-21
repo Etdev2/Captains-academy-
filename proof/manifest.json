@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#34",
-  "sourceDigest": "sha256:a9b9b58cea131524990cba744a90f2bb131a010163dfa77c859c6684cc98cba1",
-  "capturedAt": "2026-10-21T16:45:25Z",
+  "ticket": "Etdev2/Captains-academy-#37",
+  "sourceDigest": "sha256:b3ad429a6dac59f97ac39bcdb7db660c67a1ba139debde6c55f57ce447450dda",
+  "capturedAt": "2026-10-21T17:06:24Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "Production build served by vite preview; Playwright on desktop Chrome, Pixel 7 landscape and Pixel 7 portrait, with a fresh IndexedDB per test, a hand-built version 1 database for the migration test, and a held createImageBitmap for the photo race test"
+    "fixture": "Production build served by vite preview; Playwright on desktop Chrome, Pixel 7 landscape and Pixel 7 portrait, plus an iPhone 15 viewport (393x852 at 3x, touch) for the front page"
   },
   "commands": [
     {
@@ -23,7 +23,12 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh passes in full, including Playwright on phone portrait and desktop: a vessel added, edited, soft-deleted and kept across online and offline reloads; official tonnage only; seeded deck and engine roles with a default per vessel; the version 1 to 2 migration keeping an entry; a photo still being prepared never saved late or onto another vessel; a double tap on Save adding one vessel"
+      "shows": "verify.sh passes in full, including e2e/home.spec.ts: the root is the front page (200, no redirect) with exactly two links, /play/ opens the game and /log/ opens the sea-time log, and at iPhone width both links are on screen, at least 56px tall, with no sideways scroll"
+    },
+    {
+      "path": "proof/home-iphone.png",
+      "kind": "screenshot",
+      "shows": "the front page at iPhone 15 width (393x852 CSS px at 3x), captured by e2e/home.spec.ts during the verify.sh run above: both links on screen, no sideways scroll"
     }
   ]
 }
