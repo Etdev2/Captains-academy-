@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#27",
-  "sourceDigest": "sha256:570fb7a92ade091fad8852777a3c94d301e410149e74b00172bc17dd6ecf9e76",
-  "capturedAt": "2026-10-21T14:29:51Z",
+  "ticket": "Etdev2/Captains-academy-#34",
+  "sourceDigest": "sha256:70ad1d02729833179587a34c9f9e153c24a601423f7409e1264dbfee16324262",
+  "capturedAt": "2026-10-21T16:00:09Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "docs/team/HOUSE-RULES.md and one time card on this branch, merged with main at f044e70; no code changed by this PR"
+    "fixture": "Production build served by vite preview; Playwright on desktop Chrome, Pixel 7 landscape and Pixel 7 portrait, with a fresh IndexedDB per test and a hand-built version 1 database for the migration test"
   },
   "commands": [
     {
@@ -18,13 +18,12 @@
       "exitCode": 0
     }
   ],
-  "behaviorChanged": false,
+  "behaviorChanged": true,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "the full scripts/verify.sh and verify.test.sh pass on the merged branch"
+      "shows": "verify.sh passes in full, including Playwright on phone portrait and desktop: a vessel added, edited, soft-deleted and kept across online and offline reloads; official tonnage only; seeded deck and engine roles with a default per vessel; the version 1 to 2 migration keeping an entry"
     }
-  ],
-  "noBehaviorReason": "Docs only: adds a house rule on when a Codex review ends, and updates a time card. No app code, config or test changed."
+  ]
 }
