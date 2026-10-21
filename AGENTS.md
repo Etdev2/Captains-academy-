@@ -8,11 +8,11 @@ This repository is a Sweet Potato project. It follows the rules in Sweet Potato'
 
 | Field | Value |
 | --- | --- |
-| Registry entry | `projects.json` in Sweet Potato, name `Captain's Academy` |
-| Trust stage | `stage-0-unverified`: no builder runs until the verification command and required checks below exist |
+| Registry entry | `projects.json` in Sweet Potato, name `Captain's Academy`, added by the pull request that moves the academy to stage 1 |
+| Trust stage | `stage-1-supervised`: one ticket at a time while Et watches each transition. Et reviews the proof and merges |
 | Language lane | `typescript-web` for the web app. The Unity simulator has no lane yet and needs a Sweet Potato ADR before simulator work starts |
-| Verification command | missing until the project-local verification skill exists |
-| Required checks | none yet |
+| Verification command | `bash scripts/verify.sh`. The project-local verification skill is `.claude/skills/verify-captains-academy/` |
+| Required checks | `verify` and `proof`, the GitHub Actions jobs in `.github/workflows/`. Branch protection is not available on the current GitHub plan, so they do not block a merge by themselves: Et merges only when both are green on the head commit |
 | Merge authority | Et |
 
 ## Before work
@@ -49,6 +49,8 @@ Roles live in `.claude/agents/` (Claude) and `.codex/agents/` (Codex). Both adap
 ## Skills
 
 `.claude/skills/` holds the skills pinned in Sweet Potato's `skills/registry.json`, copied under [ADR 0009](https://github.com/Etdev2/sweet-potato/blob/main/docs/adr/0009-copy-pinned-skills-into-a-project-template.md). Do not edit them here. To update them, move the pin in Sweet Potato and copy the folder again.
+
+The one exception is `verify-captains-academy/`, the project's own verification skill. It belongs to this repository and changes with the game: update its feature map in the same pull request as a change to what a player can do, and keep it honest with `/maintain-verification-skill`. Use it to drive the real build and capture proof before claiming a game change works.
 
 - Prose follows `.claude/skills/unslop/SKILL.md`. That skill cannot be invoked as a tool, so read it before writing prose for this repository.
 - The issue tracker is GitHub Issues. See `docs/agents/issue-tracker.md` and `docs/agents/triage-labels.md`.

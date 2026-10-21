@@ -1,0 +1,18 @@
+[
+  { "do": "open", "viewport": "phone-landscape" },
+  { "do": "lever", "side": "port", "to": 80 },
+  { "do": "expect", "field": "port", "gt": 70 },
+  { "do": "expect", "field": "starboard", "eq": 0 },
+  { "do": "lever", "side": "starboard", "to": -60 },
+  { "do": "wait", "ms": 2000 },
+  { "do": "expect", "field": "starboard", "lt": -50 },
+  { "do": "screenshot", "name": "split" },
+  { "do": "key", "key": "x" },
+  { "do": "expect", "field": "port", "eq": 0 },
+  { "do": "key", "key": "ArrowUp", "ms": 800 },
+  { "do": "expect", "field": "port", "gt": 50 },
+  { "do": "expect", "field": "starboard", "gt": 50 },
+  { "do": "wait", "ms": 1500 },
+  { "do": "expect", "field": "speedMmPerS", "gt": 200 },
+  { "do": "screenshot", "name": "both-ahead" }
+]

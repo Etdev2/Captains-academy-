@@ -65,6 +65,10 @@ export interface DebugView {
   level: number;
   port: number;
   starboard: number;
+  /** Sound is switched off (the SOUND button or M). */
+  muted: boolean;
+  /** A horn blast is sounding and its rings are showing (the HORN button or H). */
+  horn: boolean;
 }
 
 declare global {
@@ -440,6 +444,8 @@ export class HarborScene extends Phaser.Scene {
       level: this.levelIndex,
       port: this.helm.port,
       starboard: this.helm.starboard,
+      muted: this.audio.muted,
+      horn: this.time.now < this.hornUntil,
     };
     if (s.outcome !== this.shownOutcome) this.showOutcome(s);
   }

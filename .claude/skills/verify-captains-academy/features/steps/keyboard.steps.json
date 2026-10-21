@@ -1,0 +1,354 @@
+[
+  {
+    "do": "open",
+    "viewport": "desktop"
+  },
+  {
+    "do": "key",
+    "key": "ArrowUp",
+    "ms": 800
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "gt": 30
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "gt": 30
+  },
+  {
+    "do": "key",
+    "key": "x"
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "eq": 0
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "eq": 0
+  },
+  {
+    "do": "key",
+    "key": "w",
+    "ms": 800
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "gt": 30
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "gt": 30
+  },
+  {
+    "do": "key",
+    "key": "x"
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "eq": 0
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "eq": 0
+  },
+  {
+    "do": "key",
+    "key": "ArrowDown",
+    "ms": 800
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "lt": -30
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "lt": -30
+  },
+  {
+    "do": "key",
+    "key": "x"
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "eq": 0
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "eq": 0
+  },
+  {
+    "do": "key",
+    "key": "s",
+    "ms": 800
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "lt": -30
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "lt": -30
+  },
+  {
+    "do": "key",
+    "key": "x"
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "eq": 0
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "eq": 0
+  },
+  {
+    "do": "key",
+    "key": "ArrowRight",
+    "ms": 800
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "gt": 30
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "lt": -30
+  },
+  {
+    "do": "key",
+    "key": "x"
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "eq": 0
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "eq": 0
+  },
+  {
+    "do": "key",
+    "key": "d",
+    "ms": 800
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "gt": 30
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "lt": -30
+  },
+  {
+    "do": "key",
+    "key": "x"
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "eq": 0
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "eq": 0
+  },
+  {
+    "do": "key",
+    "key": "ArrowLeft",
+    "ms": 800
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "lt": -30
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "gt": 30
+  },
+  {
+    "do": "key",
+    "key": "x"
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "eq": 0
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "eq": 0
+  },
+  {
+    "do": "key",
+    "key": "a",
+    "ms": 800
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "lt": -30
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "gt": 30
+  },
+  {
+    "do": "key",
+    "key": "x"
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "eq": 0
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "eq": 0
+  },
+  {
+    "do": "key",
+    "key": "q",
+    "ms": 800
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "gt": 30
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "eq": 0
+  },
+  {
+    "do": "key",
+    "key": "x"
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "eq": 0
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "eq": 0
+  },
+  {
+    "do": "key",
+    "key": "z",
+    "ms": 800
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "lt": -30
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "eq": 0
+  },
+  {
+    "do": "key",
+    "key": "x"
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "eq": 0
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "eq": 0
+  },
+  {
+    "do": "key",
+    "key": "e",
+    "ms": 800
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "gt": 30
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "eq": 0
+  },
+  {
+    "do": "key",
+    "key": "x"
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "eq": 0
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "eq": 0
+  },
+  {
+    "do": "key",
+    "key": "c",
+    "ms": 800
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "lt": -30
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "eq": 0
+  },
+  {
+    "do": "key",
+    "key": "x"
+  },
+  {
+    "do": "expect",
+    "field": "port",
+    "eq": 0
+  },
+  {
+    "do": "expect",
+    "field": "starboard",
+    "eq": 0
+  }
+]

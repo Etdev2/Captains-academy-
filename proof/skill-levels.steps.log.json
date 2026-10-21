@@ -1,0 +1,189 @@
+[
+  {
+    "i": 0,
+    "step": {
+      "do": "open",
+      "viewport": "desktop"
+    },
+    "ok": true,
+    "state": {
+      "frame": 5,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 0,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false
+    }
+  },
+  {
+    "i": 1,
+    "step": {
+      "do": "tap",
+      "x": 60,
+      "y": 206
+    },
+    "ok": true,
+    "state": {
+      "frame": 12,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 0,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false
+    }
+  },
+  {
+    "i": 2,
+    "step": {
+      "do": "wait",
+      "ms": 1000
+    },
+    "ok": true,
+    "state": {
+      "frame": 49,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 0,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false
+    }
+  },
+  {
+    "i": 3,
+    "step": {
+      "do": "expect",
+      "field": "level",
+      "eq": 0
+    },
+    "ok": true,
+    "state": {
+      "frame": 51,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 0,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false
+    }
+  },
+  {
+    "i": 4,
+    "step": {
+      "do": "screenshot",
+      "name": "level-2-locked"
+    },
+    "ok": true,
+    "state": {
+      "frame": 58,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 0,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false
+    }
+  },
+  {
+    "i": 5,
+    "step": {
+      "do": "open",
+      "viewport": "desktop",
+      "storage": {
+        "captains-academy:stars:long-beach-docking": "1"
+      }
+    },
+    "ok": true,
+    "state": {
+      "frame": 5,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 0,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false
+    }
+  },
+  {
+    "i": 6,
+    "step": {
+      "do": "tap",
+      "x": 60,
+      "y": 206
+    },
+    "ok": true,
+    "state": {
+      "frame": 0,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 1,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false
+    }
+  },
+  {
+    "i": 7,
+    "step": {
+      "do": "wait",
+      "ms": 1500
+    },
+    "ok": true,
+    "state": {
+      "frame": 47,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 1,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false
+    }
+  },
+  {
+    "i": 8,
+    "step": {
+      "do": "expect",
+      "field": "level",
+      "eq": 1
+    },
+    "ok": true,
+    "state": {
+      "frame": 49,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 1,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false
+    }
+  },
+  {
+    "i": 9,
+    "step": {
+      "do": "screenshot",
+      "name": "level-2"
+    },
+    "ok": true,
+    "state": {
+      "frame": 56,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 1,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false
+    }
+  }
+]

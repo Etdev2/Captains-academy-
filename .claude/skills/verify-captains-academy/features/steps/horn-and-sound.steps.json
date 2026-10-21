@@ -1,0 +1,20 @@
+[
+  { "do": "open", "viewport": "desktop" },
+  { "do": "expect", "field": "muted", "eq": false },
+  { "do": "tap", "x": 84, "y": 38 },
+  { "do": "wait", "ms": 300 },
+  { "do": "expect", "field": "muted", "eq": true },
+  { "do": "screenshot", "name": "sound-off" },
+  { "do": "reload" },
+  { "do": "wait", "ms": 1500 },
+  { "do": "expect", "field": "muted", "eq": true },
+  { "do": "key", "key": "m" },
+  { "do": "expect", "field": "muted", "eq": false },
+  { "do": "tap", "x": 60, "y": 94 },
+  { "do": "expect", "field": "horn", "eq": true },
+  { "do": "screenshot", "name": "horn" },
+  { "do": "wait", "ms": 1500 },
+  { "do": "expect", "field": "horn", "eq": false },
+  { "do": "key", "key": "h" },
+  { "do": "expect", "field": "horn", "eq": true }
+]

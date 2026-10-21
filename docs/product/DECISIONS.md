@@ -91,7 +91,8 @@ The 2026-10-20 follow-up verified both Rule 32 blast lengths. Et's supplied NMC 
 - Get the NMC to confirm the guide's exam counts, passing marks, module mappings and the Q165 and Q352 upgrade conditions before the OUPV boss level is built (G10a). Chief Of Staff did not open the announcement PDFs or check the NVICs, MMIBs and CFR one by one.
 
 ## Next steps
-1. Write the academy's verification command and required checks, so it can leave stage 0.
+1. Done on 2026-10-21: the verification command (`bash scripts/verify.sh`), the required checks (`verify` and `proof`) and the verification skill exist, and the academy moves to stage 1 when Et merges that pull request and its Sweet Potato registry entry.
 2. Settle the parked items: course type and pricing.
 3. Verify the figures listed above against the current regulations.
-4. Build the Long Beach docking prototype (G19) once the web lane's verification command exists.
+4. Done on 2026-10-21: the Long Beach docking prototype (G19) merged in #26, with twin engine levers and a second level. Et liked it and called it still a prototype; #25 stays open for later rounds.
+5. Build the first slice of the sea-time log (A3): live check-in and check-out, offline, on the device first.
