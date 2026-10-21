@@ -4,7 +4,7 @@ import firstSlip from '../../missions/long-beach-docking.json';
 import { parseMission } from '../sim/mission';
 import { compileLevel } from '../sim/sim';
 import { HarborScene, VIEW_H, VIEW_W } from './HarborScene';
-import { enableOfflinePlay } from './offline';
+import { enableOffline } from '../offline/offline';
 import { Sound } from './sound';
 
 // Levels in play order. A level opens once the one before it has been docked.
@@ -23,4 +23,4 @@ new Phaser.Game({
   scene: new HarborScene(levels, new Sound()),
 });
 
-void enableOfflinePlay();
+void enableOffline();
