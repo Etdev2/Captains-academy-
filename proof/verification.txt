@@ -17,7 +17,7 @@ $ bash scripts/verify.sh
 
 ==> Node version and npm ci
 
-added 144 packages, and audited 145 packages in 4s
+added 144 packages, and audited 145 packages in 2s
 
 45 packages are looking for funding
   run `npm fund` for details
@@ -28,6 +28,10 @@ To address all issues, run:
   npm audit fix --force
 
 Run `npm audit` for details.
+npm warn install-scripts 1 package has install scripts not yet covered by allowScripts:
+npm warn install-scripts   esbuild@0.28.2 (postinstall: node install.js)
+npm warn install-scripts
+npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
 
 ==> tsc --noEmit
 
@@ -43,23 +47,18 @@ ok   long-beach-docking.json
 
 ==> vitest (unit, adversarial, golden replay)
 
- RUN  v4.1.11 /home/user/Captains-academy-
+ RUN  v4.1.11 /workspace/ca18
 
 
- Test Files  2 passed (2)
-      Tests  32 passed (32)
-   Start at  12:54:19
-   Duration  367ms (transform 198ms, setup 0ms, import 310ms, tests 177ms, environment 0ms)
+ Test Files  5 passed (5)
+      Tests  57 passed (57)
+   Start at  05:49:50
+   Duration  371ms (transform 403ms, setup 0ms, import 591ms, tests 205ms, environment 0ms)
 
 
 ==> vite build
 vite v7.3.6 building client environment for production...
 transforming...
-node_modules/zod/v4/core/util.js (400:0): A comment
-
-"// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
-
-in "node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
 node_modules/zod/v4/core/regexes.js (74:0): A comment
 
 "/** Anchors a pattern source. The interpolation lives here rather than at the call site because
@@ -67,27 +66,79 @@ node_modules/zod/v4/core/regexes.js (74:0): A comment
  * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
 
 in "node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
-✓ 111 modules transformed.
+node_modules/zod/v4/core/util.js (400:0): A comment
+
+"// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+
+in "node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+✓ 118 modules transformed.
 rendering chunks...
 computing gzip size...
-dist/play/index.html              1.27 kB │ gzip:   0.61 kB
-dist/assets/play-YP-xT78p.js  1,504.41 kB │ gzip: 407.54 kB
-✓ built in 4.90s
+dist/play/index.html                 1.35 kB │ gzip:   0.65 kB
+dist/log/index.html                  4.21 kB │ gzip:   1.49 kB
+dist/assets/log-CkERjo7V.js          4.91 kB │ gzip:   2.16 kB
+dist/assets/schemas-rAHSpHB-.js     89.58 kB │ gzip:  25.79 kB
+dist/assets/play-BBBzFgMV.js     1,416.50 kB │ gzip: 382.30 kB
+✓ built in 3.98s
 
 ==> playwright smoke test
 
-Running 8 tests using 2 workers
+Running 32 tests using 4 workers
 
-  ✓  1 [phone-landscape] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (4.2s)
-  ✓  2 [desktop] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (5.3s)
-  ✓  3 [phone-landscape] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (1.9s)
-  ✓  4 [desktop] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (2.0s)
-  ✓  5 [phone-landscape] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (4.7s)
-  ✓  6 [desktop] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (4.9s)
-  ✓  7 [phone-landscape] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (2.2s)
-  ✓  8 [desktop] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (1.9s)
+(node:62625) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:62624) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:62633) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:62626) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:62633) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:62624) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:62626) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:62625) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   4 [desktop] › e2e/log.spec.ts:29:1 › the log opens with no account and talks to no other server (232ms)
+  ✓   2 [phone-landscape] › e2e/log.spec.ts:29:1 › the log opens with no account and talks to no other server (232ms)
+  ✓   5 [desktop] › e2e/log.spec.ts:48:1 › the check-in button is big and sits where a thumb reaches (150ms)
+  ✓   6 [phone-landscape] › e2e/log.spec.ts:48:1 › the check-in button is big and sits where a thumb reaches (150ms)
+  ✓   8 [phone-landscape] › e2e/log.spec.ts:62:1 › the log opens offline after one online visit (198ms)
+  ✓   7 [desktop] › e2e/log.spec.ts:62:1 › the log opens offline after one online visit (213ms)
+  ✓   9 [phone-landscape] › e2e/log.spec.ts:73:1 › a saved entry survives a reload, online and offline (293ms)
+  ✓  10 [desktop] › e2e/log.spec.ts:73:1 › a saved entry survives a reload, online and offline (279ms)
+  ✓  11 [phone-landscape] › e2e/log.spec.ts:98:1 › the store refuses bad entries, soft-deletes and leaves the outbox empty (216ms)
+  ✓  12 [desktop] › e2e/log.spec.ts:98:1 › the store refuses bad entries, soft-deletes and leaves the outbox empty (221ms)
+  ✓  14 [desktop] › e2e/log.spec.ts:190:1 › version 1 of the database has the entries and outbox stores (133ms)
+  ✓  13 [phone-landscape] › e2e/log.spec.ts:190:1 › version 1 of the database has the entries and outbox stores (145ms)
+  ✓  15 [desktop] › e2e/log.spec.ts:232:1 › a newer database from another tab is never opened by older code (226ms)
+  ✓  16 [phone-landscape] › e2e/log.spec.ts:232:1 › a newer database from another tab is never opened by older code (271ms)
+  ✓  17 [desktop] › e2e/log.spec.ts:254:1 › a new cache name keeps what the old cache held, so earlier offline pages still open (199ms)
+  ✓  18 [phone-landscape] › e2e/log.spec.ts:254:1 › a new cache name keeps what the old cache held, so earlier offline pages still open (169ms)
+(node:63147) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:63147) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  19 [phone-portrait] › e2e/log.spec.ts:29:1 › the log opens with no account and talks to no other server (197ms)
+  ✓  20 [phone-portrait] › e2e/log.spec.ts:48:1 › the check-in button is big and sits where a thumb reaches (144ms)
+  ✓  21 [phone-portrait] › e2e/log.spec.ts:62:1 › the log opens offline after one online visit (195ms)
+  ✓  22 [phone-portrait] › e2e/log.spec.ts:73:1 › a saved entry survives a reload, online and offline (216ms)
+  ✓  23 [phone-portrait] › e2e/log.spec.ts:98:1 › the store refuses bad entries, soft-deletes and leaves the outbox empty (194ms)
+  ✓  24 [phone-portrait] › e2e/log.spec.ts:190:1 › version 1 of the database has the entries and outbox stores (127ms)
+  ✓  25 [phone-portrait] › e2e/log.spec.ts:232:1 › a newer database from another tab is never opened by older code (157ms)
+  ✓  26 [phone-portrait] › e2e/log.spec.ts:254:1 › a new cache name keeps what the old cache held, so earlier offline pages still open (168ms)
+  ✓   3 [phone-landscape] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (4.0s)
+  ✓   1 [desktop] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (5.1s)
+  ✓  27 [phone-landscape] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (1.8s)
+  ✓  28 [desktop] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (1.9s)
+  ✓  29 [phone-landscape] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (2.8s)
+  ✓  30 [desktop] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (2.8s)
+  ✓  31 [phone-landscape] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (1.8s)
+  ✓  32 [desktop] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (1.6s)
 
-  8 passed (15.8s)
+  32 passed (13.2s)
 
 ==> npm audit --omit=dev
 found 0 vulnerabilities

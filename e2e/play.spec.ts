@@ -39,7 +39,7 @@ test('the level plays offline after one online visit', async ({ page, context })
   await expect
     .poll(() =>
       page.evaluate(async () => {
-        const cache = await caches.open('captains-academy-play-v1');
+        const cache = await caches.open('captains-academy-offline-v1');
         return navigator.serviceWorker.controller !== null && (await cache.keys()).length >= 2;
       }),
     )

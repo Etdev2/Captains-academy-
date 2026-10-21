@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#06121f" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Captain's Academy: Sea-time log</title>
+    <style>
+      /* Made for a phone on deck: bright sun, one thumb, maybe gloves. High
+         contrast, large type, and the main button low on the screen where a
+         thumb reaches. No red or green anywhere: on the water they mean port
+         and starboard. */
+      :root {
+        --bg: #f4f1e8;
+        --card: #ffffff;
+        --ink: #0b1f33;
+        --muted: #33475b;
+        --line: #b9c2cc;
+        --button-bg: #12355b;
+        --button-ink: #ffffff;
+        --idle-bg: #e3e7ec;
+        --idle-ink: #33475b;
+        color-scheme: light dark;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #06121f;
+          --card: #0d2236;
+          --ink: #eef2f6;
+          --muted: #b4c0cc;
+          --line: #2b4560;
+          --button-bg: #f4d06f;
+          --button-ink: #06121f;
+          --idle-bg: #1a3048;
+          --idle-ink: #c9d3dd;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: var(--bg);
+        color: var(--ink);
+        font:
+          18px/1.45 system-ui,
+          -apple-system,
+          'Segoe UI',
+          sans-serif;
+        -webkit-text-size-adjust: 100%;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        min-height: 100vh;
+        min-height: 100dvh;
+        max-width: 520px;
+        margin: 0 auto;
+        padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+          max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+      }
+      header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      h1 {
+        margin: 0;
+        font-size: 28px;
+        line-height: 1.2;
+      }
+      #network {
+        margin: 0;
+        font-weight: 600;
+        color: var(--muted);
+      }
+      #network[data-state='offline'] {
+        color: var(--ink);
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 16px;
+      }
+      .card p {
+        margin: 0;
+      }
+      #entries {
+        font-size: 22px;
+        font-weight: 700;
+      }
+      .note {
+        margin-top: 6px;
+        color: var(--muted);
+      }
+      #check-in-area {
+        margin-top: auto;
+      }
+      #check-in {
+        display: block;
+        width: 100%;
+        min-height: 72px;
+        border: 0;
+        border-radius: 16px;
+        background: var(--button-bg);
+        color: var(--button-ink);
+        font: inherit;
+        font-size: 24px;
+        font-weight: 800;
+        touch-action: manipulation;
+      }
+      #check-in:disabled {
+        background: var(--idle-bg);
+        color: var(--idle-ink);
+        border: 2px dashed var(--line);
+      }
+      #check-in-area .note {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Sea-time log</h1>
+        <p id="network" role="status" aria-live="polite"></p>
+      </header>
+      <section class="card" aria-label="Your log">
+        <p id="entries" data-state="opening" aria-live="polite">Opening your log…</p>
+        <p class="note">Saved on this phone. No account needed.</p>
+      </section>
+      <section id="check-in-area" aria-label="Check in">
+        <button id="check-in" type="button" disabled>Check in</button>
+        <p class="note">Checking in and out is coming soon.</p>
+      </section>
+    </main>
+    <script type="module" src="/src/log/main.ts"></script>
+  </body>
+</html>

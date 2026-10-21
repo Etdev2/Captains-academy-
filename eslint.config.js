@@ -6,8 +6,20 @@ import tseslint from 'typescript-eslint';
 // named here: src/sim may not import phaser, DOM globals or src/platform;
 // @revenuecat packages are allowed only in src/platform; and src/sim may not
 // use Math.random, Date, performance.now or requestAnimationFrame.
+//
+// Game time is never sea time (DECISIONS.md A3, G19), so the sea-time log in
+// src/log and the game in src/game and src/sim never import each other.
 
 const domGlobals = Object.keys(globals.browser).filter((name) => !(name in globals.es2021));
+
+const revenuecatOnlyInPlatform = {
+  group: ['@revenuecat/*'],
+  message: '@revenuecat packages belong in src/platform only.',
+};
+const noSeaLog = {
+  group: ['**/log', '**/log/*'],
+  message: 'Game time is never sea time: the game never imports the sea-time log.',
+};
 
 export default tseslint.config(
   {
@@ -26,7 +38,14 @@ export default tseslint.config(
     languageOptions: { globals: { ...globals.es2021 } },
   },
   {
-    files: ['src/game/**', 'src/platform/**', 'e2e/**'],
+    files: [
+      'src/game/**',
+      'src/platform/**',
+      'src/log/**',
+      'src/store/**',
+      'src/offline/**',
+      'e2e/**',
+    ],
     languageOptions: { globals: { ...globals.browser } },
   },
   {
@@ -42,13 +61,27 @@ export default tseslint.config(
     files: ['**/*.{ts,js}'],
     ignores: ['src/platform/**'],
     rules: {
+      'no-restricted-imports': ['error', { patterns: [revenuecatOnlyInPlatform] }],
+    },
+  },
+  {
+    // The rule above applies here too; a later block replaces its options, so it is repeated.
+    files: ['src/game/**'],
+    rules: {
+      'no-restricted-imports': ['error', { patterns: [revenuecatOnlyInPlatform, noSeaLog] }],
+    },
+  },
+  {
+    files: ['src/log/**'],
+    rules: {
       'no-restricted-imports': [
         'error',
         {
           patterns: [
+            revenuecatOnlyInPlatform,
             {
-              group: ['@revenuecat/*'],
-              message: '@revenuecat packages belong in src/platform only.',
+              group: ['**/game', '**/game/*', '**/sim', '**/sim/*', 'phaser', 'phaser/*'],
+              message: 'Game time is never sea time: the sea-time log never imports the game.',
             },
           ],
         },
@@ -69,10 +102,8 @@ export default tseslint.config(
               message: 'src/sim never imports src/platform.',
             },
             { group: ['**/game', '**/game/*'], message: 'src/sim never imports the renderer.' },
-            {
-              group: ['@revenuecat/*'],
-              message: '@revenuecat packages belong in src/platform only.',
-            },
+            revenuecatOnlyInPlatform,
+            noSeaLog,
             { group: ['node:*'], message: 'src/sim runs in the browser and in tests alike.' },
           ],
         },

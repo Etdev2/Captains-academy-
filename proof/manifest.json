@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#27",
-  "sourceDigest": "sha256:2f6ee1878b4c03dcdc67239177784c994485cf50277251469ad4f3583942de45",
-  "capturedAt": "2026-10-21T12:54:41Z",
+  "ticket": "Etdev2/Captains-academy-#32",
+  "sourceDigest": "sha256:9772ab289eb1c6b440152bf74579cbb6af34fecccb813a9a230c5d2161246266",
+  "capturedAt": "2026-10-21T12:50:09Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.sh",
-    "fixture": "The merged docking prototype on main plus this branch: the verify-captains-academy skill with five feature recipes, run against the production build on port 4180 after a clean npm ci, with touch input on phone viewports"
+    "command": "bash scripts/verify.test.sh",
+    "fixture": "The sea-time log shell on this branch: /log with an empty IndexedDB store per Playwright context, plus the existing missions and golden replays"
   },
   "commands": [
     {
@@ -23,37 +23,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh runs all nine steps with none skipped (32 Vitest tests, eight Playwright tests, build, lint, types, missions, audit), and verify.test.sh passes"
-    },
-    {
-      "path": "proof/skill-docking-run-hit.png",
-      "kind": "screenshot",
-      "shows": "control.sh drive with docking-run.steps.json on the production build, after a clean npm ci, from the files at 8f7c6f1: both levers full ahead, the boat hits the docks and the hit banner shows"
-    },
-    {
-      "path": "proof/skill-docking-run.steps.log.json",
-      "kind": "log",
-      "shows": "The docking-run recipe step by step with the game state after each: playing, levers to 100, hit, then a tap restarts the run with the levers at stop"
-    },
-    {
-      "path": "proof/skill-levels-level-2.png",
-      "kind": "screenshot",
-      "shows": "The levels recipe after one saved star on level 1 (a seeded precondition) and a tap on LEVEL 2: the crosswind level is running"
-    },
-    {
-      "path": "proof/skill-levels.steps.log.json",
-      "kind": "log",
-      "shows": "The levels recipe: with no saved star a tap on LEVEL 2 leaves level 0; with one star the same tap opens level 1 (0-based)"
-    },
-    {
-      "path": "proof/skill-engine-levers.steps.log.json",
-      "kind": "log",
-      "shows": "The engine-levers recipe on a Pixel 7 in landscape with real touch drags: port alone, split to pivot, X to stop, then both ahead with speed above 200 mm/s"
-    },
-    {
-      "path": "proof/skill-engine-levers-split.png",
-      "kind": "screenshot",
-      "shows": "The split-lever pivot on the phone after the touch drags"
+      "shows": "verify.sh runs all nine steps with none skipped, including the sea-time log Vitest and Playwright tests on desktop, phone landscape and phone portrait"
     }
   ]
 }
