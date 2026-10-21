@@ -3,11 +3,19 @@ import { ENTRY_SOURCES, HOURS_BANDS, seaTimeEntrySchema } from '../src/log/entry
 
 // The rules the saved shape of a sea-time entry carries (DECISIONS.md A3).
 
+const aboard = {
+  vesselId: '5d1c6a7e-2b3f-4c8d-9e0a-1b2c3d4e5f60',
+  roleId: 'deck.mate',
+  waters: 'near-coastal',
+  watersSuggestion: null,
+};
+
 const live = {
   id: '3f6c1a52-8e4b-4d2a-9c1f-5b7e2d8a9f10',
   source: 'live',
   startedAt: '2026-10-21T06:00:00.000Z',
   endedAt: '2026-10-21T14:30:00.000Z',
+  ...aboard,
   updatedAt: '2026-10-21T14:30:00.000Z',
   deletedAt: null,
 };
@@ -17,6 +25,8 @@ const backfilled = {
   source: 'backfilled',
   day: '2026-06-14',
   hoursBand: '8-12',
+  ...aboard,
+  consentedAt: '2026-10-21T14:59:00.000Z',
   updatedAt: '2026-10-21T15:00:00.000Z',
   deletedAt: null,
 };

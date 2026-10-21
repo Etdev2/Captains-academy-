@@ -20,7 +20,7 @@ export default defineConfig({
     {
       name: 'phone-portrait',
       use: { ...devices['Pixel 7'] },
-      testMatch: ['**/log.spec.ts', '**/vessels.spec.ts', '**/home.spec.ts'],
+      testMatch: ['**/log.spec.ts', '**/vessels.spec.ts', '**/home.spec.ts', '**/entries.spec.ts'],
     },
   ],
 });

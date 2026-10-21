@@ -101,8 +101,13 @@
         margin-top: 6px;
         color: var(--muted);
       }
+      /* The main button stays on screen, even on a short landscape screen. */
       #check-in-area {
+        position: sticky;
+        bottom: 0;
         margin-top: auto;
+        padding: 8px 0 max(0px, env(safe-area-inset-bottom));
+        background: var(--bg);
       }
       #check-in {
         display: block;
@@ -269,6 +274,86 @@
         border-left: 6px solid var(--ink);
         padding-left: 10px;
       }
+      nav.go {
+        grid-template-rows: auto auto;
+      }
+      /* The consent step fills the screen, so its buttons sit under the thumb. */
+      #consent {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 12px;
+      }
+      #consent .bottom {
+        background: var(--card);
+      }
+      .status:empty {
+        display: none;
+      }
+      .status {
+        margin: 0;
+        font-weight: 700;
+      }
+      fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      legend {
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      label.choice {
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+        min-height: 56px;
+        padding: 0 16px;
+        background: var(--card);
+        border: 2px solid var(--line);
+        border-radius: 12px;
+        font-weight: 600;
+      }
+      label.choice input {
+        width: 28px;
+        height: 28px;
+        min-height: 0;
+        margin: 0;
+        accent-color: var(--ink);
+      }
+      label.choice:has(input:checked) {
+        border-color: var(--ink);
+        border-width: 3px;
+      }
+      .tag {
+        display: inline-block;
+        margin: 0;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        font-size: 14px;
+      }
+      .row .flag {
+        color: var(--ink);
+        font-weight: 800;
+        border-left: 6px solid var(--ink);
+        padding-left: 8px;
+      }
+      .row .day-note {
+        font-size: 15px;
+      }
+      .row .trip-open {
+        color: var(--ink);
+        font-weight: 700;
+      }
+      #trip-status[data-state='open'] {
+        color: var(--ink);
+        font-weight: 700;
+        font-size: 20px;
+      }
       #vessel-photo-preview {
         display: block;
         max-width: 100%;
@@ -290,14 +375,166 @@
           <p class="note">Saved on this phone. No account needed.</p>
         </section>
         <nav class="go" aria-label="Log sections">
+          <a class="big plain" href="#entries">Log</a>
+          <a class="big plain" href="#backfill">Backfill</a>
           <a class="big plain" href="#vessels">Vessels</a>
           <a class="big plain" href="#roles">Roles</a>
         </nav>
+        <p id="home-status" class="status" role="status" aria-live="polite"></p>
         <section id="check-in-area" aria-label="Check in">
           <button id="check-in" type="button" disabled>Check in</button>
-          <p class="note">Checking in and out is coming soon.</p>
+          <p id="trip-status" class="note" aria-live="polite">Not checked in.</p>
         </section>
       </div>
+
+      <section id="view-check-in" class="view" aria-labelledby="check-in-title" hidden>
+        <h2 id="check-in-title">Check in</h2>
+        <p class="no-vessels hint" hidden>
+          Add the vessel you're on first. <a href="#vessels/new">Add a vessel</a>
+        </p>
+        <form id="check-in-form" class="entry-form" novalidate>
+          <label
+            >Vessel
+            <select name="vesselId"></select>
+          </label>
+          <label
+            >Your role aboard
+            <select name="roleId"></select>
+          </label>
+          <label
+            >Waters <small>Where you are serving</small>
+            <select name="waters"></select>
+          </label>
+          <p class="error" role="alert" hidden></p>
+          <div class="bottom">
+            <button class="big" type="submit">Start the trip</button>
+            <a class="big plain" href="#">Cancel</a>
+          </div>
+        </form>
+      </section>
+
+      <section id="view-backfill" class="view" aria-labelledby="backfill-title" hidden>
+        <h2 id="backfill-title">Backfill past days</h2>
+        <section id="consent" class="card" aria-labelledby="consent-title" hidden>
+          <h3 id="consent-title">Before you backfill</h3>
+          <p>
+            Backfilled days are what you report yourself, after the fact. They are saved and shown
+            as "backfilled" everywhere, never as checked in live or GPS-verified. The Coast Guard
+            decides what it accepts.
+          </p>
+          <div class="bottom">
+            <button id="give-consent" class="big" type="button">I agree, backfill days</button>
+            <a class="big plain" href="#">Not now</a>
+          </div>
+        </section>
+        <p class="no-vessels hint" hidden>
+          Add the vessel you were on first. <a href="#vessels/new">Add a vessel</a>
+        </p>
+        <form id="backfill-form" class="entry-form" novalidate hidden>
+          <label
+            >Day
+            <input name="day" type="date" />
+          </label>
+          <fieldset>
+            <legend>Hours that day</legend>
+            <label class="choice"
+              ><input type="radio" name="hoursBand" value="under-4" /> Under 4 hours</label
+            >
+            <label class="choice"
+              ><input type="radio" name="hoursBand" value="4-8" /> 4 to 8 hours</label
+            >
+            <label class="choice"
+              ><input type="radio" name="hoursBand" value="8-12" /> 8 to 12 hours</label
+            >
+            <label class="choice"
+              ><input type="radio" name="hoursBand" value="12-plus" /> 12 hours or more</label
+            >
+          </fieldset>
+          <label
+            >Vessel
+            <select name="vesselId"></select>
+          </label>
+          <label
+            >Your role aboard
+            <select name="roleId"></select>
+          </label>
+          <label
+            >Waters
+            <select name="waters"></select>
+          </label>
+          <p class="error" role="alert" hidden></p>
+          <p id="backfill-status" class="status" role="status" aria-live="polite"></p>
+          <div class="bottom">
+            <button class="big" type="submit">Save backfilled day</button>
+            <a class="big plain" href="#entries">See the log</a>
+          </div>
+        </form>
+      </section>
+
+      <section id="view-entries" class="view" aria-labelledby="entries-title" hidden>
+        <h2 id="entries-title">Your sea time</h2>
+        <p id="entries-status" class="status" role="status" aria-live="polite"></p>
+        <p id="entries-empty" class="hint" hidden>
+          Nothing logged yet. Check in, or backfill a day.
+        </p>
+        <ul id="entry-list" class="list"></ul>
+        <div class="bottom">
+          <a class="big plain" href="#">Back to the log</a>
+        </div>
+      </section>
+
+      <section id="view-entry" class="view" aria-labelledby="entry-title" hidden>
+        <h2 id="entry-title">Edit entry</h2>
+        <p id="entry-source" class="tag"></p>
+        <form id="entry-form" class="entry-form" novalidate>
+          <label
+            >Vessel
+            <select name="vesselId"></select>
+          </label>
+          <label
+            >Your role aboard
+            <select name="roleId"></select>
+          </label>
+          <label
+            >Waters
+            <select name="waters"></select>
+          </label>
+          <div class="live-fields">
+            <label
+              >Checked in
+              <input name="startedAt" type="datetime-local" />
+            </label>
+            <label class="ended"
+              >Checked out
+              <input name="endedAt" type="datetime-local" />
+            </label>
+            <p class="open-note hint" hidden>
+              Still underway. Check out from the log's home screen.
+            </p>
+          </div>
+          <div class="backfilled-fields">
+            <label
+              >Day
+              <input name="day" type="date" />
+            </label>
+            <label
+              >Hours that day
+              <select name="hoursBand">
+                <option value="under-4">Under 4 hours</option>
+                <option value="4-8">4 to 8 hours</option>
+                <option value="8-12">8 to 12 hours</option>
+                <option value="12-plus">12 hours or more</option>
+              </select>
+            </label>
+          </div>
+          <p class="error" role="alert" hidden></p>
+          <div class="bottom">
+            <button class="big" type="submit">Save entry</button>
+            <button id="delete-entry" class="big danger" type="button">Delete entry</button>
+            <a class="big plain" href="#entries">Cancel</a>
+          </div>
+        </form>
+      </section>
 
       <section id="view-vessels" class="view" aria-labelledby="vessels-title" hidden>
         <h2 id="vessels-title">Vessels</h2>
