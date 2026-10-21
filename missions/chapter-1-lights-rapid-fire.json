@@ -1,0 +1,255 @@
+{
+  "schemaVersion": 1,
+  "kind": "lights-rapid-fire",
+  "id": "chapter-1-lights-rapid-fire",
+  "title": "Chapter 1, level 2: lights rapid-fire",
+  "unlockedBy": "long-beach-docking",
+  "seed": 20261021,
+  "parSeconds": 80,
+  "hearts": 3,
+  "answers": [
+    { "id": "power-head-on", "label": "Power-driven vessel, coming at you" },
+    { "id": "power-port", "label": "Power-driven vessel, showing her port side" },
+    { "id": "power-starboard", "label": "Power-driven vessel, showing her starboard side" },
+    { "id": "astern", "label": "A vessel seen from astern" },
+    { "id": "power-50m-astern", "label": "Power-driven vessel 50 m or more, seen from astern" },
+    { "id": "sailing", "label": "Sailing vessel underway" },
+    { "id": "trawling", "label": "Vessel trawling" },
+    { "id": "fishing-other", "label": "Vessel fishing, not trawling" },
+    { "id": "nuc", "label": "Vessel not under command" },
+    { "id": "rram", "label": "Vessel restricted in her ability to maneuver" },
+    { "id": "pilot", "label": "Pilot vessel on duty" },
+    { "id": "anchored", "label": "Vessel at anchor" },
+    { "id": "aground", "label": "Vessel aground" },
+    { "id": "towing", "label": "Vessel towing astern" },
+    { "id": "draft", "label": "Vessel constrained by her draft" }
+  ],
+  "situations": [
+    {
+      "id": "power-head-on",
+      "ruleSet": "inland",
+      "shared": true,
+      "rule": { "number": 23, "paragraph": "(a)" },
+      "lights": [
+        { "role": "masthead", "color": "white", "x": 0, "y": 60 },
+        { "role": "sidelight", "color": "red", "x": 20, "y": 20 },
+        { "role": "sidelight", "color": "green", "x": -20, "y": 20 }
+      ],
+      "answer": "power-head-on",
+      "distractors": ["sailing", "power-port", "power-starboard"],
+      "explain": "White masthead light over a red and a green sidelight: a power-driven vessel heading straight at you."
+    },
+    {
+      "id": "sailing-head-on",
+      "ruleSet": "international",
+      "shared": true,
+      "rule": { "number": 25, "paragraph": "(a)" },
+      "lights": [
+        { "role": "sidelight", "color": "red", "x": 20, "y": 20 },
+        { "role": "sidelight", "color": "green", "x": -20, "y": 20 }
+      ],
+      "answer": "sailing",
+      "distractors": ["power-head-on", "power-port", "power-starboard"],
+      "explain": "Red and green sidelights with no white masthead light: a sailing vessel coming at you."
+    },
+    {
+      "id": "power-port",
+      "ruleSet": "international",
+      "shared": true,
+      "rule": { "number": 23, "paragraph": "(a)" },
+      "lights": [
+        { "role": "masthead", "color": "white", "x": 0, "y": 60 },
+        { "role": "sidelight", "color": "red", "x": 8, "y": 22 }
+      ],
+      "answer": "power-port",
+      "distractors": ["power-starboard", "power-head-on", "sailing"],
+      "explain": "White masthead light with a red sidelight: you are looking at a power-driven vessel's port side."
+    },
+    {
+      "id": "trawling",
+      "ruleSet": "inland",
+      "shared": true,
+      "rule": { "number": 26, "paragraph": "(b)" },
+      "lights": [
+        { "role": "all-round", "color": "green", "x": 0, "y": 74 },
+        { "role": "all-round", "color": "white", "x": 0, "y": 58 }
+      ],
+      "answer": "trawling",
+      "distractors": ["fishing-other", "sailing", "pilot"],
+      "explain": "Green over white, all-round: a vessel trawling."
+    },
+    {
+      "id": "power-starboard",
+      "ruleSet": "inland",
+      "shared": true,
+      "rule": { "number": 23, "paragraph": "(a)" },
+      "lights": [
+        { "role": "masthead", "color": "white", "x": 0, "y": 60 },
+        { "role": "sidelight", "color": "green", "x": -8, "y": 22 }
+      ],
+      "answer": "power-starboard",
+      "distractors": ["power-port", "power-head-on", "astern"],
+      "explain": "White masthead light with a green sidelight: you are looking at a power-driven vessel's starboard side."
+    },
+    {
+      "id": "nuc",
+      "ruleSet": "international",
+      "shared": true,
+      "rule": { "number": 27, "paragraph": "(a)" },
+      "lights": [
+        { "role": "all-round", "color": "red", "x": 0, "y": 76 },
+        { "role": "all-round", "color": "red", "x": 0, "y": 58 }
+      ],
+      "answer": "nuc",
+      "distractors": ["aground", "rram", "pilot"],
+      "explain": "Two red all-round lights in a vertical line: a vessel not under command."
+    },
+    {
+      "id": "astern",
+      "ruleSet": "inland",
+      "shared": true,
+      "rule": { "number": 21, "paragraph": "(c)" },
+      "lights": [{ "role": "sternlight", "color": "white", "x": 0, "y": 20 }],
+      "answer": "astern",
+      "distractors": ["power-50m-astern", "towing", "anchored"],
+      "explain": "One white sternlight alone: you are looking at the back of a vessel."
+    },
+    {
+      "id": "pilot",
+      "ruleSet": "international",
+      "shared": true,
+      "rule": { "number": 29, "paragraph": "(a)" },
+      "lights": [
+        { "role": "all-round", "color": "white", "x": 0, "y": 74 },
+        { "role": "all-round", "color": "red", "x": 0, "y": 58 }
+      ],
+      "answer": "pilot",
+      "distractors": ["fishing-other", "trawling", "rram"],
+      "explain": "White over red, all-round: a pilot vessel on duty."
+    },
+    {
+      "id": "fishing-other",
+      "ruleSet": "inland",
+      "shared": true,
+      "rule": { "number": 26, "paragraph": "(c)" },
+      "lights": [
+        { "role": "all-round", "color": "red", "x": 0, "y": 74 },
+        { "role": "all-round", "color": "white", "x": 0, "y": 58 }
+      ],
+      "answer": "fishing-other",
+      "distractors": ["trawling", "pilot", "rram"],
+      "explain": "Red over white, all-round: a vessel fishing, not trawling."
+    },
+    {
+      "id": "anchored-one",
+      "ruleSet": "international",
+      "shared": true,
+      "rule": { "number": 30, "paragraph": "(b)" },
+      "lights": [{ "role": "all-round", "color": "white", "x": 0, "y": 50 }],
+      "answer": "anchored",
+      "distractors": ["astern", "aground", "pilot"],
+      "explain": "One all-round white light: a vessel at anchor (under 50 m)."
+    },
+    {
+      "id": "sailing-red-over-green",
+      "ruleSet": "inland",
+      "shared": true,
+      "rule": { "number": 25, "paragraph": "(c)" },
+      "lights": [
+        { "role": "all-round", "color": "red", "x": 0, "y": 82 },
+        { "role": "all-round", "color": "green", "x": 0, "y": 66 },
+        { "role": "sidelight", "color": "red", "x": 20, "y": 20 },
+        { "role": "sidelight", "color": "green", "x": -20, "y": 20 }
+      ],
+      "answer": "sailing",
+      "distractors": ["trawling", "fishing-other", "nuc"],
+      "explain": "Red over green at the masthead, with sidelights: a sailing vessel."
+    },
+    {
+      "id": "rram",
+      "ruleSet": "international",
+      "shared": true,
+      "rule": { "number": 27, "paragraph": "(b)" },
+      "lights": [
+        { "role": "all-round", "color": "red", "x": 0, "y": 82 },
+        { "role": "all-round", "color": "white", "x": 0, "y": 64 },
+        { "role": "all-round", "color": "red", "x": 0, "y": 46 }
+      ],
+      "answer": "rram",
+      "distractors": ["nuc", "aground", "pilot"],
+      "explain": "Red, white, red in a vertical line: a vessel restricted in her ability to maneuver."
+    },
+    {
+      "id": "power-50m-astern",
+      "ruleSet": "inland",
+      "shared": true,
+      "rule": { "number": 23, "paragraph": "(a)" },
+      "lights": [
+        { "role": "masthead", "color": "white", "x": 0, "y": 78 },
+        { "role": "masthead", "color": "white", "x": 0, "y": 60 },
+        { "role": "sternlight", "color": "white", "x": 0, "y": 20 }
+      ],
+      "answer": "power-50m-astern",
+      "distractors": ["towing", "astern", "anchored"],
+      "explain": "Two white masthead lights, the rear one higher, over a sternlight: a power-driven vessel 50 m or more, seen from astern."
+    },
+    {
+      "id": "anchored-two",
+      "ruleSet": "international",
+      "shared": true,
+      "rule": { "number": 30, "paragraph": "(a)" },
+      "lights": [
+        { "role": "all-round", "color": "white", "x": 0, "y": 56 },
+        { "role": "all-round", "color": "white", "x": 0, "y": 36 }
+      ],
+      "answer": "anchored",
+      "distractors": ["aground", "astern", "pilot"],
+      "explain": "Two all-round white lights, the forward one higher: a vessel at anchor."
+    },
+    {
+      "id": "towing-astern",
+      "ruleSet": "inland",
+      "shared": true,
+      "rule": { "number": 24, "paragraph": "(a)" },
+      "lights": [
+        { "role": "masthead", "color": "white", "x": 0, "y": 76 },
+        { "role": "masthead", "color": "white", "x": 0, "y": 60 },
+        { "role": "towing", "color": "yellow", "x": 0, "y": 36 },
+        { "role": "sternlight", "color": "white", "x": 0, "y": 20 }
+      ],
+      "answer": "towing",
+      "distractors": ["power-50m-astern", "astern", "anchored"],
+      "explain": "A yellow towing light above the white sternlight, under two masthead lights: a vessel towing astern."
+    },
+    {
+      "id": "aground",
+      "ruleSet": "international",
+      "shared": true,
+      "rule": { "number": 30, "paragraph": "(d)" },
+      "lights": [
+        { "role": "all-round", "color": "red", "x": 0, "y": 90 },
+        { "role": "all-round", "color": "red", "x": 0, "y": 72 },
+        { "role": "all-round", "color": "white", "x": 0, "y": 54 },
+        { "role": "all-round", "color": "white", "x": 0, "y": 36 }
+      ],
+      "answer": "aground",
+      "distractors": ["nuc", "anchored", "rram"],
+      "explain": "Two red all-round lights above the anchor lights: a vessel aground."
+    },
+    {
+      "id": "constrained-by-draft",
+      "ruleSet": "international",
+      "shared": false,
+      "differenceNote": "Inland Rules have no signal for a vessel constrained by her draft: Rule 28 applies on international waters only.",
+      "rule": { "number": 28 },
+      "lights": [
+        { "role": "all-round", "color": "red", "x": 0, "y": 84 },
+        { "role": "all-round", "color": "red", "x": 0, "y": 66 },
+        { "role": "all-round", "color": "red", "x": 0, "y": 48 }
+      ],
+      "answer": "draft",
+      "distractors": ["nuc", "rram", "aground"],
+      "explain": "Three red all-round lights in a vertical line: a vessel constrained by her draft. International Rules only."
+    }
+  ]
+}

@@ -78,3 +78,42 @@ test('the engine levers stay where they are left, and the boat answers', async (
   await expect.poll(async () => (await debug())?.starboard ?? 0).toBeGreaterThan(50);
   await expect.poll(async () => (await debug())?.speedMmPerS ?? 0).toBeGreaterThan(200);
 });
+
+const giveDockingStar = () =>
+  window.localStorage.setItem('captains-academy:stars:long-beach-docking', '1');
+
+test('the lights level opens after one star, and a miss costs a heart', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.addInitScript(giveDockingStar);
+  await page.goto('/play/?level=lights');
+  await expect(page.locator('#game canvas')).toBeVisible();
+  const lights = () => page.evaluate(() => window.__captainsLights);
+  await expect.poll(async () => (await lights())?.frame ?? 0).toBeGreaterThan(10);
+  expect((await lights())?.hearts).toBe(3);
+
+  // A right answer moves straight on.
+  await page.keyboard.press(String(((await lights())?.rightOption ?? 0) + 1));
+  await expect.poll(async () => (await lights())?.correct ?? 0).toBe(1);
+
+  // A wrong one costs a heart and starts a replay of at most 5 seconds.
+  await page.keyboard.press(String(((await lights())?.wrongOption ?? 0) + 1));
+  await expect.poll(async () => (await lights())?.phase).toBe('replay');
+  expect((await lights())?.hearts).toBe(2);
+  expect((await lights())?.replayFramesLeft).toBeLessThanOrEqual(300);
+
+  // Enter skips the replay.
+  await page.keyboard.press('Enter');
+  await expect.poll(async () => (await lights())?.phase).toBe('asking');
+  expect(errors).toEqual([]);
+});
+
+test('the lights level stays closed until the first docking level has a star', async ({
+  page,
+}) => {
+  await page.goto('/play/?level=lights');
+  await expect
+    .poll(() => page.evaluate(() => window.__captainsAcademy?.frame ?? 0))
+    .toBeGreaterThan(30);
+  expect(await page.evaluate(() => window.__captainsLights)).toBeUndefined();
+});

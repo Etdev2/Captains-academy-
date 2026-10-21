@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#06121f" />
-    <title>Captain's Academy: Long Beach docking</title>
+    <title>Captain's Academy: Chapter 1</title>
     <style>
       html,
       body {
@@ -39,6 +39,13 @@
         }
         #game {
           visibility: hidden;
+        }
+        /* Rapid-fire levels play in portrait with one thumb (G8), so they skip the prompt. */
+        body.portrait-level #rotate {
+          display: none;
+        }
+        body.portrait-level #game {
+          visibility: visible;
         }
       }
     </style>

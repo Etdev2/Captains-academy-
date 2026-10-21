@@ -13,6 +13,7 @@ import {
   windAt,
 } from '../sim/sim';
 import { Helm } from './helm';
+import { setOrientation } from './orientation';
 import { Scenery } from './scenery';
 import type { Sound } from './sound';
 import { loadBestFrames, loadStars, saveBestFrames, saveStars } from './storage';
@@ -124,6 +125,8 @@ export class HarborScene extends Phaser.Scene {
   constructor(
     private readonly levels: readonly Level[],
     private readonly audio: Sound,
+    // Chapter 1, level 2 (lights rapid-fire) opens from this scene's level list.
+    private readonly lights: { readonly id: string; readonly unlockedBy: string },
   ) {
     super('harbor');
   }
@@ -136,6 +139,7 @@ export class HarborScene extends Phaser.Scene {
   }
 
   create(): void {
+    setOrientation(this.game, 'landscape');
     const { world } = this.level.mission;
     this.scale_ = Math.min(VIEW_W / world.w, VIEW_H / world.h) * ZOOM;
     this.cameras.main.setBounds(0, 0, this.px(world.w), this.px(world.h));
@@ -322,6 +326,14 @@ export class HarborScene extends Phaser.Scene {
       if (i === this.levelIndex) b.setColor('#f4d06f');
       if (!open) b.setAlpha(0.5);
     });
+    // Level 2 of the chapter: one star on the first docking level opens it (G12).
+    const lightsOpen = loadStars(this.lights.unlockedBy) > 0;
+    const lightsStars = loadStars(this.lights.id);
+    const lightsText = `LIGHTS${lightsOpen ? (lightsStars > 0 ? ' ' + '★'.repeat(lightsStars) : '') : ' (locked)'}`;
+    const lightsButton = button(16, 128 + this.levels.length * 56, lightsText, () => {
+      if (lightsOpen) this.scene.start('lights');
+    });
+    if (!lightsOpen) lightsButton.setAlpha(0.5);
   }
 
   private toggleMute(): void {

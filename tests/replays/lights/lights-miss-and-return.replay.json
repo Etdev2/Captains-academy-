@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "missionId": "chapter-1-lights-rapid-fire",
+  "note": "The player takes the head-on sailing vessel for a power-driven one, loses a heart, skips the replay after half a second, and meets the same lights again three situations later. One miss: two stars, two hearts left.",
+  "runs": [
+    { "waitFrames": 90, "answer": "power-head-on" },
+    { "waitFrames": 90, "answer": "power-head-on" },
+    { "waitFrames": 30, "skip": true },
+    { "waitFrames": 90, "answer": "power-port" },
+    { "waitFrames": 90, "answer": "trawling" },
+    { "waitFrames": 90, "answer": "power-starboard" },
+    { "waitFrames": 90, "answer": "sailing" },
+    { "waitFrames": 90, "answer": "nuc" },
+    { "waitFrames": 90, "answer": "astern" },
+    { "waitFrames": 90, "answer": "pilot" },
+    { "waitFrames": 90, "answer": "fishing-other" },
+    { "waitFrames": 90, "answer": "anchored" },
+    { "waitFrames": 90, "answer": "sailing" },
+    { "waitFrames": 90, "answer": "rram" },
+    { "waitFrames": 90, "answer": "power-50m-astern" },
+    { "waitFrames": 90, "answer": "anchored" },
+    { "waitFrames": 90, "answer": "towing" },
+    { "waitFrames": 90, "answer": "aground" },
+    { "waitFrames": 90, "answer": "draft" }
+  ]
+}

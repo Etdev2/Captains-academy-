@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "missionId": "chapter-1-lights-rapid-fire",
+  "note": "Three wrong answers in a row. The first replay runs its full 5 s and times out by itself, the second is skipped, and the third times out on the last heart: the level ends with no stars.",
+  "runs": [
+    { "waitFrames": 60, "answer": "sailing" },
+    { "waitFrames": 300, "answer": "power-port" },
+    { "waitFrames": 60, "skip": true },
+    { "waitFrames": 60, "answer": "sailing" }
+  ],
+  "settleFrames": 300
+}
