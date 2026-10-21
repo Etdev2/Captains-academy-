@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#40",
-  "sourceDigest": "sha256:b6e8f6676c8eed578ec14d63b763881a7c3c568e5c7353c712899461674fd782",
-  "capturedAt": "2026-10-21T18:55:31Z",
+  "ticket": "Etdev2/Captains-academy-#42",
+  "sourceDigest": "sha256:c3eae76d89a552ebf8f7f77bd6644f25f48d2ddf65a9a86e9965a751c0e271f9",
+  "capturedAt": "2026-10-21T20:58:04Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "Production build served by vite preview; Playwright on desktop Chrome, Pixel 7 landscape and Pixel 7 portrait, a fresh IndexedDB per test, and hand-built version 1 and version 2 databases for the migration tests"
+    "fixture": "tests/fixtures/oupv-near-coastal/log.json: 12 entries on two vessels (24 and 150 GRT), covering every band, a midnight crossing, a same-day overlap, Inside Passage, Great Lakes, a deleted entry and an open trip, in UTC"
   },
   "commands": [
     {
@@ -16,6 +16,18 @@
     {
       "command": "bash scripts/verify.sh",
       "exitCode": 0
+    },
+    {
+      "command": "npx --no-install vitest run tests/rules-engine.test.ts tests/rules-oupv-example.test.ts --reporter=verbose",
+      "exitCode": 0
+    },
+    {
+      "command": "cat tests/fixtures/oupv-near-coastal/log.json",
+      "exitCode": 0
+    },
+    {
+      "command": "cat tests/fixtures/oupv-near-coastal/progress.json",
+      "exitCode": 0
     }
   ],
   "behaviorChanged": true,
@@ -23,37 +35,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh passes in full, including e2e/entries.spec.ts on phone portrait and desktop: check in and out kept across online and offline reloads, a second open trip refused, backfilling refused without consent and labeled backfilled with consent recorded, every under-4 entry flagged and kept, the 4-8 and 12+ notes with their CFR citations, and the version 2 to 3 migration keeping vessels and entries"
-    },
-    {
-      "path": "proof/check-in.png",
-      "kind": "screenshot",
-      "shows": "Phone (Pixel 7 portrait): checked in, the home screen shows Check out and the running trip timer, captured by e2e/entries.spec.ts during the verify.sh run above"
-    },
-    {
-      "path": "proof/check-out.png",
-      "kind": "screenshot",
-      "shows": "Phone: checked out, the status line gives the trip length and flags it Not eligible: under 4 hours, captured by e2e/entries.spec.ts during the verify.sh run above"
-    },
-    {
-      "path": "proof/consent.png",
-      "kind": "screenshot",
-      "shows": "Phone: the consent step shown before any backfilled day can be saved, captured by e2e/entries.spec.ts during the verify.sh run above"
-    },
-    {
-      "path": "proof/backfilled-day.png",
-      "kind": "screenshot",
-      "shows": "Phone: the log list with a backfilled day, labeled Backfilled, with its vessel, role and waters, captured by e2e/entries.spec.ts during the verify.sh run above"
-    },
-    {
-      "path": "proof/under-4.png",
-      "kind": "screenshot",
-      "shows": "Phone: the log list with under-4 entries flagged Not eligible: under 4 hours and kept, plus the 4-8 and 12+ notes with their CFR citations, captured by e2e/entries.spec.ts during the verify.sh run above"
-    },
-    {
-      "path": "proof/offline-reload.png",
-      "kind": "screenshot",
-      "shows": "Phone: after an offline reload the open trip is still underway, captured by e2e/entries.spec.ts during the verify.sh run above"
+      "shows": "The rules engine unit tests (every band edge at 4, 8 and 12 h, the 100 GRT line, null tonnage, overlaps, midnight, every waters value, Great Lakes day for day, the per-day route outcome, deleted entries, citations on every rule, purity and wording), the worked example from log.json to the OUPV near-coastal progress in progress.json, and the full verify.sh passing"
     }
   ]
 }

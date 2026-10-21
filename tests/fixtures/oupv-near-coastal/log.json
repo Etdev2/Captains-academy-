@@ -1,0 +1,218 @@
+{
+  "timeZone": "UTC",
+  "vessels": [
+    {
+      "id": "aaaaaaaa-1111-4111-8111-111111111111",
+      "name": "Sea Breeze",
+      "officialNumber": null,
+      "officialGrossTons": 24,
+      "lengthFeet": null,
+      "propulsion": null,
+      "owner": null,
+      "horsepower": null,
+      "photo": null,
+      "defaultRoleId": "deck.mate",
+      "updatedAt": "2026-10-21T00:00:00.000Z",
+      "deletedAt": null
+    },
+    {
+      "id": "bbbbbbbb-2222-4222-8222-222222222222",
+      "name": "Harbor Tug",
+      "officialNumber": null,
+      "officialGrossTons": 150,
+      "lengthFeet": null,
+      "propulsion": null,
+      "owner": null,
+      "horsepower": null,
+      "photo": null,
+      "defaultRoleId": "deck.mate",
+      "updatedAt": "2026-10-21T00:00:00.000Z",
+      "deletedAt": null
+    }
+  ],
+  "entries": [
+    {
+      "_note": "9.5 h near coastal: one day, counts toward the ocean or near-coastal part",
+      "entry": {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "source": "live",
+        "startedAt": "2026-07-01T14:00:00.000Z",
+        "endedAt": "2026-07-01T23:30:00.000Z",
+        "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
+        "roleId": "deck.mate",
+        "waters": "near-coastal",
+        "watersSuggestion": null,
+        "updatedAt": "2026-10-21T00:00:00.000Z",
+        "deletedAt": null
+      }
+    },
+    {
+      "_note": "12.5 h crossing midnight: one day on Jul 2, plus the two-watch note",
+      "entry": {
+        "id": "00000000-0000-4000-8000-000000000002",
+        "source": "live",
+        "startedAt": "2026-07-02T14:00:00.000Z",
+        "endedAt": "2026-07-03T02:30:00.000Z",
+        "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
+        "roleId": "deck.mate",
+        "waters": "near-coastal",
+        "watersSuggestion": null,
+        "updatedAt": "2026-10-21T00:00:00.000Z",
+        "deletedAt": null
+      }
+    },
+    {
+      "_note": "2 h: not a day, kept and flagged",
+      "entry": {
+        "id": "00000000-0000-4000-8000-000000000003",
+        "source": "live",
+        "startedAt": "2026-07-03T15:00:00.000Z",
+        "endedAt": "2026-07-03T17:00:00.000Z",
+        "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
+        "roleId": "deck.mate",
+        "waters": "inland",
+        "watersSuggestion": null,
+        "updatedAt": "2026-10-21T00:00:00.000Z",
+        "deletedAt": null
+      }
+    },
+    {
+      "_note": "6 h on a 24 GRT vessel: may count, kept apart",
+      "entry": {
+        "id": "00000000-0000-4000-8000-000000000004",
+        "source": "live",
+        "startedAt": "2026-07-04T15:00:00.000Z",
+        "endedAt": "2026-07-04T21:00:00.000Z",
+        "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
+        "roleId": "deck.mate",
+        "waters": "near-coastal",
+        "watersSuggestion": null,
+        "updatedAt": "2026-10-21T00:00:00.000Z",
+        "deletedAt": null
+      }
+    },
+    {
+      "_note": "6 h on a 150 GRT vessel: not a day",
+      "entry": {
+        "id": "00000000-0000-4000-8000-000000000005",
+        "source": "live",
+        "startedAt": "2026-07-05T15:00:00.000Z",
+        "endedAt": "2026-07-05T21:00:00.000Z",
+        "vesselId": "bbbbbbbb-2222-4222-8222-222222222222",
+        "roleId": "deck.mate",
+        "waters": "near-coastal",
+        "watersSuggestion": null,
+        "updatedAt": "2026-10-21T00:00:00.000Z",
+        "deletedAt": null
+      }
+    },
+    {
+      "_note": "9 h inland: one day, total only",
+      "entry": {
+        "id": "00000000-0000-4000-8000-000000000006",
+        "source": "live",
+        "startedAt": "2026-07-06T14:00:00.000Z",
+        "endedAt": "2026-07-06T23:00:00.000Z",
+        "vesselId": "bbbbbbbb-2222-4222-8222-222222222222",
+        "roleId": "deck.mate",
+        "waters": "inland",
+        "watersSuggestion": null,
+        "updatedAt": "2026-10-21T00:00:00.000Z",
+        "deletedAt": null
+      }
+    },
+    {
+      "_note": "overlaps the 9 h inland trip the same day: the day is counted once, and this 5 h ocean trip may count toward the ocean or near-coastal part",
+      "entry": {
+        "id": "00000000-0000-4000-8000-000000000007",
+        "source": "live",
+        "startedAt": "2026-07-06T15:00:00.000Z",
+        "endedAt": "2026-07-06T20:00:00.000Z",
+        "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
+        "roleId": "deck.mate",
+        "waters": "oceans",
+        "watersSuggestion": null,
+        "updatedAt": "2026-10-21T00:00:00.000Z",
+        "deletedAt": null
+      }
+    },
+    {
+      "_note": "deleted: left out",
+      "entry": {
+        "id": "00000000-0000-4000-8000-000000000008",
+        "source": "live",
+        "startedAt": "2026-07-07T14:00:00.000Z",
+        "endedAt": "2026-07-07T23:00:00.000Z",
+        "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
+        "roleId": "deck.mate",
+        "waters": "oceans",
+        "watersSuggestion": null,
+        "updatedAt": "2026-10-21T00:00:00.000Z",
+        "deletedAt": "2026-10-21T00:00:00.000Z"
+      }
+    },
+    {
+      "_note": "backfilled Inside Passage day: counts as near coastal",
+      "entry": {
+        "id": "00000000-0000-4000-8000-000000000009",
+        "source": "backfilled",
+        "day": "2026-06-10",
+        "hoursBand": "8-12",
+        "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
+        "roleId": "deck.mate",
+        "waters": "inside-passage",
+        "watersSuggestion": null,
+        "consentedAt": "2026-10-21T00:00:00.000Z",
+        "updatedAt": "2026-10-21T00:00:00.000Z",
+        "deletedAt": null
+      }
+    },
+    {
+      "_note": "backfilled 12+ on the Great Lakes: one day, counted toward the ocean or near-coastal part day for day, plus the note",
+      "entry": {
+        "id": "00000000-0000-4000-8000-000000000010",
+        "source": "backfilled",
+        "day": "2026-06-11",
+        "hoursBand": "12-plus",
+        "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
+        "roleId": "deck.mate",
+        "waters": "great-lakes",
+        "watersSuggestion": null,
+        "consentedAt": "2026-10-21T00:00:00.000Z",
+        "updatedAt": "2026-10-21T00:00:00.000Z",
+        "deletedAt": null
+      }
+    },
+    {
+      "_note": "backfilled under 4 hours: not a day, kept and flagged",
+      "entry": {
+        "id": "00000000-0000-4000-8000-000000000011",
+        "source": "backfilled",
+        "day": "2026-06-12",
+        "hoursBand": "under-4",
+        "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
+        "roleId": "deck.mate",
+        "waters": "near-coastal",
+        "watersSuggestion": null,
+        "consentedAt": "2026-10-21T00:00:00.000Z",
+        "updatedAt": "2026-10-21T00:00:00.000Z",
+        "deletedAt": null
+      }
+    },
+    {
+      "_note": "still underway: shown, not credited",
+      "entry": {
+        "id": "00000000-0000-4000-8000-000000000012",
+        "source": "live",
+        "startedAt": "2026-07-08T14:00:00.000Z",
+        "endedAt": null,
+        "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
+        "roleId": "deck.mate",
+        "waters": "near-coastal",
+        "watersSuggestion": null,
+        "updatedAt": "2026-10-21T00:00:00.000Z",
+        "deletedAt": null
+      }
+    }
+  ]
+}

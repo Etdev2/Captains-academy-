@@ -61,6 +61,28 @@ describe('roles', () => {
   });
 });
 
+describe('rules engine wording', () => {
+  // The engine shows progress, never a verdict: "appears to meet ...; the NMC
+  // decides" (G18, issue #42).
+  it('src/log/rules says no qualify, eligible for or you meet', () => {
+    const files = filesUnder('src/log/rules');
+    expect(files.length).toBeGreaterThan(0);
+    const offenders = files
+      .filter((path) => /qualif|eligible for|\byou meet\b/i.test(read(path)))
+      .map(where);
+    expect(offenders).toEqual([]);
+  });
+
+  it('src/log/rules imports nothing from the game, the simulator or missions', () => {
+    const offenders = filesUnder('src/log/rules').flatMap((path) =>
+      importsOf(read(path))
+        .filter((spec) => /(^|\/)(game|sim|missions)(\/|$)|^phaser/.test(spec))
+        .map((spec) => `${where(path)} imports ${spec}`),
+    );
+    expect(offenders).toEqual([]);
+  });
+});
+
 describe('eligibility wording', () => {
   // An entry may be flagged "Not eligible: under 4 hours" (D1), but nothing
   // ever says a user is eligible for a license.
@@ -69,7 +91,9 @@ describe('eligibility wording', () => {
       ...filesUnder('src', 'log', 'play', 'public', 'missions'),
       join(root, 'index.html'),
     ]
-      .filter((path) => /\b(is|are|you're|you are) eligible\b|\beligible for\b/i.test(read(path)))
+      .filter((path) =>
+        /\b(is|are|you're|you are) eligible\b|\beligible for\b|\byou meet\b/i.test(read(path)),
+      )
       .map(where);
     expect(offenders).toEqual([]);
   });
