@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#34",
-  "sourceDigest": "sha256:26d5b8a21e59e6a2b310d5992eb986d4ad5a0a68921ff48b2daf096a6e2611b5",
-  "capturedAt": "2026-10-21T16:16:05Z",
+  "sourceDigest": "sha256:6ca6b7f68fdb7b1bcc88bb83f7f76977b98d42570d126d7a8a356f5cd4e0f41f",
+  "capturedAt": "2026-10-21T16:43:07Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "Production build served by vite preview; Playwright on desktop Chrome, Pixel 7 landscape and Pixel 7 portrait, with a fresh IndexedDB per test and a hand-built version 1 database for the migration test"
+    "fixture": "Production build served by vite preview; Playwright on desktop Chrome, Pixel 7 landscape and Pixel 7 portrait, with a fresh IndexedDB per test, a hand-built version 1 database for the migration test, and a held createImageBitmap for the photo race test"
   },
   "commands": [
     {
@@ -23,7 +23,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh passes in full, including Playwright on phone portrait and desktop: a vessel added, edited, soft-deleted and kept across online and offline reloads; official tonnage only; seeded deck and engine roles with a default per vessel; the version 1 to 2 migration keeping an entry"
+      "shows": "verify.sh passes in full, including Playwright on phone portrait and desktop: a vessel added, edited, soft-deleted and kept across online and offline reloads; official tonnage only; seeded deck and engine roles with a default per vessel; the version 1 to 2 migration keeping an entry; a photo still being prepared never saved late or onto another vessel"
     }
   ]
 }
