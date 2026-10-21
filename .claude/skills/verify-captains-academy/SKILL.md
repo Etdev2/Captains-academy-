@@ -5,7 +5,7 @@ description: Launch, drive and capture proof of the Captain's Academy arcade gam
 
 # Verify Captain's Academy
 
-The user-facing surface today is one web page, `/play/`: a top-down night harbor where the player docks a twin-engine boat with an engine lever under each thumb. It is a canvas game, so there are no DOM handles inside it. The game publishes its state on `window.__captainsAcademy` (`frame`, `outcome`, `speedMmPerS`, `level`, `port`, `starboard`), and the driver reads that after every step.
+This skill drives the arcade game at `/play/`: a top-down night harbor where the player docks a twin-engine boat with an engine lever under each thumb. The app also serves the sea-time log at `/log/` (added in #33). The log isn't in this feature map yet. Map it before using this skill to prove a log change. It is a canvas game, so there are no DOM handles inside it. The game publishes its state on `window.__captainsAcademy` (`frame`, `outcome`, `speedMmPerS`, `level`, `port`, `starboard`), and the driver reads that after every step.
 
 `bash scripts/verify.sh` is the project's verification command and runs the unit tests, golden replays and e2e tests. This skill is for driving the real build by hand, feature by feature, and keeping the evidence.
 

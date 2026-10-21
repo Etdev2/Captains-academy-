@@ -1,6 +1,6 @@
 # Captain's Academy verification map
 
-This directory is the maintained source for verifying what a player can do at `/play/`. Read this index before driving the game, then use the matching feature file as the recipe.
+This directory is the maintained source for verifying what a player can do at `/play/`. The sea-time log at `/log/` isn't mapped yet. Read this index before driving the game, then use the matching feature file as the recipe.
 
 ## Baseline preconditions
 
