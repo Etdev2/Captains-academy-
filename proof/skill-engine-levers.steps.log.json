@@ -28,7 +28,7 @@
     "state": {
       "frame": 42,
       "outcome": "playing",
-      "speedMmPerS": 61.171875,
+      "speedMmPerS": 59.53125,
       "level": 0,
       "port": 80,
       "starboard": 0,
@@ -47,7 +47,7 @@
     "state": {
       "frame": 44,
       "outcome": "playing",
-      "speedMmPerS": 72.421875,
+      "speedMmPerS": 70.78125,
       "level": 0,
       "port": 80,
       "starboard": 0,
@@ -66,7 +66,7 @@
     "state": {
       "frame": 46,
       "outcome": "playing",
-      "speedMmPerS": 83.671875,
+      "speedMmPerS": 82.03125,
       "level": 0,
       "port": 80,
       "starboard": 0,
@@ -85,7 +85,7 @@
     "state": {
       "frame": 83,
       "outcome": "playing",
-      "speedMmPerS": 235.078125,
+      "speedMmPerS": 233.4375,
       "level": 0,
       "port": 80,
       "starboard": -60,
@@ -101,9 +101,9 @@
     },
     "ok": true,
     "state": {
-      "frame": 182,
+      "frame": 177,
       "outcome": "playing",
-      "speedMmPerS": 322.5,
+      "speedMmPerS": 317.8125,
       "level": 0,
       "port": 80,
       "starboard": -60,
@@ -120,9 +120,9 @@
     },
     "ok": true,
     "state": {
-      "frame": 186,
+      "frame": 181,
       "outcome": "playing",
-      "speedMmPerS": 325.3125,
+      "speedMmPerS": 320.625,
       "level": 0,
       "port": 80,
       "starboard": -60,
@@ -138,9 +138,9 @@
     },
     "ok": true,
     "state": {
-      "frame": 202,
+      "frame": 197,
       "outcome": "playing",
-      "speedMmPerS": 336.5625,
+      "speedMmPerS": 331.875,
       "level": 0,
       "port": 80,
       "starboard": -60,
@@ -156,9 +156,9 @@
     },
     "ok": true,
     "state": {
-      "frame": 212,
+      "frame": 207,
       "outcome": "playing",
-      "speedMmPerS": 330.9375,
+      "speedMmPerS": 327.65625,
       "level": 0,
       "port": 0,
       "starboard": 0,
@@ -175,9 +175,9 @@
     },
     "ok": true,
     "state": {
-      "frame": 216,
+      "frame": 210,
       "outcome": "playing",
-      "speedMmPerS": 328.125,
+      "speedMmPerS": 325.546875,
       "level": 0,
       "port": 0,
       "starboard": 0,
@@ -194,12 +194,12 @@
     },
     "ok": true,
     "state": {
-      "frame": 270,
+      "frame": 263,
       "outcome": "playing",
-      "speedMmPerS": 692.34375,
+      "speedMmPerS": 662.34375,
       "level": 0,
-      "port": 99,
-      "starboard": 99,
+      "port": 93,
+      "starboard": 93,
       "muted": false,
       "horn": false
     }
@@ -213,12 +213,12 @@
     },
     "ok": true,
     "state": {
-      "frame": 274,
+      "frame": 266,
       "outcome": "playing",
-      "speedMmPerS": 746.71875,
+      "speedMmPerS": 700.3125,
       "level": 0,
-      "port": 99,
-      "starboard": 99,
+      "port": 93,
+      "starboard": 93,
       "muted": false,
       "horn": false
     }
@@ -232,12 +232,12 @@
     },
     "ok": true,
     "state": {
-      "frame": 277,
+      "frame": 269,
       "outcome": "playing",
-      "speedMmPerS": 787.03125,
+      "speedMmPerS": 738.28125,
       "level": 0,
-      "port": 99,
-      "starboard": 99,
+      "port": 93,
+      "starboard": 93,
       "muted": false,
       "horn": false
     }
@@ -250,12 +250,12 @@
     },
     "ok": true,
     "state": {
-      "frame": 368,
+      "frame": 360,
       "outcome": "playing",
-      "speedMmPerS": 1928.203125,
+      "speedMmPerS": 1806.796875,
       "level": 0,
-      "port": 99,
-      "starboard": 99,
+      "port": 93,
+      "starboard": 93,
       "muted": false,
       "horn": false
     }
@@ -269,12 +269,12 @@
     },
     "ok": true,
     "state": {
-      "frame": 371,
+      "frame": 364,
       "outcome": "playing",
-      "speedMmPerS": 1963.359375,
+      "speedMmPerS": 1850.625,
       "level": 0,
-      "port": 99,
-      "starboard": 99,
+      "port": 93,
+      "starboard": 93,
       "muted": false,
       "horn": false
     }
@@ -287,12 +287,12 @@
     },
     "ok": true,
     "state": {
-      "frame": 387,
+      "frame": 381,
       "outcome": "playing",
-      "speedMmPerS": 2147.34375,
+      "speedMmPerS": 2032.96875,
       "level": 0,
-      "port": 99,
-      "starboard": 99,
+      "port": 93,
+      "starboard": 93,
       "muted": false,
       "horn": false
     }

@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#27",
-  "sourceDigest": "sha256:8fc673ee477b9c5201e72df3b483b834b4808438d21e0e91b5f24b69cbcd7d15",
-  "capturedAt": "2026-10-21T13:14:33Z",
+  "sourceDigest": "sha256:195437213fddb9d8dcd899fb8616d3fa968ae67fb072ff92215b17bf4d2c397f",
+  "capturedAt": "2026-10-21T13:26:35Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "Main with the docking prototype and the sea-time log shell (#33) merged in, plus this branch: the verify-captains-academy skill with six feature recipes for /play, run against the production build on port 4180 after a clean npm ci, with touch input on phone viewports"
+    "fixture": "Main with the docking prototype and the sea-time log shell (#33) merged in, plus this branch: the verify-captains-academy skill with seven feature recipes for /play, run against the production build on port 4180 after a clean npm ci, with touch input on phone viewports"
   },
   "commands": [
     {
@@ -28,12 +28,12 @@
     {
       "path": "proof/skill-docking-run-hit.png",
       "kind": "screenshot",
-      "shows": "control.sh drive with docking-run.steps.json on the production build of merged main plus this branch, after a clean npm ci, from the files at 213232f: both levers full ahead, the boat hits the docks and the hit banner shows"
+      "shows": "control.sh drive with docking-run.steps.json on the production build of merged main plus this branch, after a clean npm ci, from the files at 0a4b361: both levers full ahead, the boat hits the docks and the hit banner shows"
     },
     {
       "path": "proof/skill-docking-run.steps.log.json",
       "kind": "log",
-      "shows": "The docking-run recipe step by step with the game state after each: playing, levers to 100, hit, a tap restarts the run, a second hit, then Enter restarts it"
+      "shows": "The docking-run recipe with the game state after each step: three hits, retried by a tap, by Enter and by Space"
     },
     {
       "path": "proof/skill-levels-level-2.png",
@@ -54,6 +54,11 @@
       "path": "proof/skill-engine-levers-split.png",
       "kind": "screenshot",
       "shows": "The split-lever pivot on the phone after the touch drags"
+    },
+    {
+      "path": "proof/skill-keyboard.steps.log.json",
+      "kind": "log",
+      "shows": "The keyboard recipe: each lever key and alias (arrows, W S A D, Q Z, E C) held 0.8 s moves the expected levers 58 to 60 percent, and X returns both to 0 after each"
     },
     {
       "path": "proof/skill-horn-and-sound.steps.log.json",
