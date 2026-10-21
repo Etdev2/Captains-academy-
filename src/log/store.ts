@@ -10,7 +10,11 @@ import { seaTimeEntrySchema, type NewSeaTimeEntry, type SeaTimeEntry } from './e
 import { SEA_LOG_DB, STORES } from './schema';
 
 export interface SeaLog {
-  /** Saves a new entry or replaces one with the same id, and returns what was saved. */
+  /**
+   * Saves a new entry or replaces one with the same id, and returns what was
+   * saved. Throws SourceChangeError, writing nothing, when the saved entry
+   * with that id has the other source.
+   */
   save(entry: NewSeaTimeEntry): Promise<SeaTimeEntry>;
   /** The entry with this id, deleted or not. */
   get(id: string): Promise<SeaTimeEntry | undefined>;
@@ -28,6 +32,11 @@ export interface SeaLog {
 export interface SeaLogOptions extends OpenOptions {
   /** The clock for `updatedAt` and `deletedAt`. Defaults to the device clock. */
   readonly now?: () => Date;
+}
+
+/** A save that would change whether an entry is live or backfilled. */
+export class SourceChangeError extends Error {
+  override readonly name = 'SourceChangeError';
 }
 
 /** A record on the device that no longer matches the entry schema. */
@@ -56,13 +65,53 @@ export async function openSeaLog(options: SeaLogOptions = {}): Promise<SeaLog> {
     return (request.result as unknown[]).map(read);
   };
 
+  // Reads the entry and writes what `change` returns, or nothing for null.
+  // The read and the write share one transaction, so nothing can change the
+  // entry in between. If `change` throws, nothing is written and its error is
+  // the one reported, not the abort it causes.
+  const update = async (
+    id: string,
+    change: (existing: SeaTimeEntry | undefined) => SeaTimeEntry | null,
+  ): Promise<SeaTimeEntry | null> => {
+    const tx = db.transaction(STORES.entries, 'readwrite');
+    const store = tx.objectStore(STORES.entries);
+    const request = store.get(id);
+    let written: SeaTimeEntry | null = null;
+    let failure: unknown = null;
+    request.onsuccess = () => {
+      try {
+        const next = change(request.result === undefined ? undefined : read(request.result));
+        if (next !== null) {
+          store.put(next);
+          written = next;
+        }
+      } catch (error) {
+        failure = error;
+        tx.abort();
+      }
+    };
+    try {
+      await transactionDone(tx);
+    } catch (error) {
+      throw failure ?? error;
+    }
+    return written;
+  };
+
   return {
     async save(entry) {
       // Throws before anything is written when the entry breaks the schema.
       const record = seaTimeEntrySchema.parse({ ...entry, updatedAt: now(), deletedAt: null });
-      const tx = db.transaction(STORES.entries, 'readwrite');
-      tx.objectStore(STORES.entries).put(record);
-      await transactionDone(tx);
+      await update(record.id, (existing) => {
+        // Backfilled time stays backfilled: a save may never turn it into live
+        // time, or live time into backfilled.
+        if (existing && existing.source !== record.source) {
+          throw new SourceChangeError(
+            `Entry ${record.id} is ${existing.source} and cannot be saved as ${record.source}.`,
+          );
+        }
+        return record;
+      });
       return record;
     },
 
@@ -83,33 +132,12 @@ export async function openSeaLog(options: SeaLogOptions = {}): Promise<SeaLog> {
     },
 
     async softDelete(id) {
-      const tx = db.transaction(STORES.entries, 'readwrite');
-      const store = tx.objectStore(STORES.entries);
-      const request = store.get(id);
-      let deleted = false;
-      let failure: unknown = null;
-      // The read and the write share one transaction, so nothing can change
-      // the entry in between.
-      request.onsuccess = () => {
-        try {
-          if (request.result === undefined) return;
-          const entry = read(request.result);
-          if (entry.deletedAt !== null) return;
-          const at = now();
-          store.put(seaTimeEntrySchema.parse({ ...entry, deletedAt: at, updatedAt: at }));
-          deleted = true;
-        } catch (error) {
-          // Report the real problem, not the abort it causes.
-          failure = error;
-          tx.abort();
-        }
-      };
-      try {
-        await transactionDone(tx);
-      } catch (error) {
-        throw failure ?? error;
-      }
-      return deleted;
+      const deleted = await update(id, (existing) => {
+        if (!existing || existing.deletedAt !== null) return null;
+        const at = now();
+        return seaTimeEntrySchema.parse({ ...existing, deletedAt: at, updatedAt: at });
+      });
+      return deleted !== null;
     },
 
     async outboxSize() {

@@ -122,6 +122,20 @@ test('the store refuses bad entries, soft-deletes and leaves the outbox empty', 
     } catch {
       refused = true;
     }
+
+    // Saving live time under the backfilled day's id is refused too, so a
+    // backfilled day can never turn into live time.
+    let sourceChangeRefused = '';
+    try {
+      await log.save({
+        id: day.id,
+        source: 'live',
+        startedAt: '2026-06-14T06:00:00.000Z',
+        endedAt: '2026-06-14T14:00:00.000Z',
+      });
+    } catch (error) {
+      sourceChangeRefused = error instanceof Error ? error.name : String(error);
+    }
     const dayAfter = await log.get(day.id);
 
     const deleted = await log.softDelete(trip.id);
@@ -129,6 +143,7 @@ test('the store refuses bad entries, soft-deletes and leaves the outbox empty', 
     const tripAfter = await log.get(trip.id);
     return {
       refused,
+      sourceChangeRefused,
       dayUnchanged: JSON.stringify(dayAfter) === JSON.stringify(day),
       deleted,
       deletedAgain,
@@ -141,6 +156,7 @@ test('the store refuses bad entries, soft-deletes and leaves the outbox empty', 
   });
 
   expect(result.refused).toBe(true);
+  expect(result.sourceChangeRefused).toBe('SourceChangeError');
   expect(result.dayUnchanged).toBe(true);
   expect(result.deleted).toBe(true);
   expect(result.deletedAgain).toBe(false);
@@ -215,4 +231,30 @@ test('a newer database from another tab is never opened by older code', async ({
   // This tab's code knows only version 1, so it refuses version 5 instead of guessing.
   await page.reload();
   await expect(entries(page)).toHaveAttribute('data-state', 'newer');
+});
+
+test('a new cache name keeps what the old cache held, so earlier offline pages still open', async ({
+  page,
+}) => {
+  // Before any page registers the service worker, leave an offline copy under
+  // the game's old cache name, as a visitor from before the sea-time log has.
+  await page.goto('/sw.js');
+  await page.evaluate(async () => {
+    const old = await caches.open('captains-academy-play-v1');
+    await old.put('/play/old-offline-copy', new Response('kept'));
+  });
+
+  // The first visit after the change is to the log, not the game.
+  await openLog(page);
+  await expect
+    .poll(() =>
+      page.evaluate(async () => {
+        const names = await caches.keys();
+        const kept = await (
+          await caches.open('captains-academy-offline-v1')
+        ).match('/play/old-offline-copy');
+        return { names, kept: kept ? await kept.text() : null };
+      }),
+    )
+    .toEqual({ names: ['captains-academy-offline-v1'], kept: 'kept' });
 });
