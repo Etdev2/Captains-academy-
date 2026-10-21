@@ -1,0 +1,14 @@
+[
+  { "do": "open", "viewport": "desktop" },
+  { "do": "expect", "field": "outcome", "eq": "playing" },
+  { "do": "expect", "field": "level", "eq": 0 },
+  { "do": "lever", "side": "port", "to": 100 },
+  { "do": "lever", "side": "starboard", "to": 100 },
+  { "do": "waitFor", "field": "outcome", "eq": "hit", "timeoutMs": 45000 },
+  { "do": "screenshot", "name": "hit" },
+  { "do": "tap", "x": 640, "y": 420 },
+  { "do": "wait", "ms": 1500 },
+  { "do": "expect", "field": "outcome", "eq": "playing" },
+  { "do": "expect", "field": "frame", "lt": 200 },
+  { "do": "screenshot", "name": "retry" }
+]

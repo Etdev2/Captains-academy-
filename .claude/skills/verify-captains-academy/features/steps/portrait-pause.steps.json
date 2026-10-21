@@ -1,0 +1,6 @@
+[
+  { "do": "open", "viewport": "phone-portrait" },
+  { "do": "wait", "ms": 2500 },
+  { "do": "screenshot", "name": "portrait" },
+  { "do": "expect", "field": "frame", "lt": 1 }
+]
