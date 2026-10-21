@@ -275,6 +275,28 @@ test('a photo still being prepared is never saved late, or onto another vessel',
   expect(await photoOf('Kestrel')).toBeNull();
 });
 
+test('two quick taps on Save add a new vessel once', async ({ page }) => {
+  await openLog(page, '#vessels/new');
+  await expect(page.getByRole('heading', { name: 'New vessel' })).toBeVisible();
+  await page.getByLabel('Name').fill('Kestrel');
+  // Both taps land before the first save reaches the store.
+  await page.locator('#vessel-form').evaluate((form) => {
+    const submit = () => (form as HTMLFormElement).requestSubmit();
+    submit();
+    submit();
+  });
+  await expect(page.locator('#vessels-status')).toHaveText('Saved Kestrel.');
+  await page.reload();
+  await expect(vesselRows(page)).toHaveText([/Kestrel/]);
+  expect(await page.evaluate(async () => (await window.__seaTimeLog?.vessels.list())?.length)).toBe(
+    1,
+  );
+
+  // The next new vessel can be saved: the guard is lifted for the next form.
+  await addVessel(page, 'Old Salt');
+  await expect(vesselRows(page)).toHaveText([/Kestrel/, /Old Salt/]);
+});
+
 test('the form says what to fix and saves nothing until it is right', async ({ page }) => {
   await openLog(page, '#vessels/new');
   await page.getByRole('button', { name: 'Save vessel' }).click();

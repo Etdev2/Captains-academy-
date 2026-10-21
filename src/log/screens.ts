@@ -150,6 +150,9 @@ export function startScreens(log: SeaLog): void {
   // picked on the form that picked it. Until then the form can't be saved.
   let photoCount = 0;
   let photoPending = false;
+  // True while a save is on its way to the store, so a second tap on Save
+  // can't add the same new vessel twice.
+  let saving = false;
 
   const show = (screen: keyof typeof views) => {
     for (const [name, view] of Object.entries(views)) view.hidden = name !== screen;
@@ -171,10 +174,19 @@ export function startScreens(log: SeaLog): void {
     else preview.removeAttribute('src');
   };
 
+  const updateSaveButton = () => {
+    saveButton.disabled = photoPending || saving;
+  };
+
   const setPhotoPending = (pending: boolean) => {
     photoPending = pending;
-    saveButton.disabled = pending;
+    updateSaveButton();
     photoStatus.textContent = pending ? 'Preparing the photo…' : '';
+  };
+
+  const setSaving = (on: boolean) => {
+    saving = on;
+    updateSaveButton();
   };
 
   // Drops any photo still being prepared, so its result is ignored.
@@ -251,6 +263,7 @@ export function startScreens(log: SeaLog): void {
     fields.owner.value = editing?.owner ?? '';
     fields.horsepower.value = String(editing?.horsepower ?? '');
     fields.defaultRoleId.value = editing?.defaultRoleId ?? '';
+    setSaving(false);
     forgetPendingPhoto();
     showPhoto(editing?.photo ?? null);
     show('vessel');
@@ -336,18 +349,22 @@ export function startScreens(log: SeaLog): void {
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     // A photo still being prepared would be left out of the save.
-    if (photoPending) return;
+    if (photoPending || saving) return;
     const vessel = readForm();
     if (typeof vessel === 'string') {
       showError(vessel);
       return;
     }
+    setSaving(true);
     void log.vessels.save(vessel).then(
       (saved) => {
         vesselsStatus.textContent = `Saved ${saved.name}.`;
         location.hash = '#vessels';
       },
-      () => showError('The vessel could not be saved. Nothing was changed.'),
+      () => {
+        setSaving(false);
+        showError('The vessel could not be saved. Nothing was changed.');
+      },
     );
   });
 
