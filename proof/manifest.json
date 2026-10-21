@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#27",
-  "sourceDigest": "sha256:4d3f2b05e25460c368d0206bbd07c94e382c3e1b400ecf49e7179dbbf5bb7c86",
-  "capturedAt": "2026-10-21T01:52:22Z",
+  "sourceDigest": "sha256:20e789c40da5cf4fb84cd9b778e26ae3419999fd826680f9cca19eed5abf08df",
+  "capturedAt": "2026-10-21T11:39:09Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "The merged docking prototype on main plus this branch: the verify-captains-academy skill with five feature recipes, run against the production build on port 4180"
+    "fixture": "The merged docking prototype on main plus this branch: the verify-captains-academy skill with five feature recipes, run against the production build on port 4180 with touch input on phone viewports"
   },
   "commands": [
     {
@@ -28,12 +28,12 @@
     {
       "path": "proof/skill-docking-run-hit.png",
       "kind": "screenshot",
-      "shows": "control.sh drive with features/steps/docking-run.steps.json on the production build (game code as on main, e53922b): both levers full ahead, the boat hits the docks and the hit banner shows"
+      "shows": "control.sh drive with docking-run.steps.json on the production build built from the files at fa17769: both levers full ahead, the boat hits the docks and the hit banner shows"
     },
     {
       "path": "proof/skill-docking-run.steps.log.json",
       "kind": "log",
-      "shows": "The docking-run recipe step by step with the game state after each: outcome playing, levers to 100, outcome hit at frame 1538, then a tap restarts the run at frame 1 with the levers at stop"
+      "shows": "The docking-run recipe step by step with the game state after each: playing, levers to 100, hit, then a tap restarts the run with the levers at stop"
     },
     {
       "path": "proof/skill-levels-level-2.png",
@@ -48,7 +48,12 @@
     {
       "path": "proof/skill-engine-levers.steps.log.json",
       "kind": "log",
-      "shows": "The engine-levers recipe on a phone in landscape, from the final launch, doctor, drive and stop cycle after the stop fix: port alone, split to pivot, X to stop, then both ahead with speed above 200 mm/s"
+      "shows": "The engine-levers recipe on a Pixel 7 in landscape with real touch drags: port alone, split to pivot, X to stop, then both ahead with speed above 200 mm/s"
+    },
+    {
+      "path": "proof/skill-engine-levers-split.png",
+      "kind": "screenshot",
+      "shows": "The split-lever pivot on the phone after the touch drags"
     }
   ]
 }
