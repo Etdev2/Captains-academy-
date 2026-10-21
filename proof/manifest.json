@@ -1,18 +1,14 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#12",
-  "sourceDigest": "sha256:fd59328a276b80f38af990cee6e31d2bf79953ff6c546d0d5fc9805de9310b6b",
-  "capturedAt": "2026-10-20T18:41:45Z",
+  "ticket": "Etdev2/Captains-academy-#25",
+  "sourceDigest": "sha256:8fb69c080c0c51fb7a9c413d4cacaf19494c66073062adae32b72155be56ce5a",
+  "capturedAt": "2026-10-21T00:44:49Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "This repo with no app code yet, plus ten throwaway projects built by scripts/verify.test.sh"
+    "fixture": "The Long Beach docking prototype on this branch: two schema-2 missions in missions/ and three golden replays in tests/replays/, the docking ones re-recorded with the engine levers only"
   },
   "commands": [
-    {
-      "command": "bash -n scripts/verify.sh",
-      "exitCode": 0
-    },
     {
       "command": "bash scripts/verify.test.sh",
       "exitCode": 0
@@ -22,13 +18,22 @@
       "exitCode": 0
     }
   ],
-  "behaviorChanged": false,
+  "behaviorChanged": true,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh skips all nine steps on this repo and exits 0, and its tests show it fails on each missing pin, config or failing tool"
+      "shows": "verify.sh runs all nine steps with none skipped: npm ci, tsc, ESLint, Prettier, validation of both missions, 32 Vitest tests including the twin-lever tests and all three golden replays, vite build, eight Playwright tests (smoke, portrait pause, offline reload, a lever under each thumb) on desktop and phone landscape, and npm audit"
+    },
+    {
+      "path": "proof/play-desktop.png",
+      "kind": "screenshot",
+      "shows": "The production build at /play on desktop, a few seconds after the port lever (left thumb) went ahead and the starboard lever (right thumb) astern: the boat pivots to starboard with prop wash on each side. No steering slider. Taken at e0632f1"
+    },
+    {
+      "path": "proof/play-phone-landscape.png",
+      "kind": "screenshot",
+      "shows": "The same moment on a Pixel 7 in landscape. Taken at e0632f1"
     }
-  ],
-  "noBehaviorReason": "tooling only; no app code exists yet"
+  ]
 }

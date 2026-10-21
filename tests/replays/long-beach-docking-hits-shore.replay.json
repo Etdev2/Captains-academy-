@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 2,
+  "missionId": "long-beach-docking",
+  "note": "Both engines full ahead on the starting heading. The boat reaches the docks too fast and the level ends in a hit.",
+  "runs": [
+    {
+      "frames": 6000,
+      "port": 100,
+      "starboard": 100,
+      "rudder": 0
+    }
+  ]
+}
