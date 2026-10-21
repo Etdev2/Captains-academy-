@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#42",
-  "sourceDigest": "sha256:6c5becc56a576782555f3900381847518734efcbb6b4c350c2126faf83f604c2",
-  "capturedAt": "2026-10-21T20:44:16Z",
+  "sourceDigest": "sha256:5c6ec4f71651f27060a2f4190c2f33c19bfb8fbe07e5222b8f1d0416820c6fd8",
+  "capturedAt": "2026-10-21T20:55:01Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "tests/fixtures/oupv-near-coastal/log.json: 12 entries on two vessels (24 and 150 GRT), covering every band, a midnight crossing, a same-day overlap, Inside Passage, a deleted entry and an open trip, in UTC"
+    "fixture": "tests/fixtures/oupv-near-coastal/log.json: 12 entries on two vessels (24 and 150 GRT), covering every band, a midnight crossing, a same-day overlap, Inside Passage, Great Lakes, a deleted entry and an open trip, in UTC"
   },
   "commands": [
     {
@@ -35,7 +35,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "The rules engine unit tests (every band edge at 4, 8 and 12 h, the 100 GRT line, null tonnage, overlaps, midnight, every waters value, deleted entries, citations on every rule, purity and wording), the worked example from log.json to the OUPV near-coastal progress in progress.json, and the full verify.sh passing"
+      "shows": "The rules engine unit tests (every band edge at 4, 8 and 12 h, the 100 GRT line, null tonnage, overlaps, midnight, every waters value, Great Lakes day for day, the per-day route outcome, deleted entries, citations on every rule, purity and wording), the worked example from log.json to the OUPV near-coastal progress in progress.json, and the full verify.sh passing"
     }
   ]
 }
