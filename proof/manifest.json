@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#25",
-  "sourceDigest": "sha256:f0c245ace7646c7467b6a757d6e770ad3d2ca2f849038869633016968726a521",
-  "capturedAt": "2026-10-20T20:28:48Z",
+  "sourceDigest": "sha256:4b484cbf66d5b9b3e67edacf25fe656c702fc22604aab4b9b1e499bc027a221b",
+  "capturedAt": "2026-10-21T00:18:52Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
@@ -28,12 +28,12 @@
     {
       "path": "proof/play-desktop.png",
       "kind": "screenshot",
-      "shows": "The production build at /play on desktop: the throttle lever on the right set ahead, the steering slider on the left, the horn rings around the boat, the gold arrow to the slip, the sound, horn and level buttons, and ripples on the water"
+      "shows": "The production build at /play on desktop: throttle lever, steering slider, horn rings, the arrow to the slip and the top-left buttons. Taken at b878f60; no game code has changed since"
     },
     {
       "path": "proof/play-phone-landscape.png",
       "kind": "screenshot",
-      "shows": "The same moment on a Pixel 7 held in landscape"
+      "shows": "The same moment on a Pixel 7 in landscape. Taken at b878f60; no game code has changed since"
     }
   ]
 }
