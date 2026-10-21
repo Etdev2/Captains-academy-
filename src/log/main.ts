@@ -1,10 +1,11 @@
 // The sea-time log at /log (DECISIONS.md A3). It opens the store on the
 // device, says how many entries it holds and whether the phone is online, and
-// works offline after one visit. The vessel and role screens live in
-// src/log/screens.ts. Checking in and out comes in a later change.
+// works offline after one visit. The screens, from checking in to vessels,
+// live in src/log/screens.ts and src/log/entry-screens.ts.
 
 import { enableOffline } from '../offline/offline';
 import { NewerVersionOnDeviceError } from '../store/idb';
+import { entryCountText } from './entry-screens';
 import { startScreens } from './screens';
 import { openSeaLog, UnreadableEntryError, type SeaLog } from './store';
 
@@ -39,12 +40,6 @@ type StoreState = 'ready' | 'blocked' | 'newer' | 'replaced' | 'unreadable';
 function showStore(state: StoreState, text: string): void {
   entries.dataset.state = state;
   entries.textContent = text;
-}
-
-function entryCountText(count: number): string {
-  if (count === 0) return 'No sea time logged yet.';
-  if (count === 1) return '1 entry saved on this phone.';
-  return `${count} entries saved on this phone.`;
 }
 
 async function start(): Promise<void> {

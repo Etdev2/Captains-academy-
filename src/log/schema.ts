@@ -14,7 +14,27 @@ export const STORES = {
   vessels: 'vessels',
   /** The seeded role list. Only migrations write here. */
   roles: 'roles',
+  /** Choices kept on this device: backfill consent and the last check-in. */
+  preferences: 'preferences',
 } as const;
+
+/**
+ * Version 3's change to an entry saved before it: the fields entries gained
+ * (vessel, role, waters, the GPS suggestion and, on a backfilled day,
+ * consent) are added as null, meaning "not recorded". Frozen with that
+ * migration, like ROLES_V2.
+ */
+export function entryToV3(entry: Record<string, unknown>): Record<string, unknown> {
+  const upgraded: Record<string, unknown> = {
+    vesselId: null,
+    roleId: null,
+    waters: null,
+    watersSuggestion: null,
+    ...entry,
+  };
+  if (entry.source === 'backfilled' && !('consentedAt' in entry)) upgraded.consentedAt = null;
+  return upgraded;
+}
 
 /**
  * The roles version 2 seeds, frozen with that migration. A later role list
@@ -65,6 +85,19 @@ export const SEA_LOG_DB: DatabaseSpec = {
       vessels.createIndex('updatedAt', 'updatedAt');
       const roles = db.createObjectStore(STORES.roles, { keyPath: 'id' });
       for (const role of ROLES_V2) roles.put(role);
+    },
+    // Version 3: entries gain a vessel, role and waters, and the preferences
+    // store holds backfill consent and the last check-in. Every entry already
+    // saved is kept, with its new fields set to null.
+    (db, tx) => {
+      db.createObjectStore(STORES.preferences, { keyPath: 'key' });
+      const cursor = tx.objectStore(STORES.entries).openCursor();
+      cursor.onsuccess = () => {
+        const current = cursor.result;
+        if (!current) return;
+        current.update(entryToV3(current.value as Record<string, unknown>));
+        current.continue();
+      };
     },
   ],
 };

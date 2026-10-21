@@ -1,6 +1,12 @@
-// The vessel and role screens of the sea-time log, on the one /log page so
-// they work offline with it. The address after # picks the screen:
+// The screens of the sea-time log, all on the one /log page so they work
+// offline with it. This module routes between them and holds the vessel and
+// role screens; the entry screens live in src/log/entry-screens.ts. The
+// address after # picks the screen:
 //
+//   #check-in          the check-in sheet
+//   #backfill          backfilling past days, after consent
+//   #entries           the list of entries
+//   #entries/<id>      one entry, to edit or delete
 //   #vessels           the vessel list
 //   #vessels/new       a new vessel
 //   #vessels/<id>      one vessel, to edit or delete
@@ -16,6 +22,7 @@ import {
   type Vessel,
   type VesselDetail,
 } from './entry';
+import { createEntryScreens } from './entry-screens';
 import type { SeaLog } from './store';
 
 const DETAIL_NAMES: Record<VesselDetail, string> = {
@@ -36,12 +43,21 @@ const CONFIRM_MS = 4000;
 
 type Route =
   | { readonly screen: 'home' }
+  | { readonly screen: 'checkIn' }
+  | { readonly screen: 'backfill' }
+  | { readonly screen: 'entries' }
+  | { readonly screen: 'entry'; readonly id: string }
   | { readonly screen: 'vessels' }
   | { readonly screen: 'vessel'; readonly id: string | null }
   | { readonly screen: 'roles' };
 
 export function routeOf(hash: string): Route {
   const path = hash.replace(/^#\/?/, '');
+  if (path === 'check-in') return { screen: 'checkIn' };
+  if (path === 'backfill') return { screen: 'backfill' };
+  if (path === 'entries') return { screen: 'entries' };
+  const entry = /^entries\/([0-9a-f-]{36})$/i.exec(path);
+  if (entry?.[1]) return { screen: 'entry', id: entry[1] };
   if (path === 'vessels') return { screen: 'vessels' };
   if (path === 'vessels/new') return { screen: 'vessel', id: null };
   const vessel = /^vessels\/([0-9a-f-]{36})$/i.exec(path);
@@ -113,6 +129,10 @@ export function startScreens(log: SeaLog): void {
     vessels: element('view-vessels', HTMLElement),
     vessel: element('view-vessel-form', HTMLElement),
     roles: element('view-roles', HTMLElement),
+    checkIn: element('view-check-in', HTMLElement),
+    backfill: element('view-backfill', HTMLElement),
+    entries: element('view-entries', HTMLElement),
+    entry: element('view-entry', HTMLElement),
   };
   const vesselList = element('vessel-list', HTMLUListElement);
   const vesselsEmpty = element('vessels-empty', HTMLParagraphElement);
@@ -158,6 +178,7 @@ export function startScreens(log: SeaLog): void {
     for (const [name, view] of Object.entries(views)) view.hidden = name !== screen;
     document.body.dataset.screen = screen;
   };
+  const entryScreens = createEntryScreens(log, show);
 
   const showError = (text: string | null) => {
     formError.hidden = text === null;
@@ -291,11 +312,24 @@ export function startScreens(log: SeaLog): void {
   const render = async () => {
     const turn = ++renderCount;
     const route = routeOf(location.hash);
+    const isCurrent = () => turn === renderCount;
     if (route.screen !== 'vessels') vesselsStatus.textContent = '';
     try {
       switch (route.screen) {
         case 'home':
-          show('home');
+          await entryScreens.home(isCurrent);
+          break;
+        case 'checkIn':
+          await entryScreens.checkIn(isCurrent);
+          break;
+        case 'backfill':
+          await entryScreens.backfill(isCurrent);
+          break;
+        case 'entries':
+          await entryScreens.entries(isCurrent);
+          break;
+        case 'entry':
+          await entryScreens.entry(isCurrent, route.id);
           break;
         case 'vessels':
           await renderVessels(turn);

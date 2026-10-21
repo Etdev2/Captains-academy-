@@ -61,6 +61,29 @@ describe('roles', () => {
   });
 });
 
+describe('eligibility wording', () => {
+  // An entry may be flagged "Not eligible: under 4 hours" (D1), but nothing
+  // ever says a user is eligible for a license.
+  it('no page or script says someone is eligible for something', () => {
+    const offenders = [
+      ...filesUnder('src', 'log', 'play', 'public', 'missions'),
+      join(root, 'index.html'),
+    ]
+      .filter((path) => /\b(is|are|you're|you are) eligible\b|\beligible for\b/i.test(read(path)))
+      .map(where);
+    expect(offenders).toEqual([]);
+  });
+});
+
+describe('credited days are never stored', () => {
+  // The rules engine works them out each time (PR 4). No entry field holds them.
+  it('no entry, vessel or preference field mentions credit or days', () => {
+    const source = read(join(root, 'src/log/entry.ts'));
+    const fields = [...source.matchAll(/^\s+(\w+):\s/gm)].map((match) => match[1] ?? '');
+    expect(fields.filter((name) => /credit|days/i.test(name))).toEqual([]);
+  });
+});
+
 describe('game time is never sea time', () => {
   it('the sea-time log imports nothing from the game or the simulator', () => {
     const offenders = filesUnder('src/log').flatMap((path) =>

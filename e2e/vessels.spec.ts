@@ -402,7 +402,7 @@ test('roles are a seeded deck and engine list, and a vessel keeps a default role
   });
 });
 
-test('version 1 upgrades to version 2 and keeps its entries', async ({ page }) => {
+test('version 1 upgrades to the current version and keeps its entries', async ({ page }) => {
   // A device that ran only PR 1's code: version 1 with one saved entry.
   await page.goto('/sw.js');
   const entry = {
@@ -461,12 +461,20 @@ test('version 1 upgrades to version 2 and keeps its entries', async ({ page }) =
     DB,
   );
   expect(after).toEqual({
-    version: 2,
-    stores: ['outbox', 'roles', 'sea_time_entries', 'vessels'],
+    version: 3,
+    stores: ['outbox', 'preferences', 'roles', 'sea_time_entries', 'vessels'],
     roles: 15,
     vesselIndexes: ['updatedAt'],
   });
-  expect(await page.evaluate((id) => window.__seaTimeLog?.get(id), entry.id)).toEqual(entry);
+  // Version 3 adds the fields entries gained since, as null (not recorded).
+  expect(await page.evaluate((id) => window.__seaTimeLog?.get(id), entry.id)).toEqual({
+    ...entry,
+    vesselId: null,
+    roleId: null,
+    waters: null,
+    watersSuggestion: null,
+    consentedAt: null,
+  });
   expect(await page.evaluate(() => window.__seaTimeLog?.outboxSize())).toBe(0);
 });
 

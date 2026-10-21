@@ -20,6 +20,30 @@ async function waitForOfflineCopy(page: Page): Promise<void> {
     .toBe(true);
 }
 
+// Entries need a saved vessel, and backfilled days need the user's consent
+// (issue #40). Returns where the test's entries are served.
+async function prepareAboard(page: Page) {
+  const vesselId = await page.evaluate(async () => {
+    const log = window.__seaTimeLog;
+    if (!log) throw new Error('the store did not open');
+    await log.giveBackfillConsent();
+    const vessel = await log.vessels.save({
+      id: crypto.randomUUID(),
+      name: 'Sea Breeze',
+      officialNumber: null,
+      officialGrossTons: null,
+      lengthFeet: null,
+      propulsion: null,
+      owner: null,
+      horsepower: null,
+      photo: null,
+      defaultRoleId: null,
+    });
+    return vessel.id;
+  });
+  return { vesselId, roleId: 'deck.mate', waters: 'near-coastal', watersSuggestion: null } as const;
+}
+
 async function openLog(page: Page): Promise<void> {
   await page.goto('/log/');
   await expect(page.getByRole('heading', { name: 'Sea-time log' })).toBeVisible();
@@ -74,7 +98,8 @@ test('a saved entry survives a reload, online and offline', async ({ page, conte
   await openLog(page);
   await waitForOfflineCopy(page);
 
-  const saved = await page.evaluate(async () => {
+  const aboard = await prepareAboard(page);
+  const saved = await page.evaluate(async (aboard) => {
     const log = window.__seaTimeLog;
     if (!log) throw new Error('the store did not open');
     return log.save({
@@ -82,8 +107,9 @@ test('a saved entry survives a reload, online and offline', async ({ page, conte
       source: 'backfilled',
       day: '2026-06-14',
       hoursBand: '8-12',
+      ...aboard,
     });
-  });
+  }, aboard);
   expect(saved.deletedAt).toBeNull();
 
   await page.reload();
@@ -99,7 +125,8 @@ test('the store refuses bad entries, soft-deletes and leaves the outbox empty', 
   page,
 }) => {
   await openLog(page);
-  const result = await page.evaluate(async () => {
+  const aboard = await prepareAboard(page);
+  const result = await page.evaluate(async (aboard) => {
     const log = window.__seaTimeLog;
     if (!log) throw new Error('the store did not open');
     const trip = await log.save({
@@ -107,12 +134,14 @@ test('the store refuses bad entries, soft-deletes and leaves the outbox empty', 
       source: 'live',
       startedAt: '2026-10-21T06:00:00.000Z',
       endedAt: null,
+      ...aboard,
     });
     const day = await log.save({
       id: crypto.randomUUID(),
       source: 'backfilled',
       day: '2026-06-14',
       hoursBand: '4-8',
+      ...aboard,
     });
 
     // A backfilled day marked verified is refused, and nothing is written.
@@ -132,6 +161,7 @@ test('the store refuses bad entries, soft-deletes and leaves the outbox empty', 
         source: 'live',
         startedAt: '2026-06-14T06:00:00.000Z',
         endedAt: '2026-06-14T14:00:00.000Z',
+        ...aboard,
       });
     } catch (error) {
       sourceChangeRefused = error instanceof Error ? error.name : String(error);
@@ -150,6 +180,7 @@ test('the store refuses bad entries, soft-deletes and leaves the outbox empty', 
         source: 'live',
         startedAt: '2026-10-21T06:00:00.000Z',
         endedAt: '2026-10-21T12:00:00.000Z',
+        ...aboard,
       });
     } catch (error) {
       resurrectRefused = error instanceof Error ? error.name : String(error);
@@ -169,7 +200,7 @@ test('the store refuses bad entries, soft-deletes and leaves the outbox empty', 
       count: await log.count(),
       outbox: await log.outboxSize(),
     };
-  });
+  }, aboard);
 
   expect(result.refused).toBe(true);
   expect(result.sourceChangeRefused).toBe('SourceChangeError');
@@ -187,7 +218,7 @@ test('the store refuses bad entries, soft-deletes and leaves the outbox empty', 
   await expect(entries(page)).toHaveText('1 entry saved on this phone.');
 });
 
-test('version 2 of the database keeps the entries and outbox stores as version 1 made them', async ({
+test('version 3 of the database keeps the entries and outbox stores as version 1 made them', async ({
   page,
 }) => {
   await openLog(page);
@@ -222,8 +253,8 @@ test('version 2 of the database keeps the entries and outbox stores as version 1
     DB,
   );
   expect(shape).toEqual({
-    version: 2,
-    stores: ['outbox', 'roles', 'sea_time_entries', 'vessels'],
+    version: 3,
+    stores: ['outbox', 'preferences', 'roles', 'sea_time_entries', 'vessels'],
     entriesKey: 'id',
     indexes: ['updatedAt'],
     outboxKey: 'seq',
@@ -248,7 +279,7 @@ test('a newer database from another tab is never opened by older code', async ({
   );
   await expect(entries(page)).toHaveAttribute('data-state', 'replaced');
 
-  // This tab's code knows only version 2, so it refuses version 5 instead of guessing.
+  // This tab's code knows only version 3, so it refuses version 5 instead of guessing.
   await page.reload();
   await expect(entries(page)).toHaveAttribute('data-state', 'newer');
 });
