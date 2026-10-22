@@ -45,7 +45,7 @@ The stack, decided in issue #18, is strict TypeScript, Phaser 4.2.1 (pinned) and
 Build
 - **G1.** A web game built with Phaser, separate from the realistic simulator. It lives in this repo at its own address (such as `/play`) and uses the academy login, Supabase project and mastery record.
 - **G2.** 2D first: a top-down harbor for steering levels and a "bridge view" of lights on the horizon. 3D views come later only if players want them.
-- **G3.** Players are 13 and up, to stay outside COPPA. The audience includes license candidates and Coast Guard Academy cadets. `counsel` checks this before launch.
+- **G3.** Players are 13 and up, to stay outside COPPA. The audience includes license candidates and cadets. `counsel` checks this before launch.
 - **G4.** No account is needed to start playing. Progress saves on the device and works offline. Signing in with the academy login syncs progress and streaks across devices and joins leagues.
 
 Chapters and levels
@@ -55,7 +55,7 @@ Chapters and levels
 - **G8.** Level length and phone orientation depend on the level type. Rapid-fire levels play in portrait with one thumb; steering levels play in landscape. Mouse and keyboard work on desktop.
 - **G9.** The game and the flashcards share one mastery record per rule and situation. A situation missed in one shows up in the other.
 - **G10.** Each chapter's completion gate is a boss level in exam format: timed multiple-choice questions. A post-boss level does not replace that gate. The academy writes its own questions. For Chapter 1 it writes them from the official rule text (the Coast Guard's Navigation Rules book, which prints COLREGS and the Inland Rules in 33 CFR 83). The Coast Guard's sample exams are too few to reuse and some of their content may be copyrighted, so they guide question style only and nothing is copied from them. `uscg-regs` checks each Chapter 1 question against the current rule text and tags it with its rule number. Each later chapter's boss names its own source and citation, a CFR section where one applies, when that chapter is planned, and `uscg-regs` checks those questions the same way. The player clears the boss by scoring at the real module's passing mark on two separate runs: 90% for Rules of the Road, 70% for most other modules, and 90% for Chart Plotting, pending verification.
-- **G10a.** Before the OUPV (six-pack) boss level is built, the NMC confirms the exam numbers and Q301 remains listed only under Limited OUPV (GLI08). The Q301 listing is already correct in `arcade-regs-check-2026-10-20.md`. For now `uscg-regs` is the only rules reviewer. G10a has no named human Coast Guard reviewer.
+- **G10a.** Before the OUPV (six-pack) boss level is built, the NMC confirms the exam numbers and Q301 remains listed only under Limited OUPV (GLI08). The Q301 listing is already correct in `arcade-regs-check-2026-10-20.md`. A Coast Guard reviewer reviews the game before launch (Et decided this on 2026-10-20, 10:26 to 10:52 AM PT). For now `uscg-regs` is the only rules reviewer. G10a has no named human Coast Guard reviewer yet.
 - **G10b.** Night Harbor Run is a later level after the Chapter 1 boss. It does not replace the timed multiple-choice boss.
 
 Feel

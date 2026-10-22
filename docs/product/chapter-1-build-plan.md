@@ -31,7 +31,7 @@ The plan also uses issue #45, the Rules of the Road prototype gallery, the 2026-
 | Timed multiple-choice exam boss and two passing runs | Decided | G10 and G10a |
 | Night Harbor Run as a later post-boss level | Decided | G10b |
 | Separate Inland and International difference levels | Decided | G6 |
-| Rule 5 in level 1 and Rule 10 in level 8 | Decided | G7 |
+| Rule 5 in level 1 and Rule 10 in level 9, fog, traffic separation schemes and narrow channels | Decided | G7 |
 | Mixed-review stops after level 5 and before the boss | Decided | G7 and G12 |
 | Boss unlocks later chapters and permits unlimited retries | Decided | G12 |
 | Candidates and cadets as the audience | Decided | G3 |
@@ -52,11 +52,11 @@ Et settled the former Questions for Et from 7:11 to 7:17 AM PT on 2026-10-22. Th
 - Night Harbor Run is a later level after the timed multiple-choice boss.
 - Inland and International differences use separate levels, not a selector.
 - Chapter 1 starts now alongside the sea-time log.
-- Level 1 includes Rule 5 lookout. Level 8 includes Rule 10 traffic separation schemes.
-- The audience includes license candidates and Coast Guard Academy cadets.
+- Level 1 includes Rule 5 lookout. Level 9, fog, traffic separation schemes and narrow channels, includes Rule 10 traffic separation schemes. Et's decision calls it level 8 because the earlier G7 list did not count the first mixed-review stop.
+- The audience includes license candidates and cadets.
 - Mixed-review stops follow level 5 and the rule-set difference levels.
 - Beating the Chapter 1 boss unlocks later chapters. The boss permits unlimited retries.
-- `uscg-regs` is the only rules reviewer for now. G10a has no named human Coast Guard reviewer.
+- `uscg-regs` is the only rules reviewer for now. G10a has no named human Coast Guard reviewer yet. G10a still requires a human Coast Guard reviewer to review the game before launch.
 - #46 and #47 become small build pull requests after `uscg-regs` checks their content. All #46 slices integrate before #47.
 
 ## Smallest build path
@@ -149,7 +149,7 @@ type Deck = {
 };
 ```
 
-Zod checks this data during normal verification and before a scene starts. The checks cover nonempty and unique IDs, valid calendar dates, distinct answer and distractor option IDs, resolved art references, paragraph-level citations, rule-set values and the review union. Choice interactions require at least two real distractors. Timed-signal interactions require an answer pattern and an empty distractor list because the player performs the answer. Annex I may add a citation but cannot replace the item's applicable rule paragraph. The checked citation list must cover every item citation. A `checked` item without `uscg-regs`, a date and source evidence cannot parse. Current G10a requires no human-review field. A content test also rejects an answer repeated among its distractors.
+Zod checks this data during normal verification and before a scene starts. The checks cover nonempty and unique IDs, valid calendar dates, distinct answer and distractor option IDs, resolved art references, paragraph-level citations, rule-set values and the review union. Choice interactions require at least two real distractors. Timed-signal interactions require an answer pattern and an empty distractor list because the player performs the answer. Annex I may add a citation but cannot replace the item's applicable rule paragraph. The checked citation list must cover every item citation. A `checked` item without `uscg-regs`, a date and source evidence cannot parse. Current G10a needs no per-item human-review field. Its human Coast Guard review is a launch gate for the game. A content test also rejects an answer repeated among its distractors.
 
 The `masteryObjectives` list separates rules the player is tested on from citations that only support an explanation. This prevents a Rules 15 and 16 explanation from granting mastery for both when the question tested only Rule 15.
 
@@ -313,9 +313,9 @@ The branch is not yet a complete Chapter 1 steering engine. ADR 0007 proposes th
 
 | Level | New pure state | Renderer reads |
 | --- | --- | --- |
-| 6, Steady bearing | Quantized relative-bearing samples, closing range and mission tolerance | Bearing log and encounter feedback |
-| 7, Who gives way | Encounter role, expected action, success region and rule-set content ID | Traffic, role cue and miss replay |
-| 8, Fog and narrow channels | Radar contacts, scheduled sound events, visibility mode and channel objective | Radar, hidden world art, signal pulse and channel marks |
+| 7, Steady bearing | Quantized relative-bearing samples, closing range and mission tolerance | Bearing log and encounter feedback |
+| 8, Who gives way | Encounter role, expected action, success region and rule-set content ID | Traffic, role cue and miss replay |
+| 9, Fog, traffic separation schemes and narrow channels | Radar contacts, scheduled sound events, visibility mode and channel objective | Radar, hidden world art, signal pulse and channel marks |
 
 Every input is a versioned frame input. Each subsystem contributes to the replay hash. Phaser, Web Audio and wall-clock time do not decide outcomes.
 
@@ -353,7 +353,7 @@ Tests render every signal with audio disabled. Import-boundary and palette tests
 
 ## Boss and Night Harbor Run
 
-The timed multiple-choice G10 exam remains the Chapter 1 boss. It requires the real passing mark on two separate runs, permits unlimited retries and unlocks the later chapters when beaten. Current G10a requires NMC confirmation but no named human Coast Guard reviewer; `uscg-regs` checks every question.
+The timed multiple-choice G10 exam remains the Chapter 1 boss. It requires the real passing mark on two separate runs, permits unlimited retries and unlocks the later chapters when beaten. G10a requires NMC confirmation before the OUPV boss is built and a human Coast Guard review of the game before launch. No human reviewer is named yet; `uscg-regs` checks every question.
 
 Night Harbor Run is a separate later steering level after the boss. It reuses the Rule 21, course, bearing, radar, sound and presentation systems only after those systems work in the earlier levels. PR #49's second regulation pass read the governing text for all 190 prototype items. It verified 167 and marked 23 wrong. The ten must-fix findings must be corrected before a port.
 
@@ -786,7 +786,7 @@ Et answered every Chapter 1 question from the first plan. These product question
 ## Regulatory gates that are not Et decisions
 
 - PR #49's second pass read the governing Inland and International paragraphs for all 190 Night Harbor Run items. Before a port, correct the ten must-fix findings and recheck the changed content.
-- The NMC must confirm the exam counts, passing marks, module mappings and listed upgrade conditions before the OUPV boss, as G10a requires. G10a has no human-reviewer condition for now.
+- The NMC must confirm the exam counts, passing marks, module mappings and listed upgrade conditions before the OUPV boss, as G10a requires. G10a also requires a human Coast Guard reviewer to review the game before launch. No reviewer is named yet, and `uscg-regs` is the only rules reviewer for now.
 - The NMC questions on vessels under oars, seaplanes and optional second masthead lights remain open.
 - Every implemented rule item needs paragraph-level checked evidence in the content file.
 
