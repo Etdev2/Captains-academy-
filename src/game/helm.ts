@@ -30,7 +30,9 @@ export class Helm {
   private readonly track: { portX: number; starboardX: number; top: number; bottom: number };
 
   constructor(scene: Phaser.Scene, { viewW, viewH }: Layout) {
-    this.track = { portX: 96, starboardX: viewW - 96, top: viewH - 470, bottom: viewH - 120 };
+    // Stop sits at y 473 in the 768-high view. The track starts low enough to
+    // leave room for a third level button above the port lever.
+    this.track = { portX: 96, starboardX: viewW - 96, top: viewH - 430, bottom: viewH - 160 };
     const text = (x: number, y: number, label: string, size = 18) =>
       scene.add
         .text(x, y, label, {

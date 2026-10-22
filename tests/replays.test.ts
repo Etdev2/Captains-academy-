@@ -20,6 +20,8 @@ const expected: Record<string, string> = {
   'long-beach-docking-docks': 'docked',
   'long-beach-docking-hits-shore': 'hit',
   'long-beach-crosswind-docks': 'docked',
+  'long-beach-traffic-docks': 'docked',
+  'long-beach-traffic-hit-by-ferry': 'hit',
 };
 
 describe('golden replays', () => {

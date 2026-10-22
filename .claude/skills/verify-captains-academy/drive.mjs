@@ -22,7 +22,7 @@ const VIEWPORTS = {
 // starboard under the right. Stop is the middle of the track.
 const LEVER_X = { port: 96, starboard: 1184 };
 const LEVER_MID_Y = 473;
-const LEVER_HALF = 175;
+const LEVER_HALF = 135;
 
 const browser = await chromium.launch();
 let context = null;
@@ -103,9 +103,17 @@ async function run(step) {
       const deadline = Date.now() + (step.timeoutMs ?? 30000);
       for (;;) {
         const s = await readState();
-        if (s && s[step.field] === step.eq) return;
+        const v = s?.[step.field];
+        if (
+          s &&
+          (('eq' in step && v === step.eq) ||
+            ('gt' in step && v > step.gt) ||
+            ('lt' in step && v < step.lt))
+        ) {
+          return;
+        }
         if (Date.now() > deadline) {
-          throw new Error(`${step.field} never became ${JSON.stringify(step.eq)}: ${JSON.stringify(s)}`);
+          throw new Error(`${step.field} never met ${JSON.stringify(step)}: ${JSON.stringify(s)}`);
         }
         await page.waitForTimeout(100);
       }

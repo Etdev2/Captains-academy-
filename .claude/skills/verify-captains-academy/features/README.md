@@ -10,8 +10,8 @@ This directory is the maintained source for verifying what a player can do at `/
 
 ## Driving conventions
 
-- Coordinates are game coordinates in the 1280 x 768 view: the port lever at x 96, the starboard lever at x 1184, stop at y 473, and the level buttons at x 60 down the top-left from y 150 (level 1) in steps of 56.
-- Read results from the state `drive.mjs` logs after every step: `frame`, `outcome` (`playing`, `docked`, `hit`), `speedMmPerS`, `level` (0-based), `port`, `starboard`, `muted` and `horn`.
+- Coordinates are game coordinates in the 1280 x 768 view: the port lever at x 96, the starboard lever at x 1184, stop at y 473 with full ahead 135 above it and full astern 135 below, and the level buttons at x 60 down the top-left from y 150 (level 1) in steps of 56, so LEVEL 3 is at y 262.
+- Read results from the state `drive.mjs` logs after every step: `frame`, `outcome` (`playing`, `docked`, `hit`), `speedMmPerS`, `level` (0-based), `port`, `starboard`, `muted`, `horn`, the boat's position `xMm` and `yMm`, and on a course `gate` (passed), `gates` (total) and `struckBy` (the traffic vessel's name, or null).
 - The SOUND button is at about (84, 38) and HORN at (60, 94) in game coordinates.
 - Start every recipe from `open` unless it says otherwise.
 
@@ -30,9 +30,10 @@ Each feature file starts with an H1 title and one paragraph describing what the 
 
 - [Engine levers](./engine-levers.md): the port and starboard levers by touch and by keyboard, splitting them to pivot, and stop.
 - [A docking run](./docking-run.md): the level starts, the boat answers, a hard contact ends the run with the hit banner, and a tap retries.
-- [Levels](./levels.md): level 2 stays locked until level 1 has a star, then opens from its button.
+- [Levels](./levels.md): each level stays locked until the one before it has a star, then opens from its button.
+- [Harbor course](./harbor-course.md): level 3's gates in order, moving traffic that ends the run on contact, and the lesson banner.
 - [Portrait pause](./portrait-pause.md): on a phone held upright the level waits behind a rotate prompt.
 - [Offline play](./offline-play.md): after one online visit the level loads and runs with no network.
 - [Horn and sound](./horn-and-sound.md): the SOUND and HORN buttons and their M and H keys, the saved sound setting, and the horn's rings.
 
-Together these drive every control the game handles, each through its own recipe step: both touch levers; every lever key and alias (↑ ↓ ← →, W S A D, Q Z, E C) and X, in `keyboard.steps.json`; the SOUND, HORN and LEVEL buttons; M and H; and tap, Enter and Space to retry after a run.
+Together these drive every control the game handles, each through its own recipe step: both touch levers; every lever key and alias (↑ ↓ ← →, W S A D, Q Z, E C) and X, in `keyboard.steps.json`; the SOUND, HORN and LEVEL buttons, including LEVEL 3 in `harbor-course.steps.json`; M and H; and tap, Enter and Space to retry after a run.

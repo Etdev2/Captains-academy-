@@ -1,4 +1,6 @@
-import type { Mission, Obstacle } from './mission';
+import type { CompiledTraffic, TrafficPose } from './course';
+import { compileTraffic, crossesGate, trafficCircles, trafficPose } from './course';
+import type { Gate, Mission, Obstacle } from './mission';
 import { HEADING_UNITS, TRIG_ONE, icos, isin } from './trig';
 
 // Deterministic boat handling for one docking level. Everything is integer
@@ -25,6 +27,16 @@ export const NO_INPUT: Input = { port: 0, starboard: 0, rudder: 0 };
 
 export type Outcome = 'playing' | 'docked' | 'hit';
 
+/** Progress through a course level. Missions without gates or traffic have none. */
+export interface CourseState {
+  /** Gates passed so far, in order. */
+  readonly gates: number;
+  /** The frame each traffic vessel started moving, or -1 while it waits. */
+  readonly starts: readonly number[];
+  /** The traffic vessel that hit the boat, or -1. */
+  readonly struckBy: number;
+}
+
 export interface SimState {
   readonly frame: number;
   readonly x: number;
@@ -38,6 +50,7 @@ export interface SimState {
   readonly bumps: number;
   /** True while the hull is pressed against something, so one contact counts as one bump. */
   readonly touching: boolean;
+  readonly course?: CourseState;
 }
 
 /** A mission converted once into the integer units the step function uses. */
@@ -64,6 +77,8 @@ export interface Level {
   readonly gustSeed: number;
   readonly hullRadiusMm: number;
   readonly hullOffsetMm: number;
+  readonly gates: readonly Gate[];
+  readonly traffic: readonly CompiledTraffic[];
 }
 
 const mmPerSecondToSpeed = (mmPerS: number): number =>
@@ -96,8 +111,12 @@ export function compileLevel(mission: Mission): Level {
     gustSeed: mission.wind.seed,
     hullRadiusMm,
     hullOffsetMm: Math.max(0, Math.trunc(boat.lengthMm / 2) - hullRadiusMm),
+    gates: mission.gates ?? [],
+    traffic: (mission.traffic ?? []).map(compileTraffic),
   };
 }
+
+const hasCourse = (level: Level): boolean => level.gates.length > 0 || level.traffic.length > 0;
 
 export function initialState(level: Level): SimState {
   const { start } = level.mission;
@@ -112,6 +131,15 @@ export function initialState(level: Level): SimState {
     dockedFrames: 0,
     bumps: 0,
     touching: false,
+    ...(hasCourse(level)
+      ? {
+          course: {
+            gates: 0,
+            starts: level.traffic.map((t) => (t.data.startAfterGate === 0 ? 0 : -1)),
+            struckBy: -1,
+          },
+        }
+      : {}),
   };
 }
 
@@ -180,9 +208,17 @@ function inSlip(level: Level, x: number, y: number): boolean {
   return cx >= slip.x && cx <= slip.x + slip.w && cy >= slip.y && cy <= slip.y + slip.h;
 }
 
-/** In the slip, slow enough and lined up with it. */
-function settled(level: Level, x: number, y: number, heading: number, speed: number): boolean {
+/** In the slip, slow enough, lined up with it, and every gate passed. */
+function settled(
+  level: Level,
+  course: CourseState | undefined,
+  x: number,
+  y: number,
+  heading: number,
+  speed: number,
+): boolean {
   return (
+    (course === undefined || course.gates >= level.gates.length) &&
     inSlip(level, x, y) &&
     Math.abs(speed) <= level.maxDock &&
     Math.abs(headingDelta(heading, level.slipHeading)) <= level.slipTolerance
@@ -276,7 +312,32 @@ export function step(level: Level, state: SimState, input: Input): SimState {
   const y = state.y - Math.trunc((speed * icos(t)) / TRIG_ONE) + level.currentY + windY;
 
   const frame = state.frame + 1;
-  if (touchesSomething(level, x, y, heading)) {
+  const blocked = touchesSomething(level, x, y, heading);
+  // Where the boat ends this frame: a blocked boat stays where it was.
+  const endX = blocked ? state.x : x;
+  const endY = blocked ? state.y : y;
+  const course = state.course && advanceCourse(level, state.course, state, endX, endY, frame);
+  const struck = course ? trafficHit(level, course, endX, endY, heading, frame) : -1;
+  if (course && struck >= 0) {
+    // Any contact with a moving vessel ends the run, however slow the boat is.
+    return {
+      ...state,
+      x: endX,
+      y: endY,
+      heading,
+      frame,
+      speed: 0,
+      turnRate: 0,
+      outcome: 'hit',
+      dockedFrames: 0,
+      bumps: state.bumps + 1,
+      touching: true,
+      course: { ...course, struckBy: struck },
+    };
+  }
+  const courseField = course ? { course } : {};
+
+  if (blocked) {
     // The boat stays where it was. A soft touch is a bump; a hard one ends the level.
     const bumps = state.touching ? state.bumps : state.bumps + 1;
     if (Math.abs(state.speed) > level.maxContact) {
@@ -289,16 +350,29 @@ export function step(level: Level, state: SimState, input: Input): SimState {
         dockedFrames: 0,
         bumps,
         touching: true,
+        ...courseField,
       };
     }
     // Lying gently against a finger pier inside the slip still counts as docked,
     // which matters when the wind or current sets the boat onto the pier.
-    const dockedFrames = settled(level, state.x, state.y, heading, 0) ? state.dockedFrames + 1 : 0;
+    const dockedFrames = settled(level, course, state.x, state.y, heading, 0)
+      ? state.dockedFrames + 1
+      : 0;
     const outcome: Outcome = dockedFrames >= level.holdFrames ? 'docked' : 'playing';
-    return { ...state, frame, speed: 0, turnRate: 0, outcome, dockedFrames, bumps, touching: true };
+    return {
+      ...state,
+      frame,
+      speed: 0,
+      turnRate: 0,
+      outcome,
+      dockedFrames,
+      bumps,
+      touching: true,
+      ...courseField,
+    };
   }
 
-  const dockedFrames = settled(level, x, y, heading, speed) ? state.dockedFrames + 1 : 0;
+  const dockedFrames = settled(level, course, x, y, heading, speed) ? state.dockedFrames + 1 : 0;
   const outcome: Outcome = dockedFrames >= level.holdFrames ? 'docked' : 'playing';
 
   const touching = state.touching && touchesSomething(level, x, y, heading, CONTACT_CLEARANCE_MM);
@@ -313,7 +387,75 @@ export function step(level: Level, state: SimState, input: Input): SimState {
     dockedFrames,
     bumps: state.bumps,
     touching,
+    ...courseField,
   };
+}
+
+/** Counts a gate when the boat's center crosses it in order, and starts the traffic waiting on it. */
+function advanceCourse(
+  level: Level,
+  course: CourseState,
+  from: SimState,
+  toX: number,
+  toY: number,
+  frame: number,
+): CourseState {
+  const gate = level.gates[course.gates];
+  if (
+    !gate ||
+    !crossesGate(
+      Math.trunc(from.x / POS_SCALE),
+      Math.trunc(from.y / POS_SCALE),
+      Math.trunc(toX / POS_SCALE),
+      Math.trunc(toY / POS_SCALE),
+      gate,
+    )
+  ) {
+    return course;
+  }
+  const gates = course.gates + 1;
+  const starts = course.starts.map((start, i) =>
+    start < 0 && level.traffic[i]?.data.startAfterGate === gates ? frame : start,
+  );
+  return { ...course, gates, starts };
+}
+
+/** How far a traffic vessel has run by this frame, in mm. */
+function travelledMm(t: CompiledTraffic, start: number, frame: number): number {
+  return start < 0 ? 0 : Math.trunc((t.data.speedMmPerS * (frame - start)) / FRAMES_PER_SECOND);
+}
+
+/** Where every traffic vessel is on this state's frame, for drawing and tests. */
+export function trafficPoses(level: Level, state: SimState): TrafficPose[] {
+  return level.traffic.map((t, i) =>
+    trafficPose(t, travelledMm(t, state.course?.starts[i] ?? -1, state.frame)),
+  );
+}
+
+/** The index of the traffic vessel touching the boat, or -1. */
+function trafficHit(
+  level: Level,
+  course: CourseState,
+  x: number,
+  y: number,
+  heading: number,
+  frame: number,
+): number {
+  const hull = hullCircles(level, x, y, heading);
+  for (let i = 0; i < level.traffic.length; i++) {
+    const t = level.traffic[i];
+    if (!t) continue;
+    const pose = trafficPose(t, travelledMm(t, course.starts[i] ?? -1, frame));
+    const reach = level.hullRadiusMm + t.radiusMm;
+    for (const [tx, ty] of trafficCircles(t, pose)) {
+      for (const [hx, hy] of hull) {
+        const dx = hx - tx;
+        const dy = hy - ty;
+        if (dx * dx + dy * dy < reach * reach) return i;
+      }
+    }
+  }
+  return -1;
 }
 
 const OUTCOME_CODE: Record<Outcome, number> = { playing: 0, docked: 1, hit: 2 };
@@ -333,6 +475,10 @@ export function hashState(state: SimState, seed = 0x811c9dc5): number {
     state.bumps,
     state.touching ? 1 : 0,
   ];
+  // Course levels hash their progress too. Other levels hash exactly as before.
+  if (state.course) {
+    fields.push(state.course.gates, state.course.struckBy, ...state.course.starts);
+  }
   for (const v of fields) {
     // Split each value into two 32-bit halves so values past 2^31 still count.
     const lo = v % 0x100000000;
