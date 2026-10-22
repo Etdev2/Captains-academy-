@@ -240,6 +240,14 @@
       "h": 14000
     }
   ],
+  "channels": [
+    {
+      "x": 8000,
+      "y": 186000,
+      "w": 284000,
+      "h": 18000
+    }
+  ],
   "slip": {
     "x": 162900,
     "y": 18500,
@@ -290,7 +298,7 @@
       "beamMm": 11000,
       "speedMmPerS": 3500,
       "startAfterGate": 0,
-      "lesson": "A ship in the channel can't stop or turn for you. Stay out of her way (Rule 9).",
+      "lesson": "You're under 20 m. Don't impede a ship that can navigate only inside the channel, and don't cross ahead of her if that would impede her (Rules 9(b), 9(d)).",
       "path": [
         {
           "x": 40000,
@@ -308,11 +316,11 @@
       "lengthMm": 10000,
       "beamMm": 3500,
       "speedMmPerS": 4500,
-      "startAfterGate": 2,
+      "startAfterGate": 3,
       "lesson": "She crossed from your starboard side, so you give way: slow down or pass astern (Rule 15).",
       "path": [
         {
-          "x": 290000,
+          "x": 270000,
           "y": 100000
         },
         {
@@ -331,12 +339,12 @@
       "lesson": "Head-on: both boats turn to starboard and pass port to port (Rule 14).",
       "path": [
         {
-          "x": 30000,
-          "y": 55000
+          "x": 10000,
+          "y": 46000
         },
         {
           "x": 120000,
-          "y": 55000
+          "y": 46000
         },
         {
           "x": 140000,

@@ -108,6 +108,9 @@ export const missionSchema = z
         holdSeconds: z.number().int().min(1).max(10),
       })
       .strict(),
+    // Narrow channels or fairways, drawn on the water. A vessel that can
+    // navigate only inside one runs its track along it (Rules 9(b), 9(d)).
+    channels: z.array(rect).min(1).optional(),
     // A course: pass every gate in order before the slip counts.
     gates: z.array(gateSchema).min(1).optional(),
     traffic: z.array(trafficSchema).min(1).optional(),
@@ -140,6 +143,7 @@ export type Mission = z.infer<typeof missionSchema>;
 export type Obstacle = z.infer<typeof obstacleSchema>;
 export type Gate = z.infer<typeof gateSchema>;
 export type Traffic = z.infer<typeof trafficSchema>;
+export type Channel = NonNullable<Mission['channels']>[number];
 
 /** Parses unknown JSON into a mission, or throws with every problem listed. */
 export function parseMission(data: unknown): Mission {

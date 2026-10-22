@@ -1,9 +1,9 @@
 {
   "final": {
-    "frame": 8500,
-    "x": 48445081,
-    "y": 16407218,
-    "heading": 43035,
+    "frame": 10667,
+    "x": 43058131,
+    "y": 15430508,
+    "heading": 40491,
     "speed": 0,
     "turnRate": 0,
     "outcome": "hit",
@@ -11,15 +11,70 @@
     "bumps": 1,
     "touching": true,
     "course": {
-      "gates": 4,
+      "gates": 5,
       "starts": [
         0,
-        3396,
-        6331,
-        6331
+        5202,
+        8233,
+        8233
       ],
       "struckBy": 2
     }
   },
-  "traceHash": 2130259076
+  "traceHash": 3434718025,
+  "encounters": {
+    "container ship": {
+      "riskBegins": {
+        "frame": 30,
+        "x": 149958,
+        "y": 211872,
+        "heading": 0,
+        "relativeBearing": -81.1,
+        "vesselCourse": 90,
+        "rangeMm": 109516
+      }
+    },
+    "powerboat": {
+      "riskBegins": {
+        "frame": 5202,
+        "x": 191457,
+        "y": 117493,
+        "heading": 0.5,
+        "relativeBearing": 76.9,
+        "vesselCourse": 270,
+        "rangeMm": 80468
+      }
+    },
+    "ferry": {
+      "riskBegins": {
+        "frame": 9568,
+        "x": 205811,
+        "y": 42239,
+        "heading": 286.1,
+        "relativeBearing": -18.1,
+        "vesselCourse": 90,
+        "rangeMm": 106878
+      },
+      "firstTurn": {
+        "frame": 9883,
+        "x": 194512,
+        "y": 41192,
+        "heading": 266.6,
+        "relativeBearing": -0.3,
+        "vesselCourse": 90,
+        "rangeMm": 74667
+      }
+    },
+    "kayak": {
+      "riskBegins": {
+        "frame": 9363,
+        "x": 210077,
+        "y": 44257,
+        "heading": 305.5,
+        "relativeBearing": -27.3,
+        "vesselCourse": 90,
+        "rangeMm": 58067
+      }
+    }
+  }
 }
