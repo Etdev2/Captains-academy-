@@ -22,7 +22,7 @@ added 144 packages, and audited 145 packages in 5s
 45 packages are looking for funding
   run `npm fund` for details
 
-1 high severity vulnerability
+3 vulnerabilities (2 moderate, 1 high)
 
 To address all issues, run:
   npm audit fix --force
@@ -40,26 +40,22 @@ All matched files use Prettier code style!
 ==> mission JSON validation
 ok   long-beach-crosswind.json
 ok   long-beach-docking.json
+ok   long-beach-traffic.json
 
 ==> vitest (unit, adversarial, golden replay)
 
  RUN  v4.1.11 /home/user/Captains-academy-
 
 
- Test Files  9 passed (9)
-      Tests  219 passed (219)
-   Start at  20:57:03
-   Duration  1.21s (transform 837ms, setup 0ms, import 1.49s, tests 439ms, environment 1ms)
+ Test Files  10 passed (10)
+      Tests  230 passed (230)
+   Start at  01:41:08
+   Duration  1.86s (transform 883ms, setup 0ms, import 1.91s, tests 972ms, environment 1ms)
 
 
 ==> vite build
 vite v7.3.6 building client environment for production...
 transforming...
-node_modules/zod/v4/core/util.js (400:0): A comment
-
-"// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
-
-in "node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
 node_modules/zod/v4/core/regexes.js (74:0): A comment
 
 "/** Anchors a pattern source. The interpolation lives here rather than at the call site because
@@ -67,138 +63,145 @@ node_modules/zod/v4/core/regexes.js (74:0): A comment
  * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
 
 in "node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
-✓ 123 modules transformed.
+node_modules/zod/v4/core/util.js (400:0): A comment
+
+"// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+
+in "node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+✓ 125 modules transformed.
 rendering chunks...
 computing gzip size...
-dist/play/index.html                 1.43 kB │ gzip:   0.66 kB
+dist/play/index.html                 1.43 kB │ gzip:   0.67 kB
 dist/index.html                      3.34 kB │ gzip:   1.24 kB
 dist/log/index.html                 20.12 kB │ gzip:   4.38 kB
 dist/assets/home-CQQ039q_.js         0.04 kB │ gzip:   0.06 kB
 dist/assets/offline-BMWjJ4Ot.js      1.14 kB │ gzip:   0.65 kB
 dist/assets/log-CqEZm8zL.js         30.58 kB │ gzip:  10.53 kB
 dist/assets/schemas-d5DDVgyJ.js     89.45 kB │ gzip:  25.56 kB
-dist/assets/play-DU28peJ-.js     1,416.59 kB │ gzip: 382.34 kB
-✓ built in 5.49s
+dist/assets/play-BzPbW3v9.js     1,426.40 kB │ gzip: 385.35 kB
+✓ built in 6.00s
 
 ==> playwright smoke test
 
-Running 113 tests using 2 workers
+Running 115 tests using 2 workers
 
   ✓    1 [desktop] › e2e/home.spec.ts:11:1 › the root shows a link to the game and one to the sea-time log (254ms)
-  ✓    2 [desktop] › e2e/entries.spec.ts:71:1 › check in and out from the home screen, kept across reloads online and offline (918ms)
-  ✓    3 [desktop] › e2e/home.spec.ts:30:1 › the game link opens the game (1.1s)
-  ✓    4 [desktop] › e2e/entries.spec.ts:138:1 › a second open trip on this device is refused (575ms)
-  ✓    5 [desktop] › e2e/home.spec.ts:45:1 › the sea-time log link opens the log (267ms)
-  ✓    7 [desktop] › e2e/home.spec.ts:74:1 › the front page opens offline after one online visit (571ms)
-  ✓    6 [desktop] › e2e/entries.spec.ts:189:1 › a repeat check-in is one tap: the sheet remembers the last choices (799ms)
-  ✓    8 [desktop] › e2e/home.spec.ts:92:1 › the front page opens offline even if only the log was visited online (344ms)
-  ✓    9 [desktop] › e2e/entries.spec.ts:213:1 › the check-in sheet says what is missing and saves nothing until it is right (357ms)
-  ✓   10 [desktop] › e2e/home.spec.ts:112:3 › at iPhone width › both links are big, on screen, and nothing scrolls sideways (413ms)
-  ✓   11 [desktop] › e2e/entries.spec.ts:232:1 › backfilling saves nothing without consent (425ms)
-  ✓   12 [desktop] › e2e/log.spec.ts:53:1 › the log opens with no account and talks to no other server (190ms)
-  ✓   14 [desktop] › e2e/log.spec.ts:72:1 › the check-in button is big and sits where a thumb reaches (208ms)
-  ✓   15 [desktop] › e2e/log.spec.ts:86:1 › the log opens offline after one online visit (265ms)
-  ✓   13 [desktop] › e2e/entries.spec.ts:283:1 › with consent, backfilled days save, record the consent and say "backfilled" (886ms)
-  ✓   16 [desktop] › e2e/log.spec.ts:97:1 › a saved entry survives a reload, online and offline (431ms)
-  ✓   18 [desktop] › e2e/log.spec.ts:124:1 › the store refuses bad entries, soft-deletes and leaves the outbox empty (281ms)
-  ✓   17 [desktop] › e2e/entries.spec.ts:350:1 › every entry under 4 hours is flagged and stays; the day notes cite the CFR (439ms)
-  ✓   19 [desktop] › e2e/log.spec.ts:221:1 › version 3 of the database keeps the entries and outbox stores as version 1 made them (192ms)
-  ✓   20 [desktop] › e2e/entries.spec.ts:426:1 › entries carry their vessel, role and confirmed waters; a GPS suggestion stays apart (236ms)
-  ✓   21 [desktop] › e2e/log.spec.ts:265:1 › a newer database from another tab is never opened by older code (245ms)
-  ✓   23 [desktop] › e2e/log.spec.ts:287:1 › a new cache name keeps what the old cache held, so earlier offline pages still open (162ms)
-  ✓   22 [desktop] › e2e/entries.spec.ts:504:1 › entries are edited and soft-deleted, and a backfilled day stays backfilled (738ms)
-  ✓   25 [desktop] › e2e/entries.spec.ts:569:1 › version 2 upgrades to version 3 and keeps its vessels and entries (378ms)
-  ✓   26 [desktop] › e2e/entries.spec.ts:671:1 › the new screens never say qualify or eligible for (435ms)
-  ✓   27 [desktop] › e2e/entries.spec.ts:694:1 › the entry screens fit one thumb (373ms)
-  ✓   28 [desktop] › e2e/vessels.spec.ts:41:1 › a vessel is added, filled in later, and survives reloads online and offline (1.6s)
-  ✓   29 [desktop] › e2e/vessels.spec.ts:134:1 › a vessel is soft-deleted with two taps and stays gone after a reload (1.2s)
-  ✓   24 [desktop] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (5.1s)
-  ✓   30 [desktop] › e2e/vessels.spec.ts:197:1 › a photo still being prepared is never saved late, or onto another vessel (2.1s)
-  ✓   31 [desktop] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (1.9s)
-  ✓   32 [desktop] › e2e/vessels.spec.ts:278:1 › two quick taps on Save add a new vessel once (689ms)
-  ✓   34 [desktop] › e2e/vessels.spec.ts:300:1 › the form says what to fix and saves nothing until it is right (419ms)
-  ✓   35 [desktop] › e2e/vessels.spec.ts:316:1 › only official tonnage can be entered, with no estimate anywhere (199ms)
-  ✓   36 [desktop] › e2e/vessels.spec.ts:342:1 › roles are a seeded deck and engine list, and a vessel keeps a default role (372ms)
-  ✓   37 [desktop] › e2e/vessels.spec.ts:405:1 › version 1 upgrades to the current version and keeps its entries (318ms)
-  ✓   38 [desktop] › e2e/vessels.spec.ts:481:1 › vessel screens fit one thumb: big controls, save within reach (622ms)
-  ✓   39 [phone-landscape] › e2e/entries.spec.ts:71:1 › check in and out from the home screen, kept across reloads online and offline (944ms)
-  ✓   40 [phone-landscape] › e2e/entries.spec.ts:138:1 › a second open trip on this device is refused (360ms)
-  ✓   41 [phone-landscape] › e2e/entries.spec.ts:189:1 › a repeat check-in is one tap: the sheet remembers the last choices (841ms)
-  ✓   33 [desktop] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (5.4s)
-  ✓   42 [phone-landscape] › e2e/entries.spec.ts:213:1 › the check-in sheet says what is missing and saves nothing until it is right (360ms)
-  ✓   44 [phone-landscape] › e2e/entries.spec.ts:232:1 › backfilling saves nothing without consent (340ms)
-  ✓   45 [phone-landscape] › e2e/entries.spec.ts:283:1 › with consent, backfilled days save, record the consent and say "backfilled" (1.0s)
-  ✓   46 [phone-landscape] › e2e/entries.spec.ts:350:1 › every entry under 4 hours is flagged and stays; the day notes cite the CFR (549ms)
-  ✓   47 [phone-landscape] › e2e/entries.spec.ts:426:1 › entries carry their vessel, role and confirmed waters; a GPS suggestion stays apart (208ms)
-  ✓   43 [desktop] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (2.9s)
-  ✓   48 [phone-landscape] › e2e/entries.spec.ts:504:1 › entries are edited and soft-deleted, and a backfilled day stays backfilled (745ms)
-  ✓   49 [phone-landscape] › e2e/entries.spec.ts:569:1 › version 2 upgrades to version 3 and keeps its vessels and entries (375ms)
-  ✓   50 [phone-landscape] › e2e/entries.spec.ts:671:1 › the new screens never say qualify or eligible for (443ms)
-  ✓   51 [phone-landscape] › e2e/home.spec.ts:11:1 › the root shows a link to the game and one to the sea-time log (172ms)
-  ✓   52 [phone-landscape] › e2e/entries.spec.ts:694:1 › the entry screens fit one thumb (542ms)
-  ✓   54 [phone-landscape] › e2e/log.spec.ts:53:1 › the log opens with no account and talks to no other server (189ms)
-  ✓   53 [phone-landscape] › e2e/home.spec.ts:30:1 › the game link opens the game (869ms)
-  ✓   55 [phone-landscape] › e2e/log.spec.ts:72:1 › the check-in button is big and sits where a thumb reaches (193ms)
-  ✓   56 [phone-landscape] › e2e/home.spec.ts:45:1 › the sea-time log link opens the log (244ms)
-  ✓   57 [phone-landscape] › e2e/log.spec.ts:86:1 › the log opens offline after one online visit (334ms)
-  ✓   59 [phone-landscape] › e2e/log.spec.ts:97:1 › a saved entry survives a reload, online and offline (438ms)
-  ✓   58 [phone-landscape] › e2e/home.spec.ts:74:1 › the front page opens offline after one online visit (622ms)
-  ✓   60 [phone-landscape] › e2e/log.spec.ts:124:1 › the store refuses bad entries, soft-deletes and leaves the outbox empty (300ms)
-  ✓   61 [phone-landscape] › e2e/home.spec.ts:92:1 › the front page opens offline even if only the log was visited online (372ms)
-  ✓   62 [phone-landscape] › e2e/log.spec.ts:221:1 › version 3 of the database keeps the entries and outbox stores as version 1 made them (190ms)
-  ✓   64 [phone-landscape] › e2e/log.spec.ts:265:1 › a newer database from another tab is never opened by older code (248ms)
-  ✓   63 [phone-landscape] › e2e/home.spec.ts:112:3 › at iPhone width › both links are big, on screen, and nothing scrolls sideways (483ms)
-  ✓   65 [phone-landscape] › e2e/log.spec.ts:287:1 › a new cache name keeps what the old cache held, so earlier offline pages still open (183ms)
-  ✓   67 [phone-landscape] › e2e/vessels.spec.ts:41:1 › a vessel is added, filled in later, and survives reloads online and offline (1.7s)
-  ✓   68 [phone-landscape] › e2e/vessels.spec.ts:134:1 › a vessel is soft-deleted with two taps and stays gone after a reload (1.2s)
-  ✓   66 [phone-landscape] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (4.8s)
-  ✓   69 [phone-landscape] › e2e/vessels.spec.ts:197:1 › a photo still being prepared is never saved late, or onto another vessel (2.4s)
-  ✓   71 [phone-landscape] › e2e/vessels.spec.ts:278:1 › two quick taps on Save add a new vessel once (668ms)
-  ✓   72 [phone-landscape] › e2e/vessels.spec.ts:300:1 › the form says what to fix and saves nothing until it is right (496ms)
-  ✓   70 [phone-landscape] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (1.9s)
-  ✓   73 [phone-landscape] › e2e/vessels.spec.ts:316:1 › only official tonnage can be entered, with no estimate anywhere (265ms)
-  ✓   75 [phone-landscape] › e2e/vessels.spec.ts:342:1 › roles are a seeded deck and engine list, and a vessel keeps a default role (347ms)
-  ✓   76 [phone-landscape] › e2e/vessels.spec.ts:405:1 › version 1 upgrades to the current version and keeps its entries (201ms)
-  ✓   77 [phone-landscape] › e2e/vessels.spec.ts:481:1 › vessel screens fit one thumb: big controls, save within reach (677ms)
-  ✓   78 [phone-portrait] › e2e/entries.spec.ts:71:1 › check in and out from the home screen, kept across reloads online and offline (1.3s)
-  ✓   79 [phone-portrait] › e2e/entries.spec.ts:138:1 › a second open trip on this device is refused (537ms)
-  ✓   80 [phone-portrait] › e2e/entries.spec.ts:189:1 › a repeat check-in is one tap: the sheet remembers the last choices (744ms)
-  ✓   74 [phone-landscape] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (4.9s)
-  ✓   81 [phone-portrait] › e2e/entries.spec.ts:213:1 › the check-in sheet says what is missing and saves nothing until it is right (337ms)
-  ✓   83 [phone-portrait] › e2e/entries.spec.ts:232:1 › backfilling saves nothing without consent (531ms)
-  ✓   84 [phone-portrait] › e2e/entries.spec.ts:283:1 › with consent, backfilled days save, record the consent and say "backfilled" (1.1s)
-  ✓   85 [phone-portrait] › e2e/entries.spec.ts:350:1 › every entry under 4 hours is flagged and stays; the day notes cite the CFR (583ms)
-  ✓   82 [phone-landscape] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (2.7s)
-  ✓   86 [phone-portrait] › e2e/entries.spec.ts:426:1 › entries carry their vessel, role and confirmed waters; a GPS suggestion stays apart (206ms)
-  ✓   87 [phone-portrait] › e2e/entries.spec.ts:504:1 › entries are edited and soft-deleted, and a backfilled day stays backfilled (719ms)
-  ✓   88 [phone-portrait] › e2e/home.spec.ts:11:1 › the root shows a link to the game and one to the sea-time log (251ms)
-  ✓   90 [phone-portrait] › e2e/home.spec.ts:30:1 › the game link opens the game (199ms)
-  ✓   89 [phone-portrait] › e2e/entries.spec.ts:569:1 › version 2 upgrades to version 3 and keeps its vessels and entries (452ms)
-  ✓   91 [phone-portrait] › e2e/home.spec.ts:45:1 › the sea-time log link opens the log (372ms)
-  ✓   92 [phone-portrait] › e2e/entries.spec.ts:671:1 › the new screens never say qualify or eligible for (429ms)
-  ✓   93 [phone-portrait] › e2e/home.spec.ts:74:1 › the front page opens offline after one online visit (570ms)
-  ✓   94 [phone-portrait] › e2e/entries.spec.ts:694:1 › the entry screens fit one thumb (554ms)
-  ✓   96 [phone-portrait] › e2e/log.spec.ts:53:1 › the log opens with no account and talks to no other server (195ms)
-  ✓   95 [phone-portrait] › e2e/home.spec.ts:92:1 › the front page opens offline even if only the log was visited online (352ms)
-  ✓   97 [phone-portrait] › e2e/log.spec.ts:72:1 › the check-in button is big and sits where a thumb reaches (221ms)
-  ✓   99 [phone-portrait] › e2e/log.spec.ts:86:1 › the log opens offline after one online visit (239ms)
-  ✓   98 [phone-portrait] › e2e/home.spec.ts:112:3 › at iPhone width › both links are big, on screen, and nothing scrolls sideways (490ms)
-  ✓  100 [phone-portrait] › e2e/log.spec.ts:97:1 › a saved entry survives a reload, online and offline (457ms)
-  ✓  102 [phone-portrait] › e2e/log.spec.ts:124:1 › the store refuses bad entries, soft-deletes and leaves the outbox empty (234ms)
-  ✓  103 [phone-portrait] › e2e/log.spec.ts:221:1 › version 3 of the database keeps the entries and outbox stores as version 1 made them (191ms)
-  ✓  104 [phone-portrait] › e2e/log.spec.ts:265:1 › a newer database from another tab is never opened by older code (207ms)
-  ✓  105 [phone-portrait] › e2e/log.spec.ts:287:1 › a new cache name keeps what the old cache held, so earlier offline pages still open (215ms)
-  ✓  101 [phone-portrait] › e2e/vessels.spec.ts:41:1 › a vessel is added, filled in later, and survives reloads online and offline (1.5s)
-  ✓  106 [phone-portrait] › e2e/vessels.spec.ts:134:1 › a vessel is soft-deleted with two taps and stays gone after a reload (1.2s)
-  ✓  107 [phone-portrait] › e2e/vessels.spec.ts:197:1 › a photo still being prepared is never saved late, or onto another vessel (2.1s)
-  ✓  108 [phone-portrait] › e2e/vessels.spec.ts:278:1 › two quick taps on Save add a new vessel once (533ms)
-  ✓  109 [phone-portrait] › e2e/vessels.spec.ts:300:1 › the form says what to fix and saves nothing until it is right (478ms)
-  ✓  110 [phone-portrait] › e2e/vessels.spec.ts:316:1 › only official tonnage can be entered, with no estimate anywhere (153ms)
-  ✓  111 [phone-portrait] › e2e/vessels.spec.ts:342:1 › roles are a seeded deck and engine list, and a vessel keeps a default role (305ms)
-  ✓  112 [phone-portrait] › e2e/vessels.spec.ts:405:1 › version 1 upgrades to the current version and keeps its entries (157ms)
-  ✓  113 [phone-portrait] › e2e/vessels.spec.ts:481:1 › vessel screens fit one thumb: big controls, save within reach (627ms)
+  ✓    2 [desktop] › e2e/entries.spec.ts:71:1 › check in and out from the home screen, kept across reloads online and offline (1.2s)
+  ✓    3 [desktop] › e2e/home.spec.ts:30:1 › the game link opens the game (1.0s)
+  ✓    5 [desktop] › e2e/home.spec.ts:45:1 › the sea-time log link opens the log (296ms)
+  ✓    4 [desktop] › e2e/entries.spec.ts:138:1 › a second open trip on this device is refused (499ms)
+  ✓    6 [desktop] › e2e/home.spec.ts:74:1 › the front page opens offline after one online visit (621ms)
+  ✓    8 [desktop] › e2e/home.spec.ts:92:1 › the front page opens offline even if only the log was visited online (331ms)
+  ✓    7 [desktop] › e2e/entries.spec.ts:189:1 › a repeat check-in is one tap: the sheet remembers the last choices (860ms)
+  ✓    9 [desktop] › e2e/home.spec.ts:112:3 › at iPhone width › both links are big, on screen, and nothing scrolls sideways (419ms)
+  ✓   10 [desktop] › e2e/entries.spec.ts:213:1 › the check-in sheet says what is missing and saves nothing until it is right (429ms)
+  ✓   11 [desktop] › e2e/log.spec.ts:53:1 › the log opens with no account and talks to no other server (196ms)
+  ✓   13 [desktop] › e2e/log.spec.ts:72:1 › the check-in button is big and sits where a thumb reaches (216ms)
+  ✓   12 [desktop] › e2e/entries.spec.ts:232:1 › backfilling saves nothing without consent (484ms)
+  ✓   14 [desktop] › e2e/log.spec.ts:86:1 › the log opens offline after one online visit (300ms)
+  ✓   16 [desktop] › e2e/log.spec.ts:97:1 › a saved entry survives a reload, online and offline (437ms)
+  ✓   17 [desktop] › e2e/log.spec.ts:124:1 › the store refuses bad entries, soft-deletes and leaves the outbox empty (272ms)
+  ✓   15 [desktop] › e2e/entries.spec.ts:283:1 › with consent, backfilled days save, record the consent and say "backfilled" (1.1s)
+  ✓   18 [desktop] › e2e/log.spec.ts:221:1 › version 3 of the database keeps the entries and outbox stores as version 1 made them (178ms)
+  ✓   20 [desktop] › e2e/log.spec.ts:265:1 › a newer database from another tab is never opened by older code (271ms)
+  ✓   19 [desktop] › e2e/entries.spec.ts:350:1 › every entry under 4 hours is flagged and stays; the day notes cite the CFR (474ms)
+  ✓   21 [desktop] › e2e/log.spec.ts:287:1 › a new cache name keeps what the old cache held, so earlier offline pages still open (288ms)
+  ✓   22 [desktop] › e2e/entries.spec.ts:426:1 › entries carry their vessel, role and confirmed waters; a GPS suggestion stays apart (245ms)
+  ✓   24 [desktop] › e2e/entries.spec.ts:504:1 › entries are edited and soft-deleted, and a backfilled day stays backfilled (667ms)
+  ✓   25 [desktop] › e2e/entries.spec.ts:569:1 › version 2 upgrades to version 3 and keeps its vessels and entries (565ms)
+  ✓   26 [desktop] › e2e/entries.spec.ts:671:1 › the new screens never say qualify or eligible for (469ms)
+  ✓   27 [desktop] › e2e/entries.spec.ts:694:1 › the entry screens fit one thumb (630ms)
+  ✓   28 [desktop] › e2e/vessels.spec.ts:41:1 › a vessel is added, filled in later, and survives reloads online and offline (1.9s)
+  ✓   23 [desktop] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (5.3s)
+  ✓   29 [desktop] › e2e/vessels.spec.ts:134:1 › a vessel is soft-deleted with two taps and stays gone after a reload (959ms)
+  ✓   30 [desktop] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (2.1s)
+  ✓   31 [desktop] › e2e/vessels.spec.ts:197:1 › a photo still being prepared is never saved late, or onto another vessel (2.0s)
+  ✓   33 [desktop] › e2e/vessels.spec.ts:278:1 › two quick taps on Save add a new vessel once (771ms)
+  ✓   34 [desktop] › e2e/vessels.spec.ts:300:1 › the form says what to fix and saves nothing until it is right (376ms)
+  ✓   35 [desktop] › e2e/vessels.spec.ts:316:1 › only official tonnage can be entered, with no estimate anywhere (253ms)
+  ✓   36 [desktop] › e2e/vessels.spec.ts:342:1 › roles are a seeded deck and engine list, and a vessel keeps a default role (442ms)
+  ✓   37 [desktop] › e2e/vessels.spec.ts:405:1 › version 1 upgrades to the current version and keeps its entries (343ms)
+  ✓   38 [desktop] › e2e/vessels.spec.ts:481:1 › vessel screens fit one thumb: big controls, save within reach (610ms)
+  ✓   39 [phone-landscape] › e2e/entries.spec.ts:71:1 › check in and out from the home screen, kept across reloads online and offline (1.1s)
+  ✓   40 [phone-landscape] › e2e/entries.spec.ts:138:1 › a second open trip on this device is refused (406ms)
+  ✓   41 [phone-landscape] › e2e/entries.spec.ts:189:1 › a repeat check-in is one tap: the sheet remembers the last choices (879ms)
+  ✓   42 [phone-landscape] › e2e/entries.spec.ts:213:1 › the check-in sheet says what is missing and saves nothing until it is right (445ms)
+  ✓   32 [desktop] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (7.0s)
+  ✓   43 [phone-landscape] › e2e/entries.spec.ts:232:1 › backfilling saves nothing without consent (369ms)
+  ✓   45 [phone-landscape] › e2e/entries.spec.ts:283:1 › with consent, backfilled days save, record the consent and say "backfilled" (919ms)
+  ✓   46 [phone-landscape] › e2e/entries.spec.ts:350:1 › every entry under 4 hours is flagged and stays; the day notes cite the CFR (574ms)
+  ✓   47 [phone-landscape] › e2e/entries.spec.ts:426:1 › entries carry their vessel, role and confirmed waters; a GPS suggestion stays apart (283ms)
+  ✓   48 [phone-landscape] › e2e/entries.spec.ts:504:1 › entries are edited and soft-deleted, and a backfilled day stays backfilled (733ms)
+  ✓   49 [phone-landscape] › e2e/entries.spec.ts:569:1 › version 2 upgrades to version 3 and keeps its vessels and entries (418ms)
+  ✓   50 [phone-landscape] › e2e/entries.spec.ts:671:1 › the new screens never say qualify or eligible for (639ms)
+  ✓   44 [desktop] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (3.9s)
+  ✓   51 [phone-landscape] › e2e/entries.spec.ts:694:1 › the entry screens fit one thumb (536ms)
+  ✓   53 [phone-landscape] › e2e/home.spec.ts:11:1 › the root shows a link to the game and one to the sea-time log (177ms)
+  ✓   54 [phone-landscape] › e2e/home.spec.ts:30:1 › the game link opens the game (944ms)
+  ✓   55 [phone-landscape] › e2e/home.spec.ts:45:1 › the sea-time log link opens the log (435ms)
+  ✓   56 [phone-landscape] › e2e/home.spec.ts:74:1 › the front page opens offline after one online visit (845ms)
+  ✓   57 [phone-landscape] › e2e/home.spec.ts:92:1 › the front page opens offline even if only the log was visited online (392ms)
+  ✓   58 [phone-landscape] › e2e/home.spec.ts:112:3 › at iPhone width › both links are big, on screen, and nothing scrolls sideways (457ms)
+  ✓   59 [phone-landscape] › e2e/log.spec.ts:53:1 › the log opens with no account and talks to no other server (260ms)
+  ✓   60 [phone-landscape] › e2e/log.spec.ts:72:1 › the check-in button is big and sits where a thumb reaches (338ms)
+  ✓   61 [phone-landscape] › e2e/log.spec.ts:86:1 › the log opens offline after one online visit (401ms)
+  ✓   62 [phone-landscape] › e2e/log.spec.ts:97:1 › a saved entry survives a reload, online and offline (419ms)
+  ✓   63 [phone-landscape] › e2e/log.spec.ts:124:1 › the store refuses bad entries, soft-deletes and leaves the outbox empty (324ms)
+  ✓   64 [phone-landscape] › e2e/log.spec.ts:221:1 › version 3 of the database keeps the entries and outbox stores as version 1 made them (195ms)
+  ✓   65 [phone-landscape] › e2e/log.spec.ts:265:1 › a newer database from another tab is never opened by older code (314ms)
+  ✓   66 [phone-landscape] › e2e/log.spec.ts:287:1 › a new cache name keeps what the old cache held, so earlier offline pages still open (235ms)
+  ✓   67 [phone-landscape] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (5.6s)
+  ✓   68 [phone-landscape] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (2.1s)
+  ✓   69 [phone-landscape] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (7.5s)
+  ✓   52 [desktop] › e2e/play.spec.ts:82:1 › level 3 opens after level 2, runs five gates and counts the first one (24.0s)
+  ✓   70 [phone-landscape] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (4.0s)
+  ✓   71 [phone-landscape] › e2e/vessels.spec.ts:41:1 › a vessel is added, filled in later, and survives reloads online and offline (1.7s)
+  ✓   73 [phone-landscape] › e2e/vessels.spec.ts:134:1 › a vessel is soft-deleted with two taps and stays gone after a reload (951ms)
+  ✓   74 [phone-landscape] › e2e/vessels.spec.ts:197:1 › a photo still being prepared is never saved late, or onto another vessel (2.4s)
+  ✓   75 [phone-landscape] › e2e/vessels.spec.ts:278:1 › two quick taps on Save add a new vessel once (699ms)
+  ✓   76 [phone-landscape] › e2e/vessels.spec.ts:300:1 › the form says what to fix and saves nothing until it is right (475ms)
+  ✓   77 [phone-landscape] › e2e/vessels.spec.ts:316:1 › only official tonnage can be entered, with no estimate anywhere (267ms)
+  ✓   78 [phone-landscape] › e2e/vessels.spec.ts:342:1 › roles are a seeded deck and engine list, and a vessel keeps a default role (460ms)
+  ✓   79 [phone-landscape] › e2e/vessels.spec.ts:405:1 › version 1 upgrades to the current version and keeps its entries (245ms)
+  ✓   80 [phone-landscape] › e2e/vessels.spec.ts:481:1 › vessel screens fit one thumb: big controls, save within reach (669ms)
+  ✓   81 [phone-portrait] › e2e/entries.spec.ts:71:1 › check in and out from the home screen, kept across reloads online and offline (1.4s)
+  ✓   82 [phone-portrait] › e2e/entries.spec.ts:138:1 › a second open trip on this device is refused (569ms)
+  ✓   83 [phone-portrait] › e2e/entries.spec.ts:189:1 › a repeat check-in is one tap: the sheet remembers the last choices (919ms)
+  ✓   84 [phone-portrait] › e2e/entries.spec.ts:213:1 › the check-in sheet says what is missing and saves nothing until it is right (446ms)
+  ✓   85 [phone-portrait] › e2e/entries.spec.ts:232:1 › backfilling saves nothing without consent (645ms)
+  ✓   86 [phone-portrait] › e2e/entries.spec.ts:283:1 › with consent, backfilled days save, record the consent and say "backfilled" (1.1s)
+  ✓   87 [phone-portrait] › e2e/entries.spec.ts:350:1 › every entry under 4 hours is flagged and stays; the day notes cite the CFR (656ms)
+  ✓   88 [phone-portrait] › e2e/entries.spec.ts:426:1 › entries carry their vessel, role and confirmed waters; a GPS suggestion stays apart (376ms)
+  ✓   89 [phone-portrait] › e2e/entries.spec.ts:504:1 › entries are edited and soft-deleted, and a backfilled day stays backfilled (825ms)
+  ✓   90 [phone-portrait] › e2e/entries.spec.ts:569:1 › version 2 upgrades to version 3 and keeps its vessels and entries (357ms)
+  ✓   91 [phone-portrait] › e2e/entries.spec.ts:671:1 › the new screens never say qualify or eligible for (522ms)
+  ✓   92 [phone-portrait] › e2e/entries.spec.ts:694:1 › the entry screens fit one thumb (610ms)
+  ✓   93 [phone-portrait] › e2e/home.spec.ts:11:1 › the root shows a link to the game and one to the sea-time log (135ms)
+  ✓   94 [phone-portrait] › e2e/home.spec.ts:30:1 › the game link opens the game (248ms)
+  ✓   95 [phone-portrait] › e2e/home.spec.ts:45:1 › the sea-time log link opens the log (264ms)
+  ✓   96 [phone-portrait] › e2e/home.spec.ts:74:1 › the front page opens offline after one online visit (711ms)
+  ✓   97 [phone-portrait] › e2e/home.spec.ts:92:1 › the front page opens offline even if only the log was visited online (343ms)
+  ✓   98 [phone-portrait] › e2e/home.spec.ts:112:3 › at iPhone width › both links are big, on screen, and nothing scrolls sideways (456ms)
+  ✓   99 [phone-portrait] › e2e/log.spec.ts:53:1 › the log opens with no account and talks to no other server (233ms)
+  ✓  100 [phone-portrait] › e2e/log.spec.ts:72:1 › the check-in button is big and sits where a thumb reaches (240ms)
+  ✓  101 [phone-portrait] › e2e/log.spec.ts:86:1 › the log opens offline after one online visit (303ms)
+  ✓  102 [phone-portrait] › e2e/log.spec.ts:97:1 › a saved entry survives a reload, online and offline (514ms)
+  ✓  103 [phone-portrait] › e2e/log.spec.ts:124:1 › the store refuses bad entries, soft-deletes and leaves the outbox empty (317ms)
+  ✓  104 [phone-portrait] › e2e/log.spec.ts:221:1 › version 3 of the database keeps the entries and outbox stores as version 1 made them (234ms)
+  ✓  105 [phone-portrait] › e2e/log.spec.ts:265:1 › a newer database from another tab is never opened by older code (322ms)
+  ✓  106 [phone-portrait] › e2e/log.spec.ts:287:1 › a new cache name keeps what the old cache held, so earlier offline pages still open (220ms)
+  ✓   72 [phone-landscape] › e2e/play.spec.ts:82:1 › level 3 opens after level 2, runs five gates and counts the first one (22.4s)
+  ✓  107 [phone-portrait] › e2e/vessels.spec.ts:41:1 › a vessel is added, filled in later, and survives reloads online and offline (1.6s)
+  ✓  108 [phone-portrait] › e2e/vessels.spec.ts:134:1 › a vessel is soft-deleted with two taps and stays gone after a reload (1.1s)
+  ✓  109 [phone-portrait] › e2e/vessels.spec.ts:197:1 › a photo still being prepared is never saved late, or onto another vessel (2.0s)
+  ✓  110 [phone-portrait] › e2e/vessels.spec.ts:278:1 › two quick taps on Save add a new vessel once (572ms)
+  ✓  111 [phone-portrait] › e2e/vessels.spec.ts:300:1 › the form says what to fix and saves nothing until it is right (438ms)
+  ✓  112 [phone-portrait] › e2e/vessels.spec.ts:316:1 › only official tonnage can be entered, with no estimate anywhere (185ms)
+  ✓  113 [phone-portrait] › e2e/vessels.spec.ts:342:1 › roles are a seeded deck and engine list, and a vessel keeps a default role (349ms)
+  ✓  114 [phone-portrait] › e2e/vessels.spec.ts:405:1 › version 1 upgrades to the current version and keeps its entries (194ms)
+  ✓  115 [phone-portrait] › e2e/vessels.spec.ts:481:1 › vessel screens fit one thumb: big controls, save within reach (673ms)
 
-  113 passed (50.7s)
+  115 passed (1.3m)
 
 ==> npm audit --omit=dev
 found 0 vulnerabilities
@@ -206,634 +209,29 @@ found 0 vulnerabilities
 verify.sh passed: 9 step(s) ran, 0 skipped.
 [exit 0]
 
-$ npx --no-install vitest run tests/rules-engine.test.ts tests/rules-oupv-example.test.ts --reporter=verbose
+$ npx --no-install vitest run tests/course.test.ts tests/replays.test.ts --reporter=verbose
 
  RUN  v4.1.11 /home/user/Captains-academy-
 
- ✓ tests/rules-oupv-example.test.ts > worked example: a fixture log to OUPV near-coastal progress > matches progress.json 3ms
- ✓ tests/rules-oupv-example.test.ts > worked example: a fixture log to OUPV near-coastal progress > comes to what each entry says 2ms
- ✓ tests/rules-engine.test.ts > the engine is pure > has files to check 1ms
- ✓ tests/rules-engine.test.ts > the engine is pure > cfr.ts reads no page, store, network or clock 0ms
- ✓ tests/rules-engine.test.ts > the engine is pure > day-credit.ts reads no page, store, network or clock 0ms
- ✓ tests/rules-engine.test.ts > the engine is pure > index.ts reads no page, store, network or clock 0ms
- ✓ tests/rules-engine.test.ts > the engine is pure > oupv.ts reads no page, store, network or clock 0ms
- ✓ tests/rules-engine.test.ts > the engine is pure > requirements.ts reads no page, store, network or clock 0ms
- ✓ tests/rules-engine.test.ts > the engine is pure > waters-credit.ts reads no page, store, network or clock 0ms
- ✓ tests/rules-engine.test.ts > the engine is pure > cfr.ts imports only from the engine and src/log/entry.ts 0ms
- ✓ tests/rules-engine.test.ts > the engine is pure > day-credit.ts imports only from the engine and src/log/entry.ts 1ms
- ✓ tests/rules-engine.test.ts > the engine is pure > index.ts imports only from the engine and src/log/entry.ts 0ms
- ✓ tests/rules-engine.test.ts > the engine is pure > oupv.ts imports only from the engine and src/log/entry.ts 0ms
- ✓ tests/rules-engine.test.ts > the engine is pure > requirements.ts imports only from the engine and src/log/entry.ts 0ms
- ✓ tests/rules-engine.test.ts > the engine is pure > waters-credit.ts imports only from the engine and src/log/entry.ts 0ms
- ✓ tests/rules-engine.test.ts > the engine is pure > cfr.ts names nothing from the game, the simulator or missions 0ms
- ✓ tests/rules-engine.test.ts > the engine is pure > day-credit.ts names nothing from the game, the simulator or missions 0ms
- ✓ tests/rules-engine.test.ts > the engine is pure > index.ts names nothing from the game, the simulator or missions 0ms
- ✓ tests/rules-engine.test.ts > the engine is pure > oupv.ts names nothing from the game, the simulator or missions 0ms
- ✓ tests/rules-engine.test.ts > the engine is pure > requirements.ts names nothing from the game, the simulator or missions 0ms
- ✓ tests/rules-engine.test.ts > the engine is pure > waters-credit.ts names nothing from the game, the simulator or missions 0ms
- ✓ tests/rules-engine.test.ts > the engine is pure > refuses anything that is not a sea-time entry, such as game time 4ms
- ✓ tests/rules-engine.test.ts > every rule cites 46 CFR > day.under-4 0ms
- ✓ tests/rules-engine.test.ts > every rule cites 46 CFR > day.4-8 0ms
- ✓ tests/rules-engine.test.ts > every rule cites 46 CFR > day.8-12 0ms
- ✓ tests/rules-engine.test.ts > every rule cites 46 CFR > day.12-plus 0ms
- ✓ tests/rules-engine.test.ts > every rule cites 46 CFR > day.two-watch-note 0ms
- ✓ tests/rules-engine.test.ts > every rule cites 46 CFR > day.crosses-midnight 0ms
- ✓ tests/rules-engine.test.ts > every rule cites 46 CFR > waters.oceans 0ms
- ✓ tests/rules-engine.test.ts > every rule cites 46 CFR > waters.near-coastal 0ms
- ✓ tests/rules-engine.test.ts > every rule cites 46 CFR > waters.great-lakes 0ms
- ✓ tests/rules-engine.test.ts > every rule cites 46 CFR > waters.inland 0ms
- ✓ tests/rules-engine.test.ts > every rule cites 46 CFR > waters.western-rivers 0ms
- ✓ tests/rules-engine.test.ts > every rule cites 46 CFR > waters.inside-passage 0ms
- ✓ tests/rules-engine.test.ts > every rule cites 46 CFR > waters.rivers 0ms
- ✓ tests/rules-engine.test.ts > every rule cites 46 CFR > oupv-near-coastal.total 0ms
- ✓ tests/rules-engine.test.ts > every rule cites 46 CFR > oupv-near-coastal.oceans-or-near-coastal 0ms
- ✓ tests/rules-engine.test.ts > every rule cites 46 CFR > day.once-per-date 0ms
- ✓ tests/rules-engine.test.ts > every rule cites 46 CFR > day.crosses-midnight 0ms
- ✓ tests/rules-engine.test.ts > every rule cites 46 CFR > day.two-watch-note 0ms
- ✓ tests/rules-engine.test.ts > every rule cites 46 CFR > covers every band and every waters value 1ms
- ✓ tests/rules-engine.test.ts > every rule cites 46 CFR > fails a rule with no citation 0ms
- ✓ tests/rules-engine.test.ts > 46 CFR 10.107 definitions > a month is 30 days and a year 360 0ms
- ✓ tests/rules-engine.test.ts > 46 CFR 10.107 definitions > quotes the "Day" definition 0ms
- ✓ tests/rules-engine.test.ts > 46 CFR 10.107 definitions > OUPV near coastal asks for 360 days, 90 of them on ocean or near-coastal waters 1ms
- ✓ tests/rules-engine.test.ts > day credit per entry (D1) > 0 hours on a 24 GRT vessel is not-a-day 11ms
- ✓ tests/rules-engine.test.ts > day credit per entry (D1) > 3.999 hours on a 24 GRT vessel is not-a-day 0ms
- ✓ tests/rules-engine.test.ts > day credit per entry (D1) > 4 hours on a 24 GRT vessel is may-count 0ms
- ✓ tests/rules-engine.test.ts > day credit per entry (D1) > 7.999 hours on a 24 GRT vessel is may-count 0ms
- ✓ tests/rules-engine.test.ts > day credit per entry (D1) > 8 hours on a 24 GRT vessel is day 0ms
- ✓ tests/rules-engine.test.ts > day credit per entry (D1) > 11.999 hours on a 24 GRT vessel is day 1ms
- ✓ tests/rules-engine.test.ts > day credit per entry (D1) > 12 hours on a 24 GRT vessel is day 0ms
- ✓ tests/rules-engine.test.ts > day credit per entry (D1) > 20 hours on a 24 GRT vessel is day 0ms
- ✓ tests/rules-engine.test.ts > day credit per entry (D1) > 4 to 8 hours may count only under 100 GRT 1ms
- ✓ tests/rules-engine.test.ts > day credit per entry (D1) > 4 to 8 hours with no official tonnage is unknown-tonnage 1ms
- ✓ tests/rules-engine.test.ts > day credit per entry (D1) > uses a deleted vessel's official tonnage for its old entries 0ms
- ✓ tests/rules-engine.test.ts > day credit per entry (D1) > tonnage does not matter outside 4 to 8 hours 1ms
- ✓ tests/rules-engine.test.ts > day credit per entry (D1) > a 12-hour day carries the two-watch note, and only that band does 1ms
- ✓ tests/rules-engine.test.ts > day credit per entry (D1) > each outcome cites its rule 1ms
- ✓ tests/rules-engine.test.ts > day credit per entry (D1) > an open trip is not credited until it ends 0ms
- ✓ tests/rules-engine.test.ts > midnight (⚠️ unverified, conservative) > a trip that crosses midnight counts once, on the day it began 1ms
- ✓ tests/rules-engine.test.ts > midnight (⚠️ unverified, conservative) > a two-day trip is still one entry, so at most one day 1ms
- ✓ tests/rules-engine.test.ts > midnight (⚠️ unverified, conservative) > reads the calendar day in the caller's time zone 1ms
- ✓ tests/rules-engine.test.ts > same-day overlaps > two entries on one day credit one day 2ms
- ✓ tests/rules-engine.test.ts > same-day overlaps > the day takes the best outcome among its entries 1ms
- ✓ tests/rules-engine.test.ts > same-day overlaps > two short entries on one day are not added into a day (⚠️ listed as not checked) 1ms
- ✓ tests/rules-engine.test.ts > under 4 hours is flagged, never dropped > stays in the entries and the dates 2ms
- ✓ tests/rules-engine.test.ts > totals > never add the extra half day for 12-hour days 1ms
- ✓ tests/rules-engine.test.ts > totals > keep may-count days apart from standard days 0ms
- ✓ tests/rules-engine.test.ts > totals > leave deleted entries out 1ms
- ✓ tests/rules-engine.test.ts > totals > show the open trip but count nothing for it 1ms
- ✓ tests/rules-engine.test.ts > waters for OUPV near coastal (D2) > oceans 0ms
- ✓ tests/rules-engine.test.ts > waters for OUPV near coastal (D2) > near-coastal 0ms
- ✓ tests/rules-engine.test.ts > waters for OUPV near coastal (D2) > great-lakes 0ms
- ✓ tests/rules-engine.test.ts > waters for OUPV near coastal (D2) > inland 0ms
- ✓ tests/rules-engine.test.ts > waters for OUPV near coastal (D2) > western-rivers 0ms
- ✓ tests/rules-engine.test.ts > waters for OUPV near coastal (D2) > inside-passage 0ms
- ✓ tests/rules-engine.test.ts > waters for OUPV near coastal (D2) > rivers 0ms
- ✓ tests/rules-engine.test.ts > waters for OUPV near coastal (D2) > counts Inside Passage as near coastal, citing 10.232(b)(3) 0ms
- ✓ tests/rules-engine.test.ts > waters for OUPV near coastal (D2) > counts Great Lakes service day for day, citing 10.232(b) and 11.211(b)(1) 4ms
- ✓ tests/rules-engine.test.ts > waters for OUPV near coastal (D2) > leaves inland service out of the route part, and says so under not checked 5ms
- ✓ tests/rules-engine.test.ts > waters for OUPV near coastal (D2) > works out the route part apart from the day, so a better entry elsewhere never hides it 1ms
- ✓ tests/rules-engine.test.ts > waters for OUPV near coastal (D2) > has a rule for every waters value, in order 0ms
- ✓ tests/rules-engine.test.ts > waters for OUPV near coastal (D2) > counts an entry with no waters recorded toward the total only 0ms
- ✓ tests/rules-engine.test.ts > waters for OUPV near coastal (D2) > counts a day toward the ocean part when an entry with its outcome was on those waters 0ms
- ✓ tests/rules-engine.test.ts > progress, never a verdict > shows the total and the ocean or near-coastal part apart, with citations 4ms
- ✓ tests/rules-engine.test.ts > progress, never a verdict > says "appears to meet" when the amounts are reached, and the NMC decides 4ms
- ✓ tests/rules-engine.test.ts > progress, never a verdict > lists what it does not check: recency, role credit, tonnage limit and the non-sea-time items 0ms
- ✓ tests/rules-engine.test.ts > progress, never a verdict > never says qualify, eligible for or you meet, in any result 7ms
+ ✓ tests/replays.test.ts > golden replays > covers every replay this test expects 2ms
+ ✓ tests/course.test.ts > gates > counts a move that crosses the gate line 2ms
+ ✓ tests/course.test.ts > gates > ignores a move that passes beside the gate or stops short of it 0ms
+ ✓ tests/course.test.ts > traffic tracks > runs along its track and stops at the end 1ms
+ ✓ tests/course.test.ts > traffic tracks > waits at its first point until the player passes its gate 19ms
+ ✓ tests/course.test.ts > traffic tracks > builds the same track from the same data 0ms
+ ✓ tests/course.test.ts > the course level > leaves levels without a course exactly as they were 1ms
+ ✓ tests/course.test.ts > the course level > does not count the slip until every gate is passed 7ms
+ ✓ tests/course.test.ts > the course level > ends the run when traffic hits the boat, even a boat at rest 19ms
+ ✓ tests/course.test.ts > the course level > turning to port into the head-on ferry gets the boat hit by the ferry 178ms
+ ✓ tests/replays.test.ts > golden replays > long-beach-crosswind-docks reproduces its saved result 119ms
+ ✓ tests/replays.test.ts > golden replays > long-beach-docking-docks reproduces its saved result 51ms
+ ✓ tests/replays.test.ts > golden replays > long-beach-docking-hits-shore reproduces its saved result 7ms
+ ✓ tests/replays.test.ts > golden replays > long-beach-traffic-docks reproduces its saved result 177ms
+ ✓ tests/replays.test.ts > golden replays > long-beach-traffic-hit-by-ferry reproduces its saved result 61ms
 
  Test Files  2 passed (2)
-      Tests  89 passed (89)
-   Start at  20:58:03
-   Duration  430ms (transform 243ms, setup 0ms, import 445ms, tests 77ms, environment 0ms)
+      Tests  15 passed (15)
+   Start at  01:42:39
+   Duration  811ms (transform 319ms, setup 0ms, import 517ms, tests 650ms, environment 0ms)
 
-[exit 0]
-
-$ cat tests/fixtures/oupv-near-coastal/log.json
-{
-  "timeZone": "UTC",
-  "vessels": [
-    {
-      "id": "aaaaaaaa-1111-4111-8111-111111111111",
-      "name": "Sea Breeze",
-      "officialNumber": null,
-      "officialGrossTons": 24,
-      "lengthFeet": null,
-      "propulsion": null,
-      "owner": null,
-      "horsepower": null,
-      "photo": null,
-      "defaultRoleId": "deck.mate",
-      "updatedAt": "2026-10-21T00:00:00.000Z",
-      "deletedAt": null
-    },
-    {
-      "id": "bbbbbbbb-2222-4222-8222-222222222222",
-      "name": "Harbor Tug",
-      "officialNumber": null,
-      "officialGrossTons": 150,
-      "lengthFeet": null,
-      "propulsion": null,
-      "owner": null,
-      "horsepower": null,
-      "photo": null,
-      "defaultRoleId": "deck.mate",
-      "updatedAt": "2026-10-21T00:00:00.000Z",
-      "deletedAt": null
-    }
-  ],
-  "entries": [
-    {
-      "_note": "9.5 h near coastal: one day, counts toward the ocean or near-coastal part",
-      "entry": {
-        "id": "00000000-0000-4000-8000-000000000001",
-        "source": "live",
-        "startedAt": "2026-07-01T14:00:00.000Z",
-        "endedAt": "2026-07-01T23:30:00.000Z",
-        "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
-        "roleId": "deck.mate",
-        "waters": "near-coastal",
-        "watersSuggestion": null,
-        "updatedAt": "2026-10-21T00:00:00.000Z",
-        "deletedAt": null
-      }
-    },
-    {
-      "_note": "12.5 h crossing midnight: one day on Jul 2, plus the two-watch note",
-      "entry": {
-        "id": "00000000-0000-4000-8000-000000000002",
-        "source": "live",
-        "startedAt": "2026-07-02T14:00:00.000Z",
-        "endedAt": "2026-07-03T02:30:00.000Z",
-        "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
-        "roleId": "deck.mate",
-        "waters": "near-coastal",
-        "watersSuggestion": null,
-        "updatedAt": "2026-10-21T00:00:00.000Z",
-        "deletedAt": null
-      }
-    },
-    {
-      "_note": "2 h: not a day, kept and flagged",
-      "entry": {
-        "id": "00000000-0000-4000-8000-000000000003",
-        "source": "live",
-        "startedAt": "2026-07-03T15:00:00.000Z",
-        "endedAt": "2026-07-03T17:00:00.000Z",
-        "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
-        "roleId": "deck.mate",
-        "waters": "inland",
-        "watersSuggestion": null,
-        "updatedAt": "2026-10-21T00:00:00.000Z",
-        "deletedAt": null
-      }
-    },
-    {
-      "_note": "6 h on a 24 GRT vessel: may count, kept apart",
-      "entry": {
-        "id": "00000000-0000-4000-8000-000000000004",
-        "source": "live",
-        "startedAt": "2026-07-04T15:00:00.000Z",
-        "endedAt": "2026-07-04T21:00:00.000Z",
-        "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
-        "roleId": "deck.mate",
-        "waters": "near-coastal",
-        "watersSuggestion": null,
-        "updatedAt": "2026-10-21T00:00:00.000Z",
-        "deletedAt": null
-      }
-    },
-    {
-      "_note": "6 h on a 150 GRT vessel: not a day",
-      "entry": {
-        "id": "00000000-0000-4000-8000-000000000005",
-        "source": "live",
-        "startedAt": "2026-07-05T15:00:00.000Z",
-        "endedAt": "2026-07-05T21:00:00.000Z",
-        "vesselId": "bbbbbbbb-2222-4222-8222-222222222222",
-        "roleId": "deck.mate",
-        "waters": "near-coastal",
-        "watersSuggestion": null,
-        "updatedAt": "2026-10-21T00:00:00.000Z",
-        "deletedAt": null
-      }
-    },
-    {
-      "_note": "9 h inland: one day, total only",
-      "entry": {
-        "id": "00000000-0000-4000-8000-000000000006",
-        "source": "live",
-        "startedAt": "2026-07-06T14:00:00.000Z",
-        "endedAt": "2026-07-06T23:00:00.000Z",
-        "vesselId": "bbbbbbbb-2222-4222-8222-222222222222",
-        "roleId": "deck.mate",
-        "waters": "inland",
-        "watersSuggestion": null,
-        "updatedAt": "2026-10-21T00:00:00.000Z",
-        "deletedAt": null
-      }
-    },
-    {
-      "_note": "overlaps the 9 h inland trip the same day: the day is counted once, and this 5 h ocean trip may count toward the ocean or near-coastal part",
-      "entry": {
-        "id": "00000000-0000-4000-8000-000000000007",
-        "source": "live",
-        "startedAt": "2026-07-06T15:00:00.000Z",
-        "endedAt": "2026-07-06T20:00:00.000Z",
-        "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
-        "roleId": "deck.mate",
-        "waters": "oceans",
-        "watersSuggestion": null,
-        "updatedAt": "2026-10-21T00:00:00.000Z",
-        "deletedAt": null
-      }
-    },
-    {
-      "_note": "deleted: left out",
-      "entry": {
-        "id": "00000000-0000-4000-8000-000000000008",
-        "source": "live",
-        "startedAt": "2026-07-07T14:00:00.000Z",
-        "endedAt": "2026-07-07T23:00:00.000Z",
-        "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
-        "roleId": "deck.mate",
-        "waters": "oceans",
-        "watersSuggestion": null,
-        "updatedAt": "2026-10-21T00:00:00.000Z",
-        "deletedAt": "2026-10-21T00:00:00.000Z"
-      }
-    },
-    {
-      "_note": "backfilled Inside Passage day: counts as near coastal",
-      "entry": {
-        "id": "00000000-0000-4000-8000-000000000009",
-        "source": "backfilled",
-        "day": "2026-06-10",
-        "hoursBand": "8-12",
-        "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
-        "roleId": "deck.mate",
-        "waters": "inside-passage",
-        "watersSuggestion": null,
-        "consentedAt": "2026-10-21T00:00:00.000Z",
-        "updatedAt": "2026-10-21T00:00:00.000Z",
-        "deletedAt": null
-      }
-    },
-    {
-      "_note": "backfilled 12+ on the Great Lakes: one day, counted toward the ocean or near-coastal part day for day, plus the note",
-      "entry": {
-        "id": "00000000-0000-4000-8000-000000000010",
-        "source": "backfilled",
-        "day": "2026-06-11",
-        "hoursBand": "12-plus",
-        "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
-        "roleId": "deck.mate",
-        "waters": "great-lakes",
-        "watersSuggestion": null,
-        "consentedAt": "2026-10-21T00:00:00.000Z",
-        "updatedAt": "2026-10-21T00:00:00.000Z",
-        "deletedAt": null
-      }
-    },
-    {
-      "_note": "backfilled under 4 hours: not a day, kept and flagged",
-      "entry": {
-        "id": "00000000-0000-4000-8000-000000000011",
-        "source": "backfilled",
-        "day": "2026-06-12",
-        "hoursBand": "under-4",
-        "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
-        "roleId": "deck.mate",
-        "waters": "near-coastal",
-        "watersSuggestion": null,
-        "consentedAt": "2026-10-21T00:00:00.000Z",
-        "updatedAt": "2026-10-21T00:00:00.000Z",
-        "deletedAt": null
-      }
-    },
-    {
-      "_note": "still underway: shown, not credited",
-      "entry": {
-        "id": "00000000-0000-4000-8000-000000000012",
-        "source": "live",
-        "startedAt": "2026-07-08T14:00:00.000Z",
-        "endedAt": null,
-        "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
-        "roleId": "deck.mate",
-        "waters": "near-coastal",
-        "watersSuggestion": null,
-        "updatedAt": "2026-10-21T00:00:00.000Z",
-        "deletedAt": null
-      }
-    }
-  ]
-}
-[exit 0]
-
-$ cat tests/fixtures/oupv-near-coastal/progress.json
-{
-  "license": {
-    "id": "oupv-near-coastal",
-    "label": "OUPV near coastal",
-    "cfr": ["46 CFR 11.467(c)"]
-  },
-  "parts": {
-    "total": {
-      "requirement": {
-        "id": "oupv-near-coastal.total",
-        "label": "Operating experience on any waters",
-        "text": "Twelve months of experience in the operation of vessels.",
-        "amount": 12,
-        "unit": "month",
-        "cfr": ["46 CFR 11.467(c)", "46 CFR 10.107"],
-        "days": 360
-      },
-      "creditedDays": 5,
-      "mayCountDays": 1,
-      "unknownTonnageDays": 0,
-      "stillNeededDays": 355,
-      "appearsMet": false
-    },
-    "oceansOrNearCoastal": {
-      "requirement": {
-        "id": "oupv-near-coastal.oceans-or-near-coastal",
-        "label": "Of which on ocean or near-coastal waters",
-        "text": "At least 3 of the 12 months on ocean or near-coastal waters. Inside Passage service counts as near coastal, and Great Lakes service counts day for day.",
-        "amount": 3,
-        "unit": "month",
-        "cfr": [
-          "46 CFR 11.467(c)",
-          "46 CFR 10.107",
-          "46 CFR 10.232(b)(3)",
-          "46 CFR 10.232(b)",
-          "46 CFR 11.211(b)(1)"
-        ],
-        "days": 90
-      },
-      "creditedDays": 4,
-      "mayCountDays": 2,
-      "unknownTonnageDays": 0,
-      "stillNeededDays": 86,
-      "appearsMet": false
-    }
-  },
-  "dates": [
-    {
-      "date": "2026-06-10",
-      "outcome": "day",
-      "entryIds": ["00000000-0000-4000-8000-000000000009"],
-      "oceansOrNearCoastalOutcome": "day"
-    },
-    {
-      "date": "2026-06-11",
-      "outcome": "day",
-      "entryIds": ["00000000-0000-4000-8000-000000000010"],
-      "oceansOrNearCoastalOutcome": "day"
-    },
-    {
-      "date": "2026-06-12",
-      "outcome": "not-a-day",
-      "entryIds": ["00000000-0000-4000-8000-000000000011"],
-      "oceansOrNearCoastalOutcome": "not-a-day"
-    },
-    {
-      "date": "2026-07-01",
-      "outcome": "day",
-      "entryIds": ["00000000-0000-4000-8000-000000000001"],
-      "oceansOrNearCoastalOutcome": "day"
-    },
-    {
-      "date": "2026-07-02",
-      "outcome": "day",
-      "entryIds": ["00000000-0000-4000-8000-000000000002"],
-      "oceansOrNearCoastalOutcome": "day"
-    },
-    {
-      "date": "2026-07-03",
-      "outcome": "not-a-day",
-      "entryIds": ["00000000-0000-4000-8000-000000000003"],
-      "oceansOrNearCoastalOutcome": null
-    },
-    {
-      "date": "2026-07-04",
-      "outcome": "may-count",
-      "entryIds": ["00000000-0000-4000-8000-000000000004"],
-      "oceansOrNearCoastalOutcome": "may-count"
-    },
-    {
-      "date": "2026-07-05",
-      "outcome": "not-a-day",
-      "entryIds": ["00000000-0000-4000-8000-000000000005"],
-      "oceansOrNearCoastalOutcome": "not-a-day"
-    },
-    {
-      "date": "2026-07-06",
-      "outcome": "day",
-      "entryIds": ["00000000-0000-4000-8000-000000000006", "00000000-0000-4000-8000-000000000007"],
-      "oceansOrNearCoastalOutcome": "may-count"
-    }
-  ],
-  "entries": [
-    {
-      "entryId": "00000000-0000-4000-8000-000000000001",
-      "source": "live",
-      "date": "2026-07-01",
-      "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
-      "waters": "near-coastal",
-      "band": "8-12",
-      "outcome": "day",
-      "notes": ["Eight hours of watchstanding or day-working is one day. Overtime adds nothing."],
-      "cfr": ["46 CFR 10.232(h)(1)", "46 CFR 10.107"]
-    },
-    {
-      "entryId": "00000000-0000-4000-8000-000000000002",
-      "source": "live",
-      "date": "2026-07-02",
-      "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
-      "waters": "near-coastal",
-      "band": "12-plus",
-      "outcome": "day",
-      "notes": [
-        "Twelve hours or more is one day. The 1½-day credit on two-watch vessels is at the Coast Guard's discretion and is never added here.",
-        "⚠️ Unverified: 46 CFR does not say how to date service that crosses midnight. A trip is credited to the day it began, and one entry is never more than one day.",
-        "May be credited as 1½ days at the Coast Guard's discretion on vessels authorized for two watches (46 CFR 10.232(h)(2), 15.705). Not added to any total."
-      ],
-      "cfr": ["46 CFR 10.232(h)(1)", "46 CFR 10.232(h)(2)", "46 CFR 15.705"]
-    },
-    {
-      "entryId": "00000000-0000-4000-8000-000000000003",
-      "source": "live",
-      "date": "2026-07-03",
-      "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
-      "waters": "inland",
-      "band": "under-4",
-      "outcome": "not-a-day",
-      "notes": ["Under 4 hours is never a day of service. The entry is kept and flagged."],
-      "cfr": ["46 CFR 10.232(h)(3)", "46 CFR 10.107"]
-    },
-    {
-      "entryId": "00000000-0000-4000-8000-000000000004",
-      "source": "live",
-      "date": "2026-07-04",
-      "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
-      "waters": "near-coastal",
-      "band": "4-8",
-      "outcome": "may-count",
-      "notes": [
-        "A day is 8 hours. On a vessel under 100 GRT, a shorter day of at least 4 hours may count if the Coast Guard accepts the schedule. Otherwise 4 to 8 hours is not a day."
-      ],
-      "cfr": ["46 CFR 10.232(h)(1)", "46 CFR 10.232(h)(3)", "46 CFR 10.107"]
-    },
-    {
-      "entryId": "00000000-0000-4000-8000-000000000005",
-      "source": "live",
-      "date": "2026-07-05",
-      "vesselId": "bbbbbbbb-2222-4222-8222-222222222222",
-      "waters": "near-coastal",
-      "band": "4-8",
-      "outcome": "not-a-day",
-      "notes": [
-        "A day is 8 hours. On a vessel under 100 GRT, a shorter day of at least 4 hours may count if the Coast Guard accepts the schedule. Otherwise 4 to 8 hours is not a day."
-      ],
-      "cfr": ["46 CFR 10.232(h)(1)", "46 CFR 10.232(h)(3)", "46 CFR 10.107"]
-    },
-    {
-      "entryId": "00000000-0000-4000-8000-000000000006",
-      "source": "live",
-      "date": "2026-07-06",
-      "vesselId": "bbbbbbbb-2222-4222-8222-222222222222",
-      "waters": "inland",
-      "band": "8-12",
-      "outcome": "day",
-      "notes": ["Eight hours of watchstanding or day-working is one day. Overtime adds nothing."],
-      "cfr": ["46 CFR 10.232(h)(1)", "46 CFR 10.107"]
-    },
-    {
-      "entryId": "00000000-0000-4000-8000-000000000007",
-      "source": "live",
-      "date": "2026-07-06",
-      "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
-      "waters": "oceans",
-      "band": "4-8",
-      "outcome": "may-count",
-      "notes": [
-        "A day is 8 hours. On a vessel under 100 GRT, a shorter day of at least 4 hours may count if the Coast Guard accepts the schedule. Otherwise 4 to 8 hours is not a day."
-      ],
-      "cfr": ["46 CFR 10.232(h)(1)", "46 CFR 10.232(h)(3)", "46 CFR 10.107"]
-    },
-    {
-      "entryId": "00000000-0000-4000-8000-000000000009",
-      "source": "backfilled",
-      "date": "2026-06-10",
-      "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
-      "waters": "inside-passage",
-      "band": "8-12",
-      "outcome": "day",
-      "notes": ["Eight hours of watchstanding or day-working is one day. Overtime adds nothing."],
-      "cfr": ["46 CFR 10.232(h)(1)", "46 CFR 10.107"]
-    },
-    {
-      "entryId": "00000000-0000-4000-8000-000000000010",
-      "source": "backfilled",
-      "date": "2026-06-11",
-      "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
-      "waters": "great-lakes",
-      "band": "12-plus",
-      "outcome": "day",
-      "notes": [
-        "Twelve hours or more is one day. The 1½-day credit on two-watch vessels is at the Coast Guard's discretion and is never added here.",
-        "May be credited as 1½ days at the Coast Guard's discretion on vessels authorized for two watches (46 CFR 10.232(h)(2), 15.705). Not added to any total."
-      ],
-      "cfr": ["46 CFR 10.232(h)(1)", "46 CFR 10.232(h)(2)", "46 CFR 15.705"]
-    },
-    {
-      "entryId": "00000000-0000-4000-8000-000000000011",
-      "source": "backfilled",
-      "date": "2026-06-12",
-      "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
-      "waters": "near-coastal",
-      "band": "under-4",
-      "outcome": "not-a-day",
-      "notes": ["Under 4 hours is never a day of service. The entry is kept and flagged."],
-      "cfr": ["46 CFR 10.232(h)(3)", "46 CFR 10.107"]
-    },
-    {
-      "entryId": "00000000-0000-4000-8000-000000000012",
-      "source": "live",
-      "date": "2026-07-08",
-      "vesselId": "aaaaaaaa-1111-4111-8111-111111111111",
-      "waters": "near-coastal",
-      "band": null,
-      "outcome": "open",
-      "notes": ["Still underway. Credited once the trip ends."],
-      "cfr": ["46 CFR 10.232(h)(1)"]
-    }
-  ],
-  "notChecked": [
-    {
-      "id": "recency",
-      "label": "Recent service",
-      "why": "How recent the service must be is open decision D3.",
-      "cfr": []
-    },
-    {
-      "id": "role-credit",
-      "label": "Which roles count",
-      "why": "Which roles aboard count toward this license is open decision D4. Every role is shown, none is filtered.",
-      "cfr": []
-    },
-    {
-      "id": "tonnage-limit",
-      "label": "The license's tonnage limit",
-      "why": "The tonnage a license is limited to depends on the vessels served on; that is open decision D5.",
-      "cfr": ["46 CFR 11.422"]
-    },
-    {
-      "id": "inland-toward-near-coastal",
-      "label": "Inland service toward the ocean or near-coastal part",
-      "why": "Inland service (other than the Great Lakes) may count toward a near-coastal endorsement only up to half. That limit is not applied yet, so inland days count toward the total only.",
-      "cfr": ["46 CFR 10.232(b)", "46 CFR 11.211(b)"]
-    },
-    {
-      "id": "same-day-watches",
-      "label": "Separate watches on one day",
-      "why": "⚠️ Unverified: whether two shorter entries on one day add up to a day. Each entry is judged alone.",
-      "cfr": ["46 CFR 10.107"]
-    },
-    {
-      "id": "exam",
-      "label": "Exam",
-      "why": "Not sea time. Tracked on the license screen later.",
-      "cfr": []
-    },
-    {
-      "id": "physical",
-      "label": "Physical and medical certificate",
-      "why": "Not sea time. Tracked on the license screen later.",
-      "cfr": []
-    },
-    {
-      "id": "drug-test",
-      "label": "Drug test",
-      "why": "Not sea time. Tracked on the license screen later.",
-      "cfr": []
-    },
-    {
-      "id": "twic",
-      "label": "TWIC",
-      "why": "Not sea time. Tracked on the license screen later.",
-      "cfr": []
-    }
-  ],
-  "summary": "Your logged sea time does not yet appear to meet the sea-service amount for OUPV near coastal: 355 more days in total, 86 more on ocean or near-coastal waters. The NMC decides.",
-  "citations": [
-    "46 CFR 10.107",
-    "46 CFR 10.232(b)",
-    "46 CFR 10.232(b)(3)",
-    "46 CFR 10.232(h)(1)",
-    "46 CFR 10.232(h)(2)",
-    "46 CFR 10.232(h)(3)",
-    "46 CFR 11.211(b)(1)",
-    "46 CFR 11.467(c)",
-    "46 CFR 15.705"
-  ]
-}
 [exit 0]

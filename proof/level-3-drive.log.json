@@ -1,0 +1,412 @@
+[
+  {
+    "i": 0,
+    "step": {
+      "do": "open",
+      "viewport": "desktop",
+      "storage": {
+        "captains-academy:stars:long-beach-docking": "1",
+        "captains-academy:stars:long-beach-crosswind": "1"
+      }
+    },
+    "ok": true,
+    "state": {
+      "frame": 5,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 0,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false,
+      "xMm": 104998,
+      "yMm": 80003,
+      "gate": 0,
+      "gates": 0,
+      "struckBy": null
+    }
+  },
+  {
+    "i": 1,
+    "step": {
+      "do": "tap",
+      "x": 60,
+      "y": 262
+    },
+    "ok": true,
+    "state": {
+      "frame": 0,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 2,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false,
+      "xMm": 150000,
+      "yMm": 212000,
+      "gate": 0,
+      "gates": 5,
+      "struckBy": null
+    }
+  },
+  {
+    "i": 2,
+    "step": {
+      "do": "wait",
+      "ms": 1500
+    },
+    "ok": true,
+    "state": {
+      "frame": 28,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 2,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false,
+      "xMm": 149961,
+      "yMm": 211986,
+      "gate": 0,
+      "gates": 5,
+      "struckBy": null
+    }
+  },
+  {
+    "i": 3,
+    "step": {
+      "do": "expect",
+      "field": "level",
+      "eq": 2
+    },
+    "ok": true,
+    "state": {
+      "frame": 30,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 2,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false,
+      "xMm": 149958,
+      "yMm": 211985,
+      "gate": 0,
+      "gates": 5,
+      "struckBy": null
+    }
+  },
+  {
+    "i": 4,
+    "step": {
+      "do": "expect",
+      "field": "gates",
+      "eq": 5
+    },
+    "ok": true,
+    "state": {
+      "frame": 32,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 2,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false,
+      "xMm": 149955,
+      "yMm": 211984,
+      "gate": 0,
+      "gates": 5,
+      "struckBy": null
+    }
+  },
+  {
+    "i": 5,
+    "step": {
+      "do": "screenshot",
+      "name": "course-start"
+    },
+    "ok": true,
+    "state": {
+      "frame": 39,
+      "outcome": "playing",
+      "speedMmPerS": 0,
+      "level": 2,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false,
+      "xMm": 149946,
+      "yMm": 211981,
+      "gate": 0,
+      "gates": 5,
+      "struckBy": null
+    }
+  },
+  {
+    "i": 6,
+    "step": {
+      "do": "lever",
+      "side": "port",
+      "to": 50
+    },
+    "ok": true,
+    "state": {
+      "frame": 73,
+      "outcome": "playing",
+      "speedMmPerS": 33.046875,
+      "level": 2,
+      "port": 50,
+      "starboard": 0,
+      "muted": false,
+      "horn": false,
+      "xMm": 149905,
+      "yMm": 211962,
+      "gate": 0,
+      "gates": 5,
+      "struckBy": null
+    }
+  },
+  {
+    "i": 7,
+    "step": {
+      "do": "lever",
+      "side": "starboard",
+      "to": 50
+    },
+    "ok": true,
+    "state": {
+      "frame": 108,
+      "outcome": "playing",
+      "speedMmPerS": 195.46875,
+      "level": 2,
+      "port": 50,
+      "starboard": 50,
+      "muted": false,
+      "horn": false,
+      "xMm": 149870,
+      "yMm": 211886,
+      "gate": 0,
+      "gates": 5,
+      "struckBy": null
+    }
+  },
+  {
+    "i": 8,
+    "step": {
+      "do": "waitFor",
+      "field": "yMm",
+      "lt": 197000,
+      "timeoutMs": 60000
+    },
+    "ok": true,
+    "state": {
+      "frame": 651,
+      "outcome": "playing",
+      "speedMmPerS": 2807.34375,
+      "level": 2,
+      "port": 50,
+      "starboard": 50,
+      "muted": false,
+      "horn": false,
+      "xMm": 150375,
+      "yMm": 196594,
+      "gate": 0,
+      "gates": 5,
+      "struckBy": null
+    }
+  },
+  {
+    "i": 9,
+    "step": {
+      "do": "lever",
+      "side": "port",
+      "to": -80
+    },
+    "ok": true,
+    "state": {
+      "frame": 742,
+      "outcome": "playing",
+      "speedMmPerS": 2717.34375,
+      "level": 2,
+      "port": -80,
+      "starboard": 50,
+      "muted": false,
+      "horn": false,
+      "xMm": 150452,
+      "yMm": 192259,
+      "gate": 0,
+      "gates": 5,
+      "struckBy": null
+    }
+  },
+  {
+    "i": 10,
+    "step": {
+      "do": "lever",
+      "side": "starboard",
+      "to": -80
+    },
+    "ok": true,
+    "state": {
+      "frame": 839,
+      "outcome": "playing",
+      "speedMmPerS": 1763.203125,
+      "level": 2,
+      "port": -80,
+      "starboard": -80,
+      "muted": false,
+      "horn": false,
+      "xMm": 149507,
+      "yMm": 188586,
+      "gate": 0,
+      "gates": 5,
+      "struckBy": null
+    }
+  },
+  {
+    "i": 11,
+    "step": {
+      "do": "waitFor",
+      "field": "speedMmPerS",
+      "lt": 150,
+      "timeoutMs": 30000
+    },
+    "ok": true,
+    "state": {
+      "frame": 963,
+      "outcome": "playing",
+      "speedMmPerS": 96.5625,
+      "level": 2,
+      "port": -80,
+      "starboard": -80,
+      "muted": false,
+      "horn": false,
+      "xMm": 148903,
+      "yMm": 186733,
+      "gate": 0,
+      "gates": 5,
+      "struckBy": null
+    }
+  },
+  {
+    "i": 12,
+    "step": {
+      "do": "key",
+      "key": "x",
+      "ms": 100
+    },
+    "ok": true,
+    "state": {
+      "frame": 978,
+      "outcome": "playing",
+      "speedMmPerS": 57.1875,
+      "level": 2,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false,
+      "xMm": 148903,
+      "yMm": 186704,
+      "gate": 0,
+      "gates": 5,
+      "struckBy": null
+    }
+  },
+  {
+    "i": 13,
+    "step": {
+      "do": "screenshot",
+      "name": "stopped-in-the-ship-lane"
+    },
+    "ok": true,
+    "state": {
+      "frame": 1000,
+      "outcome": "playing",
+      "speedMmPerS": 52.03125,
+      "level": 2,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false,
+      "xMm": 148902,
+      "yMm": 186662,
+      "gate": 0,
+      "gates": 5,
+      "struckBy": null
+    }
+  },
+  {
+    "i": 14,
+    "step": {
+      "do": "waitFor",
+      "field": "outcome",
+      "eq": "hit",
+      "timeoutMs": 120000
+    },
+    "ok": true,
+    "state": {
+      "frame": 1402,
+      "outcome": "hit",
+      "speedMmPerS": 0,
+      "level": 2,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false,
+      "xMm": 148903,
+      "yMm": 186209,
+      "gate": 0,
+      "gates": 5,
+      "struckBy": "container ship"
+    }
+  },
+  {
+    "i": 15,
+    "step": {
+      "do": "expect",
+      "field": "struckBy",
+      "eq": "container ship"
+    },
+    "ok": true,
+    "state": {
+      "frame": 1402,
+      "outcome": "hit",
+      "speedMmPerS": 0,
+      "level": 2,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false,
+      "xMm": 148903,
+      "yMm": 186209,
+      "gate": 0,
+      "gates": 5,
+      "struckBy": "container ship"
+    }
+  },
+  {
+    "i": 16,
+    "step": {
+      "do": "screenshot",
+      "name": "hit-by-the-ship"
+    },
+    "ok": true,
+    "state": {
+      "frame": 1402,
+      "outcome": "hit",
+      "speedMmPerS": 0,
+      "level": 2,
+      "port": 0,
+      "starboard": 0,
+      "muted": false,
+      "horn": false,
+      "xMm": 148903,
+      "yMm": 186209,
+      "gate": 0,
+      "gates": 5,
+      "struckBy": "container ship"
+    }
+  }
+]

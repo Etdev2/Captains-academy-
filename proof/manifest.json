@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#42",
-  "sourceDigest": "sha256:c3eae76d89a552ebf8f7f77bd6644f25f48d2ddf65a9a86e9965a751c0e271f9",
-  "capturedAt": "2026-10-21T20:58:04Z",
+  "ticket": "Etdev2/Captains-academy-#46",
+  "sourceDigest": "sha256:b4445467b0c3edf075070786d741c019f7a4bbeb8bb8fe1129aba9de250be564",
+  "capturedAt": "2026-10-22T01:42:40Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.sh",
-    "fixture": "tests/fixtures/oupv-near-coastal/log.json: 12 entries on two vessels (24 and 150 GRT), covering every band, a midnight crossing, a same-day overlap, Inside Passage, Great Lakes, a deleted entry and an open trip, in UTC"
+    "command": "bash scripts/verify.test.sh",
+    "fixture": "missions/long-beach-traffic.json: the level 3 course with five gates, three anchored boats and four traffic vessels; golden replays long-beach-traffic-docks and long-beach-traffic-hit-by-ferry; the two earlier levels' replays unchanged"
   },
   "commands": [
     {
@@ -18,15 +18,7 @@
       "exitCode": 0
     },
     {
-      "command": "npx --no-install vitest run tests/rules-engine.test.ts tests/rules-oupv-example.test.ts --reporter=verbose",
-      "exitCode": 0
-    },
-    {
-      "command": "cat tests/fixtures/oupv-near-coastal/log.json",
-      "exitCode": 0
-    },
-    {
-      "command": "cat tests/fixtures/oupv-near-coastal/progress.json",
+      "command": "npx --no-install vitest run tests/course.test.ts tests/replays.test.ts --reporter=verbose",
       "exitCode": 0
     }
   ],
@@ -35,7 +27,27 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "The rules engine unit tests (every band edge at 4, 8 and 12 h, the 100 GRT line, null tonnage, overlaps, midnight, every waters value, Great Lakes day for day, the per-day route outcome, deleted entries, citations on every rule, purity and wording), the worked example from log.json to the OUPV near-coastal progress in progress.json, and the full verify.sh passing"
+      "shows": "verify.sh runs all nine steps with none skipped, including the course unit tests, all five golden replays (the three earlier ones byte for byte unchanged) and the new level 3 Playwright test that counts gate 1 on desktop and phone landscape"
+    },
+    {
+      "path": "proof/level-3-start.png",
+      "kind": "screenshot",
+      "shows": "The production build at /play on desktop after tapping LEVEL 3 with stars seeded on levels 1 and 2 (a precondition, not proof of docking): the breakwater gap is gate 1, drawn gold, the HUD reads Gate 1 of 5, and the start hint explains the course. Driven with harbor-course.steps.json from the code at 5443751"
+    },
+    {
+      "path": "proof/level-3-ship-lane.png",
+      "kind": "screenshot",
+      "shows": "The boat stopped by the levers in the container ship lane outside the breakwater, with the ship coming in from the west showing its red and green sidelights and two masthead lights. LEVEL 3 now clears the port lever label."
+    },
+    {
+      "path": "proof/level-3-hit-by-ship.png",
+      "kind": "screenshot",
+      "shows": "The ship reaches the boat at rest and the run ends: the banner names the container ship and gives its Rule 9 lesson."
+    },
+    {
+      "path": "proof/level-3-drive.log.json",
+      "kind": "log",
+      "shows": "Every step of that drive with the game state after it: level 2, gates 5, yMm falling below 197000 under the levers, speed back near zero, then outcome hit with struckBy container ship. The engine-levers, levels, docking-run and keyboard recipes also passed against the shorter lever tracks."
     }
   ]
 }
