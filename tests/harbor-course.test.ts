@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { compileTraffic, trafficCircles, trafficPose } from '../src/sim/course';
+import { trafficCircles, trafficPose } from '../src/sim/course';
 import { parseMission } from '../src/sim/mission';
 import { replaySchema } from '../src/sim/replay';
 import type { SimState } from '../src/sim/sim';
@@ -15,11 +15,13 @@ import {
   trafficPoses,
 } from '../src/sim/sim';
 import {
-  RISK_CPA_MM,
-  RISK_HORIZON_S,
+  CROSSING_LIMIT_DEG,
+  closingSamples,
   firstTurn,
+  followRoute,
   framesOf,
   riskStart,
+  routesOutOfGate,
   sampleAt,
   trace,
 } from './helpers/encounter';
@@ -57,6 +59,8 @@ const replay = (name: string) => {
 const clean = replay('long-beach-traffic-docks');
 const ferryHit = replay('long-beach-traffic-hit-by-ferry');
 const powerboatHit = replay('long-beach-traffic-hit-by-powerboat');
+// The PR #54 review's probe: slow out of gate 3 on 306.9, holding course.
+const overtakenFromGate3 = replay('long-beach-traffic-overtaken-from-gate-3');
 const last = (states: SimState[]) => {
   const s = states.at(-1);
   if (!s) throw new Error('empty trace');
@@ -203,18 +207,22 @@ describe('the ship in the channel (Rules 9(b), 9(d))', () => {
 });
 
 // Rule 13(b): a vessel coming up from more than 22.5 degrees abaft the beam is
-// overtaking. A crossing needs the powerboat forward of that line, with margin.
-const OVERTAKING_LINE = 112.5;
-const MARGIN = 15;
+// overtaking (more than 112.5 degrees relative). A crossing from starboard
+// keeps the powerboat between dead ahead and that line less a 15 degree
+// margin, CROSSING_LIMIT_DEG, on every frame from the start of risk of
+// collision until the range stops closing or the hulls touch.
+const crossesFromStarboard = (bearings: readonly number[]) =>
+  bearings.every((b) => b > 0 && b < CROSSING_LIMIT_DEG);
 
 describe('the powerboat crossing (Rule 15)', () => {
-  it('is a crossing from starboard when risk of collision begins in the golden replays', () => {
+  it('is a crossing from starboard on every frame of risk in the golden replays', () => {
     for (const states of [clean, powerboatHit]) {
-      const f = riskStart(course, states, POWERBOAT);
-      if (f === null) throw new Error('no risk of collision with the powerboat');
-      const { relativeBearing } = sampleAt(course, states, f, POWERBOAT);
-      expect(relativeBearing).toBeGreaterThan(0);
-      expect(relativeBearing).toBeLessThan(OVERTAKING_LINE - MARGIN);
+      const closing = closingSamples(course, states, POWERBOAT);
+      expect(closing.length).toBeGreaterThan(0);
+      for (const s of closing) {
+        expect(s.relativeBearing).toBeGreaterThan(0);
+        expect(s.relativeBearing).toBeLessThan(CROSSING_LIMIT_DEG);
+      }
     }
   });
 
@@ -230,69 +238,40 @@ describe('the powerboat crossing (Rule 15)', () => {
     expect(Math.max(...headings) - Math.min(...headings)).toBeLessThan(1);
   });
 
-  // Every straight-leg route from a point on gate 2 to a point on gate 3, then
-  // to a point on gate 4 or on along the same course, at slow, middle and full
-  // speed. Risk of collision is judged the way the replays judge it.
-  it('stays forward of the overtaking line on every route through gates 2 to 4', () => {
-    const pb = compileTraffic(vessel(POWERBOAT).data);
-    const g = mission.gates ?? [];
-    const along = (i: number) => {
-      const q = g[i];
-      if (!q) throw new Error(`no gate ${i + 1}`);
-      return [0.15, 0.5, 0.85].map((k) => ({
-        x: q.x1 + (q.x2 - q.x1) * k,
-        y: q.y1 + (q.y2 - q.y1) * k,
-      }));
-    };
-    expect(pb.data.startAfterGate).toBe(3);
-    const end = trafficPose(pb, Number.MAX_SAFE_INTEGER);
-    let routes = 0;
-    let withRisk = 0;
-    for (const a of along(1)) {
-      for (const b of along(2)) {
-        const ab = Math.hypot(b.x - a.x, b.y - a.y);
-        const holding = {
-          x: b.x + ((b.x - a.x) / ab) * 80000,
-          y: b.y + ((b.y - a.y) / ab) * 80000,
-        };
-        for (const c of [...along(3), holding]) {
-          for (const v of [1500, 2500, 3500]) {
-            routes++;
-            const ux = (c.x - b.x) / Math.hypot(c.x - b.x, c.y - b.y);
-            const uy = (c.y - b.y) / Math.hypot(c.x - b.x, c.y - b.y);
-            const heading = (Math.atan2(ux, -uy) * 180) / Math.PI;
-            const legMm = Math.hypot(c.x - b.x, c.y - b.y);
-            // The powerboat starts as the player crosses gate 3, at b.
-            for (let t = 0; t * v < legMm; t += 0.1) {
-              const px = b.x + ux * v * t;
-              const py = b.y + uy * v * t;
-              const pose = trafficPose(pb, Math.trunc(t * pb.data.speedMmPerS));
-              if (pose.x === end.x && pose.y === end.y) break;
-              const scale = pb.data.speedMmPerS / Math.hypot(pose.ux, pose.uy);
-              const rx = pose.x - px;
-              const ry = pose.y - py;
-              const wx = pose.ux * scale - ux * v;
-              const wy = pose.uy * scale - uy * v;
-              const tcpa = Math.max(0, -(rx * wx + ry * wy) / (wx * wx + wy * wy));
-              if (
-                Math.hypot(rx + wx * tcpa, ry + wy * tcpa) < RISK_CPA_MM &&
-                tcpa <= RISK_HORIZON_S
-              ) {
-                withRisk++;
-                const bearing = (Math.atan2(rx, -ry) * 180) / Math.PI;
-                const relative = ((((bearing - heading + 180) % 360) + 360) % 360) - 180;
-                expect(relative).toBeGreaterThan(0);
-                expect(relative).toBeLessThan(OVERTAKING_LINE - MARGIN);
-                break;
-              }
-            }
-          }
-        }
-      }
+  it('never hits the review probe from abaft the beam', () => {
+    // A slow player holding 306.9 out of gate 3 must not be hit by an
+    // overtaking powerboat under the Rule 15 banner.
+    const final = last(overtakenFromGate3);
+    if (final.course?.struckBy !== POWERBOAT) return;
+    for (const s of closingSamples(course, overtakenFromGate3, POWERBOAT)) {
+      expect(s.relativeBearing).toBeGreaterThan(0);
+      expect(s.relativeBearing).toBeLessThan(CROSSING_LIMIT_DEG);
     }
-    expect(routes).toBe(108);
-    expect(withRisk).toBeGreaterThan(0);
   });
+
+  // Every straight, constant-speed route out of gate 3: points every metre
+  // across the gate where the hull clears the moored boat at its east end,
+  // every heading within 90 degrees of north in 2 degree steps, and a stopped
+  // boat plus 0.5 to 3.5 m/s in 0.5 m/s steps. Each route runs until the
+  // powerboat finishes her track, the boat leaves open water, or the boat
+  // would reach gate 4. Contact uses the sim's own hull and traffic circles.
+  it('meets the powerboat as a crossing from starboard on every route out of gate 3', () => {
+    expect(vessel(POWERBOAT).data.startAfterGate).toBe(3);
+    const routes = routesOutOfGate(course, 2);
+    expect(routes.length).toBeGreaterThan(10000);
+    const failures = routes
+      .map((r) => followRoute(course, POWERBOAT, r, mission.gates?.[3]))
+      .filter((r) => r.bearings.length > 0 && !crossesFromStarboard(r.bearings))
+      .map((r) => ({
+        ...r.route,
+        contact: r.contact,
+        first: Math.round(r.bearings[0] ?? 0),
+        worst: Math.round(
+          r.bearings.reduce((w, b) => (b <= 0 || b >= CROSSING_LIMIT_DEG ? b : w), 0),
+        ),
+      }));
+    expect(failures.slice(0, 5), `${failures.length} of ${routes.length} routes fail`).toEqual([]);
+  }, 120_000);
 });
 
 describe('the ferry head-on (Rule 14)', () => {

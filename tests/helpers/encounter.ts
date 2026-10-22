@@ -1,9 +1,11 @@
-import { trafficPose } from '../../src/sim/course';
+import type { CompiledTraffic } from '../../src/sim/course';
+import { crossesGate, trafficCircles, trafficPose } from '../../src/sim/course';
 import type { Input, Level, SimState } from '../../src/sim/sim';
 import {
   FRAMES_PER_SECOND,
   HEADING_FULL_TURN,
   POS_SCALE,
+  hullCircles,
   step,
   trafficPoses,
 } from '../../src/sim/sim';
@@ -169,5 +171,176 @@ export function encounters(level: Level, states: readonly SimState[]) {
         },
       ];
     }),
+  );
+}
+
+/** A crossing from starboard keeps the vessel between dead ahead and this bearing. */
+export const CROSSING_LIMIT_DEG = 112.5 - 15;
+
+/**
+ * Every frame from the start of risk of collision until the range stops
+ * closing or the vessel hits the boat. A run where the vessel hits the boat
+ * without risk ever beginning yields the contact frame alone. Empty if the
+ * vessel never comes into risk or contact.
+ */
+export function closingSamples(
+  level: Level,
+  states: readonly SimState[],
+  vessel: number,
+): Sample[] {
+  const hitAt = states.findIndex((s) => s.course?.struckBy === vessel);
+  const from = riskStart(level, states, vessel) ?? (hitAt < 0 ? null : hitAt);
+  if (from === null) return [];
+  const out: Sample[] = [];
+  for (let f = from; f < states.length; f++) {
+    const sample = sampleAt(level, states, f, vessel);
+    const before = out.at(-1);
+    if (before && sample.rangeMm > before.rangeMm) break;
+    out.push(sample);
+    if (f === hitAt) break;
+  }
+  return out;
+}
+
+export interface Route {
+  readonly x: number;
+  readonly y: number;
+  readonly heading: number;
+  readonly speedMmPerS: number;
+}
+
+export interface RouteResult {
+  readonly route: Route;
+  /** Relative bearings, degrees, on every frame checked. Empty if risk never began. */
+  readonly bearings: readonly number[];
+  readonly contact: boolean;
+}
+
+function circleHitsRect(
+  px: number,
+  py: number,
+  r: number,
+  o: { x: number; y: number; w: number; h: number },
+): boolean {
+  const dx = px - Math.max(o.x, Math.min(px, o.x + o.w));
+  const dy = py - Math.max(o.y, Math.min(py, o.y + o.h));
+  return dx * dx + dy * dy < r * r;
+}
+
+/** True when the boat's hull, as the sim draws it, touches the shore, an obstacle or the chart edge. */
+function outOfOpenWater(level: Level, x: number, y: number, heading: number): boolean {
+  const { world, obstacles } = level.mission;
+  const r = level.hullRadiusMm;
+  for (const [px, py] of hullCircles(level, x * POS_SCALE, y * POS_SCALE, heading)) {
+    if (px - r < 0 || py - r < 0 || px + r > world.w || py + r > world.h) return true;
+    if (obstacles.some((o) => circleHitsRect(px, py, r, o))) return true;
+  }
+  return false;
+}
+
+function hullsTouch(
+  level: Level,
+  t: CompiledTraffic,
+  x: number,
+  y: number,
+  heading: number,
+  run: number,
+): boolean {
+  const reach = level.hullRadiusMm + t.radiusMm;
+  const hull = hullCircles(level, x * POS_SCALE, y * POS_SCALE, heading);
+  for (const [tx, ty] of trafficCircles(t, trafficPose(t, run))) {
+    for (const [hx, hy] of hull) {
+      if ((hx - tx) ** 2 + (hy - ty) ** 2 < reach * reach) return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Follows one straight, constant-speed route from the moment the vessel starts
+ * until she finishes her track, the boat leaves open water, or the boat would
+ * cross the stop gate. Judges risk of collision as riskStart does, and records
+ * the vessel's relative bearing on every frame from the start of risk until the
+ * range stops closing or the hulls touch.
+ */
+export function followRoute(
+  level: Level,
+  vessel: number,
+  route: Route,
+  stopGate: { x1: number; y1: number; x2: number; y2: number } | undefined,
+): RouteResult {
+  const t = level.traffic[vessel];
+  if (!t) throw new Error(`no vessel ${vessel}`);
+  const rad = (route.heading * Math.PI) / 180;
+  const ux = Math.sin(rad);
+  const uy = -Math.cos(rad);
+  const v = route.speedMmPerS;
+  const heading = Math.round((route.heading * HEADING_FULL_TURN) / 360);
+  const end = trafficPose(t, Number.MAX_SAFE_INTEGER);
+  const bearings: number[] = [];
+  let risk = false;
+  let lastRange = Infinity;
+  for (let f = 0; ; f++) {
+    const run = Math.trunc((t.data.speedMmPerS * f) / FRAMES_PER_SECOND);
+    const pose = trafficPose(t, run);
+    if (pose.x === end.x && pose.y === end.y) break;
+    const x = route.x + (ux * v * f) / FRAMES_PER_SECOND;
+    const y = route.y + (uy * v * f) / FRAMES_PER_SECOND;
+    if (f > 0 && stopGate) {
+      const px = route.x + (ux * v * (f - 1)) / FRAMES_PER_SECOND;
+      const py = route.y + (uy * v * (f - 1)) / FRAMES_PER_SECOND;
+      if (crossesGate(Math.trunc(px), Math.trunc(py), Math.trunc(x), Math.trunc(y), stopGate))
+        break;
+    }
+    if (f % 6 === 0 && outOfOpenWater(level, x, y, heading)) break;
+    const rx = pose.x - x;
+    const ry = pose.y - y;
+    const range = Math.hypot(rx, ry);
+    const contact = range < t.data.lengthMm + 20000 && hullsTouch(level, t, x, y, heading, run);
+    if (!risk) {
+      const scale = t.data.speedMmPerS / Math.hypot(pose.ux, pose.uy);
+      const wx = pose.ux * scale - ux * v;
+      const wy = pose.uy * scale - uy * v;
+      const w2 = wx * wx + wy * wy;
+      const tcpa = w2 === 0 ? 0 : Math.max(0, -(rx * wx + ry * wy) / w2);
+      const cpa = Math.hypot(rx + wx * tcpa, ry + wy * tcpa);
+      risk = (cpa < RISK_CPA_MM && tcpa <= RISK_HORIZON_S) || contact;
+      lastRange = Infinity;
+    }
+    if (risk) {
+      if (range > lastRange) {
+        if (!contact) break;
+      }
+      lastRange = range;
+      bearings.push(wrap180(degrees(Math.atan2(rx, -ry)) - route.heading));
+    }
+    if (contact) return { route, bearings, contact: true };
+  }
+  return { route, bearings, contact: false };
+}
+
+/**
+ * Every straight route out of a gate the sweep tests: start points every
+ * metre across the gate wherever the hull clears every obstacle on every
+ * heading, every heading within 90 degrees of north in 2 degree steps, and a
+ * stopped boat plus 0.5 to 3.5 m/s in 0.5 m/s steps.
+ */
+export function routesOutOfGate(level: Level, gateIndex: number): Route[] {
+  const gate = level.gates[gateIndex];
+  if (!gate) throw new Error(`no gate ${gateIndex + 1}`);
+  const headings = Array.from({ length: 91 }, (_, i) => (((-90 + 2 * i) % 360) + 360) % 360);
+  const length = Math.hypot(gate.x2 - gate.x1, gate.y2 - gate.y1);
+  const points: { x: number; y: number }[] = [];
+  for (let d = 0; d <= length; d += 1000) {
+    const x = gate.x1 + ((gate.x2 - gate.x1) * d) / length;
+    const y = gate.y1 + ((gate.y2 - gate.y1) * d) / length;
+    const clear = headings.every(
+      (h) => !outOfOpenWater(level, x, y, Math.round((h * HEADING_FULL_TURN) / 360)),
+    );
+    if (clear) points.push({ x, y });
+  }
+  const speeds = [0, 500, 1000, 1500, 2000, 2500, 3000, 3500];
+  return points.flatMap((p) =>
+    headings.flatMap((heading) => speeds.map((speedMmPerS) => ({ ...p, heading, speedMmPerS }))),
   );
 }
