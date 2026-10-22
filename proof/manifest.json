@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#45",
-  "sourceDigest": "sha256:f661969f17a5e85c1203809174cb790b36e5c3a1b2195113016dabd97846847c",
-  "capturedAt": "2026-10-22T12:41:22Z",
+  "sourceDigest": "sha256:381e3d38d51c4bf210b5b615dec1d6fa68285ed7a411d14167cfe0ebd51bbb84",
+  "capturedAt": "2026-10-22T13:40:25Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "docs/prototypes/rules-of-the-road: README.md with 40 relative links to images, the playable Night Harbor Run file and the handoff PDF; docs/product/night-harbor-run-regs-check-2026-10-22.md"
+    "fixture": "docs/product/night-harbor-run-regs-check-2026-10-22.md (second pass, 190 items against the printed rules) and docs/prototypes/rules-of-the-road/README.md"
   },
   "commands": [
     {
@@ -23,8 +23,8 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh passes with the docs added, and every relative link in the gallery README resolves to a committed file"
+      "shows": "verify.sh passes, and every relative link in the gallery README resolves to a committed file"
     }
   ],
-  "noBehaviorReason": "Docs, images, a reference HTML file outside the Vite build, and time cards only. No app code, mission or test changes."
+  "noBehaviorReason": "Docs and time cards only. No app code, mission or test changes."
 }
