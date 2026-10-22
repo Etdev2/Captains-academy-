@@ -20,6 +20,7 @@ This repository is a Sweet Potato project. It follows the rules in Sweet Potato'
 - Clock in on a time card in `agent-resources/timecards/`. See `agent-resources/README.md`.
 - Read `docs/team/HOUSE-RULES.md`. Before choosing or spawning a role, read `docs/team/AI-OPERATING-SYSTEM.md`.
 - Read `docs/product/DECISIONS.md`. Build only on settled decisions, never on parked ones.
+- Before game work, look at `docs/prototypes/`: mockups, playable prototypes, wireframes and handoffs for the arcade game. They are design input, not decisions.
 - Use the vocabulary in `GLOSSARY.md` and the decisions in `docs/adr/` once they exist. See `docs/agents/domain.md`.
 - Framework docs for the pinned versions in `package.json`:
   - Phaser 4.2.1: the agent skill files in `node_modules/phaser/skills/` and the types in `node_modules/phaser/types/phaser.d.ts`, plus https://docs.phaser.io. Check skill advice against those types before relying on it.
