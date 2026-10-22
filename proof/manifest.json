@@ -1,20 +1,16 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#45",
-  "sourceDigest": "sha256:381e3d38d51c4bf210b5b615dec1d6fa68285ed7a411d14167cfe0ebd51bbb84",
-  "capturedAt": "2026-10-22T13:40:25Z",
+  "ticket": "Etdev2/Captains-academy-#50",
+  "sourceDigest": "sha256:b84a3730307883958292e81bcae5214a26fb8b4f4c6775dd9a934a382a8efe79",
+  "capturedAt": "2026-10-22T14:32:28Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "docs/product/night-harbor-run-regs-check-2026-10-22.md (second pass, 190 items against the printed rules) and docs/prototypes/rules-of-the-road/README.md"
+    "fixture": "Chapter 1 decision documents with main 24b471d"
   },
   "commands": [
     {
       "command": "bash scripts/verify.sh",
-      "exitCode": 0
-    },
-    {
-      "command": "cd docs/prototypes/rules-of-the-road && grep -oE \"(\\]\\(|src=\\\")[^)\\\"#]+\" README.md | sed -E \"s/^(\\]\\(|src=\\\")//\" | sort -u | while read -r f; do if git ls-files --error-unmatch \"$f\" >/dev/null 2>&1; then echo \"ok $f\"; else echo \"MISSING $f\"; exit 1; fi; done",
       "exitCode": 0
     }
   ],
@@ -23,8 +19,8 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh passes, and every relative link in the gallery README resolves to a committed file"
+      "shows": "Full verification for the documents-only PR 50 follow-up after merging PR 49"
     }
   ],
-  "noBehaviorReason": "Docs and time cards only. No app code, mission or test changes."
+  "noBehaviorReason": "Documents only; no application behavior changed."
 }
