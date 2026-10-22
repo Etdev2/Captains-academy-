@@ -45,7 +45,7 @@ Each piece below names where it goes in the app and what has to happen first. No
 | --- | --- | --- |
 | Level 3 harbor course | `/play`, from `head-dev/harbor-traffic-course` | Et opens and merges the pull request. `uscg-regs` checks the four traffic lessons (Rules 5, 6, 9, 14, 15) |
 | Definitions level | `/rules`, from `head-dev/ch1-definitions` | Et opens and merges the pull request. `uscg-regs` checks all 17 cards and their Rule 3 citations |
-| Night Harbor Run | A Phaser port inside `/play`, per issue #45's first slice: the Rule 21 arc renderer with unit tests and three gates (head-on, crossing from starboard, overtaking) | The nine must-fix items in the regs check, a reading of the printed rules for its `unverified` rows, and Et's calls on sequencing, rule set, audience and the boss (#45) |
+| Night Harbor Run | A Phaser port inside `/play`, per issue #45's first slice: the Rule 21 arc renderer with unit tests and three gates (head-on, crossing from starboard, overtaking) | The ten must-fix items in the regs check, and Et's calls on sequencing, rule set, audience and the boss (#45) |
 | Lights level (Chapter 1, level 2) | Portrait rapid-fire on `src/sim/rapid.ts` from #47, with a bridge view that draws only lights whose Rule 21 arcs face the player | #47 merged, the lights deck checked by `uscg-regs`, a playtest of level 1 |
 | Levels 3 to 8 and the boss | Mockups only | Design per level, and the G10 boss question in #45 |
 
@@ -173,7 +173,7 @@ The game pauses at about 270 m, or earlier when the player taps CALL IT for a bo
 | 14 | Tug and tow from astern, overtaking signal | 24, 13, 34(c) |
 | 15 | Fog: one prolonged and two short, unseen | 35, 19 |
 
-`uscg-regs` checked every answer, explanation, citation and spoken phrase on 2026-10-22, in [`night-harbor-run-regs-check-2026-10-22.md`](../../product/night-harbor-run-regs-check-2026-10-22.md). Every primary rule source was blocked from that session, so the check is not a sign-off. It found 24 `wrong` items, 165 `unverified` and 1 `verified` (the Rule 32 blast lengths), and lists nine must-fix items before any port. To settle the `unverified` rows, Et supplies the Navigation Rules book or the 33 CFR part 83 PDF and the next session reads the flagged paragraphs.
+`uscg-regs` checked every answer, explanation, citation and spoken phrase against the printed rules on 2026-10-22, in [`night-harbor-run-regs-check-2026-10-22.md`](../../product/night-harbor-run-regs-check-2026-10-22.md). The sources were the Coast Guard's Navigation Rules Handbook (corrected 12 August 2024), NavCen's amalgamated rules page, and 33 CFR parts 80, 83, 84 and 88 on eCFR. Of 190 items, 167 are `verified` and 23 are `wrong`, and ten must be fixed before any port. The Coast Guard and the NMC still have the last word; the check lists three questions for the NMC.
 
 ![Night Harbor Run course layout: 15 gates, a day leg for shapes, a narrow channel on legs 12 to 14 and a fog leg played by sound only](images/night-harbor-run/course-layout.png)
 
@@ -331,7 +331,7 @@ Rules content still to check by `uscg-regs` against 33 CFR 83 and COLREGS:
 
 - All 17 Definitions cards: answers, reasons and Rule 3 citations.
 - The level 3 traffic lessons citing Rules 5, 6, 9, 14 and 15.
-- The Night Harbor Run answers. A first pass is in [`night-harbor-run-regs-check-2026-10-22.md`](../../product/night-harbor-run-regs-check-2026-10-22.md), written without access to the printed rules. It recommends keeping the rowboat answer with a new explanation under Rules 2(a), 7 and 8, and keeping the seaplane answer only for its current layout under Rules 18(e) and 15.
+- The Night Harbor Run answers are checked in [`night-harbor-run-regs-check-2026-10-22.md`](../../product/night-harbor-run-regs-check-2026-10-22.md). The rowboat answer stands under Rules 2(b), 7 and 8. The seaplane question must change, because the code does not draw the wingtip sidelights it asks about, and the explanation must keep Rule 18(e)'s "in general".
 - G10a. NMC confirms the exam numbers, and a Coast Guard reviewer reviews the game, before the OUPV boss and launch.
 
 Corrections made during the session. Green over white is trawling. A sailing vessel shows sidelights and a sternlight and may add red over green. Three white masthead lights belong to the towing vessel when the tow is over 200 m, not to the vessel being towed. Red-white-red is restricted in ability to maneuver. Three reds is constrained by draft, International only.
