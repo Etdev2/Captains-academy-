@@ -58,6 +58,7 @@ const COLOR = {
   water: 0x06121f,
   breakwater: 0x4a5560,
   mooredHull: 0xb9c3cc,
+  channelEdge: 0xe8f1f8,
 };
 
 // Traffic hulls by kind. Hull colors stay off red and green (G15); only the
@@ -168,6 +169,7 @@ export class HarborScene extends Phaser.Scene {
     this.scale_ = Math.min(VIEW_W / world.w, VIEW_H / world.h) * ZOOM;
     this.cameras.main.setBounds(0, 0, this.px(world.w), this.px(world.h));
     this.scenery = new Scenery(this, this.level.mission, (mm) => this.px(mm));
+    this.drawChannels();
     this.drawSlipMarker();
     this.slipGlow = this.add.graphics();
     this.gateMarks = this.add.graphics();
@@ -292,6 +294,36 @@ export class HarborScene extends Phaser.Scene {
       );
   }
 
+  /**
+   * A narrow channel or fairway: a faint band with dashed limits, the way a
+   * chart marks a dredged channel. Pale, not red or green (G15).
+   */
+  private drawChannels(): void {
+    const g = this.add.graphics();
+    for (const c of this.level.mission.channels ?? []) {
+      const x = this.px(c.x);
+      const y = this.px(c.y);
+      const w = this.px(c.w);
+      const h = this.px(c.h);
+      g.fillStyle(COLOR.blue, 0.07).fillRect(x, y, w, h);
+      g.lineStyle(2, COLOR.channelEdge, 0.55);
+      for (let dx = 0; dx < w; dx += 36) {
+        const dash = Math.min(20, w - dx);
+        g.lineBetween(x + dx, y, x + dx + dash, y);
+        g.lineBetween(x + dx, y + h, x + dx + dash, y + h);
+      }
+      this.add
+        .text(x + w / 2, y + h / 2, 'CHANNEL', {
+          fontFamily: FONT,
+          fontSize: '22px',
+          fontStyle: 'bold',
+          color: '#e8f1f8',
+        })
+        .setOrigin(0.5)
+        .setAlpha(0.45);
+    }
+  }
+
   /** A small chart of the whole harbor in the top-right corner. */
   private drawChart(): void {
     const { world, obstacles, slip } = this.level.mission;
@@ -302,6 +334,9 @@ export class HarborScene extends Phaser.Scene {
     const g = this.add.graphics().setScrollFactor(0).setDepth(8);
     g.fillStyle(COLOR.water, 0.9).fillRect(left, top, c(world.w), c(world.h));
     g.lineStyle(1, COLOR.blue, 0.6).strokeRect(left, top, c(world.w), c(world.h));
+    for (const ch of this.level.mission.channels ?? []) {
+      g.fillStyle(COLOR.blue, 0.25).fillRect(left + c(ch.x), top + c(ch.y), c(ch.w), c(ch.h));
+    }
     for (const o of obstacles) {
       g.fillStyle(o.kind === 'moored-boat' ? COLOR.mooredHull : COLOR.breakwater, 1);
       g.fillRect(left + c(o.x), top + c(o.y), Math.max(1, c(o.w)), Math.max(1, c(o.h)));
