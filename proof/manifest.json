@@ -1,41 +1,30 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#42",
-  "sourceDigest": "sha256:c3eae76d89a552ebf8f7f77bd6644f25f48d2ddf65a9a86e9965a751c0e271f9",
-  "capturedAt": "2026-10-21T20:58:04Z",
+  "ticket": "Etdev2/Captains-academy-#45",
+  "sourceDigest": "sha256:f661969f17a5e85c1203809174cb790b36e5c3a1b2195113016dabd97846847c",
+  "capturedAt": "2026-10-22T12:41:22Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "tests/fixtures/oupv-near-coastal/log.json: 12 entries on two vessels (24 and 150 GRT), covering every band, a midnight crossing, a same-day overlap, Inside Passage, Great Lakes, a deleted entry and an open trip, in UTC"
+    "fixture": "docs/prototypes/rules-of-the-road: README.md with 40 relative links to images, the playable Night Harbor Run file and the handoff PDF; docs/product/night-harbor-run-regs-check-2026-10-22.md"
   },
   "commands": [
-    {
-      "command": "bash scripts/verify.test.sh",
-      "exitCode": 0
-    },
     {
       "command": "bash scripts/verify.sh",
       "exitCode": 0
     },
     {
-      "command": "npx --no-install vitest run tests/rules-engine.test.ts tests/rules-oupv-example.test.ts --reporter=verbose",
-      "exitCode": 0
-    },
-    {
-      "command": "cat tests/fixtures/oupv-near-coastal/log.json",
-      "exitCode": 0
-    },
-    {
-      "command": "cat tests/fixtures/oupv-near-coastal/progress.json",
+      "command": "cd docs/prototypes/rules-of-the-road && grep -oE \"(\\]\\(|src=\\\")[^)\\\"#]+\" README.md | sed -E \"s/^(\\]\\(|src=\\\")//\" | sort -u | while read -r f; do if git ls-files --error-unmatch \"$f\" >/dev/null 2>&1; then echo \"ok $f\"; else echo \"MISSING $f\"; exit 1; fi; done",
       "exitCode": 0
     }
   ],
-  "behaviorChanged": true,
+  "behaviorChanged": false,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "The rules engine unit tests (every band edge at 4, 8 and 12 h, the 100 GRT line, null tonnage, overlaps, midnight, every waters value, Great Lakes day for day, the per-day route outcome, deleted entries, citations on every rule, purity and wording), the worked example from log.json to the OUPV near-coastal progress in progress.json, and the full verify.sh passing"
+      "shows": "verify.sh passes with the docs added, and every relative link in the gallery README resolves to a committed file"
     }
-  ]
+  ],
+  "noBehaviorReason": "Docs, images, a reference HTML file outside the Vite build, and time cards only. No app code, mission or test changes."
 }
