@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#46",
-  "sourceDigest": "sha256:cdb52d7406b20a83575750a20658fdf49ce0eaa3c38037571c9ffc47df244b60",
-  "capturedAt": "2026-10-22T16:18:23Z",
+  "sourceDigest": "sha256:d8edd668e701df5b407dd693d189d9c81be3e871145ec4057e3ebfc100e86801",
+  "capturedAt": "2026-10-22T18:16:07Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.test.sh",
-    "fixture": "existing missions/ plus tests/course.test.ts fixtures"
+    "fixture": "missions/long-beach-traffic.json and the harbor course golden replays"
   },
   "commands": [
     {
@@ -18,13 +18,12 @@
       "exitCode": 0
     }
   ],
-  "behaviorChanged": false,
+  "behaviorChanged": true,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh passes all steps; course and mission-schema unit tests pass; golden replays unchanged"
+      "shows": "verify.sh passes; harbor course clean, ferry-hit and powerboat-hit replays pass with pinned bearings; existing level replays unchanged"
     }
-  ],
-  "noBehaviorReason": "Pure src/sim schema and course primitives; nothing player-visible changes until a later #46 slice wires them into HarborScene"
+  ]
 }
