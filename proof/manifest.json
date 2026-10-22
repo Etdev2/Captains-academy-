@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#46",
-  "sourceDigest": "sha256:d8edd668e701df5b407dd693d189d9c81be3e871145ec4057e3ebfc100e86801",
-  "capturedAt": "2026-10-22T18:16:07Z",
-  "result": "PASS",
+  "sourceDigest": "sha256:e991cfe93b2240a9c684092e6e27cdafa421abe926e1276a18fdfde0b8785d1a",
+  "capturedAt": "2026-10-22T19:46:14Z",
+  "result": "FAIL",
   "verification": {
     "command": "bash scripts/verify.test.sh",
-    "fixture": "missions/long-beach-traffic.json and the harbor course golden replays"
+    "fixture": "missions/long-beach-traffic.json and the harbor course golden replays, with the strengthened powerboat tests from 6b7921c"
   },
   "commands": [
     {
@@ -15,7 +15,7 @@
     },
     {
       "command": "bash scripts/verify.sh",
-      "exitCode": 0
+      "exitCode": 1
     }
   ],
   "behaviorChanged": true,
@@ -23,7 +23,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh passes; harbor course clean, ferry-hit and powerboat-hit replays pass with pinned bearings; existing level replays unchanged"
+      "shows": "verify.test.sh passes; verify.sh fails on the three powerboat crossing tests added in 6b7921c, which fail by design until the P1 decision"
     }
   ]
 }
