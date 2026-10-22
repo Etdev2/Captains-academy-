@@ -22,11 +22,11 @@
 
 | Field | Value |
 | --- | --- |
-| Clock out (UTC) | still clocked in |
-| Outcome | finished/passed, finished/handoff or finished/failed |
+| Clock out (UTC) | 2026-10-22 14:34 |
+| Outcome | finished/passed |
 | Pull requests | https://github.com/Etdev2/Captains-academy-/pull/50 |
 | Tokens | |
-| Token standing | measured, estimated or unavailable |
-| Token coverage | complete or partial |
-| Handoff to | |
-| Note | |
+| Token standing | unavailable |
+| Token coverage | |
+| Handoff to | Et for review and merge |
+| Note | Rebased PR #50 onto main at 24b471d while preserving PR #49's regulation-check documents. Token usage was unavailable. |

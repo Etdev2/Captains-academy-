@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#50",
-  "sourceDigest": "sha256:b84a3730307883958292e81bcae5214a26fb8b4f4c6775dd9a934a382a8efe79",
-  "capturedAt": "2026-10-22T14:32:28Z",
+  "sourceDigest": "sha256:625efddf3571933977fe14c1b1ada94a496b3f393351c7182dc23d8ddf684423",
+  "capturedAt": "2026-10-22T14:35:14Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "Chapter 1 decision documents with main 24b471d"
+    "fixture": "Chapter 1 decision documents rebased onto main 24b471d"
   },
   "commands": [
     {
@@ -19,7 +19,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "Full verification for the documents-only PR 50 follow-up after merging PR 49"
+      "shows": "Full verification for the documents-only rebased PR 50 follow-up"
     }
   ],
   "noBehaviorReason": "Documents only; no application behavior changed."
