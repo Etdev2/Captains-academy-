@@ -9,7 +9,8 @@ Chapter 1 needs one content shape for rapid-fire cards, steering situations and 
 ## Decision
 
 - Content files live in `content/chapter-1/` as versioned JSON. `src/sim/content.ts` owns the zod schema and parsing. Phaser scenes receive parsed content and do not contain answer keys or citations.
-- A deck has a stable deck ID, schema version and one or more items. Each item has a stable situation ID, kind (`card`, `situation` or `question`), art reference, cue, answer ID, distractor IDs, explanation, spoken phrase, rule citations, rule set and review status.
+- A deck has a stable deck ID, schema version and one or more items. Each item has a stable situation ID, kind (`card`, `situation` or `question`), art reference, cue, answer option, distractor options, explanation, spoken phrase, rule citations, rule set and review status.
+- An answer option has a stable option ID, player-facing label and an optional art reference. Zod rejects a repeated option ID or an answer also listed as a distractor.
 - Every citation names the rule and paragraph. A bare rule number does not pass the schema. An item has at least one citation and at least two distractors.
 - Rule set is one of `both`, `inland` or `international` (G6). It is content data, not text inferred from a cue.
 - Review status is a discriminated union. `draft` carries no approval claim. `checked` requires `reviewer: "uscg-regs"`, the check date, source title or edition, and the citations checked. The schema cannot represent a checked item without review evidence.
