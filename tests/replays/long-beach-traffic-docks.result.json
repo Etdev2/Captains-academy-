@@ -14,14 +14,13 @@
       "gates": 5,
       "starts": [
         0,
-        5202,
         8752,
         8752
       ],
       "struckBy": -1
     }
   },
-  "traceHash": 172458944,
+  "traceHash": 4175753954,
   "encounters": {
     "container ship": {
       "riskBegins": {
@@ -32,17 +31,6 @@
         "relativeBearing": -81.1,
         "vesselCourse": 90,
         "rangeMm": 109516
-      }
-    },
-    "powerboat": {
-      "riskBegins": {
-        "frame": 5362,
-        "x": 192108,
-        "y": 113911,
-        "heading": 19,
-        "relativeBearing": 61.3,
-        "vesselCourse": 270,
-        "rangeMm": 81751
       }
     },
     "ferry": {

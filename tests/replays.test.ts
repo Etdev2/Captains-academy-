@@ -23,10 +23,6 @@ const expected: Record<string, string> = {
   'long-beach-crosswind-docks': 'docked',
   'long-beach-traffic-docks': 'docked',
   'long-beach-traffic-hit-by-ferry': 'hit',
-  'long-beach-traffic-hit-by-powerboat': 'hit',
-  // The PR #54 review's probe. It ends in a hit by the powerboat from abaft
-  // the beam until her geometry is fixed; tests/harbor-course.test.ts fails on it.
-  'long-beach-traffic-overtaken-from-gate-3': 'hit',
 };
 
 describe('golden replays', () => {

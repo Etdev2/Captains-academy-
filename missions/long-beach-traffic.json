@@ -311,25 +311,6 @@
       ]
     },
     {
-      "name": "powerboat",
-      "kind": "powerboat",
-      "lengthMm": 10000,
-      "beamMm": 3500,
-      "speedMmPerS": 3500,
-      "startAfterGate": 3,
-      "lesson": "She crossed from your starboard side, so you give way: slow down or pass astern (Rule 15).",
-      "path": [
-        {
-          "x": 282000,
-          "y": 100000
-        },
-        {
-          "x": 0,
-          "y": 100000
-        }
-      ]
-    },
-    {
       "name": "ferry",
       "kind": "ferry",
       "lengthMm": 30000,

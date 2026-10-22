@@ -14,21 +14,12 @@ import {
   step,
   trafficPoses,
 } from '../src/sim/sim';
-import {
-  CROSSING_LIMIT_DEG,
-  closingSamples,
-  firstTurn,
-  followRoute,
-  framesOf,
-  riskStart,
-  routesOutOfGate,
-  sampleAt,
-  trace,
-} from './helpers/encounter';
+import { firstTurn, framesOf, sampleAt, trace } from './helpers/encounter';
 
 // The Long Beach harbor course (#46): gates in order, traffic on fixed tracks,
 // a slip that waits for the last gate, and the traffic situations corrected by
 // the uscg-regs check (docs/product/harbor-traffic-regs-check-2026-10-22.md).
+// The powerboat is out of this slice; she returns with a Rule 13 lesson.
 
 const root = join(import.meta.dirname, '..');
 const load = (id: string) =>
@@ -38,8 +29,7 @@ const load = (id: string) =>
 const course = load('long-beach-traffic');
 const { mission } = course;
 const SHIP = 0;
-const POWERBOAT = 1;
-const FERRY = 2;
+const FERRY = 1;
 const vessel = (i: number) => {
   const t = course.traffic[i];
   if (!t) throw new Error(`the course has no vessel ${i}`);
@@ -58,9 +48,6 @@ const replay = (name: string) => {
 };
 const clean = replay('long-beach-traffic-docks');
 const ferryHit = replay('long-beach-traffic-hit-by-ferry');
-const powerboatHit = replay('long-beach-traffic-hit-by-powerboat');
-// The PR #54 review's probe: slow out of gate 3 on 306.9, holding course.
-const overtakenFromGate3 = replay('long-beach-traffic-overtaken-from-gate-3');
 const last = (states: SimState[]) => {
   const s = states.at(-1);
   if (!s) throw new Error('empty trace');
@@ -69,12 +56,7 @@ const last = (states: SimState[]) => {
 
 describe('the course level', () => {
   it('names its traffic in the order these tests use', () => {
-    expect(course.traffic.map((t) => t.data.name)).toEqual([
-      'container ship',
-      'powerboat',
-      'ferry',
-      'kayak',
-    ]);
+    expect(course.traffic.map((t) => t.data.name)).toEqual(['container ship', 'ferry', 'kayak']);
   });
 
   it('leaves levels without a course exactly as they were', () => {
@@ -96,7 +78,7 @@ describe('the course level', () => {
       speed: Math.trunc((2500 * POS_SCALE) / FRAMES_PER_SECOND),
     };
     expect(run(below, 180).course?.gates).toBe(0);
-    const afterGate1 = { ...below, course: { gates: 1, starts: [0, -1, -1, -1], struckBy: -1 } };
+    const afterGate1 = { ...below, course: { gates: 1, starts: [0, -1, -1], struckBy: -1 } };
     expect(run(afterGate1, 180).course?.gates).toBe(2);
   });
 
@@ -110,7 +92,7 @@ describe('the course level', () => {
     };
     const frames = course.holdFrames + 5;
     expect(run(inSlip, frames).outcome).toBe('playing');
-    const allGates = { ...inSlip, course: { gates: 5, starts: [0, 1, 1, 1], struckBy: -1 } };
+    const allGates = { ...inSlip, course: { gates: 5, starts: [0, 1, 1], struckBy: -1 } };
     expect(run(allGates, frames).outcome).toBe('docked');
   });
 
@@ -130,10 +112,9 @@ describe('the course level', () => {
 describe('traffic start times', () => {
   it('starts the ship at once and holds the others at their first point', () => {
     const start = initialState(course);
-    expect(start.course?.starts).toEqual([0, -1, -1, -1]);
+    expect(start.course?.starts).toEqual([0, -1, -1]);
     const later = run(start, 300);
-    const [ship, powerboat, ferry] = trafficPoses(course, later);
-    expect(powerboat).toMatchObject(vessel(POWERBOAT).data.path[0] ?? {});
+    const [ship, ferry] = trafficPoses(course, later);
     expect(ferry).toMatchObject(vessel(FERRY).data.path[0] ?? {});
     const shipStart = vessel(SHIP).data.path[0];
     expect(ship?.x).toBe((shipStart?.x ?? 0) + Math.trunc((3500 * 300) / FRAMES_PER_SECOND));
@@ -206,74 +187,6 @@ describe('the ship in the channel (Rules 9(b), 9(d))', () => {
   });
 });
 
-// Rule 13(b): a vessel coming up from more than 22.5 degrees abaft the beam is
-// overtaking (more than 112.5 degrees relative). A crossing from starboard
-// keeps the powerboat between dead ahead and that line less a 15 degree
-// margin, CROSSING_LIMIT_DEG, on every frame from the start of risk of
-// collision until the range stops closing or the hulls touch.
-const crossesFromStarboard = (bearings: readonly number[]) =>
-  bearings.every((b) => b > 0 && b < CROSSING_LIMIT_DEG);
-
-describe('the powerboat crossing (Rule 15)', () => {
-  it('is a crossing from starboard on every frame of risk in the golden replays', () => {
-    for (const states of [clean, powerboatHit]) {
-      const closing = closingSamples(course, states, POWERBOAT);
-      expect(closing.length).toBeGreaterThan(0);
-      for (const s of closing) {
-        expect(s.relativeBearing).toBeGreaterThan(0);
-        expect(s.relativeBearing).toBeLessThan(CROSSING_LIMIT_DEG);
-      }
-    }
-  });
-
-  it('hits a player who holds course instead of keeping out of her way', () => {
-    const final = last(powerboatHit);
-    expect(final.outcome).toBe('hit');
-    expect(final.course?.struckBy).toBe(POWERBOAT);
-    // The helmsman held one heading from risk of collision to the hit.
-    const f = riskStart(course, powerboatHit, POWERBOAT) ?? 0;
-    const headings = powerboatHit
-      .slice(f)
-      .map((s) => sampleAt(course, powerboatHit, s.frame, POWERBOAT).heading);
-    expect(Math.max(...headings) - Math.min(...headings)).toBeLessThan(1);
-  });
-
-  it('never hits the review probe from abaft the beam', () => {
-    // A slow player holding 306.9 out of gate 3 must not be hit by an
-    // overtaking powerboat under the Rule 15 banner.
-    const final = last(overtakenFromGate3);
-    if (final.course?.struckBy !== POWERBOAT) return;
-    for (const s of closingSamples(course, overtakenFromGate3, POWERBOAT)) {
-      expect(s.relativeBearing).toBeGreaterThan(0);
-      expect(s.relativeBearing).toBeLessThan(CROSSING_LIMIT_DEG);
-    }
-  });
-
-  // Every straight, constant-speed route out of gate 3: points every metre
-  // across the gate where the hull clears the moored boat at its east end,
-  // every heading within 90 degrees of north in 2 degree steps, and a stopped
-  // boat plus 0.5 to 3.5 m/s in 0.5 m/s steps. Each route runs until the
-  // powerboat finishes her track, the boat leaves open water, or the boat
-  // would reach gate 4. Contact uses the sim's own hull and traffic circles.
-  it('meets the powerboat as a crossing from starboard on every route out of gate 3', () => {
-    expect(vessel(POWERBOAT).data.startAfterGate).toBe(3);
-    const routes = routesOutOfGate(course, 2);
-    expect(routes.length).toBeGreaterThan(10000);
-    const failures = routes
-      .map((r) => followRoute(course, POWERBOAT, r, mission.gates?.[3]))
-      .filter((r) => r.bearings.length > 0 && !crossesFromStarboard(r.bearings))
-      .map((r) => ({
-        ...r.route,
-        contact: r.contact,
-        first: Math.round(r.bearings[0] ?? 0),
-        worst: Math.round(
-          r.bearings.reduce((w, b) => (b <= 0 || b >= CROSSING_LIMIT_DEG ? b : w), 0),
-        ),
-      }));
-    expect(failures.slice(0, 5), `${failures.length} of ${routes.length} routes fail`).toEqual([]);
-  }, 120_000);
-});
-
 describe('the ferry head-on (Rule 14)', () => {
   it('is within a few degrees of dead ahead, on a nearly reciprocal course, when she turns to starboard', () => {
     for (const states of [clean, ferryHit]) {
@@ -293,6 +206,16 @@ describe('the ferry head-on (Rule 14)', () => {
     expect(leg1.dx).toBeGreaterThan(0);
     expect(leg1.dy).toBe(0);
     expect(leg2.dy).toBeGreaterThan(0);
+  });
+
+  it('passes port to port in the clean run', () => {
+    // At her closest approach she is on the player's port side.
+    const closest = clean
+      .map((st) => sampleAt(course, clean, st.frame, FERRY))
+      .filter((st) => (clean[st.frame]?.course?.starts[FERRY] ?? -1) >= 0)
+      .reduce((a, b) => (b.rangeMm < a.rangeMm ? b : a));
+    expect(closest.relativeBearing).toBeLessThan(0);
+    expect(closest.relativeBearing).toBeGreaterThan(-180);
   });
 
   it('hits a player who turns to port into her', () => {
