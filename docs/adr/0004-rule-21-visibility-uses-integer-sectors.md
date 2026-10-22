@@ -6,6 +6,8 @@ status: proposed
 
 The Lights level, Night Harbor Run and the flashcards must agree on which navigation lights an observer can see. The prototype uses floating-point degree comparisons and lets several lights own the same aft boundary. The regulation check says to choose and test one boundary convention before a port.
 
+Et settled the product choices that constrain this proposal on 2026-10-22 from 7:11 to 7:17 AM PT, recorded in [PR #50's decision comment](https://github.com/Etdev2/Captains-academy-/pull/50#issuecomment-6343017518). Night Harbor Run is a later level after the exam boss, and Inland and International differences use separate levels. The shared module and boundary convention remain proposed.
+
 ## Decision
 
 - `src/sim/navigation-lights.ts` is the sole Rule 21 visibility module. It imports no Phaser, DOM or audio code.
@@ -13,7 +15,8 @@ The Lights level, Night Harbor Run and the flashcards must agree on which naviga
 - The module normalizes relative aspect to a signed integer half-turn. Rule 21 boundaries are exact in this representation: 112.5 degrees is 320 units and 67.5 degrees is 192 units.
 - Sector tests use integer comparisons. They do not use `atan2`, floating-point epsilon values or rounded degree strings.
 - Sectors are half-open where an aft boundary meets another sector. The aft sector owns exactly 112.5 degrees, so one input has one documented result. The masthead and sidelight sectors exclude that aft endpoint; the stern or towing sector includes it. Both sidelights may show at or close to dead ahead when the configured forward cutoff allows it.
-- The nominal Rule 21 sectors and any Annex I forward cutoff are separate inputs. `uscg-regs` must check the cutoff and exact endpoint convention before this ADR can become accepted.
+- The nominal Rule 21 sectors and any Annex I forward cutoff are separate inputs. The 2026-10-22 second regulation pass verified the Rule 21 sectors and 1.5 degree forward overlap against the printed rules. It also requires one documented and tested convention at the exact aft boundary.
+- Both rule-set levels call this module. Night Harbor Run reuses it only after the boss and after its ten must-fix regulation findings are corrected.
 - Outputs are the normalized aspect and stable IDs of visible lights. Renderers choose placement and brightness, but they cannot override visibility.
 
 This shared module and endpoint convention are proposed. Pure deterministic simulation is decided by G1 and ADR 0001. Real navigation-light colors are decided in the Flashcards section and G15.
@@ -37,4 +40,4 @@ This shared module and endpoint convention are proposed. Pure deterministic simu
 
 - Rule 21 changes in one place. Flashcards and both games can use different art while sharing visibility.
 - The input bearing is quantized to about 0.35 degrees. That is finer than the game's visual resolution and keeps every sector boundary deterministic.
-- The regulation check remains a release gate. The current 2026-10-22 check could not read the primary rule text and is not sign-off.
+- The regulation check read the governing paragraph for all 190 prototype items. It verified 167 and marked 23 wrong. The ten must-fix items remain a release gate for any Night Harbor Run port.

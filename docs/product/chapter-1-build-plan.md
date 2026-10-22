@@ -4,14 +4,14 @@ This plan covers Chapter 1, Rules of the Road. It does not authorize application
 
 ## Sources and fixed point
 
-This plan read `main` at commit `86aabcf8422c932f159b507dda7f329a541d8449` on 2026-10-22.
+The first plan read `main` at commit `86aabcf8422c932f159b507dda7f329a541d8449` on 2026-10-22. This follow-up merged `main` at `24b471d`, the merge of PR #49, and keeps its second-pass Night Harbor Run regulation check.
 
 It also read these unmerged branch heads:
 
 - `head-dev/harbor-traffic-course` at `7df4aec`, associated with issue #46
 - `head-dev/ch1-definitions` at `3c67dd4`, associated with issue #47
 
-GitHub had no pull request numbered 46 or 47 when this plan was written. Those numbers identify open issues. The branch contents were available and were read directly.
+GitHub had no pull request numbered 46 or 47 when the first plan was written. Those numbers identified open issues, and the branch contents were read directly. Et has since decided that the checked branches become split, small build pull requests.
 
 The plan also uses issue #45, the Rules of the Road prototype gallery, the 2026-10-22 Night Harbor Run regulation check, ADR 0001 and `docs/product/DECISIONS.md`. Prototype and issue text supplied design evidence only. It did not override settled decisions.
 
@@ -28,7 +28,15 @@ The plan also uses issue #45, the Rules of the Road prototype gallery, the 2026-
 | Both rule sets in Chapter 1 and a visible rule-set chip | Decided | G6 |
 | Three hearts, miss replay, stars and unlock thresholds | Decided | G11 and G12 |
 | Shared mastery between the game and flashcards | Decided | G9 |
-| Timed multiple-choice exam boss and two passing runs | Decided unless Et changes it | G10 and G10a |
+| Timed multiple-choice exam boss and two passing runs | Decided | G10 and G10a |
+| Night Harbor Run as a later post-boss level | Decided | G10b |
+| Separate Inland and International difference levels | Decided | G6 |
+| Rule 5 in level 1 and Rule 10 in level 8 | Decided | G7 |
+| Mixed-review stops after level 5 and before the boss | Decided | G7 and G12 |
+| Boss unlocks later chapters and permits unlimited retries | Decided | G12 |
+| Candidates and cadets as the audience | Decided | G3 |
+| Chapter 1 starts alongside the sea-time log | Decided | A3 and G19 |
+| Checked, split #46 before checked, split #47 | Decided | G19a |
 | Validated content files and review evidence | Proposed | ADR 0002 |
 | One rapid-fire run state machine | Proposed | ADR 0003 |
 | One integer Rule 21 visibility module | Proposed | ADR 0004 |
@@ -36,18 +44,32 @@ The plan also uses issue #45, the Rules of the Road prototype gallery, the 2026-
 | One level registry for `/rules` and `/play` | Proposed | ADR 0006 |
 | Composed steering systems on #46 | Proposed | ADR 0007 |
 | Shared interface palette and signal pulse | Proposed | ADR 0008 |
-| Night Harbor Run's place relative to the G10 boss | Open | Et |
-| The player-facing shape of Inland and International variants | Open | Et |
+
+## Et's 2026-10-22 decisions
+
+Et settled the former Questions for Et from 7:11 to 7:17 AM PT on 2026-10-22. The source is [PR #50's decision comment](https://github.com/Etdev2/Captains-academy-/pull/50#issuecomment-6343017518).
+
+- Night Harbor Run is a later level after the timed multiple-choice boss.
+- Inland and International differences use separate levels, not a selector.
+- Chapter 1 starts now alongside the sea-time log.
+- Level 1 includes Rule 5 lookout. Level 8 includes Rule 10 traffic separation schemes.
+- The audience includes license candidates and Coast Guard Academy cadets.
+- Mixed-review stops follow level 5 and the rule-set difference levels.
+- Beating the Chapter 1 boss unlocks later chapters. The boss permits unlimited retries.
+- `uscg-regs` is the only rules reviewer for now. G10a has no named human Coast Guard reviewer.
+- #46 and #47 become small build pull requests after `uscg-regs` checks their content. All #46 slices integrate before #47.
 
 ## Smallest build path
 
-1. Integrate #46 and #47 in the order described under [Merge order](#merge-order-for-46-and-47).
+1. Have `uscg-regs` check #46 and #47, split each branch into small pull requests, then integrate #46 before #47 as described under [Merge order](#merge-order-for-46-and-47).
 2. In the Definitions ticket, migrate #47's deck and mastery data before adding another deck. Extract its shared rapid-fire scene flow instead of copying `DefinitionsScene`.
 3. Build the Lights level next. It supplies the Rule 21 module needed by flashcards and any Night Harbor Run port.
 4. Add day shapes and Rule 18 as view and input adapters over the same rapid-fire state machine.
-5. Add the pure horn hold evaluator for level 4. Audio remains an output.
-6. Reuse #46's course, traffic and helm for levels 6 to 8. Add only the lesson state each level needs.
-7. Do not implement a boss form or an Inland variant until Et answers the open questions.
+5. Add the first mixed-review stop after Rule 18.
+6. Reuse #46's course, traffic and helm for the three shared steering levels. Add only the lesson state each level needs.
+7. Add separate Inland and International difference levels, then the second mixed-review stop.
+8. Build the G10 exam boss after its NMC gate. Give it unlimited retries and unlock later chapters when the player beats it.
+9. Build Night Harbor Run later from the checked shared systems and corrected prototype content.
 
 ## Content model
 
@@ -127,7 +149,7 @@ type Deck = {
 };
 ```
 
-Zod checks this data during normal verification and before a scene starts. The checks cover nonempty and unique IDs, valid calendar dates, distinct answer and distractor option IDs, resolved art references, paragraph-level citations, rule-set values and the review union. Choice interactions require at least two real distractors. Timed-signal interactions require an answer pattern and an empty distractor list because the player performs the answer. Annex I may add a citation but cannot replace the item's applicable rule paragraph. The checked citation list must cover every item citation. A `checked` item without `uscg-regs`, a date and source evidence cannot parse. A content test also rejects an answer repeated among its distractors.
+Zod checks this data during normal verification and before a scene starts. The checks cover nonempty and unique IDs, valid calendar dates, distinct answer and distractor option IDs, resolved art references, paragraph-level citations, rule-set values and the review union. Choice interactions require at least two real distractors. Timed-signal interactions require an answer pattern and an empty distractor list because the player performs the answer. Annex I may add a citation but cannot replace the item's applicable rule paragraph. The checked citation list must cover every item citation. A `checked` item without `uscg-regs`, a date and source evidence cannot parse. Current G10a requires no human-review field. A content test also rejects an answer repeated among its distractors.
 
 The `masteryObjectives` list separates rules the player is tested on from citations that only support an explanation. This prevents a Rules 15 and 16 explanation from granting mastery for both when the question tested only Rule 15.
 
@@ -139,7 +161,7 @@ flowchart LR
   B --> C["/rules rapid-fire adapters"]
   B --> D["/play steering adapters"]
   B --> E["Flashcards"]
-  B --> F["Boss adapter<br/>Route unresolved"]
+  B --> F["Boss adapter on /rules"]
   C -->|answer events| G["Mastery storage service"]
   D -->|answer events| G
   E -->|answer events| G
@@ -185,7 +207,7 @@ Outputs:
 - normalized relative aspect
 - stable IDs of visible lights
 
-The existing turn representation makes the main boundaries exact. A 112.5 degree sector is 320 units and a 67.5 degree half-sector is 192 units. Integer normalization and comparisons avoid floating-point edge errors. Half-open sectors give an exact aft boundary to the stern or towing sector. The masthead and sidelight sectors stop one unit before it. `uscg-regs` must check that endpoint convention against the primary text before ADR 0004 can become accepted.
+The existing turn representation makes the main boundaries exact. A 112.5 degree sector is 320 units and a 67.5 degree half-sector is 192 units. Integer normalization and comparisons avoid floating-point edge errors. Half-open sectors give an exact aft boundary to the stern or towing sector. The masthead and sidelight sectors stop one unit before it. PR #49 verified the governing sectors and required one documented, tested convention at their exact shared boundary. ADR 0004 proposes the half-open convention.
 
 Unit tests cover each boundary at one unit inside, exactly on and one unit outside. They also cover wraparound, port and starboard mirroring, rotational invariance, all-round lights and fixed flashcard aspects.
 
@@ -256,22 +278,29 @@ ADR 0006 proposes one registry consumed by both route shells and the chapter map
 | 3 | `ch1-day-shapes` | Rapid-fire | `/rules` | One star on level 2 |
 | 4 | `ch1-horn-signals` | Rapid-fire | `/rules` | One star on level 3 |
 | 5 | `ch1-rule-18` | Rapid-fire | `/rules` | One star on level 4 |
-| 6 | `ch1-steady-bearing` | Steering | `/play` | One star on level 5 |
-| 7 | `ch1-give-way` | Steering | `/play` | One star on level 6 |
-| 8 | `ch1-fog-narrow-channels` | Steering | `/play` | One star on level 7 |
-| 9 | `ch1-boss` | Pending | Pending | Two stars on levels 1 to 8 |
+| 6 | `ch1-review-one` | Mixed review | `/rules` | One star on level 5 |
+| 7 | `ch1-steady-bearing` | Steering | `/play` | One star on review one |
+| 8 | `ch1-give-way` | Steering | `/play` | One star on level 7 |
+| 9 | `ch1-fog-narrow-channels` | Steering | `/play` | One star on level 8 |
+| 10 | `ch1-inland-differences` | Rapid-fire review | `/rules` | One star on level 9 |
+| 11 | `ch1-international-differences` | Rapid-fire review | `/rules` | One star on level 10 |
+| 12 | `ch1-review-two` | Mixed review | `/rules` | One star on level 11 |
+| 13 | `ch1-boss` | Timed exam | `/rules` | Two stars on levels 1 to 12 |
+| 14 | `ch1-night-harbor-run` | Steering | `/play` | Boss beaten |
 
-Each entry has its supported rule sets and the active run's rule-set chip. Shared content displays `Both`. An Inland-only or International-only situation displays that set. The exact selector or separate-variant flow is open.
+Each entry has its supported rule set and displays it. Shared levels display `Both`. The difference levels display `Inland` or `International`; there is no selector inside a level.
 
-A discriminated registry entry is either `active`, with a route and content or mission adapter, or `pending`, with a blocking decision and no adapter. Only the boss may be pending. Integrity tests require every active entry to resolve and require a pending entry not to claim a route or content ID. The chapter map shows the pending boss as locked, so it cannot be selected before Et's decision.
+Every registry entry is active only when its route and content or mission adapter resolve. Integrity tests reject an unresolved entry, a boss that omits a pre-boss prerequisite, Night Harbor Run before the boss, or a later chapter that unlocks before the Chapter 1 boss.
 
 A Chapter 1 completion result supplies cleared state, semantic misses, elapsed frames and par frames. Its star policy follows G12: three stars for no misses inside par, two for one miss and one for any clear. #46's docking-specific bump policy remains with the docking prototype and does not become Chapter 1's star policy.
+
+The mixed-review stops interleave already checked situations and update their original mastery objectives. The second stop appears after both rule-set difference levels and immediately before the boss. The boss permits unlimited retries. Beating it unlocks the later chapters and Night Harbor Run; Night Harbor Run is not part of the chapter unlock requirement.
 
 A new level plugs in by adding parsed content or a mission, a scene adapter, one registry entry, unit and golden tests, end-to-end coverage and a verification-skill feature. It does not add another unlock implementation.
 
 ## Steering levels
 
-Branch #46 supplies the parts levels 6 to 8 should reuse:
+Branch #46 supplies the parts the three shared steering lessons should reuse:
 
 - the mission gate schema and ordered gate state
 - fixed-track traffic and start triggers
@@ -308,7 +337,7 @@ flowchart LR
   H --> M["Rule feedback"]
 ```
 
-Level 6 gets a success replay and a constant-bearing miss. Level 7 gets correct and canonical wrong replays for overtaking, head-on and crossing. Level 8 gets a narrow-channel success, a radar-only fog success and an unsafe-speed or wrong-turn miss.
+Steady bearing gets a success replay and a constant-bearing miss. Who gives way gets correct and canonical wrong replays for overtaking, head-on and crossing. Fog, traffic separation schemes and narrow channels gets a channel success, a radar-only fog success and an unsafe-speed or wrong-turn miss.
 
 ## Shared sound and color rules
 
@@ -322,35 +351,17 @@ ADR 0008 proposes a typed interface palette and one `SignalPulse` component unde
 
 Tests render every signal with audio disabled. Import-boundary and palette tests reject interface red or green outside navigation-world art. Image review still checks colors baked into art.
 
-## Boss options
+## Boss and Night Harbor Run
 
-Et must choose. This plan does not select an option.
+The timed multiple-choice G10 exam remains the Chapter 1 boss. It requires the real passing mark on two separate runs, permits unlimited retries and unlocks the later chapters when beaten. Current G10a requires NMC confirmation but no named human Coast Guard reviewer; `uscg-regs` checks every question.
 
-### Option 1: Night Harbor Run replaces the G10 exam boss
-
-This changes settled G10. `DECISIONS.md` and the boss acceptance tests would need an explicit amendment. The course would have to preserve the two-run 90 percent requirement or Et would have to replace that requirement too. The current prototype needs all nine must-fix regulation items, paragraph-level review, deterministic Phaser systems and new mobile proof. This has the highest rule-content and simulation cost.
-
-### Option 2: Night Harbor Run runs alongside the G10 exam boss
-
-The timed multiple-choice boss remains the chapter-clear gate. Night Harbor Run becomes a separate chapter challenge or practice course. This preserves exam-format coverage and reuses the Rule 21, steering, radar and sound systems. It adds a second large chapter activity, a registry position, its own stars or rewards, and a clear explanation that it does not replace the exam boss.
-
-### Option 3: Night Harbor Run becomes a later level
-
-Chapter 1 ships with the G10 exam boss. Night Harbor Run waits until levels 2 and 6 to 8 have proved the shared systems and the regulation check has primary sources. This has the lowest immediate cost and the least throwaway code. It defers the prototype's combined course and requires a later content and playtest pass.
-
-Under the current decisions, only options 2 and 3 can proceed without changing G10.
+Night Harbor Run is a separate later steering level after the boss. It reuses the Rule 21, course, bearing, radar, sound and presentation systems only after those systems work in the earlier levels. PR #49's second regulation pass read the governing text for all 190 prototype items. It verified 167 and marked 23 wrong. The ten must-fix findings must be corrected before a port.
 
 ## Inland and International delivery
 
-G6 already decides that Chapter 1 covers both rule sets. The open question is how a player enters and experiences a variant.
+G6 now settles the delivery. Shared rules use the shared levels first. Inland differences and International differences each get a separate rapid-fire review level under `/rules`; there is no rule-set selector inside a level.
 
-If Et wants variants now, a level run selects `inland` or `international`. Shared items marked `both` appear in either run. Variant items use the same situation ID when they test the same scene, with rule-set-specific answers, vessel specs, explanations, spoken phrases and citations. Each variant gets separate `uscg-regs` evidence, mastery keys and golden replays. The chapter map needs a selector and completion policy for the two runs.
-
-The cost now is dual content review, selector design, registry rules, mastery display, tests and proof for both runs. Night Harbor Run also needs changed signals, pushing lights, pipeline lights, constrained-by-draft content and fog answers listed in the 2026-10-22 regulation check.
-
-If Et wants variants later, build only checked shared content plus clearly tagged single-rule-set situations now. Keep stable situation IDs and explicit rule-set fields. Later work adds overlays or sibling items, a selector and second-set replays. This delays dual review, but later scene and progress tests must expand. It does not require changing mastery keys or the base content schema.
-
-The plan does not choose between a selector, separate differences levels or a later Night Harbor Run variant.
+The difference decks may reuse a situation ID when they test the same scene, but each has rule-set-specific answers, vessel specs, explanations, spoken phrases, citations, `uscg-regs` evidence, mastery keys and golden replays. The Inland check in PR #49 names changed maneuvering signals, pushing lights, pipeline lights, constrained-by-draft content and fog answers that these levels must cover.
 
 ## Build tickets
 
@@ -361,7 +372,7 @@ Each implementation ticket follows the same handoff. `uscg-regs` checks the name
 Scope:
 
 - Integrate #47's Definitions level.
-- Add the settled lookout part of G7 or wait if Et changes G7.
+- Add the settled Rule 5 lookout material.
 - Migrate the Definitions deck to ADR 0002.
 - Extract shared rapid-fire scene flow.
 - Migrate per-card mastery to ADR 0005.
@@ -417,7 +428,7 @@ Tests:
 - rapid golden replay across sector edges
 - clean, missed and muted portrait runs
 
-`uscg-regs` first checks Rules 20, 21 and each applicable paragraph in Rules 23 to 31, plus Annex I cutoff behavior. The 2026-10-22 check is not sign-off because it could not read primary text.
+`uscg-regs` first checks the Lights deck against Rules 20, 21 and each applicable paragraph in Rules 23 to 31. PR #49 already verified the prototype's Rule 21 sectors and Annex I cutoff behavior against the printed text.
 
 Roles: `uscg-regs` checks sectors and deck content; `ux-ui` owns bridge-view readability without using interface red or green; `head-dev` builds the module and adapter; `test-agent` pins boundaries and replays; `code-reviewer` reviews shared use; `git-integrator` prepares it for Et.
 
@@ -497,13 +508,38 @@ Tests:
 - pair ordering does not reveal the answer
 - clean and missed golden replays
 - exceptions and rule-set tags parse
-- level 6 unlock
+- first mixed-review stop unlock
 
 `uscg-regs` first checks every Rule 18 paragraph and the Rules 9, 10 and 13 exceptions used by a situation. It resolves the rowboat and seaplane questions from the Night Harbor Run check before those situations appear.
 
 Roles: `uscg-regs` checks ranking and exceptions; `ux-ui` owns the one-thumb flick and non-color cues; `head-dev` adds the adapter; `test-agent` covers pair order and gestures; `code-reviewer` checks against absolute-rank wording; `git-integrator` prepares it for Et.
 
-### Ticket 6: Steady bearing, Rule 7
+### Ticket 6: First mixed-review stop
+
+Scope:
+
+- Interleave checked situations from levels 1 to 5.
+- Reuse the rapid-fire engine, original mastery objectives and G12 stars.
+- Place the stop after Rule 18 and before steering starts.
+
+Modules touched:
+
+- a generated or declared `ch1-review-one` deck
+- `src/sim/rapid.ts`
+- registry, `/rules` and mastery storage
+
+Tests:
+
+- every item resolves to checked source content
+- seeded interleaving includes each preceding level
+- answers update original mastery keys
+- one star unlocks Steady bearing
+
+`uscg-regs` does not review copied wording twice. It verifies that the review deck references only the checked versions of source situations.
+
+Roles: `uscg-regs` checks source-version references; `ux-ui` distinguishes review from a new lesson; `head-dev` assembles the deck without copying content; `test-agent` covers interleaving and mastery; `code-reviewer` checks that review does not fork content; `git-integrator` prepares it for Et.
+
+### Ticket 7: Steady bearing, Rule 7
 
 Scope:
 
@@ -513,7 +549,7 @@ Scope:
 
 Modules touched:
 
-- a level 6 mission
+- a Steady bearing mission
 - #46's `src/sim/course.ts`, mission schema and simulation
 - proposed bearing-log state under `src/sim`
 - `src/game/HarborScene.ts`
@@ -530,7 +566,7 @@ Tests:
 
 Roles: `uscg-regs` checks the lesson; `ux-ui` owns the readable bearing log and helm load; `head-dev` composes the bearing state with #46; `test-agent` pins the math and replays; `code-reviewer` checks deterministic state; `git-integrator` prepares it for Et.
 
-### Ticket 7: Who gives way, Rules 13 to 17
+### Ticket 8: Who gives way, Rules 13 to 17
 
 Scope:
 
@@ -540,7 +576,7 @@ Scope:
 
 Modules touched:
 
-- a level 7 mission and checked situations
+- a Who gives way mission and checked situations
 - #46 course, traffic, collision and helm code
 - proposed encounter-objective state under `src/sim`
 - `HarborScene`, registry, `/play` and mastery storage
@@ -556,18 +592,18 @@ Tests:
 
 Roles: `uscg-regs` checks roles and intervention stages; `ux-ui` checks cues and replays under helm load; `head-dev` adds encounter objectives; `test-agent` covers every role; `code-reviewer` checks content and sim separation; `git-integrator` prepares it for Et.
 
-### Ticket 8: Fog and narrow channels
+### Ticket 9: Fog, traffic separation schemes and narrow channels
 
 Scope:
 
 - Reuse channel gates and traffic.
 - Add radar contacts, scheduled fog signals and sound-only encounters.
 - Hide vessel art in fog while retaining radar and the required visual signal pulse.
-- Include Rule 10 under the current G7. Remove it only if Et changes that settled decision.
+- Include Rule 10 traffic separation schemes with Rules 9 and 19.
 
 Modules touched:
 
-- a level 8 mission and checked situations
+- a fog, traffic-separation and narrow-channel mission with checked situations
 - #46 course and traffic
 - proposed radar and scheduled-signal state under `src/sim`
 - `src/game/sound.ts`, `SignalPulse`, `HarborScene`, registry and `/play`
@@ -584,43 +620,144 @@ Tests:
 
 Roles: `uscg-regs` checks channel and fog content; `ux-ui` owns radar, pulse and no-audio comprehension; `head-dev` composes radar and signal state; `test-agent` covers visibility, timing and replays; `code-reviewer` checks no renderer-owned outcome; `git-integrator` prepares it for Et.
 
-### Ticket 9: Chapter boss
+### Ticket 10: Inland differences
 
 Scope:
 
-- Wait for Et's Night Harbor Run decision.
-- If G10 remains, build original timed questions from checked official rule text, require 90 percent on two separate runs and require two stars on levels 1 to 8.
+- Add one Inland-only rapid-fire review level after the shared levels.
+- Teach only differences from the shared and International rules.
+- Use Inland-specific answers, vessel specs, explanations, phrases and citations from the checked content.
+
+Modules touched:
+
+- `content/chapter-1/inland-differences.json`
+- rapid-fire adapters, registry, `/rules` and mastery storage
+
+Tests:
+
+- every item is tagged `inland`
+- no International-only answer appears
+- Inland signal, pushing, pipeline and fog differences from the PR #49 check
+- separate Inland mastery keys and golden replay
+
+`uscg-regs` first checks every Inland item against the current 33 CFR paragraph and verifies that it states a real difference.
+
+Roles: `uscg-regs` checks every difference; `ux-ui` makes the Inland chip and contrast with shared rules clear; `head-dev` adds the separate deck and entry; `test-agent` covers rule-set isolation; `code-reviewer` checks against duplicated shared teaching; `git-integrator` prepares it for Et.
+
+### Ticket 11: International differences
+
+Scope:
+
+- Add one International-only rapid-fire review level after the Inland level.
+- Teach only International differences, including constrained-by-draft content.
+- Keep its content and progress separate from Inland.
+
+Modules touched:
+
+- `content/chapter-1/international-differences.json`
+- rapid-fire adapters, registry, `/rules` and mastery storage
+
+Tests:
+
+- every item is tagged `international`
+- no Inland-only answer appears
+- checked signal and constrained-by-draft differences
+- separate International mastery keys and golden replay
+
+`uscg-regs` first checks every item against the Coast Guard Navigation Rules Handbook and the current International text named in the PR #49 check.
+
+Roles: `uscg-regs` checks every difference; `ux-ui` makes the International chip and contrast with Inland clear; `head-dev` adds the separate deck and entry; `test-agent` covers rule-set isolation; `code-reviewer` checks source and scope; `git-integrator` prepares it for Et.
+
+### Ticket 12: Second mixed-review stop
+
+Scope:
+
+- Interleave checked situations from all shared and rule-set difference levels.
+- Place the stop immediately before the boss.
+- Reuse original mastery objectives and G12 stars.
+
+Modules touched:
+
+- a generated or declared `ch1-review-two` deck
+- `src/sim/rapid.ts`
+- registry, `/rules` and mastery storage
+
+Tests:
+
+- deterministic coverage of shared, Inland and International content
+- no cross-rule-set answer leakage
+- answers update original mastery keys
+- two stars contribute to the boss prerequisite
+
+`uscg-regs` verifies that every review item resolves to the checked source version and keeps its rule-set chip.
+
+Roles: `uscg-regs` checks source-version references; `ux-ui` makes rule-set changes clear during interleaving; `head-dev` assembles the deck; `test-agent` covers deterministic coverage and keys; `code-reviewer` checks no copied content; `git-integrator` prepares it for Et.
+
+### Ticket 13: Chapter boss
+
+Scope:
+
+- Build original timed questions from checked official rule text.
+- Require 90 percent on two separate runs and two stars on every pre-boss level and review stop.
+- Permit unlimited retries and unlock later chapters when the player beats the boss.
 - Do not copy Coast Guard sample-exam questions.
-- Do not build the OUPV boss until G10a's NMC confirmation and Coast Guard reviewer conditions are met.
+- Do not build the OUPV boss until G10a's NMC confirmation is met. `uscg-regs` is the only rules reviewer for now.
 
 Modules touched:
 
 - a boss content file under `content/chapter-1/`
-- a boss adapter and route chosen after Et's decision
+- a boss adapter under `/rules`
 - registry, chapter progress and mastery storage
-- Night Harbor Run systems only if Et chooses option 1 or 2
 
 Tests:
 
 - original-question source and paragraph citations
 - timer and scoring boundaries
 - two separate passing runs
-- boss lock until all eight levels have two stars
+- boss lock until every pre-boss level and review stop has two stars
+- unlimited retry and later-chapter unlock behavior
 - no copied sample-exam text
-- selected Night Harbor Run tests if that option applies
 
-`uscg-regs` first checks every question, distractor, explanation and spoken phrase against current official text. G10a's external confirmations remain blockers.
+`uscg-regs` first checks every question, distractor, explanation and spoken phrase against current official text. G10a's NMC confirmation remains a blocker.
 
-Roles: `uscg-regs` checks every question and source; `ux-ui` owns timed-exam clarity and any course placement; `head-dev` implements only the selected option; `test-agent` covers score, lock and source rules; `code-reviewer` checks G10 and G10a; `git-integrator` prepares it for Et.
+Roles: `uscg-regs` checks every question and source; `ux-ui` owns timed-exam clarity and retries; `head-dev` implements the exam boss; `test-agent` covers score, lock, retry, unlock and source rules; `code-reviewer` checks G10 and G10a; `git-integrator` prepares it for Et.
+
+### Ticket 14: Night Harbor Run
+
+Scope:
+
+- Build Night Harbor Run as a later steering level after the boss.
+- Reuse the checked Rule 21, course, bearing, radar, sound and presentation systems.
+- Correct all ten must-fix findings from PR #49 before porting prototype content.
+- Keep the boss, later-chapter unlock and Night Harbor Run completion independent.
+
+Modules touched:
+
+- a checked Night Harbor Run mission and content deck
+- shared `src/sim` steering and navigation-light modules
+- `HarborScene`, sound, signal pulse, registry and `/play`
+
+Tests:
+
+- the first three issue #45 gates and every Rule 21 boundary
+- corrected content for all ten must-fix findings
+- deterministic full-course golden replays
+- boss prerequisite and no effect on later-chapter unlock
+- muted, desktop and phone play
+
+`uscg-regs` checks each corrected item against the second-pass sources. The 23 wrong rows cannot enter checked game content unchanged.
+
+Roles: `uscg-regs` checks corrections; `ux-ui` owns the combined-course load and accessibility; `head-dev` ports only shared checked systems; `test-agent` covers gates, replays and unlock independence; `code-reviewer` checks against the PR #49 findings; `git-integrator` prepares it for Et.
 
 ## Merge order for #46 and #47
 
 Recommended order:
 
-1. `uscg-regs` checks #46's four traffic lessons against primary text, including Rules 5, 6, 9, 14 and 15. #46 does not proceed to Et with draft rule content.
-2. The Git Integration Agent rebases `head-dev/harbor-traffic-course` onto current `main`, reruns verification, regenerates proof and prepares #46 for Et.
-3. After Et merges #46, the Git Integration Agent rebases `head-dev/ch1-definitions` onto the new `main`, merges the verification-skill features by hand, reruns verification, regenerates proof and prepares #47 for Et.
-4. Chapter 1 ticket work starts from the merged #47 head.
+1. `uscg-regs` checks #46's four traffic lessons against primary text, including Rules 5, 6, 9, 14 and 15, and checks #47's Rule 3 cards.
+2. Split `head-dev/harbor-traffic-course` into small, dependency-ordered build pull requests. The Git Integration Agent updates each #46 slice from current `main`, reruns verification and regenerates proof.
+3. After Et merges all #46 slices, split `head-dev/ch1-definitions` into small build pull requests against the new `main`.
+4. The Git Integration Agent merges the verification-skill features by hand in the #47 slices, reruns verification and regenerates proof.
+5. The remaining Chapter 1 tickets start from the merged #47 slices.
 
 #46 goes first because its verification-driver change is small and `/play`-specific. #47 makes the broader driver change that supports both `/play` and `/rules`, so the second integration can retain that generalization while adding #46's course recipe.
 
@@ -638,23 +775,18 @@ Proof files cannot be combined. Regenerate one proof bundle from the integrated 
 
 ## Questions for Et
 
-1. Does Night Harbor Run replace the G10 exam boss, run alongside it, or become a later level?
-2. How should players enter Inland and International content: a per-level selector, separate differences levels, or variants added after the shared content?
-3. Does Et confirm Chapter 1 implementation now despite A3 and G19 placing the sea-time log before the full game?
-4. G7 says level 1 is "definitions and lookout", while #47 implements Definitions only. Should lookout join ticket 1, or should G7 change?
-5. G7 includes Rule 10 in level 8. The requested shorthand names Rules 9 and 19. Should ticket 8 include Rule 10, or should G7 change?
-6. Is Chapter 1 for license candidates only, or also Coast Guard Academy cadets? Issue #45 leaves this open.
-7. Should the mixed-review stops proposed in the prototype gallery exist? This plan does not add them.
-8. Should Chapter 1 completion unlock later chapters in the pattern proposed by the gallery? This plan does not define cross-chapter unlocks.
-9. Who is the Coast Guard reviewer required by G10a? This must be named before launch, and G10a blocks the OUPV boss before then.
-10. Should the existing #46 and #47 branch heads be opened as implementation pull requests? GitHub currently has issues with those numbers, not pull requests.
+Et answered every Chapter 1 question from the first plan. These product questions remain parked and are not premises for Chapter 1:
 
-The arcade-game name, pricing, approved-course strategy, league safety and the realistic Unity simulator remain parked in `DECISIONS.md`. This plan does not use any of them as a premise.
+1. Is the product a Coast Guard-approved course with its own exam, a study aid first, or a partner product for an approved school?
+2. What is free and what is paid?
+3. What is the final arcade-game name?
+4. What league-safety rules replace the current idea of display name and rank with no chat?
+5. When, if ever, does the realistic Unity simulator return after the arcade game ships?
 
 ## Regulatory gates that are not Et decisions
 
-- `uscg-regs` needs readable primary Inland and International rule text. The 2026-10-22 Night Harbor Run report is not sign-off.
-- The NMC must confirm the exam counts, passing marks, module mappings and listed upgrade conditions before the OUPV boss, as G10a requires.
+- PR #49's second pass read the governing Inland and International paragraphs for all 190 Night Harbor Run items. Before a port, correct the ten must-fix findings and recheck the changed content.
+- The NMC must confirm the exam counts, passing marks, module mappings and listed upgrade conditions before the OUPV boss, as G10a requires. G10a has no human-reviewer condition for now.
 - The NMC questions on vessels under oars, seaplanes and optional second masthead lights remain open.
 - Every implemented rule item needs paragraph-level checked evidence in the content file.
 
@@ -664,10 +796,12 @@ Each ticket runs `bash scripts/verify.sh`, updates the verification feature map 
 
 Chapter 1 is not complete until:
 
-- every level has checked content and the selected rule-set presentation
-- levels 1 to 8 obey the one-star unlock chain
-- the selected boss obeys Et's decision and G10 or its explicit replacement
-- the boss lock requires two stars on all eight levels
+- every shared, review and difference level has checked content and the settled rule-set presentation
+- every pre-boss entry obeys the one-star unlock chain
+- the G10 exam boss permits unlimited retries
+- the boss lock requires two stars on every pre-boss entry
+- beating the boss unlocks the later chapters and Night Harbor Run
+- Night Harbor Run remains outside the later-chapter unlock requirement
 - the game and flashcards read the same mastery keys
 - sound signals remain understandable while muted
 - interface feedback uses no red or green

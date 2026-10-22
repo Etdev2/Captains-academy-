@@ -4,7 +4,9 @@ status: proposed
 
 # Mastery uses stable rule and situation keys
 
-G9 requires one mastery record per rule and situation, shared by the game and flashcards. Branch #47 stores `{ right, wrong, streak }` under each Definitions card ID. A card ID alone cannot distinguish rule-set variants or a situation that tests more than one rule, and the value has no schema version.
+G9 requires one mastery record per rule and situation, shared by the game and flashcards. Branch #47 stores `{ right, wrong, streak }` under each Definitions card ID. A card ID alone cannot distinguish the separate rule-set levels or a situation that tests more than one rule, and the value has no schema version.
+
+Et settled the product choices that constrain this proposal on 2026-10-22 from 7:11 to 7:17 AM PT, recorded in [PR #50's decision comment](https://github.com/Etdev2/Captains-academy-/pull/50#issuecomment-6343017518). Inland and International differences use separate levels, mixed-review stops follow level 5 and the difference levels, and #47 becomes checked, split build pull requests. The record schema and key encoding remain proposed.
 
 ## Decision
 
@@ -19,6 +21,8 @@ G9 requires one mastery record per rule and situation, shared by the game and fl
   - `revision` and `deviceId` for later sync
   - an optional `legacyImport` with the counters recovered from #47
 - The game and flashcards call one storage service with an answer event and a source of `game` or `flashcards`. Scenes do not write local storage.
+- Mixed-review stops update the same objective keys as the source levels. They do not create review-only mastery records.
+- Separate Inland and International difference levels keep their rule-set segment, so success in one does not overwrite the other.
 - A later academy-login sync stores device revisions under the same stable mastery key and folds them on the server. The exact conflict policy is deferred until sync work, but no content ID or local key must change.
 
 This schema and key format are proposed. Device-first play and later academy-login sync are decided by G4. Shared mastery and spaced repetition are decided by G9 and G20.
@@ -43,6 +47,6 @@ This schema and key format are proposed. Device-first play and later academy-log
 ## Consequences
 
 - A game miss can schedule the same rule and situation in flashcards.
-- Rule-set variants do not overwrite shared or other-rule-set progress.
+- Separate rule-set levels do not overwrite shared or other-rule-set progress.
 - The future sync service can identify records without changing client keys. Its merge policy still needs its own design before implementation.
 - Migration tests use valid data, malformed JSON, negative counters, interrupted writes and a repeated migration.

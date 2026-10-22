@@ -6,6 +6,8 @@ status: proposed
 
 G15 reserves red and green for real navigation lights. G16 requires a visual partner for every horn. Chapter 1 will have Phaser scenes on two routes, so scene-local color and signal code would be easy to misuse.
 
+Et settled the product choices that constrain this proposal on 2026-10-22 from 7:11 to 7:17 AM PT, recorded in [PR #50's decision comment](https://github.com/Etdev2/Captains-academy-/pull/50#issuecomment-6343017518). The audience includes candidates and cadets, separate rule-set levels and mixed-review stops reuse the same presentation rules, and Night Harbor Run follows the boss later. The component boundaries remain proposed.
+
 ## Decision
 
 - `src/game/ui/palette.ts` exports interface color tokens. Its type has no red or green token. Gold, electric blue, purple, white and neutral ocean colors cover interface states from G15.
@@ -14,6 +16,7 @@ G15 reserves red and green for real navigation lights. G16 requires a visual par
 - A signal event has a stable ID, start frame, end frame and signal kind. The audio layer may start late because of browser scheduling, but it cannot change the graded duration or the pulse.
 - Muting audio leaves the pulse and answer grading unchanged. Reduced-motion mode replaces expansion or camera shake with a static high-contrast pulse and text label.
 - Shared component tests render every signal kind with sound disabled. A palette test and lint boundary reject red or green interface tokens outside navigation-world art.
+- The two rule-set levels, both mixed-review stops, the boss and the later Night Harbor Run use these components rather than defining local color or signal behavior.
 
 These module boundaries are proposed. The color meaning and sound pairing are decided by G15 and G16.
 
