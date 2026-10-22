@@ -9,12 +9,14 @@ The app has `/play` for landscape steering and `/rules` for the Definitions rapi
 ## Decision
 
 - `src/game/levelRegistry.ts` is the chapter catalog. Each entry has a stable level ID, chapter ID, order, title, mode, route, content or mission ID, supported rule sets and star policy.
+- A registry entry is a discriminated union. An `active` entry requires a route and content or mission adapter. A `pending` entry has a blocking decision and cannot claim either. Only the boss may be pending.
 - Chapter 1 uses these IDs in this order: `ch1-definitions`, `ch1-lights`, `ch1-day-shapes`, `ch1-horn-signals`, `ch1-rule-18`, `ch1-steady-bearing`, `ch1-give-way`, `ch1-fog-narrow-channels` and `ch1-boss`.
 - Rapid-fire levels use `/rules`. Steering levels use `/play`. The boss route stays unresolved until Et decides the boss question. No new route is needed for levels 1 to 8.
 - The chapter map reads registry entries and progress. A level opens when the previous level has at least one star (G12). The boss opens only when levels 1 to 8 each have at least two stars (G12).
+- Chapter 1 adapters report cleared state, semantic misses, elapsed frames and par frames. One Chapter 1 star policy gives three stars for no misses inside par, two for one miss and one for any clear. The docking prototype keeps its separate bump policy.
 - Each scene receives its registry entry and parsed content or mission. It does not calculate its own unlock rule.
 - Every play screen renders the entry's rule-set chip. `both`, `inland` and `international` are data values from the content model, not free-form labels.
-- Adding a level means adding its parsed content or mission, its scene adapter, one registry entry, tests and a verification-skill feature. A registry integrity test rejects duplicate IDs or order, a missing route adapter, a missing deck or mission, and an impossible boss prerequisite.
+- Adding a level means adding its parsed content or mission, its scene adapter, one registry entry, tests and a verification-skill feature. A registry integrity test rejects duplicate IDs or order, an unresolved active entry, a pending non-boss entry, a pending entry that claims an adapter, and an impossible boss prerequisite.
 
 This registry and route assignment are proposed. The order, orientation, rule-set chip, star threshold and unlock rules are decided by G6, G7, G8 and G12.
 
@@ -28,4 +30,4 @@ This registry and route assignment are proposed. The order, orientation, rule-se
 
 - `/play` and `/rules` remain stable while the chapter grows.
 - Stars use stable level IDs rather than scene or mission names. Existing docking progress keeps its current mission keys until a separate migration is needed.
-- The boss entry can stay unavailable without choosing between the G10 exam and Night Harbor Run.
+- The boss entry stays pending and locked without choosing between the G10 exam and Night Harbor Run. Et's decision replaces it with an active entry.

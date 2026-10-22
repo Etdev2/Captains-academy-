@@ -9,9 +9,10 @@ Chapter 1 needs one content shape for rapid-fire cards, steering situations and 
 ## Decision
 
 - Content files live in `content/chapter-1/` as versioned JSON. `src/sim/content.ts` owns the zod schema and parsing. Phaser scenes receive parsed content and do not contain answer keys or citations.
-- A deck has a stable deck ID, schema version and one or more items. Each item has a stable situation ID, kind (`card`, `situation` or `question`), art reference, cue, answer option, distractor options, explanation, spoken phrase, rule citations, rule set and review status.
+- A deck has a stable deck ID, schema version and one or more items. Each item has a stable situation ID, kind (`card`, `situation` or `question`), interaction, art reference, cue, answer, distractors, explanation, spoken phrase, rule citations, rule set and review status.
+- Interaction is a discriminated union. Choice and flick-choice items have an answer option and at least two real distractor options. A timed-signal item has an answer pattern and an empty distractor list because the player performs the answer.
 - An answer option has a stable option ID, player-facing label and an optional art reference. Zod rejects a repeated option ID or an answer also listed as a distractor.
-- Every citation names the rule and paragraph. A bare rule number does not pass the schema. An item has at least one citation and at least two distractors.
+- Every citation names the rule and paragraph. A bare rule number does not pass the schema. Annex I may add a citation but cannot replace the applicable rule paragraph. An item has at least one citation and at least two distractors.
 - Rule set is one of `both`, `inland` or `international` (G6). It is content data, not text inferred from a cue.
 - Review status is a discriminated union. `draft` carries no approval claim. `checked` requires `reviewer: "uscg-regs"`, the check date, source title or edition, and the citations checked. The schema cannot represent a checked item without review evidence.
 - Art references are IDs, not file paths. Each level adapter resolves only the art IDs it supports. A deck-integrity test rejects an unresolved art ID.
@@ -26,6 +27,6 @@ Chapter 1 needs one content shape for rapid-fire cards, steering situations and 
 ## Consequences
 
 - Content review can happen without opening Phaser code. The same parsed item can feed a game level, a flashcard and a spoken replay.
-- Tests parse every file, check unique IDs, resolve answer and distractor IDs, resolve art IDs, require paragraph citations and enforce review evidence.
+- Tests parse every file, check the interaction-specific answer and distractor rules, check unique option IDs, resolve art IDs, require paragraph citations and enforce review evidence.
 - A schema change increments the deck schema version and adds an explicit parser migration. Content IDs do not change when wording or art changes.
 - `uscg-regs` still decides whether the content is correct. Zod proves only that the evidence fields exist and the data shape is valid.

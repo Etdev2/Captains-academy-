@@ -8,7 +8,7 @@ G9 requires one mastery record per rule and situation, shared by the game and fl
 
 ## Decision
 
-- A mastery objective is the pair of a canonical rule key and a stable situation ID. Its key is `chapter-1/<rule-set>/<rule-and-paragraph>/<situation-id>`. Shared content uses `both`; Inland and International differences use their own rule-set segment.
+- A mastery objective is the pair of a canonical rule key and a stable situation ID. Its key is `chapter-1/<rule-set>/rule-<number>-<paragraph-parts>/<situation-id>`. Shared content uses `both`; Inland and International differences use their own rule-set segment. Rule keys use lowercase ASCII with parentheses removed and nested parts joined by hyphens. Rule 17(a)(ii) becomes `rule-17-a-ii`. Situation IDs cannot contain `/`.
 - One content item may name several mastery objectives. An answer updates each objective that the item says it tests. Incidental citations used only in the explanation do not receive mastery credit.
 - Device storage uses one versioned document under `captains-academy:mastery:v2`. Zod parses it before use.
 - Each record contains:
@@ -25,12 +25,14 @@ This schema and key format are proposed. Device-first play and later academy-log
 
 ## Migration from branch #47
 
-1. On the first version 2 read, enumerate known Definitions situation IDs from the parsed deck.
-2. Read `captains-academy:mastery:<card-id>` for each ID.
-3. Validate non-negative integer `right`, `wrong` and `streak` values.
-4. Write one version 2 record for each rule objective on that item. Put the old counters in `legacyImport`, because the old aggregate cannot reconstruct answer order or dates.
-5. Mark the version 2 document as migrated. Keep old keys for one release so a rollback does not erase progress, then delete them in a later versioned migration.
-6. If the version 2 write fails, leave every old key untouched and retry on the next load.
+1. Preserve every #47 card ID exactly as the new Definitions situation ID.
+2. On the first version 2 read, enumerate those situation IDs from the parsed deck.
+3. Read `captains-academy:mastery:<card-id>` for each ID.
+4. Validate non-negative integer `right`, `wrong` and `streak` values.
+5. Build every version 2 record in memory. Put the old counters in `legacyImport`, because the old aggregate cannot reconstruct answer order or dates.
+6. Replace the complete version 2 document with one local-storage write and mark migration inside that document. This avoids a partial write across several objectives.
+7. Keep old keys for one release so a rollback does not erase progress, then delete them in a later versioned migration.
+8. If the document write fails, leave the prior document and every old key untouched, then retry on the next load.
 
 ## Considered options
 

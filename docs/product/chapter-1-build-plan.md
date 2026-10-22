@@ -56,9 +56,10 @@ ADR 0002 proposes JSON files under `content/chapter-1/`, parsed by zod in `src/s
 ```ts
 type RuleSet = 'both' | 'inland' | 'international';
 type ContentKind = 'card' | 'situation' | 'question';
+type ISODate = string; // The zod schema uses z.string().date().
 
 type RuleCitation = {
-  authority: 'colregs' | '33-cfr-83' | 'both';
+  authority: 'colregs' | '33-cfr-83' | 'both' | 'annex-i';
   rule: string;
   paragraph: `(${string})`;
 };
@@ -70,7 +71,7 @@ type DraftReview = {
 type CheckedReview = {
   status: 'checked';
   reviewer: 'uscg-regs';
-  checkedOn: `${number}-${number}-${number}`;
+  checkedOn: ISODate;
   sourceTitle: string;
   sourceEdition: string;
   checkedCitations: [RuleCitation, ...RuleCitation[]];
@@ -84,13 +85,11 @@ type AnswerOption = {
   artRef?: string;
 };
 
-type ContentItem = {
+type BaseContentItem = {
   situationId: string;
   kind: ContentKind;
   artRef: string;
   cue: string;
-  answer: AnswerOption;
-  distractors: [AnswerOption, AnswerOption, ...AnswerOption[]];
   explanation: string;
   spokenPhrase: string;
   citations: [RuleCitation, ...RuleCitation[]];
@@ -102,6 +101,24 @@ type ContentItem = {
   review: Review;
 };
 
+type ChoiceContentItem = BaseContentItem & {
+  interaction: 'choice' | 'flick-choice';
+  answer: AnswerOption;
+  distractors: [AnswerOption, AnswerOption, ...AnswerOption[]];
+};
+
+type TimedSignalContentItem = BaseContentItem & {
+  interaction: 'timed-signal';
+  answer: {
+    optionId: string;
+    label: string;
+    pattern: string;
+  };
+  distractors: [];
+};
+
+type ContentItem = ChoiceContentItem | TimedSignalContentItem;
+
 type Deck = {
   schemaVersion: 1;
   deckId: string;
@@ -110,9 +127,26 @@ type Deck = {
 };
 ```
 
-Zod checks this data during normal verification and before a scene starts. The checks cover nonempty and unique IDs, distinct answer and distractor option IDs, resolved art references, paragraph-level citations, rule-set values and the review union. A `checked` item without `uscg-regs`, a date and source evidence cannot parse. A content test also rejects an answer repeated among its distractors.
+Zod checks this data during normal verification and before a scene starts. The checks cover nonempty and unique IDs, valid calendar dates, distinct answer and distractor option IDs, resolved art references, paragraph-level citations, rule-set values and the review union. Choice interactions require at least two real distractors. Timed-signal interactions require an answer pattern and an empty distractor list because the player performs the answer. Annex I may add a citation but cannot replace the item's applicable rule paragraph. The checked citation list must cover every item citation. A `checked` item without `uscg-regs`, a date and source evidence cannot parse. A content test also rejects an answer repeated among its distractors.
 
 The `masteryObjectives` list separates rules the player is tested on from citations that only support an explanation. This prevents a Rules 15 and 16 explanation from granting mastery for both when the question tested only Rule 15.
+
+The diagram shows the same content and mastery flow described above. Review evidence stays inside each JSON content item.
+
+```mermaid
+flowchart LR
+  A["JSON decks in content/chapter-1<br/>Items include uscg-regs review evidence"] -->|zod parse| B["src/sim/content.ts"]
+  B --> C["/rules rapid-fire adapters"]
+  B --> D["/play steering adapters"]
+  B --> E["Flashcards"]
+  B --> F["Boss adapter<br/>Route unresolved"]
+  C -->|answer events| G["Mastery storage service"]
+  D -->|answer events| G
+  E -->|answer events| G
+  F -->|answer events| G
+  G --> H["Versioned device document"]
+  H -->|later sync| I["Academy login"]
+```
 
 ## Rapid-fire engine
 
@@ -166,8 +200,10 @@ Golden replays pin:
 G9 requires a record for a rule and a situation, not merely a card. ADR 0005 proposes this key:
 
 ```text
-chapter-1/<both|inland|international>/<rule-and-paragraph>/<situation-id>
+chapter-1/<both|inland|international>/rule-<number>-<paragraph-parts>/<situation-id>
 ```
+
+Rule keys use lowercase ASCII. Parentheses are removed and nested paragraph parts are joined with hyphens. Rule 3(b) becomes `rule-3-b`, and Rule 17(a)(ii) becomes `rule-17-a-ii`. Content validation rejects any other encoding. A situation ID uses the existing lowercase ID unchanged and cannot contain `/`.
 
 Device storage uses `captains-academy:mastery:v2` with a zod-checked document:
 
@@ -198,13 +234,14 @@ The game and flashcards send answer events to one storage service. The source is
 
 Migration from #47:
 
-1. Load the parsed Definitions deck to get the known situation and rule keys.
-2. Read each `captains-academy:mastery:<card-id>` value.
-3. Accept only non-negative integer `right`, `wrong` and `streak` values.
-4. Create the corresponding version 2 records and retain the old aggregate in `legacyImport`.
-5. Write the complete version 2 document before marking migration complete.
-6. Keep the old keys for one release. Delete them only in a later versioned migration.
-7. If parsing or writing fails, leave the old keys untouched and retry later.
+1. Preserve each #47 card ID exactly as the new Definitions `situationId`. For example, `rule3:motorboat` stays `rule3:motorboat`.
+2. Load the parsed Definitions deck to get the known situation and canonical rule keys.
+3. Read each `captains-academy:mastery:<card-id>` value.
+4. Accept only non-negative integer `right`, `wrong` and `streak` values.
+5. Build every corresponding version 2 record in memory and retain the old aggregate in `legacyImport`.
+6. Replace the complete version 2 document with one local-storage write. That single document write is the migration boundary.
+7. Mark migration complete only inside that document. Keep the old keys for one release and delete them only in a later versioned migration.
+8. If parsing or the document write fails, leave the prior version 2 document and every old key untouched, then retry later.
 
 The migration must not invent dates or answer order. #47 did not store them.
 
@@ -222,9 +259,13 @@ ADR 0006 proposes one registry consumed by both route shells and the chapter map
 | 6 | `ch1-steady-bearing` | Steering | `/play` | One star on level 5 |
 | 7 | `ch1-give-way` | Steering | `/play` | One star on level 6 |
 | 8 | `ch1-fog-narrow-channels` | Steering | `/play` | One star on level 7 |
-| 9 | `ch1-boss` | Open | Open | Two stars on levels 1 to 8 |
+| 9 | `ch1-boss` | Pending | Pending | Two stars on levels 1 to 8 |
 
 Each entry has its supported rule sets and the active run's rule-set chip. Shared content displays `Both`. An Inland-only or International-only situation displays that set. The exact selector or separate-variant flow is open.
+
+A discriminated registry entry is either `active`, with a route and content or mission adapter, or `pending`, with a blocking decision and no adapter. Only the boss may be pending. Integrity tests require every active entry to resolve and require a pending entry not to claim a route or content ID. The chapter map shows the pending boss as locked, so it cannot be selected before Et's decision.
+
+A Chapter 1 completion result supplies cleared state, semantic misses, elapsed frames and par frames. Its star policy follows G12: three stars for no misses inside par, two for one miss and one for any clear. #46's docking-specific bump policy remains with the docking prototype and does not become Chapter 1's star policy.
 
 A new level plugs in by adding parsed content or a mission, a scene adapter, one registry entry, unit and golden tests, end-to-end coverage and a verification-skill feature. It does not add another unlock implementation.
 
@@ -248,6 +289,24 @@ The branch is not yet a complete Chapter 1 steering engine. ADR 0007 proposes th
 | 8, Fog and narrow channels | Radar contacts, scheduled sound events, visibility mode and channel objective | Radar, hidden world art, signal pulse and channel marks |
 
 Every input is a versioned frame input. Each subsystem contributes to the replay hash. Phaser, Web Audio and wall-clock time do not decide outcomes.
+
+The diagram draws only those stated steering relationships.
+
+```mermaid
+flowchart LR
+  A["Versioned frame inputs"] --> B["Pure src/sim"]
+  C["#46 course state<br/>Gates, fixed-track traffic, collision"] --> B
+  D["Bearing log"] --> B
+  E["Encounter objectives"] --> B
+  F["Radar contacts"] --> B
+  G["Scheduled sound events"] --> B
+  B -->|versioned state and replay hash| H["Phaser in src/game"]
+  B -->|sound event| I["src/game/sound.ts"]
+  B -->|same sound event| J["SignalPulse"]
+  H --> K["Harbor"]
+  H --> L["Radar"]
+  H --> M["Rule feedback"]
+```
 
 Level 6 gets a success replay and a constant-bearing miss. Level 7 gets correct and canonical wrong replays for overtaking, head-on and crossing. Level 8 gets a narrow-channel success, a radar-only fog success and an unsafe-speed or wrong-turn miss.
 
@@ -558,9 +617,10 @@ Roles: `uscg-regs` checks every question and source; `ux-ui` owns timed-exam cla
 
 Recommended order:
 
-1. The Git Integration Agent rebases `head-dev/harbor-traffic-course` onto current `main`, reruns verification, regenerates proof and prepares #46 for Et.
-2. After Et merges #46, the Git Integration Agent rebases `head-dev/ch1-definitions` onto the new `main`, merges the verification-skill features by hand, reruns verification, regenerates proof and prepares #47 for Et.
-3. Chapter 1 ticket work starts from the merged #47 head.
+1. `uscg-regs` checks #46's four traffic lessons against primary text, including Rules 5, 6, 9, 14 and 15. #46 does not proceed to Et with draft rule content.
+2. The Git Integration Agent rebases `head-dev/harbor-traffic-course` onto current `main`, reruns verification, regenerates proof and prepares #46 for Et.
+3. After Et merges #46, the Git Integration Agent rebases `head-dev/ch1-definitions` onto the new `main`, merges the verification-skill features by hand, reruns verification, regenerates proof and prepares #47 for Et.
+4. Chapter 1 ticket work starts from the merged #47 head.
 
 #46 goes first because its verification-driver change is small and `/play`-specific. #47 makes the broader driver change that supports both `/play` and `/rules`, so the second integration can retain that generalization while adding #46's course recipe.
 
@@ -587,6 +647,7 @@ Proof files cannot be combined. Regenerate one proof bundle from the integrated 
 7. Should the mixed-review stops proposed in the prototype gallery exist? This plan does not add them.
 8. Should Chapter 1 completion unlock later chapters in the pattern proposed by the gallery? This plan does not define cross-chapter unlocks.
 9. Who is the Coast Guard reviewer required by G10a? This must be named before launch, and G10a blocks the OUPV boss before then.
+10. Should the existing #46 and #47 branch heads be opened as implementation pull requests? GitHub currently has issues with those numbers, not pull requests.
 
 The arcade-game name, pricing, approved-course strategy, league safety and the realistic Unity simulator remain parked in `DECISIONS.md`. This plan does not use any of them as a premise.
 
