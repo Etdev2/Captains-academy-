@@ -22,11 +22,11 @@
 
 | Field | Value |
 | --- | --- |
-| Clock out (UTC) | still clocked in |
-| Outcome | |
-| Pull requests | |
-| Tokens | |
-| Token standing | |
-| Token coverage | |
-| Handoff to | |
-| Note | |
+| Clock out (UTC) | 2026-10-22 12:38 |
+| Outcome | finished/handoff |
+| Pull requests | none. Files left uncommitted in the working tree as instructed |
+| Tokens | unavailable |
+| Token standing | unavailable |
+| Token coverage | partial |
+| Handoff to | Bight Halyard |
+| Note | Wrote docs/product/night-harbor-run-regs-check-2026-10-22.md. Every primary rule source (eCFR, NavCen, NOAA, IMO, GovInfo) was blocked, so rule-content findings are unverified or flagged wrong against the expected text, pending a readable copy of the Navigation Rules |
