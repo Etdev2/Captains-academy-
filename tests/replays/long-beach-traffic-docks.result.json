@@ -1,0 +1,25 @@
+{
+  "final": {
+    "frame": 12290,
+    "x": 42089572,
+    "y": 5991724,
+    "heading": 1019,
+    "speed": 976,
+    "turnRate": -2,
+    "outcome": "docked",
+    "dockedFrames": 180,
+    "bumps": 0,
+    "touching": false,
+    "course": {
+      "gates": 5,
+      "starts": [
+        0,
+        3396,
+        6331,
+        6331
+      ],
+      "struckBy": -1
+    }
+  },
+  "traceHash": 1319786319
+}

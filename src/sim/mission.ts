@@ -23,6 +23,28 @@ export const obstacleSchema = rect
   })
   .strict();
 
+const point = z.object({ x: mm, y: mm }).strict();
+
+// A gate is a line the boat's center must cross. Gates count only in order.
+export const gateSchema = z.object({ x1: mm, y1: mm, x2: mm, y2: mm }).strict();
+
+// Another vessel that runs a fixed track at a steady speed. Its track never
+// reacts to the player, so the same inputs always meet it in the same place.
+export const trafficSchema = z
+  .object({
+    name: z.string().min(1),
+    kind: z.enum(['ship', 'ferry', 'powerboat', 'kayak']),
+    lengthMm: positiveMm,
+    beamMm: positiveMm,
+    speedMmPerS: positiveMm,
+    // Starts moving once the player passes this gate (1 is the first), or at once for 0.
+    startAfterGate: z.number().int().min(0),
+    // One line shown when this vessel hits the player.
+    lesson: z.string().min(1),
+    path: z.array(point).min(2),
+  })
+  .strict();
+
 export const missionSchema = z
   .object({
     schemaVersion: z.literal(2),
@@ -86,11 +108,38 @@ export const missionSchema = z
         holdSeconds: z.number().int().min(1).max(10),
       })
       .strict(),
+    // A course: pass every gate in order before the slip counts.
+    gates: z.array(gateSchema).min(1).optional(),
+    traffic: z.array(trafficSchema).min(1).optional(),
   })
-  .strict();
+  .strict()
+  .superRefine((m, ctx) => {
+    const gateCount = m.gates?.length ?? 0;
+    m.traffic?.forEach((t, i) => {
+      if (t.startAfterGate > gateCount) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['traffic', i, 'startAfterGate'],
+          message: `starts after gate ${t.startAfterGate}, but the mission has ${gateCount} gate(s)`,
+        });
+      }
+      t.path.forEach((p, j) => {
+        const prev = t.path[j - 1];
+        if (prev && prev.x === p.x && prev.y === p.y) {
+          ctx.addIssue({
+            code: 'custom',
+            path: ['traffic', i, 'path', j],
+            message: 'repeats the point before it',
+          });
+        }
+      });
+    });
+  });
 
 export type Mission = z.infer<typeof missionSchema>;
 export type Obstacle = z.infer<typeof obstacleSchema>;
+export type Gate = z.infer<typeof gateSchema>;
+export type Traffic = z.infer<typeof trafficSchema>;
 
 /** Parses unknown JSON into a mission, or throws with every problem listed. */
 export function parseMission(data: unknown): Mission {
