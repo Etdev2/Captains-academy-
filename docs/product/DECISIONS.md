@@ -4,12 +4,14 @@ Settled in grilling sessions with Et on 2026-10-19 and 2026-10-20. The arcade ga
 
 Changes to a settled decision need an explicit call from Et. A parked item is not a decision; do not build on it.
 
+Et settled the Chapter 1 follow-up decisions on 2026-10-22 from 7:11 to 7:17 AM PT. They are recorded in [PR #50's decision comment](https://github.com/Etdev2/Captains-academy-/pull/50#issuecomment-6343017518).
+
 ## Settled
 
 ### Product shape
 - **A1.** The academy is a standalone product: its own repo, its own Supabase project (database and login). It shares nothing with Fish Log Book.
 - **A2.** The academy owns the only sea-time log. Fish Log Book gets no sea-time feature.
-- **A3.** Build the sea-time log first. The one exception is a one-level arcade prototype, built before the log to test whether the game is fun (see G19).
+- **A3.** Continue the sea-time log and start Chapter 1 of the arcade game alongside it. The one-level arcade prototype already tested the game direction (see G19). Et changed the earlier serial order on 2026-10-22.
 - **A4.** One academy login across the web app and the Unity app.
 
 ### Sea-time log
@@ -43,21 +45,22 @@ The stack, decided in issue #18, is strict TypeScript, Phaser 4.2.1 (pinned) and
 Build
 - **G1.** A web game built with Phaser, separate from the realistic simulator. It lives in this repo at its own address (such as `/play`) and uses the academy login, Supabase project and mastery record.
 - **G2.** 2D first: a top-down harbor for steering levels and a "bridge view" of lights on the horizon. 3D views come later only if players want them.
-- **G3.** Players are 13 and up, to stay outside COPPA. `counsel` checks this before launch.
+- **G3.** Players are 13 and up, to stay outside COPPA. The audience includes license candidates and cadets. `counsel` checks this before launch.
 - **G4.** No account is needed to start playing. Progress saves on the device and works offline. Signing in with the academy login syncs progress and streaks across devices and joins leagues.
 
 Chapters and levels
 - **G5.** One chapter per exam subject: Chapter 1 Rules of the Road, then Navigation General, Deck General, Deck Safety, and Chart Plotting. The exam modules differ by license (OUPV takes Deck General and Safety as one module; Master under 100 GRT takes them as two), so each license badge lists the chapters it needs. Where a module differs by waters (near coastal versus Great Lakes and inland), the waters are a setting inside the level, the way G6 handles rule sets. Other licenses add chapters later.
-- **G6.** Chapter 1 covers both Inland and International rules. Shared rules come first; the differences get their own levels. Every level shows which rule set is in force.
-- **G7.** Chapter 1 levels, in order: definitions and lookout, lights rapid-fire, day shapes, horn signals, pecking order (Rule 18), steady bearing (Rule 7), who gives way (Rules 13 to 17), fog and narrow channels (Rules 9, 10 and 19), then the boss.
+- **G6.** Chapter 1 covers both Inland and International rules. Shared rules come first. Inland differences and International differences use separate levels, not a selector inside one level. Every level shows which rule set is in force.
+- **G7.** Chapter 1 shared levels, in order: definitions and lookout (Rules 3 and 5), lights rapid-fire, day shapes, horn signals, pecking order (Rule 18), steady bearing (Rule 7), who gives way (Rules 13 to 17), and fog, traffic separation schemes and narrow channels (Rules 9, 10 and 19). A mixed-review stop follows level 5. After the shared levels come the separate Inland and International difference levels, another mixed-review stop, then the boss.
 - **G8.** Level length and phone orientation depend on the level type. Rapid-fire levels play in portrait with one thumb; steering levels play in landscape. Mouse and keyboard work on desktop.
 - **G9.** The game and the flashcards share one mastery record per rule and situation. A situation missed in one shows up in the other.
-- **G10.** Each chapter ends in a boss level in exam format: timed multiple-choice questions. The academy writes its own questions. For Chapter 1 it writes them from the official rule text (the Coast Guard's Navigation Rules book, which prints COLREGS and the Inland Rules in 33 CFR 83). The Coast Guard's sample exams are too few to reuse and some of their content may be copyrighted, so they guide question style only and nothing is copied from them. `uscg-regs` checks each Chapter 1 question against the current rule text and tags it with its rule number. Each later chapter's boss names its own source and citation, a CFR section where one applies, when that chapter is planned, and `uscg-regs` checks those questions the same way. The player clears the boss by scoring at the real module's passing mark on two separate runs: 90% for Rules of the Road, 70% for most other modules, and 90% for Chart Plotting, pending verification.
-- **G10a.** Three things must be done before the OUPV (six-pack) boss level is built and before launch: the NMC confirms the exam numbers, Q301 is listed only under Limited OUPV (GLI08), and a Coast Guard reviewer reviews the game. Et decided this on 2026-10-20, 10:26 to 10:52 AM PT. The Q301 listing is already correct in `arcade-regs-check-2026-10-20.md`.
+- **G10.** Each chapter's completion gate is a boss level in exam format: timed multiple-choice questions. A post-boss level does not replace that gate. The academy writes its own questions. For Chapter 1 it writes them from the official rule text (the Coast Guard's Navigation Rules book, which prints COLREGS and the Inland Rules in 33 CFR 83). The Coast Guard's sample exams are too few to reuse and some of their content may be copyrighted, so they guide question style only and nothing is copied from them. `uscg-regs` checks each Chapter 1 question against the current rule text and tags it with its rule number. Each later chapter's boss names its own source and citation, a CFR section where one applies, when that chapter is planned, and `uscg-regs` checks those questions the same way. The player clears the boss by scoring at the real module's passing mark on two separate runs: 90% for Rules of the Road, 70% for most other modules, and 90% for Chart Plotting, pending verification.
+- **G10a.** Before the OUPV (six-pack) boss level is built, the NMC confirms the exam numbers and Q301 remains listed only under Limited OUPV (GLI08). The Q301 listing is already correct in `arcade-regs-check-2026-10-20.md`. A Coast Guard reviewer reviews the game before launch (Et decided this on 2026-10-20, 10:26 to 10:52 AM PT). For now `uscg-regs` is the only rules reviewer. G10a has no named human Coast Guard reviewer yet.
+- **G10b.** Night Harbor Run is a later level after the Chapter 1 boss. It does not replace the timed multiple-choice boss.
 
 Feel
 - **G11.** A wrong answer costs one of three hull hearts and plays a replay of about 5 seconds that shows the right move and cites the rule. The missed situation comes back later in the level and in later levels.
-- **G12.** Each level gives 1 to 3 stars (3 for no misses and a fast time). One star unlocks the next level. The boss needs 2 or more stars on every level of the chapter. Ranks come from XP: Deckhand, Mate, First Mate, Captain, Admiral.
+- **G12.** Each level gives 1 to 3 stars (3 for no misses and a fast time). One star unlocks the next level. The boss needs 2 or more stars on every pre-boss level of the chapter. Mixed-review stops occur after level 5 and before the boss and follow the same star rules. The boss allows unlimited retries. Beating the Chapter 1 boss unlocks the later chapters. Ranks come from XP: Deckhand, Mate, First Mate, Captain, Admiral.
 - **G13.** Engagement comes from skill-based rewards: effects and sounds on every correct answer, streaks with a streak freeze, a daily challenge, combo multipliers, a vessel logbook that fills as the player identifies vessels, and weekly leagues. No loot boxes or other random rewards, and nothing sold with random contents.
 - **G14.** Notifications are off by default. A player who turns them on gets one daily reminder at a time they pick, plus a streak-saver alert before a streak ends. The tone is friendly and never guilt-trips.
 - **G15.** The world is a night ocean where the real navigation lights are the bright colors. Wins flash gold and electric blue; misses flash purple or white with a camera shake. The interface never uses red or green, because those colors mean port and starboard.
@@ -68,7 +71,8 @@ Badges and the license screen
 - **G18.** One license screen per license shows the Exam Ready badge, the sea-time status ("appears to meet" plus what is still needed) and the rest of the checklist (physical, drug test, TWIC, courses).
 
 Order
-- **G19.** First build one playable level, docking in Long Beach harbor. Et chose this level on 2026-10-20 and said it may go ahead. Et plays it and decides whether it is fun enough. Then the sea-time log (A3), then the full game.
+- **G19.** The Long Beach docking prototype proved the game direction. Continue the sea-time log and start Chapter 1 alongside it, as A3 now says.
+- **G19a.** Issues #46 and #47 become the first Chapter 1 build pull requests after `uscg-regs` checks their rule content. Split each branch into small pull requests that fit the Chapter 1 plan. Integrate #46 before #47.
 
 Teaching
 - **G20.** The game teaches with four methods from learning research. Perceptual learning: many fast visual examples, each classified by the player with instant feedback, until recognition is automatic. Retrieval practice: the player recalls every answer instead of rereading it. Spaced repetition: missed situations come back at growing intervals. Interleaving: levels mix situation types so the player learns to tell them apart. Every visual is paired with words and its citation: the rule number in Chapter 1, and the chapter's own source citation in later chapters (G10). Three rules keep it fun: all teaching happens through play, in the replay after a miss and a one-line rule citation; nothing stops the player for more than 5 seconds to read or watch; and a level that is correct but boring gets redesigned, never shipped.
@@ -95,4 +99,4 @@ The 2026-10-20 follow-up verified both Rule 32 blast lengths. Et's supplied NMC 
 2. Settle the parked items: course type and pricing.
 3. Verify the figures listed above against the current regulations.
 4. Done on 2026-10-21: the Long Beach docking prototype (G19) merged in #26, with twin engine levers and a second level. Et liked it and called it still a prototype; #25 stays open for later rounds.
-5. Build the first slice of the sea-time log (A3): live check-in and check-out, offline, on the device first.
+5. Continue the sea-time log and start the checked, split Chapter 1 pull requests under A3, G19 and G19a.

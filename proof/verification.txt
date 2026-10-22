@@ -2,7 +2,7 @@ $ bash scripts/verify.sh
 
 ==> Node version and npm ci
 
-added 144 packages, and audited 145 packages in 6s
+added 144 packages, and audited 145 packages in 4s
 
 45 packages are looking for funding
   run `npm fund` for details
@@ -33,8 +33,8 @@ ok   long-beach-docking.json
 
  Test Files  9 passed (9)
       Tests  219 passed (219)
-   Start at  13:39:12
-   Duration  1.36s (transform 837ms, setup 0ms, import 1.68s, tests 526ms, environment 1ms)
+   Start at  15:23:15
+   Duration  1.20s (transform 926ms, setup 0ms, import 1.56s, tests 481ms, environment 1ms)
 
 
 ==> vite build
@@ -63,175 +63,130 @@ dist/assets/offline-BMWjJ4Ot.js      1.14 kB │ gzip:   0.65 kB
 dist/assets/log-CqEZm8zL.js         30.58 kB │ gzip:  10.53 kB
 dist/assets/schemas-d5DDVgyJ.js     89.45 kB │ gzip:  25.56 kB
 dist/assets/play-DU28peJ-.js     1,416.59 kB │ gzip: 382.34 kB
-✓ built in 6.45s
+✓ built in 5.04s
 
 ==> playwright smoke test
 
 Running 113 tests using 2 workers
 
-  ✓    1 [desktop] › e2e/home.spec.ts:11:1 › the root shows a link to the game and one to the sea-time log (247ms)
-  ✓    2 [desktop] › e2e/entries.spec.ts:71:1 › check in and out from the home screen, kept across reloads online and offline (1.2s)
-  ✓    3 [desktop] › e2e/home.spec.ts:30:1 › the game link opens the game (1.2s)
-  ✓    5 [desktop] › e2e/home.spec.ts:45:1 › the sea-time log link opens the log (343ms)
-  ✓    4 [desktop] › e2e/entries.spec.ts:138:1 › a second open trip on this device is refused (594ms)
-  ✓    6 [desktop] › e2e/home.spec.ts:74:1 › the front page opens offline after one online visit (679ms)
-  ✓    7 [desktop] › e2e/entries.spec.ts:189:1 › a repeat check-in is one tap: the sheet remembers the last choices (785ms)
-  ✓    8 [desktop] › e2e/home.spec.ts:92:1 › the front page opens offline even if only the log was visited online (345ms)
-  ✓    9 [desktop] › e2e/entries.spec.ts:213:1 › the check-in sheet says what is missing and saves nothing until it is right (477ms)
-  ✓   10 [desktop] › e2e/home.spec.ts:112:3 › at iPhone width › both links are big, on screen, and nothing scrolls sideways (463ms)
-  ✓   11 [desktop] › e2e/entries.spec.ts:232:1 › backfilling saves nothing without consent (394ms)
-  ✓   12 [desktop] › e2e/log.spec.ts:53:1 › the log opens with no account and talks to no other server (310ms)
-  ✓   14 [desktop] › e2e/log.spec.ts:72:1 › the check-in button is big and sits where a thumb reaches (224ms)
-  ✓   15 [desktop] › e2e/log.spec.ts:86:1 › the log opens offline after one online visit (338ms)
-  ✓   13 [desktop] › e2e/entries.spec.ts:283:1 › with consent, backfilled days save, record the consent and say "backfilled" (978ms)
-  ✓   16 [desktop] › e2e/log.spec.ts:97:1 › a saved entry survives a reload, online and offline (432ms)
-  ✓   17 [desktop] › e2e/entries.spec.ts:350:1 › every entry under 4 hours is flagged and stays; the day notes cite the CFR (568ms)
-  ✓   18 [desktop] › e2e/log.spec.ts:124:1 › the store refuses bad entries, soft-deletes and leaves the outbox empty (397ms)
-  ✓   20 [desktop] › e2e/log.spec.ts:221:1 › version 3 of the database keeps the entries and outbox stores as version 1 made them (231ms)
-  ✓   19 [desktop] › e2e/entries.spec.ts:426:1 › entries carry their vessel, role and confirmed waters; a GPS suggestion stays apart (323ms)
-  ✓   21 [desktop] › e2e/log.spec.ts:265:1 › a newer database from another tab is never opened by older code (343ms)
-  ✓   23 [desktop] › e2e/log.spec.ts:287:1 › a new cache name keeps what the old cache held, so earlier offline pages still open (306ms)
-  ✓   22 [desktop] › e2e/entries.spec.ts:504:1 › entries are edited and soft-deleted, and a backfilled day stays backfilled (811ms)
-  ✓   25 [desktop] › e2e/entries.spec.ts:569:1 › version 2 upgrades to version 3 and keeps its vessels and entries (513ms)
-  ✓   26 [desktop] › e2e/entries.spec.ts:671:1 › the new screens never say qualify or eligible for (609ms)
-  ✓   27 [desktop] › e2e/entries.spec.ts:694:1 › the entry screens fit one thumb (602ms)
-  ✓   28 [desktop] › e2e/vessels.spec.ts:41:1 › a vessel is added, filled in later, and survives reloads online and offline (1.8s)
-  ✓   29 [desktop] › e2e/vessels.spec.ts:134:1 › a vessel is soft-deleted with two taps and stays gone after a reload (868ms)
-  ✓   24 [desktop] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (5.6s)
-  ✓   30 [desktop] › e2e/vessels.spec.ts:197:1 › a photo still being prepared is never saved late, or onto another vessel (2.1s)
-  ✓   31 [desktop] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (2.0s)
-  ✓   32 [desktop] › e2e/vessels.spec.ts:278:1 › two quick taps on Save add a new vessel once (874ms)
-  ✓   34 [desktop] › e2e/vessels.spec.ts:300:1 › the form says what to fix and saves nothing until it is right (557ms)
-  ✓   35 [desktop] › e2e/vessels.spec.ts:316:1 › only official tonnage can be entered, with no estimate anywhere (277ms)
-  ✓   36 [desktop] › e2e/vessels.spec.ts:342:1 › roles are a seeded deck and engine list, and a vessel keeps a default role (416ms)
-  ✓   37 [desktop] › e2e/vessels.spec.ts:405:1 › version 1 upgrades to the current version and keeps its entries (263ms)
-  ✓   38 [desktop] › e2e/vessels.spec.ts:481:1 › vessel screens fit one thumb: big controls, save within reach (625ms)
-  ✓   39 [phone-landscape] › e2e/entries.spec.ts:71:1 › check in and out from the home screen, kept across reloads online and offline (1.2s)
-  ✓   40 [phone-landscape] › e2e/entries.spec.ts:138:1 › a second open trip on this device is refused (652ms)
-  ✓   41 [phone-landscape] › e2e/entries.spec.ts:189:1 › a repeat check-in is one tap: the sheet remembers the last choices (891ms)
-  ✓   42 [phone-landscape] › e2e/entries.spec.ts:213:1 › the check-in sheet says what is missing and saves nothing until it is right (463ms)
-  ✓   43 [phone-landscape] › e2e/entries.spec.ts:232:1 › backfilling saves nothing without consent (430ms)
-  ✓   33 [desktop] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (8.1s)
-  ✓   44 [phone-landscape] › e2e/entries.spec.ts:283:1 › with consent, backfilled days save, record the consent and say "backfilled" (1.0s)
-  ✓   46 [phone-landscape] › e2e/entries.spec.ts:350:1 › every entry under 4 hours is flagged and stays; the day notes cite the CFR (462ms)
-  ✓   47 [phone-landscape] › e2e/entries.spec.ts:426:1 › entries carry their vessel, role and confirmed waters; a GPS suggestion stays apart (239ms)
-  ✓   48 [phone-landscape] › e2e/entries.spec.ts:504:1 › entries are edited and soft-deleted, and a backfilled day stays backfilled (792ms)
-  ✓   49 [phone-landscape] › e2e/entries.spec.ts:569:1 › version 2 upgrades to version 3 and keeps its vessels and entries (704ms)
-  ✓   50 [phone-landscape] › e2e/entries.spec.ts:671:1 › the new screens never say qualify or eligible for (663ms)
-  ✓   51 [phone-landscape] › e2e/entries.spec.ts:694:1 › the entry screens fit one thumb (641ms)
-  ✓   52 [phone-landscape] › e2e/home.spec.ts:11:1 › the root shows a link to the game and one to the sea-time log (187ms)
-  ✓   45 [desktop] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (4.5s)
-  ✓   53 [phone-landscape] › e2e/home.spec.ts:30:1 › the game link opens the game (1.0s)
-  ✓   54 [phone-landscape] › e2e/home.spec.ts:45:1 › the sea-time log link opens the log (351ms)
-  ✓   56 [phone-landscape] › e2e/log.spec.ts:53:1 › the log opens with no account and talks to no other server (313ms)
-  ✓   57 [phone-landscape] › e2e/log.spec.ts:72:1 › the check-in button is big and sits where a thumb reaches (245ms)
-  ✓   55 [phone-landscape] › e2e/home.spec.ts:74:1 › the front page opens offline after one online visit (821ms)
-  ✓   59 [phone-landscape] › e2e/home.spec.ts:92:1 › the front page opens offline even if only the log was visited online (379ms)
-  ✓   58 [phone-landscape] › e2e/log.spec.ts:86:1 › the log opens offline after one online visit (441ms)
-  ✓   61 [phone-landscape] › e2e/log.spec.ts:97:1 › a saved entry survives a reload, online and offline (436ms)
-  ✓   60 [phone-landscape] › e2e/home.spec.ts:112:3 › at iPhone width › both links are big, on screen, and nothing scrolls sideways (545ms)
-  ✓   62 [phone-landscape] › e2e/log.spec.ts:124:1 › the store refuses bad entries, soft-deletes and leaves the outbox empty (425ms)
-  ✓   64 [phone-landscape] › e2e/log.spec.ts:221:1 › version 3 of the database keeps the entries and outbox stores as version 1 made them (243ms)
-  ✓   65 [phone-landscape] › e2e/log.spec.ts:265:1 › a newer database from another tab is never opened by older code (303ms)
-  ✓   66 [phone-landscape] › e2e/log.spec.ts:287:1 › a new cache name keeps what the old cache held, so earlier offline pages still open (291ms)
-  ✓   67 [phone-landscape] › e2e/vessels.spec.ts:41:1 › a vessel is added, filled in later, and survives reloads online and offline (1.9s)
-  ✓   68 [phone-landscape] › e2e/vessels.spec.ts:134:1 › a vessel is soft-deleted with two taps and stays gone after a reload (1.1s)
-  ✓   63 [phone-landscape] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (5.6s)
-  ✓   69 [phone-landscape] › e2e/vessels.spec.ts:197:1 › a photo still being prepared is never saved late, or onto another vessel (2.0s)
-  ✓   71 [phone-landscape] › e2e/vessels.spec.ts:278:1 › two quick taps on Save add a new vessel once (642ms)
-  ✓   72 [phone-landscape] › e2e/vessels.spec.ts:300:1 › the form says what to fix and saves nothing until it is right (596ms)
+  ✓    1 [desktop] › e2e/home.spec.ts:11:1 › the root shows a link to the game and one to the sea-time log (227ms)
+  ✓    2 [desktop] › e2e/entries.spec.ts:71:1 › check in and out from the home screen, kept across reloads online and offline (919ms)
+  ✓    3 [desktop] › e2e/home.spec.ts:30:1 › the game link opens the game (1.0s)
+  ✓    4 [desktop] › e2e/entries.spec.ts:138:1 › a second open trip on this device is refused (463ms)
+  ✓    5 [desktop] › e2e/home.spec.ts:45:1 › the sea-time log link opens the log (344ms)
+  ✓    7 [desktop] › e2e/home.spec.ts:74:1 › the front page opens offline after one online visit (556ms)
+  ✓    6 [desktop] › e2e/entries.spec.ts:189:1 › a repeat check-in is one tap: the sheet remembers the last choices (933ms)
+  ✓    8 [desktop] › e2e/home.spec.ts:92:1 › the front page opens offline even if only the log was visited online (329ms)
+  ✓    9 [desktop] › e2e/entries.spec.ts:213:1 › the check-in sheet says what is missing and saves nothing until it is right (332ms)
+  ✓   10 [desktop] › e2e/home.spec.ts:112:3 › at iPhone width › both links are big, on screen, and nothing scrolls sideways (379ms)
+  ✓   11 [desktop] › e2e/entries.spec.ts:232:1 › backfilling saves nothing without consent (398ms)
+  ✓   12 [desktop] › e2e/log.spec.ts:53:1 › the log opens with no account and talks to no other server (176ms)
+  ✓   14 [desktop] › e2e/log.spec.ts:72:1 › the check-in button is big and sits where a thumb reaches (204ms)
+  ✓   15 [desktop] › e2e/log.spec.ts:86:1 › the log opens offline after one online visit (203ms)
+  ✓   16 [desktop] › e2e/log.spec.ts:97:1 › a saved entry survives a reload, online and offline (306ms)
+  ✓   13 [desktop] › e2e/entries.spec.ts:283:1 › with consent, backfilled days save, record the consent and say "backfilled" (902ms)
+  ✓   17 [desktop] › e2e/log.spec.ts:124:1 › the store refuses bad entries, soft-deletes and leaves the outbox empty (290ms)
+  ✓   19 [desktop] › e2e/log.spec.ts:221:1 › version 3 of the database keeps the entries and outbox stores as version 1 made them (190ms)
+  ✓   18 [desktop] › e2e/entries.spec.ts:350:1 › every entry under 4 hours is flagged and stays; the day notes cite the CFR (456ms)
+  ✓   20 [desktop] › e2e/log.spec.ts:265:1 › a newer database from another tab is never opened by older code (300ms)
+  ✓   21 [desktop] › e2e/entries.spec.ts:426:1 › entries carry their vessel, role and confirmed waters; a GPS suggestion stays apart (317ms)
+  ✓   22 [desktop] › e2e/log.spec.ts:287:1 › a new cache name keeps what the old cache held, so earlier offline pages still open (192ms)
+  ✓   23 [desktop] › e2e/entries.spec.ts:504:1 › entries are edited and soft-deleted, and a backfilled day stays backfilled (763ms)
+  ✓   25 [desktop] › e2e/entries.spec.ts:569:1 › version 2 upgrades to version 3 and keeps its vessels and entries (364ms)
+  ✓   26 [desktop] › e2e/entries.spec.ts:671:1 › the new screens never say qualify or eligible for (509ms)
+  ✓   27 [desktop] › e2e/entries.spec.ts:694:1 › the entry screens fit one thumb (669ms)
+  ✓   28 [desktop] › e2e/vessels.spec.ts:41:1 › a vessel is added, filled in later, and survives reloads online and offline (1.7s)
+  ✓   24 [desktop] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (5.0s)
+  ✓   29 [desktop] › e2e/vessels.spec.ts:134:1 › a vessel is soft-deleted with two taps and stays gone after a reload (1.1s)
+  ✓   31 [desktop] › e2e/vessels.spec.ts:197:1 › a photo still being prepared is never saved late, or onto another vessel (1.9s)
+  ✓   30 [desktop] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (2.1s)
+  ✓   32 [desktop] › e2e/vessels.spec.ts:278:1 › two quick taps on Save add a new vessel once (760ms)
+  ✓   34 [desktop] › e2e/vessels.spec.ts:300:1 › the form says what to fix and saves nothing until it is right (692ms)
+  ✓   35 [desktop] › e2e/vessels.spec.ts:316:1 › only official tonnage can be entered, with no estimate anywhere (260ms)
+  ✓   36 [desktop] › e2e/vessels.spec.ts:342:1 › roles are a seeded deck and engine list, and a vessel keeps a default role (276ms)
+  ✓   37 [desktop] › e2e/vessels.spec.ts:405:1 › version 1 upgrades to the current version and keeps its entries (275ms)
+  ✓   38 [desktop] › e2e/vessels.spec.ts:481:1 › vessel screens fit one thumb: big controls, save within reach (659ms)
+  ✓   39 [phone-landscape] › e2e/entries.spec.ts:71:1 › check in and out from the home screen, kept across reloads online and offline (930ms)
+  ✓   40 [phone-landscape] › e2e/entries.spec.ts:138:1 › a second open trip on this device is refused (443ms)
+  ✓   41 [phone-landscape] › e2e/entries.spec.ts:189:1 › a repeat check-in is one tap: the sheet remembers the last choices (811ms)
+  ✓   33 [desktop] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (6.2s)
+  ✓   42 [phone-landscape] › e2e/entries.spec.ts:213:1 › the check-in sheet says what is missing and saves nothing until it is right (399ms)
+  ✓   44 [phone-landscape] › e2e/entries.spec.ts:232:1 › backfilling saves nothing without consent (360ms)
+  ✓   45 [phone-landscape] › e2e/entries.spec.ts:283:1 › with consent, backfilled days save, record the consent and say "backfilled" (1.0s)
+  ✓   46 [phone-landscape] › e2e/entries.spec.ts:350:1 › every entry under 4 hours is flagged and stays; the day notes cite the CFR (537ms)
+  ✓   47 [phone-landscape] › e2e/entries.spec.ts:426:1 › entries carry their vessel, role and confirmed waters; a GPS suggestion stays apart (199ms)
+  ✓   43 [desktop] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (3.0s)
+  ✓   48 [phone-landscape] › e2e/entries.spec.ts:504:1 › entries are edited and soft-deleted, and a backfilled day stays backfilled (611ms)
+  ✓   49 [phone-landscape] › e2e/entries.spec.ts:569:1 › version 2 upgrades to version 3 and keeps its vessels and entries (372ms)
+  ✓   50 [phone-landscape] › e2e/entries.spec.ts:671:1 › the new screens never say qualify or eligible for (592ms)
+  ✓   51 [phone-landscape] › e2e/home.spec.ts:11:1 › the root shows a link to the game and one to the sea-time log (197ms)
+  ✓   52 [phone-landscape] › e2e/entries.spec.ts:694:1 › the entry screens fit one thumb (556ms)
+  ✓   54 [phone-landscape] › e2e/log.spec.ts:53:1 › the log opens with no account and talks to no other server (149ms)
+  ✓   53 [phone-landscape] › e2e/home.spec.ts:30:1 › the game link opens the game (828ms)
+  ✓   55 [phone-landscape] › e2e/log.spec.ts:72:1 › the check-in button is big and sits where a thumb reaches (191ms)
+  ✓   56 [phone-landscape] › e2e/home.spec.ts:45:1 › the sea-time log link opens the log (356ms)
+  ✓   57 [phone-landscape] › e2e/log.spec.ts:86:1 › the log opens offline after one online visit (391ms)
+  ✓   59 [phone-landscape] › e2e/log.spec.ts:97:1 › a saved entry survives a reload, online and offline (330ms)
+  ✓   58 [phone-landscape] › e2e/home.spec.ts:74:1 › the front page opens offline after one online visit (627ms)
+  ✓   60 [phone-landscape] › e2e/log.spec.ts:124:1 › the store refuses bad entries, soft-deletes and leaves the outbox empty (292ms)
+  ✓   62 [phone-landscape] › e2e/log.spec.ts:221:1 › version 3 of the database keeps the entries and outbox stores as version 1 made them (147ms)
+  ✓   61 [phone-landscape] › e2e/home.spec.ts:92:1 › the front page opens offline even if only the log was visited online (375ms)
+  ✓   63 [phone-landscape] › e2e/log.spec.ts:265:1 › a newer database from another tab is never opened by older code (254ms)
+  ✓   65 [phone-landscape] › e2e/log.spec.ts:287:1 › a new cache name keeps what the old cache held, so earlier offline pages still open (186ms)
+  ✓   64 [phone-landscape] › e2e/home.spec.ts:112:3 › at iPhone width › both links are big, on screen, and nothing scrolls sideways (416ms)
+  ✓   67 [phone-landscape] › e2e/vessels.spec.ts:41:1 › a vessel is added, filled in later, and survives reloads online and offline (1.7s)
+  ✓   68 [phone-landscape] › e2e/vessels.spec.ts:134:1 › a vessel is soft-deleted with two taps and stays gone after a reload (1.2s)
+  ✓   66 [phone-landscape] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (4.8s)
+  ✓   69 [phone-landscape] › e2e/vessels.spec.ts:197:1 › a photo still being prepared is never saved late, or onto another vessel (2.5s)
+  ✓   71 [phone-landscape] › e2e/vessels.spec.ts:278:1 › two quick taps on Save add a new vessel once (571ms)
+  ✓   72 [phone-landscape] › e2e/vessels.spec.ts:300:1 › the form says what to fix and saves nothing until it is right (491ms)
   ✓   70 [phone-landscape] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (2.0s)
-  ✓   73 [phone-landscape] › e2e/vessels.spec.ts:316:1 › only official tonnage can be entered, with no estimate anywhere (251ms)
-  ✓   75 [phone-landscape] › e2e/vessels.spec.ts:342:1 › roles are a seeded deck and engine list, and a vessel keeps a default role (573ms)
-  ✓   76 [phone-landscape] › e2e/vessels.spec.ts:405:1 › version 1 upgrades to the current version and keeps its entries (275ms)
-  ✓   77 [phone-landscape] › e2e/vessels.spec.ts:481:1 › vessel screens fit one thumb: big controls, save within reach (803ms)
-  ✓   78 [phone-portrait] › e2e/entries.spec.ts:71:1 › check in and out from the home screen, kept across reloads online and offline (1.8s)
-  ✓   79 [phone-portrait] › e2e/entries.spec.ts:138:1 › a second open trip on this device is refused (540ms)
-  ✓   80 [phone-portrait] › e2e/entries.spec.ts:189:1 › a repeat check-in is one tap: the sheet remembers the last choices (1.0s)
-  ✓   81 [phone-portrait] › e2e/entries.spec.ts:213:1 › the check-in sheet says what is missing and saves nothing until it is right (556ms)
-  ✓   74 [phone-landscape] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (7.4s)
-  ✓   82 [phone-portrait] › e2e/entries.spec.ts:232:1 › backfilling saves nothing without consent (638ms)
-  ✓   84 [phone-portrait] › e2e/entries.spec.ts:283:1 › with consent, backfilled days save, record the consent and say "backfilled" (1.2s)
-  ✓   85 [phone-portrait] › e2e/entries.spec.ts:350:1 › every entry under 4 hours is flagged and stays; the day notes cite the CFR (834ms)
-  ✓   86 [phone-portrait] › e2e/entries.spec.ts:426:1 › entries carry their vessel, role and confirmed waters; a GPS suggestion stays apart (318ms)
-  ✓   87 [phone-portrait] › e2e/entries.spec.ts:504:1 › entries are edited and soft-deleted, and a backfilled day stays backfilled (733ms)
-  ✓   88 [phone-portrait] › e2e/entries.spec.ts:569:1 › version 2 upgrades to version 3 and keeps its vessels and entries (654ms)
-  ✓   83 [phone-landscape] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (4.5s)
-  ✓   89 [phone-portrait] › e2e/entries.spec.ts:671:1 › the new screens never say qualify or eligible for (711ms)
-  ✓   90 [phone-portrait] › e2e/entries.spec.ts:694:1 › the entry screens fit one thumb (598ms)
-  ✓   91 [phone-portrait] › e2e/log.spec.ts:53:1 › the log opens with no account and talks to no other server (256ms)
-  ✓   93 [phone-portrait] › e2e/log.spec.ts:72:1 › the check-in button is big and sits where a thumb reaches (294ms)
-  ✓   92 [phone-portrait] › e2e/home.spec.ts:11:1 › the root shows a link to the game and one to the sea-time log (307ms)
-  ✓   95 [phone-portrait] › e2e/home.spec.ts:30:1 › the game link opens the game (338ms)
-  ✓   94 [phone-portrait] › e2e/log.spec.ts:86:1 › the log opens offline after one online visit (429ms)
-  ✓   96 [phone-portrait] › e2e/home.spec.ts:45:1 › the sea-time log link opens the log (543ms)
-  ✓   97 [phone-portrait] › e2e/log.spec.ts:97:1 › a saved entry survives a reload, online and offline (543ms)
-  ✓   99 [phone-portrait] › e2e/log.spec.ts:124:1 › the store refuses bad entries, soft-deletes and leaves the outbox empty (412ms)
-  ✓  100 [phone-portrait] › e2e/log.spec.ts:221:1 › version 3 of the database keeps the entries and outbox stores as version 1 made them (214ms)
-  ✓   98 [phone-portrait] › e2e/home.spec.ts:74:1 › the front page opens offline after one online visit (857ms)
-  ✓  101 [phone-portrait] › e2e/log.spec.ts:265:1 › a newer database from another tab is never opened by older code (377ms)
-  ✓  102 [phone-portrait] › e2e/home.spec.ts:92:1 › the front page opens offline even if only the log was visited online (413ms)
-  ✓  103 [phone-portrait] › e2e/log.spec.ts:287:1 › a new cache name keeps what the old cache held, so earlier offline pages still open (325ms)
-  ✓  104 [phone-portrait] › e2e/home.spec.ts:112:3 › at iPhone width › both links are big, on screen, and nothing scrolls sideways (664ms)
-  ✓  105 [phone-portrait] › e2e/vessels.spec.ts:41:1 › a vessel is added, filled in later, and survives reloads online and offline (1.5s)
-  ✓  106 [phone-portrait] › e2e/vessels.spec.ts:134:1 › a vessel is soft-deleted with two taps and stays gone after a reload (975ms)
+  ✓   73 [phone-landscape] › e2e/vessels.spec.ts:316:1 › only official tonnage can be entered, with no estimate anywhere (349ms)
+  ✓   75 [phone-landscape] › e2e/vessels.spec.ts:342:1 › roles are a seeded deck and engine list, and a vessel keeps a default role (412ms)
+  ✓   76 [phone-landscape] › e2e/vessels.spec.ts:405:1 › version 1 upgrades to the current version and keeps its entries (205ms)
+  ✓   77 [phone-landscape] › e2e/vessels.spec.ts:481:1 › vessel screens fit one thumb: big controls, save within reach (776ms)
+  ✓   78 [phone-portrait] › e2e/entries.spec.ts:71:1 › check in and out from the home screen, kept across reloads online and offline (1.5s)
+  ✓   79 [phone-portrait] › e2e/entries.spec.ts:138:1 › a second open trip on this device is refused (460ms)
+  ✓   74 [phone-landscape] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (5.6s)
+  ✓   80 [phone-portrait] › e2e/entries.spec.ts:189:1 › a repeat check-in is one tap: the sheet remembers the last choices (991ms)
+  ✓   82 [phone-portrait] › e2e/entries.spec.ts:213:1 › the check-in sheet says what is missing and saves nothing until it is right (370ms)
+  ✓   83 [phone-portrait] › e2e/entries.spec.ts:232:1 › backfilling saves nothing without consent (554ms)
+  ✓   84 [phone-portrait] › e2e/entries.spec.ts:283:1 › with consent, backfilled days save, record the consent and say "backfilled" (1.1s)
+  ✓   85 [phone-portrait] › e2e/entries.spec.ts:350:1 › every entry under 4 hours is flagged and stays; the day notes cite the CFR (700ms)
+  ✓   81 [phone-landscape] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (2.8s)
+  ✓   86 [phone-portrait] › e2e/entries.spec.ts:426:1 › entries carry their vessel, role and confirmed waters; a GPS suggestion stays apart (220ms)
+  ✓   87 [phone-portrait] › e2e/entries.spec.ts:504:1 › entries are edited and soft-deleted, and a backfilled day stays backfilled (718ms)
+  ✓   88 [phone-portrait] › e2e/home.spec.ts:11:1 › the root shows a link to the game and one to the sea-time log (251ms)
+  ✓   89 [phone-portrait] › e2e/entries.spec.ts:569:1 › version 2 upgrades to version 3 and keeps its vessels and entries (477ms)
+  ✓   90 [phone-portrait] › e2e/home.spec.ts:30:1 › the game link opens the game (244ms)
+  ✓   92 [phone-portrait] › e2e/home.spec.ts:45:1 › the sea-time log link opens the log (333ms)
+  ✓   91 [phone-portrait] › e2e/entries.spec.ts:671:1 › the new screens never say qualify or eligible for (575ms)
+  ✓   93 [phone-portrait] › e2e/home.spec.ts:74:1 › the front page opens offline after one online visit (608ms)
+  ✓   94 [phone-portrait] › e2e/entries.spec.ts:694:1 › the entry screens fit one thumb (560ms)
+  ✓   96 [phone-portrait] › e2e/log.spec.ts:53:1 › the log opens with no account and talks to no other server (237ms)
+  ✓   95 [phone-portrait] › e2e/home.spec.ts:92:1 › the front page opens offline even if only the log was visited online (478ms)
+  ✓   97 [phone-portrait] › e2e/log.spec.ts:72:1 › the check-in button is big and sits where a thumb reaches (243ms)
+  ✓   99 [phone-portrait] › e2e/log.spec.ts:86:1 › the log opens offline after one online visit (293ms)
+  ✓   98 [phone-portrait] › e2e/home.spec.ts:112:3 › at iPhone width › both links are big, on screen, and nothing scrolls sideways (458ms)
+  ✓  100 [phone-portrait] › e2e/log.spec.ts:97:1 › a saved entry survives a reload, online and offline (403ms)
+  ✓  102 [phone-portrait] › e2e/log.spec.ts:124:1 › the store refuses bad entries, soft-deletes and leaves the outbox empty (226ms)
+  ✓  103 [phone-portrait] › e2e/log.spec.ts:221:1 › version 3 of the database keeps the entries and outbox stores as version 1 made them (139ms)
+  ✓  104 [phone-portrait] › e2e/log.spec.ts:265:1 › a newer database from another tab is never opened by older code (231ms)
+  ✓  105 [phone-portrait] › e2e/log.spec.ts:287:1 › a new cache name keeps what the old cache held, so earlier offline pages still open (192ms)
+  ✓  101 [phone-portrait] › e2e/vessels.spec.ts:41:1 › a vessel is added, filled in later, and survives reloads online and offline (1.6s)
+  ✓  106 [phone-portrait] › e2e/vessels.spec.ts:134:1 › a vessel is soft-deleted with two taps and stays gone after a reload (1.1s)
   ✓  107 [phone-portrait] › e2e/vessels.spec.ts:197:1 › a photo still being prepared is never saved late, or onto another vessel (2.1s)
-  ✓  108 [phone-portrait] › e2e/vessels.spec.ts:278:1 › two quick taps on Save add a new vessel once (600ms)
-  ✓  109 [phone-portrait] › e2e/vessels.spec.ts:300:1 › the form says what to fix and saves nothing until it is right (478ms)
-  ✓  110 [phone-portrait] › e2e/vessels.spec.ts:316:1 › only official tonnage can be entered, with no estimate anywhere (187ms)
-  ✓  111 [phone-portrait] › e2e/vessels.spec.ts:342:1 › roles are a seeded deck and engine list, and a vessel keeps a default role (446ms)
-  ✓  112 [phone-portrait] › e2e/vessels.spec.ts:405:1 › version 1 upgrades to the current version and keeps its entries (181ms)
-  ✓  113 [phone-portrait] › e2e/vessels.spec.ts:481:1 › vessel screens fit one thumb: big controls, save within reach (806ms)
+  ✓  108 [phone-portrait] › e2e/vessels.spec.ts:278:1 › two quick taps on Save add a new vessel once (559ms)
+  ✓  109 [phone-portrait] › e2e/vessels.spec.ts:300:1 › the form says what to fix and saves nothing until it is right (423ms)
+  ✓  110 [phone-portrait] › e2e/vessels.spec.ts:316:1 › only official tonnage can be entered, with no estimate anywhere (163ms)
+  ✓  111 [phone-portrait] › e2e/vessels.spec.ts:342:1 › roles are a seeded deck and engine list, and a vessel keeps a default role (411ms)
+  ✓  112 [phone-portrait] › e2e/vessels.spec.ts:405:1 › version 1 upgrades to the current version and keeps its entries (154ms)
+  ✓  113 [phone-portrait] › e2e/vessels.spec.ts:481:1 › vessel screens fit one thumb: big controls, save within reach (644ms)
 
-  113 passed (1.0m)
+  113 passed (52.9s)
 
 ==> npm audit --omit=dev
 found 0 vulnerabilities
 
 verify.sh passed: 9 step(s) ran, 0 skipped.
-[exit 0]
-
-$ cd docs/prototypes/rules-of-the-road && grep -oE "(\]\(|src=\")[^)\"#]+" README.md | sed -E "s/^(\]\(|src=\")//" | sort -u | while read -r f; do if git ls-files --error-unmatch "$f" >/dev/null 2>&1; then echo "ok $f"; else echo "MISSING $f"; exit 1; fi; done
-ok ../../product/DECISIONS.md
-ok ../../product/night-harbor-run-regs-check-2026-10-22.md
-ok handoff/rules-of-the-road-handoff-2026-10-22.pdf
-ok images/built/01-level-1-docking-desktop.png
-ok images/built/02-level-1-docking-phone-landscape.png
-ok images/built/03-level-2-crosswind-slip.png
-ok images/built/04-level-3-course-start.png
-ok images/built/05-level-3-container-ship.png
-ok images/built/06-level-3-hit-by-ship.png
-ok images/built/07-rules-level-1-definitions-card.png
-ok images/built/08-rules-level-1-miss-replay.png
-ok images/built/09-rules-level-1-cleared.png
-ok images/built/10-rules-level-1-all-17-vessels.jpg
-ok images/built/level-3-layout.png
-ok images/decks/day-shapes-deck.jpg
-ok images/decks/lights-deck.jpg
-ok images/harbor-run/call-while-steering.jpg
-ok images/harbor-run/course.jpg
-ok images/harbor-run/dredge-diamond-side.jpg
-ok images/harbor-run/finish-splits.jpg
-ok images/mockups/ch1-01-definitions.jpg
-ok images/mockups/ch1-02-lights.jpg
-ok images/mockups/ch1-03-day-shapes.jpg
-ok images/mockups/ch1-04-horn-signals.jpg
-ok images/mockups/ch1-05-pecking-order.jpg
-ok images/mockups/ch1-06-steady-bearing.jpg
-ok images/mockups/ch1-07-who-gives-way.jpg
-ok images/mockups/ch1-08-fog.jpg
-ok images/mockups/ch1-boss-exam.jpg
-ok images/mockups/ch1-map.jpg
-ok images/mockups/ch1-replay-lights-miss.jpg
-ok images/mockups/ch1-replay-steering-miss.jpg
-ok images/night-harbor-run/01-start-screen.png
-ok images/night-harbor-run/02-head-on-lights.png
-ok images/night-harbor-run/03-call-it-question.png
-ok images/night-harbor-run/04-answer-and-rule.png
-ok images/night-harbor-run/05-phone.png
-ok images/night-harbor-run/course-layout.png
-ok images/wireframes/night-harbor-run.png
-ok images/wireframes/play-landscape.png
-ok images/wireframes/rules-portrait.png
-ok playable/night-harbor-run.html
 [exit 0]
