@@ -1,14 +1,18 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#46",
-  "sourceDigest": "sha256:9761de1561ac6ce4df430af160dbab370b3e6f7d2eeab6c1e28dfab95a1bec52",
-  "capturedAt": "2026-10-22T15:52:43Z",
+  "sourceDigest": "sha256:cdb52d7406b20a83575750a20658fdf49ce0eaa3c38037571c9ffc47df244b60",
+  "capturedAt": "2026-10-22T16:18:23Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.sh",
-    "fixture": "Docs-only uscg-regs check of the #46 harbor course on main 5313857"
+    "command": "bash scripts/verify.test.sh",
+    "fixture": "existing missions/ plus tests/course.test.ts fixtures"
   },
   "commands": [
+    {
+      "command": "bash scripts/verify.test.sh",
+      "exitCode": 0
+    },
     {
       "command": "bash scripts/verify.sh",
       "exitCode": 0
@@ -19,8 +23,8 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "Full verification for the documents-only harbor traffic regulation check"
+      "shows": "verify.sh passes all steps; course and mission-schema unit tests pass; golden replays unchanged"
     }
   ],
-  "noBehaviorReason": "Documents only; no application behavior changed."
+  "noBehaviorReason": "Pure src/sim schema and course primitives; nothing player-visible changes until a later #46 slice wires them into HarborScene"
 }
