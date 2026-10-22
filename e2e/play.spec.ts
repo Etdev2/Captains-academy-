@@ -78,3 +78,27 @@ test('the engine levers stay where they are left, and the boat answers', async (
   await expect.poll(async () => (await debug())?.starboard ?? 0).toBeGreaterThan(50);
   await expect.poll(async () => (await debug())?.speedMmPerS ?? 0).toBeGreaterThan(200);
 });
+
+test('level 3 opens after level 2, runs five gates and counts the first one', async ({ page }) => {
+  test.setTimeout(120_000);
+  await page.addInitScript(() => {
+    localStorage.setItem('captains-academy:stars:long-beach-docking', '1');
+    localStorage.setItem('captains-academy:stars:long-beach-crosswind', '1');
+  });
+  await page.goto('/play/');
+  const canvas = page.locator('#game canvas');
+  await expect(canvas).toBeVisible();
+  const box = await canvas.boundingBox();
+  if (!box) throw new Error('no canvas');
+  // LEVEL 3 sits third down the top-left, at about (60, 262) in the 1280 x 768 game.
+  await page.mouse.click(box.x + (60 / 1280) * box.width, box.y + (262 / 768) * box.height);
+  const debug = () => page.evaluate(() => window.__captainsAcademy);
+  await expect.poll(async () => (await debug())?.level).toBe(2);
+  expect((await debug())?.gates).toBe(5);
+
+  // Straight ahead from the start runs through the breakwater gap, which is gate 1.
+  await page.keyboard.down('ArrowUp');
+  await expect.poll(async () => (await debug())?.port ?? 0).toBeGreaterThan(60);
+  await page.keyboard.up('ArrowUp');
+  await expect.poll(async () => (await debug())?.gate ?? 0, { timeout: 90_000 }).toBe(1);
+});

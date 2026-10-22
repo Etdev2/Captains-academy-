@@ -1,6 +1,6 @@
 # Levels
 
-The level buttons down the top-left list both levels with the stars earned on each. Level 2, the crosswind slip, stays locked until level 1 has at least one star saved on the device. Tapping an open level's button starts it.
+The level buttons down the top-left list the three levels with the stars earned on each. Level 2, the crosswind slip, stays locked until level 1 has at least one star saved on the device, and level 3, the harbor course, until level 2 has one. Tapping an open level's button starts it.
 
 ## Sub-features
 
@@ -25,4 +25,4 @@ Preconditions:
 ## Gotchas
 
 - Seeding the star stands in for docking level 1. Report it as a precondition, never as proof of docking.
-- The LEVEL 2 button's centre is at about (60, 206) in game coordinates. LEVEL 1 is at (60, 150).
+- The LEVEL 2 button's centre is at about (60, 206) in game coordinates. LEVEL 1 is at (60, 150) and LEVEL 3 at (60, 262). [Harbor course](./harbor-course.md) opens level 3.

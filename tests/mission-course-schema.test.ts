@@ -41,14 +41,16 @@ const problems = (data: unknown): string[] => {
 };
 const pathsOf = (data: unknown): string[] => problems(data).map((p) => p.split(':')[0] ?? '');
 
-describe('missions without a course', () => {
+describe('every mission file', () => {
   for (const file of readdirSync(dir).filter((f) => f.endsWith('.json'))) {
-    it(`${file} parses unchanged, with no gates or traffic`, () => {
+    it(`${file} parses unchanged`, () => {
       const data = read(file);
       const mission = parseMission(data);
       expect(mission).toEqual(data);
-      expect(mission.gates).toBeUndefined();
-      expect(mission.traffic).toBeUndefined();
+      if (!('gates' in data) && !('traffic' in data)) {
+        expect(mission.gates).toBeUndefined();
+        expect(mission.traffic).toBeUndefined();
+      }
     });
   }
 });

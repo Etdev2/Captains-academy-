@@ -1,0 +1,360 @@
+{
+  "schemaVersion": 2,
+  "id": "long-beach-traffic",
+  "title": "Long Beach harbor: run the course, then dock",
+  "parSeconds": 150,
+  "world": {
+    "w": 300000,
+    "h": 230000
+  },
+  "start": {
+    "x": 150000,
+    "y": 212000,
+    "headingDeg": 0
+  },
+  "current": {
+    "eastMmPerS": 0,
+    "southMmPerS": 0
+  },
+  "boat": {
+    "name": "Six-pack charter boat",
+    "lengthMm": 9000,
+    "beamMm": 3200,
+    "maxAheadMmPerS": 3500,
+    "maxAsternMmPerS": 1800,
+    "accelMmPerS2": 900,
+    "dragPer65536": 100,
+    "turnDegPerSAtMax": 45,
+    "engineSteerMmPerS": 1500,
+    "twinTurnDegPerS": 24,
+    "yawResponsePer65536": 1400,
+    "maxContactMmPerS": 450
+  },
+  "wind": {
+    "gustMmPerS": 100,
+    "gustSeconds": 5,
+    "seed": 20261022
+  },
+  "obstacles": [
+    {
+      "kind": "shore",
+      "x": 0,
+      "y": 0,
+      "w": 300000,
+      "h": 8000
+    },
+    {
+      "kind": "shore",
+      "x": 0,
+      "y": 8000,
+      "w": 8000,
+      "h": 222000
+    },
+    {
+      "kind": "shore",
+      "x": 292000,
+      "y": 8000,
+      "w": 8000,
+      "h": 222000
+    },
+    {
+      "kind": "dock",
+      "x": 60000,
+      "y": 8000,
+      "w": 180000,
+      "h": 6000
+    },
+    {
+      "kind": "dock",
+      "x": 100000,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 107500,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 115000,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 122500,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 130000,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 137500,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 145000,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 152500,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 160000,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 167500,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 175000,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 182500,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 190000,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "dock",
+      "x": 197500,
+      "y": 14000,
+      "w": 1500,
+      "h": 14000
+    },
+    {
+      "kind": "moored-boat",
+      "x": 117900,
+      "y": 16000,
+      "w": 3200,
+      "h": 9000
+    },
+    {
+      "kind": "moored-boat",
+      "x": 132900,
+      "y": 16000,
+      "w": 3200,
+      "h": 9000
+    },
+    {
+      "kind": "moored-boat",
+      "x": 147900,
+      "y": 16000,
+      "w": 3200,
+      "h": 9000
+    },
+    {
+      "kind": "moored-boat",
+      "x": 155400,
+      "y": 16000,
+      "w": 3200,
+      "h": 9000
+    },
+    {
+      "kind": "moored-boat",
+      "x": 170400,
+      "y": 16000,
+      "w": 3200,
+      "h": 9000
+    },
+    {
+      "kind": "moored-boat",
+      "x": 185400,
+      "y": 16000,
+      "w": 3200,
+      "h": 9000
+    },
+    {
+      "kind": "breakwater",
+      "x": 8000,
+      "y": 170000,
+      "w": 117000,
+      "h": 6000
+    },
+    {
+      "kind": "breakwater",
+      "x": 175000,
+      "y": 170000,
+      "w": 117000,
+      "h": 6000
+    },
+    {
+      "kind": "moored-boat",
+      "x": 210000,
+      "y": 140000,
+      "w": 2500,
+      "h": 6000
+    },
+    {
+      "kind": "moored-boat",
+      "x": 205500,
+      "y": 112000,
+      "w": 3500,
+      "h": 11000
+    },
+    {
+      "kind": "moored-boat",
+      "x": 204000,
+      "y": 82000,
+      "w": 5000,
+      "h": 14000
+    }
+  ],
+  "channels": [
+    {
+      "x": 8000,
+      "y": 186000,
+      "w": 284000,
+      "h": 18000
+    }
+  ],
+  "slip": {
+    "x": 162900,
+    "y": 18500,
+    "w": 3200,
+    "h": 7500,
+    "headingDeg": 0,
+    "headingToleranceDeg": 10,
+    "maxDockMmPerS": 300,
+    "holdSeconds": 3
+  },
+  "gates": [
+    {
+      "x1": 125000,
+      "y1": 173000,
+      "x2": 175000,
+      "y2": 173000
+    },
+    {
+      "x1": 212500,
+      "y1": 143000,
+      "x2": 235000,
+      "y2": 143000
+    },
+    {
+      "x1": 185000,
+      "y1": 117500,
+      "x2": 205500,
+      "y2": 117500
+    },
+    {
+      "x1": 209000,
+      "y1": 89000,
+      "x2": 235000,
+      "y2": 89000
+    },
+    {
+      "x1": 180000,
+      "y1": 36000,
+      "x2": 180000,
+      "y2": 52000
+    }
+  ],
+  "traffic": [
+    {
+      "name": "container ship",
+      "kind": "ship",
+      "lengthMm": 60000,
+      "beamMm": 11000,
+      "speedMmPerS": 3500,
+      "startAfterGate": 0,
+      "lesson": "You're under 20 m. Don't impede a ship that can navigate only inside the channel, and don't cross ahead of her if that would impede her (Rules 9(b), 9(d)).",
+      "path": [
+        {
+          "x": 40000,
+          "y": 195000
+        },
+        {
+          "x": 400000,
+          "y": 195000
+        }
+      ]
+    },
+    {
+      "name": "ferry",
+      "kind": "ferry",
+      "lengthMm": 30000,
+      "beamMm": 8000,
+      "speedMmPerS": 4000,
+      "startAfterGate": 4,
+      "lesson": "Head-on: both boats turn to starboard and pass port to port (Rule 14).",
+      "path": [
+        {
+          "x": 10000,
+          "y": 46000
+        },
+        {
+          "x": 120000,
+          "y": 46000
+        },
+        {
+          "x": 140000,
+          "y": 68000
+        },
+        {
+          "x": 400000,
+          "y": 68000
+        }
+      ]
+    },
+    {
+      "name": "kayak",
+      "kind": "kayak",
+      "lengthMm": 4000,
+      "beamMm": 900,
+      "speedMmPerS": 1200,
+      "startAfterGate": 4,
+      "lesson": "Small craft are hard to see. Keep a lookout and slow down near them (Rules 5 and 6).",
+      "path": [
+        {
+          "x": 130000,
+          "y": 36000
+        },
+        {
+          "x": 240000,
+          "y": 36000
+        }
+      ]
+    }
+  ]
+}

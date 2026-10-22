@@ -5,7 +5,7 @@ description: Launch, drive and capture proof of the Captain's Academy arcade gam
 
 # Verify Captain's Academy
 
-This skill drives the arcade game at `/play/`: a top-down night harbor where the player docks a twin-engine boat with an engine lever under each thumb. The app also serves the sea-time log at `/log/` (added in #33). The log isn't in this feature map yet. Map it before using this skill to prove a log change. It is a canvas game, so there are no DOM handles inside it. The game publishes its state on `window.__captainsAcademy` (`frame`, `outcome`, `speedMmPerS`, `level`, `port`, `starboard`, `muted`, `horn`), and the driver reads that after every step.
+This skill drives the arcade game at `/play/`: a top-down night harbor where the player docks a twin-engine boat with an engine lever under each thumb. The app also serves the sea-time log at `/log/` (added in #33). The log isn't in this feature map yet. Map it before using this skill to prove a log change. It is a canvas game, so there are no DOM handles inside it. The game publishes its state on `window.__captainsAcademy` (`frame`, `outcome`, `speedMmPerS`, `level`, `port`, `starboard`, `muted`, `horn`, `xMm`, `yMm`, `gate`, `gates`, `struckBy`), and the driver reads that after every step.
 
 `bash scripts/verify.sh` is the project's verification command and runs the unit tests, golden replays and e2e tests. This skill is for driving the real build by hand, feature by feature, and keeping the evidence.
 
@@ -42,7 +42,7 @@ VERIFY_RUN=levers-check .claude/skills/verify-captains-academy/control.sh drive 
 | `{"do":"key","key":"ArrowUp","ms":800}` | Holds a key |
 | `{"do":"tap","x":60,"y":206}` | Taps a point on the canvas |
 | `{"do":"wait","ms":2000}` | Lets the game run |
-| `{"do":"waitFor","field":"outcome","eq":"hit","timeoutMs":40000}` | Waits for a state field to equal a value |
+| `{"do":"waitFor","field":"outcome","eq":"hit","timeoutMs":40000}` | Waits for a state field to be `eq`, `gt` or `lt` a value |
 | `{"do":"expect","field":"port","gt":50}` | Fails unless a state field is `eq`, `gt` or `lt` a value |
 | `{"do":"offline","on":true}`, `{"do":"reload"}`, `{"do":"waitForOfflineCache"}` | Network and service-worker steps for offline play |
 | `{"do":"screenshot","name":"after-split"}` | Saves `<name>.png` in the run folder |
@@ -58,7 +58,7 @@ Proof standards:
 - Drive the real user path: the levers, keys and taps a player uses. Never call game internals or set `window.__captainsAcademy`.
 - Capture the action and the result: a screenshot after the input and the state change in `steps.log.json`, not only a final screen.
 - Seeding saved progress with `storage` is a precondition, not proof. Say so when a proof relies on it.
-- A docking from the player's side is too fiddly to script by hand. The golden replays in `tests/replays/` prove both levels can be docked; this skill proves the controls and the outcomes a player sees.
+- A docking from the player's side is too fiddly to script by hand. The golden replays in `tests/replays/` prove every level can be docked, and that turning to port into the ferry on level 3 gets the boat hit; this skill proves the controls and the outcomes a player sees.
 
 ## Cleanup
 

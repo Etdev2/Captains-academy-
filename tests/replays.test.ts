@@ -3,7 +3,8 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { parseMission } from '../src/sim/mission';
 import { runReplay, replaySchema } from '../src/sim/replay';
-import { compileLevel } from '../src/sim/sim';
+import { compileLevel, initialState } from '../src/sim/sim';
+import { encounters, framesOf, trace } from './helpers/encounter';
 
 // Golden replays: each recorded input file must reproduce its saved result
 // exactly. A change to the simulation that moves any frame changes the trace
@@ -20,6 +21,8 @@ const expected: Record<string, string> = {
   'long-beach-docking-docks': 'docked',
   'long-beach-docking-hits-shore': 'hit',
   'long-beach-crosswind-docks': 'docked',
+  'long-beach-traffic-docks': 'docked',
+  'long-beach-traffic-hit-by-ferry': 'hit',
 };
 
 describe('golden replays', () => {
@@ -35,11 +38,19 @@ describe('golden replays', () => {
     const name = file.replace('.replay.json', '');
     it(`${name} reproduces its saved result`, async () => {
       const replay = replaySchema.parse(JSON.parse(readFileSync(join(dir, file), 'utf8')));
-      const { final, traceHash } = runReplay(levelFor(replay.missionId), replay);
+      const level = levelFor(replay.missionId);
+      const { final, traceHash } = runReplay(level, replay);
       expect(final.outcome).toBe(expected[name]);
-      await expect(JSON.stringify({ final, traceHash }, null, 2) + '\n').toMatchFileSnapshot(
-        join(dir, `${name}.result.json`),
-      );
+      // Course levels also pin how each vessel meets the boat: the relative
+      // bearing when risk of collision begins and when a vessel turns. Levels
+      // without traffic save exactly what they saved before.
+      const met =
+        level.traffic.length > 0
+          ? encounters(level, trace(level, initialState(level), framesOf(replay.runs)))
+          : undefined;
+      await expect(
+        JSON.stringify({ final, traceHash, encounters: met }, null, 2) + '\n',
+      ).toMatchFileSnapshot(join(dir, `${name}.result.json`));
     });
   }
 });
