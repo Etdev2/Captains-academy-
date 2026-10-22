@@ -1,13 +1,12 @@
 # Harbor course
 
-Level 3 is a course in Long Beach harbor. The player runs five numbered gates in order, rounding three moored boats on the side each gate shows, then docks in the open slip. Outside the breakwater a dashed band marked CHANNEL runs east and west, and the player starts south of it and must cross it to reach gate 1. Other vessels run fixed tracks: a container ship inside the channel from the start, a powerboat that crosses from starboard after gate 3, a ferry that comes head-on after gate 4 and turns to its own starboard, and a kayak near the slip. Any contact with one of them ends the run, and the banner names the vessel and gives a one-line lesson with its rule citation. The next gate glows gold, passed gates dim, and the slip stays dark until the last gate. The lessons and situations follow `docs/product/harbor-traffic-regs-check-2026-10-22.md`.
+Level 3 is a course in Long Beach harbor. The player runs five numbered gates in order, rounding three moored boats on the side each gate shows, then docks in the open slip. Outside the breakwater a dashed band marked CHANNEL runs east and west, and the player starts south of it and must cross it to reach gate 1. Other vessels run fixed tracks: a container ship inside the channel from the start, a ferry that comes head-on after gate 4 and turns to its own starboard, and a kayak near the slip. The powerboat that crossed between gates 3 and 4 is out of this slice; she returns with a Rule 13 lesson in a later one (#56). Any contact with one of them ends the run, and the banner names the vessel and gives a one-line lesson with its rule citation. The next gate glows gold, passed gates dim, and the slip stays dark until the last gate. The lessons and situations follow `docs/product/harbor-traffic-regs-check-2026-10-22.md`.
 
 ## Sub-features
 
 - `course-gates` counts the gates in order. The HUD shows `Gate n of 5` and the distance to it, the gold arrow points to the next gate, and the slip only counts after gate 5.
 - `course-traffic-hit` ends the run when a traffic vessel touches the boat, even a boat at rest, and shows that vessel's name and lesson.
 - `course-channel` draws the ship's channel on the water and on the corner chart. The ship's track stays inside it, which `tests/harbor-course.test.ts` checks.
-- `course-crossing` is the powerboat: a player who holds course from gate 3 instead of keeping out of her way gets hit. The golden replay `long-beach-traffic-hit-by-powerboat` proves this path and pins her relative bearing when risk of collision begins.
 - `course-wrong-turn` is the ferry: a player who turns to port as it comes head-on steers into it. The golden replay `long-beach-traffic-hit-by-ferry` proves this path and pins the ferry's bearing, dead ahead, as she turns to starboard.
 - `course-docks` is a clean run through all five gates into the slip, proven by the golden replay `long-beach-traffic-docks`.
 
