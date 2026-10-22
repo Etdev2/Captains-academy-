@@ -37,9 +37,10 @@ VERIFY_RUN=levers-check .claude/skills/verify-captains-academy/control.sh drive 
 
 | Step | Does |
 | --- | --- |
-| `{"do":"open","viewport":"desktop"}` | New browser context and page at `/play/`. Viewports: `desktop` (1280 x 768), `phone-landscape` and `phone-portrait` (Pixel 7). `"storage": {"key": "value"}` seeds the device's saved progress first |
+| `{"do":"open","viewport":"desktop"}` | New browser context and page at `/play/`, or at `"path"` such as `/rules/`. Viewports: `desktop` (1280 x 768), `phone-landscape` and `phone-portrait` (Pixel 7). `"storage": {"key": "value"}` seeds the device's saved progress first |
 | `{"do":"lever","side":"port","to":80}` | Drags a lever from stop to a setting from -100 (full astern) to 100 (full ahead). `side` is `port` (left thumb, x 96) or `starboard` (right thumb, x 1184) |
 | `{"do":"key","key":"ArrowUp","ms":800}` | Holds a key |
+| `{"do":"answerRight"}`, `{"do":"answerWrong"}` | At `/rules/`, taps the right or a wrong answer button for the card on screen, using `features/steps/definitions.answers.json`. `"until":"done"` keeps answering to the end of the run |
 | `{"do":"tap","x":60,"y":206}` | Taps a point on the canvas |
 | `{"do":"wait","ms":2000}` | Lets the game run |
 | `{"do":"waitFor","field":"outcome","eq":"hit","timeoutMs":40000}` | Waits for a state field to equal a value |

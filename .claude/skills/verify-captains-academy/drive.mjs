@@ -1,11 +1,12 @@
-// Drives the /play game with Playwright from a JSON list of steps and writes
-// evidence: one screenshot per `screenshot` step and steps.log.json with the
-// game's state after every step. Run it through control.sh drive.
+// Drives the /play game, or another game page such as /rules, with Playwright
+// from a JSON list of steps and writes evidence: one screenshot per
+// `screenshot` step and steps.log.json with the game's state after every step.
+// Run it through control.sh drive.
 //
 // The game draws on a canvas, so there are no DOM handles inside it. Steps use
-// the game's own 1280 x 768 coordinates, scaled to the canvas, and read state
-// from window.__captainsAcademy (frame, outcome, speedMmPerS, level, port,
-// starboard, muted, horn).
+// the game's own coordinates (1280 x 768 at /play, 720 x 1280 at /rules),
+// scaled to the canvas, and read state from window.__captainsAcademy at /play
+// or window.__captainsAcademyQuiz at /rules.
 import { chromium, devices } from '@playwright/test';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -35,7 +36,9 @@ let failed = null;
 const canvasPoint = async (x, y) => {
   const box = await page.locator('#game canvas').boundingBox();
   if (!box) throw new Error('the game canvas is not visible');
-  return [box.x + (x / 1280) * box.width, box.y + (y / 768) * box.height];
+  // The canvas's own pixel size is the game's coordinate space.
+  const [w, h] = await page.locator('#game canvas').evaluate((c) => [c.width, c.height]);
+  return [box.x + (x / w) * box.width, box.y + (y / h) * box.height];
 };
 // A one-finger drag as real touch events, through the Chrome DevTools Protocol,
 // since Playwright's touchscreen only taps.
@@ -51,10 +54,58 @@ async function touchDrag(x, fromY, toY) {
   }
   await touch.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
 }
-const readState = () => page.evaluate(() => window.__captainsAcademy ?? null);
+const readState = () =>
+  page.evaluate(() => window.__captainsAcademy ?? window.__captainsAcademyQuiz ?? null);
+
+// The six answer buttons at /rules: two columns, three rows, in the order of
+// CATEGORIES in src/sim/chapter1/definitions.ts. Button n (1 to 6) centers here.
+const answerButton = (n) => [n % 2 === 1 ? 191 : 529, 790 + Math.floor((n - 1) / 2) * 128 + 56];
+// definitions.answers.json maps each card id to its right button. A test keeps
+// it in step with the deck.
+const answers = JSON.parse(
+  readFileSync(new URL('./features/steps/definitions.answers.json', import.meta.url), 'utf8'),
+);
+async function tapGame(x, y) {
+  const [px, py] = await canvasPoint(x, y);
+  if (touch) await page.touchscreen.tap(px, py);
+  else await page.mouse.click(px, py);
+}
+async function answerCard(right) {
+  const s = await readState();
+  const n = answers[s?.card];
+  if (!n) throw new Error(`no answer on file for card ${JSON.stringify(s?.card)}`);
+  await tapGame(...answerButton(right ? n : (n % 6) + 1));
+  // Wait for the next card, the replay or the end screen.
+  const deadline = Date.now() + 5000;
+  for (;;) {
+    const after = await readState();
+    if (after && (after.answered > s.answered || after.phase === 'done')) return;
+    if (Date.now() > deadline) throw new Error('the tap did not answer the card');
+    await page.waitForTimeout(50);
+  }
+}
+async function settle() {
+  for (const deadline = Date.now() + 8000; Date.now() < deadline; ) {
+    const s = await readState();
+    if (s?.phase === 'question' || s?.phase === 'done') return s;
+    await page.waitForTimeout(50);
+  }
+  throw new Error('the level never came back to a question');
+}
 
 async function run(step) {
   switch (step.do) {
+    case 'answerRight':
+    case 'answerWrong': {
+      const right = step.do === 'answerRight';
+      if (step.until === 'done') {
+        while ((await settle()).phase !== 'done') await answerCard(right);
+      } else {
+        await settle();
+        await answerCard(right);
+      }
+      return;
+    }
     case 'open': {
       if (context) await context.close();
       context = await browser.newContext(VIEWPORTS[step.viewport ?? 'desktop']);
@@ -65,8 +116,8 @@ async function run(step) {
       }
       page = await context.newPage();
       touch = VIEWPORTS[step.viewport ?? 'desktop'].hasTouch ? await context.newCDPSession(page) : null;
-      await page.goto(url);
-      if (step.viewport !== 'phone-portrait') {
+      await page.goto(new URL(step.path ?? '', url).href);
+      if (step.viewport !== 'phone-portrait' || step.path) {
         await page.locator('#game canvas').waitFor({ state: 'visible' });
       }
       return;

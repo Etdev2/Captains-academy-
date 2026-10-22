@@ -1,0 +1,21 @@
+[
+  { "do": "open", "viewport": "phone-portrait", "path": "/rules/" },
+  { "do": "wait", "ms": 1500 },
+  { "do": "expect", "field": "phase", "eq": "question" },
+  { "do": "expect", "field": "hearts", "eq": 3 },
+  { "do": "screenshot", "name": "first-card" },
+  { "do": "answerRight" },
+  { "do": "answerRight" },
+  { "do": "answerRight" },
+  { "do": "screenshot", "name": "combo" },
+  { "do": "answerWrong" },
+  { "do": "wait", "ms": 600 },
+  { "do": "expect", "field": "phase", "eq": "replay" },
+  { "do": "expect", "field": "hearts", "eq": 2 },
+  { "do": "screenshot", "name": "miss-replay" },
+  { "do": "waitFor", "field": "phase", "eq": "question", "timeoutMs": 8000 },
+  { "do": "answerRight", "until": "done" },
+  { "do": "expect", "field": "outcome", "eq": "cleared" },
+  { "do": "expect", "field": "stars", "eq": 2 },
+  { "do": "screenshot", "name": "cleared" }
+]

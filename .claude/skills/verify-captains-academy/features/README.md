@@ -1,6 +1,6 @@
 # Captain's Academy verification map
 
-This directory is the maintained source for verifying what a player can do at `/play/`. The sea-time log at `/log/` isn't mapped yet. Read this index before driving the game, then use the matching feature file as the recipe.
+This directory is the maintained source for verifying what a player can do at `/play/` and in the Rules of the Road chapter at `/rules/`. The sea-time log at `/log/` isn't mapped yet. Read this index before driving the game, then use the matching feature file as the recipe.
 
 ## Baseline preconditions
 
@@ -33,6 +33,7 @@ Each feature file starts with an H1 title and one paragraph describing what the 
 - [Levels](./levels.md): level 2 stays locked until level 1 has a star, then opens from its button.
 - [Portrait pause](./portrait-pause.md): on a phone held upright the level waits behind a rotate prompt.
 - [Offline play](./offline-play.md): after one online visit the level loads and runs with no network.
+- [Definitions level](./definitions.md): Chapter 1, level 1 at `/rules/`, played upright: name each vessel, a miss costs a heart and plays the replay, and the run ends cleared or out of hearts.
 - [Horn and sound](./horn-and-sound.md): the SOUND and HORN buttons and their M and H keys, the saved sound setting, and the horn's rings.
 
 Together these drive every control the game handles, each through its own recipe step: both touch levers; every lever key and alias (↑ ↓ ← →, W S A D, Q Z, E C) and X, in `keyboard.steps.json`; the SOUND, HORN and LEVEL buttons; M and H; and tap, Enter and Space to retry after a run.
