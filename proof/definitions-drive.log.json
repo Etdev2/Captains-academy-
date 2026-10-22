@@ -1,0 +1,406 @@
+[
+  {
+    "i": 0,
+    "step": {
+      "do": "open",
+      "viewport": "phone-portrait",
+      "path": "/rules/"
+    },
+    "ok": true,
+    "state": {
+      "level": "ch1-definitions",
+      "phase": "question",
+      "card": "rule3:longliner",
+      "hearts": 3,
+      "combo": 0,
+      "score": 0,
+      "misses": 0,
+      "answered": 0,
+      "remaining": 17,
+      "outcome": "playing",
+      "stars": 0
+    }
+  },
+  {
+    "i": 1,
+    "step": {
+      "do": "wait",
+      "ms": 1500
+    },
+    "ok": true,
+    "state": {
+      "level": "ch1-definitions",
+      "phase": "question",
+      "card": "rule3:longliner",
+      "hearts": 3,
+      "combo": 0,
+      "score": 0,
+      "misses": 0,
+      "answered": 0,
+      "remaining": 17,
+      "outcome": "playing",
+      "stars": 0
+    }
+  },
+  {
+    "i": 2,
+    "step": {
+      "do": "expect",
+      "field": "phase",
+      "eq": "question"
+    },
+    "ok": true,
+    "state": {
+      "level": "ch1-definitions",
+      "phase": "question",
+      "card": "rule3:longliner",
+      "hearts": 3,
+      "combo": 0,
+      "score": 0,
+      "misses": 0,
+      "answered": 0,
+      "remaining": 17,
+      "outcome": "playing",
+      "stars": 0
+    }
+  },
+  {
+    "i": 3,
+    "step": {
+      "do": "expect",
+      "field": "hearts",
+      "eq": 3
+    },
+    "ok": true,
+    "state": {
+      "level": "ch1-definitions",
+      "phase": "question",
+      "card": "rule3:longliner",
+      "hearts": 3,
+      "combo": 0,
+      "score": 0,
+      "misses": 0,
+      "answered": 0,
+      "remaining": 17,
+      "outcome": "playing",
+      "stars": 0
+    }
+  },
+  {
+    "i": 4,
+    "step": {
+      "do": "screenshot",
+      "name": "first-card"
+    },
+    "ok": true,
+    "state": {
+      "level": "ch1-definitions",
+      "phase": "question",
+      "card": "rule3:longliner",
+      "hearts": 3,
+      "combo": 0,
+      "score": 0,
+      "misses": 0,
+      "answered": 0,
+      "remaining": 17,
+      "outcome": "playing",
+      "stars": 0
+    }
+  },
+  {
+    "i": 5,
+    "step": {
+      "do": "answerRight"
+    },
+    "ok": true,
+    "state": {
+      "level": "ch1-definitions",
+      "phase": "right",
+      "card": "rule3:deep-draft",
+      "hearts": 3,
+      "combo": 1,
+      "score": 100,
+      "misses": 0,
+      "answered": 1,
+      "remaining": 16,
+      "outcome": "playing",
+      "stars": 0
+    }
+  },
+  {
+    "i": 6,
+    "step": {
+      "do": "answerRight"
+    },
+    "ok": true,
+    "state": {
+      "level": "ch1-definitions",
+      "phase": "right",
+      "card": "rule3:replenishment",
+      "hearts": 3,
+      "combo": 2,
+      "score": 300,
+      "misses": 0,
+      "answered": 2,
+      "remaining": 15,
+      "outcome": "playing",
+      "stars": 0
+    }
+  },
+  {
+    "i": 7,
+    "step": {
+      "do": "answerRight"
+    },
+    "ok": true,
+    "state": {
+      "level": "ch1-definitions",
+      "phase": "right",
+      "card": "rule3:buoy-tender",
+      "hearts": 3,
+      "combo": 3,
+      "score": 600,
+      "misses": 0,
+      "answered": 3,
+      "remaining": 14,
+      "outcome": "playing",
+      "stars": 0
+    }
+  },
+  {
+    "i": 8,
+    "step": {
+      "do": "screenshot",
+      "name": "combo"
+    },
+    "ok": true,
+    "state": {
+      "level": "ch1-definitions",
+      "phase": "question",
+      "card": "rule3:buoy-tender",
+      "hearts": 3,
+      "combo": 3,
+      "score": 600,
+      "misses": 0,
+      "answered": 3,
+      "remaining": 14,
+      "outcome": "playing",
+      "stars": 0
+    }
+  },
+  {
+    "i": 9,
+    "step": {
+      "do": "answerWrong"
+    },
+    "ok": true,
+    "state": {
+      "level": "ch1-definitions",
+      "phase": "replay",
+      "card": "rule3:engine-failed",
+      "hearts": 2,
+      "combo": 0,
+      "score": 600,
+      "misses": 1,
+      "answered": 4,
+      "remaining": 14,
+      "outcome": "playing",
+      "stars": 0
+    }
+  },
+  {
+    "i": 10,
+    "step": {
+      "do": "wait",
+      "ms": 600
+    },
+    "ok": true,
+    "state": {
+      "level": "ch1-definitions",
+      "phase": "replay",
+      "card": "rule3:engine-failed",
+      "hearts": 2,
+      "combo": 0,
+      "score": 600,
+      "misses": 1,
+      "answered": 4,
+      "remaining": 14,
+      "outcome": "playing",
+      "stars": 0
+    }
+  },
+  {
+    "i": 11,
+    "step": {
+      "do": "expect",
+      "field": "phase",
+      "eq": "replay"
+    },
+    "ok": true,
+    "state": {
+      "level": "ch1-definitions",
+      "phase": "replay",
+      "card": "rule3:engine-failed",
+      "hearts": 2,
+      "combo": 0,
+      "score": 600,
+      "misses": 1,
+      "answered": 4,
+      "remaining": 14,
+      "outcome": "playing",
+      "stars": 0
+    }
+  },
+  {
+    "i": 12,
+    "step": {
+      "do": "expect",
+      "field": "hearts",
+      "eq": 2
+    },
+    "ok": true,
+    "state": {
+      "level": "ch1-definitions",
+      "phase": "replay",
+      "card": "rule3:engine-failed",
+      "hearts": 2,
+      "combo": 0,
+      "score": 600,
+      "misses": 1,
+      "answered": 4,
+      "remaining": 14,
+      "outcome": "playing",
+      "stars": 0
+    }
+  },
+  {
+    "i": 13,
+    "step": {
+      "do": "screenshot",
+      "name": "miss-replay"
+    },
+    "ok": true,
+    "state": {
+      "level": "ch1-definitions",
+      "phase": "replay",
+      "card": "rule3:engine-failed",
+      "hearts": 2,
+      "combo": 0,
+      "score": 600,
+      "misses": 1,
+      "answered": 4,
+      "remaining": 14,
+      "outcome": "playing",
+      "stars": 0
+    }
+  },
+  {
+    "i": 14,
+    "step": {
+      "do": "waitFor",
+      "field": "phase",
+      "eq": "question",
+      "timeoutMs": 8000
+    },
+    "ok": true,
+    "state": {
+      "level": "ch1-definitions",
+      "phase": "question",
+      "card": "rule3:engine-failed",
+      "hearts": 2,
+      "combo": 0,
+      "score": 600,
+      "misses": 1,
+      "answered": 4,
+      "remaining": 14,
+      "outcome": "playing",
+      "stars": 0
+    }
+  },
+  {
+    "i": 15,
+    "step": {
+      "do": "answerRight",
+      "until": "done"
+    },
+    "ok": true,
+    "state": {
+      "level": "ch1-definitions",
+      "phase": "done",
+      "card": null,
+      "hearts": 2,
+      "combo": 14,
+      "score": 6600,
+      "misses": 1,
+      "answered": 18,
+      "remaining": 0,
+      "outcome": "cleared",
+      "stars": 2
+    }
+  },
+  {
+    "i": 16,
+    "step": {
+      "do": "expect",
+      "field": "outcome",
+      "eq": "cleared"
+    },
+    "ok": true,
+    "state": {
+      "level": "ch1-definitions",
+      "phase": "done",
+      "card": null,
+      "hearts": 2,
+      "combo": 14,
+      "score": 6600,
+      "misses": 1,
+      "answered": 18,
+      "remaining": 0,
+      "outcome": "cleared",
+      "stars": 2
+    }
+  },
+  {
+    "i": 17,
+    "step": {
+      "do": "expect",
+      "field": "stars",
+      "eq": 2
+    },
+    "ok": true,
+    "state": {
+      "level": "ch1-definitions",
+      "phase": "done",
+      "card": null,
+      "hearts": 2,
+      "combo": 14,
+      "score": 6600,
+      "misses": 1,
+      "answered": 18,
+      "remaining": 0,
+      "outcome": "cleared",
+      "stars": 2
+    }
+  },
+  {
+    "i": 18,
+    "step": {
+      "do": "screenshot",
+      "name": "cleared"
+    },
+    "ok": true,
+    "state": {
+      "level": "ch1-definitions",
+      "phase": "done",
+      "card": null,
+      "hearts": 2,
+      "combo": 14,
+      "score": 6600,
+      "misses": 1,
+      "answered": 18,
+      "remaining": 0,
+      "outcome": "cleared",
+      "stars": 2
+    }
+  }
+]

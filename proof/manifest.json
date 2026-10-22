@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#42",
-  "sourceDigest": "sha256:c3eae76d89a552ebf8f7f77bd6644f25f48d2ddf65a9a86e9965a751c0e271f9",
-  "capturedAt": "2026-10-21T20:58:04Z",
+  "ticket": "Etdev2/Captains-academy-#47",
+  "sourceDigest": "sha256:2c979d060bb3770a2cfcf268205b1163345329877fb7460e815e5cb0130cc173",
+  "capturedAt": "2026-10-22T02:05:20Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.sh",
-    "fixture": "tests/fixtures/oupv-near-coastal/log.json: 12 entries on two vessels (24 and 150 GRT), covering every band, a midnight crossing, a same-day overlap, Inside Passage, Great Lakes, a deleted entry and an open trip, in UTC"
+    "command": "bash scripts/verify.test.sh",
+    "fixture": "src/sim/chapter1/definitions.ts: the 17-card Rule 3 deck, with its answer key in .claude/skills/verify-captains-academy/features/steps/definitions.answers.json"
   },
   "commands": [
     {
@@ -18,15 +18,7 @@
       "exitCode": 0
     },
     {
-      "command": "npx --no-install vitest run tests/rules-engine.test.ts tests/rules-oupv-example.test.ts --reporter=verbose",
-      "exitCode": 0
-    },
-    {
-      "command": "cat tests/fixtures/oupv-near-coastal/log.json",
-      "exitCode": 0
-    },
-    {
-      "command": "cat tests/fixtures/oupv-near-coastal/progress.json",
+      "command": "npx --no-install vitest run tests/rapid.test.ts --reporter=verbose",
       "exitCode": 0
     }
   ],
@@ -35,7 +27,27 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "The rules engine unit tests (every band edge at 4, 8 and 12 h, the 100 GRT line, null tonnage, overlaps, midnight, every waters value, Great Lakes day for day, the per-day route outcome, deleted entries, citations on every rule, purity and wording), the worked example from log.json to the OUPV near-coastal progress in progress.json, and the full verify.sh passing"
+      "shows": "verify.sh runs all nine steps with none skipped, including the run and deck unit tests and the new /rules Playwright tests (clean run with three stars, a miss with its replay and the card's return, out of hearts) on desktop, phone landscape and phone portrait"
+    },
+    {
+      "path": "proof/definitions-first-card.png",
+      "kind": "screenshot",
+      "shows": "/rules on a Pixel 7 held upright: three hull hearts, the rule-set chip, a vessel drawn top-down with its cue, and the six Rule 3 answer buttons. Driven with definitions.steps.json at 64c2c55"
+    },
+    {
+      "path": "proof/definitions-miss-replay.png",
+      "kind": "screenshot",
+      "shows": "After a tap on a wrong answer: one heart gone, the purple replay naming the right answer with its reason and Rule 3 paragraph, a countdown bar, the right button outlined gold and the wrong pick purple."
+    },
+    {
+      "path": "proof/definitions-cleared.png",
+      "kind": "screenshot",
+      "shows": "The end of that run: level cleared with two stars for one miss, the answer count, time, score and best combo, and Play again and Home buttons."
+    },
+    {
+      "path": "proof/definitions-drive.log.json",
+      "kind": "log",
+      "shows": "Every step of the drive with the level state after it: three right taps building the combo, the miss taking hearts from 3 to 2 in the replay phase, the return to questions, then answers to the end with outcome cleared and stars 2. The engine-levers and levels recipes also passed at this code."
     }
   ]
 }
