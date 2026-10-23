@@ -1,14 +1,17 @@
 import { expect, test, type Page } from '@playwright/test';
 
-// The front page at / (issue #37): one link to the arcade game and one to the
-// sea-time log, usable on an iPhone.
+// The front page at / (issue #37): links to the arcade game, its Rules of the
+// Road chapter (issue #47) and the sea-time log, usable on an iPhone.
 
 const links = (page: Page) => ({
   game: page.getByRole('link', { name: /Arcade game/ }),
   log: page.getByRole('link', { name: /Sea-time log/ }),
+  rules: page.getByRole('link', { name: /Rules of the Road/ }),
 });
 
-test('the root shows a link to the game and one to the sea-time log', async ({ page }) => {
+test('the root links to the game, the Rules of the Road chapter and the sea-time log', async ({
+  page,
+}) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   const response = await page.goto('/');
@@ -17,10 +20,11 @@ test('the root shows a link to the game and one to the sea-time log', async ({ p
   expect(new URL(page.url()).pathname).toBe('/');
   await expect(page.getByRole('heading', { name: "Captain's Academy" })).toBeVisible();
 
-  const { game, log } = links(page);
+  const { game, log, rules } = links(page);
   await expect(game).toHaveAttribute('href', '/play/');
+  await expect(rules).toHaveAttribute('href', '/rules/');
   await expect(log).toHaveAttribute('href', '/log/');
-  await expect(page.getByRole('link')).toHaveCount(2);
+  await expect(page.getByRole('link')).toHaveCount(3);
   const text = await page.locator('body').innerText();
   expect(text).not.toMatch(/qualif/i);
   expect(text).toContain('never counts as sea time');

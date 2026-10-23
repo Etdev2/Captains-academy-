@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#61",
-  "sourceDigest": "sha256:d5bb0c2449313246f959a22cdb54bf4da7b668dbf216ca32e2dcd9075903e5d2",
-  "capturedAt": "2026-10-23T16:10:26Z",
+  "ticket": "Etdev2/Captains-academy-#47",
+  "sourceDigest": "sha256:ef2f67cd508ba8cc31adb2b978b2b6d3c309974b105be26f24e2b4c685067248",
+  "capturedAt": "2026-10-23T15:41:48Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.test.sh",
-    "fixture": "PR #61 at its new head: .github/workflows/claude.yml with shell tools gated to same-repository heads and a repository-wide builder concurrency group; checks run on Node 22"
+    "fixture": "/rules/?seed=47 on the production build: phone upright, phone sideways and desktop; the verify-captains-academy recipes definitions-phone-390 and definitions-desktop-wide"
   },
   "commands": [
     {
@@ -18,13 +18,12 @@
       "exitCode": 0
     }
   ],
-  "behaviorChanged": false,
+  "behaviorChanged": true,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.test.sh and verify.sh both exit 0 on the PR #61 code; no app code changed"
+      "shows": "The Definitions level plays 16 checked Rule 3 cards: right answers build the combo, a miss costs a heart and shows a pausable explanation with the citation, the card returns three cards later, and the run ends cleared with stars or out of hearts. axe, contrast and tap-target checks pass"
     }
-  ],
-  "noBehaviorReason": "CI workflow config (claude.yml) and a time card only. No app code, mission or replay changed"
+  ]
 }

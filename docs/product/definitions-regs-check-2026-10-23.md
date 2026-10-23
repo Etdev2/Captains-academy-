@@ -110,10 +110,12 @@ Stage 1 ships the text in the "Ship" column.
 
 **`rule3:heavy-tow`.** (g)(vi) says the tow "severely restricts" the ability to deviate from course. The old cue says she "can't" turn off her course, which is stronger than the rule and also gives the answer away. Being a towing vessel does not make a vessel restricted by itself; the restriction does, and the reason says so.
 
+Amended on 2026-10-23 for issue #62. (g)(vi) requires the towing operation to severely restrict both the towing vessel and her tow. The first corrected cue named only the barge, so the player could not tell the answer from the cue. The cue now names both. `uscg-regs` re-read 83.03(g)(vi) and International Rule 3(g)(vi) for this change; both read the same.
+
 | Field | Was | Ship |
 | --- | --- | --- |
 | Citation | Rule 3(g)(vi) | Rule 3(g)(vi), 33 CFR 83.03(g)(vi) |
-| Cue | Heavy tow: she can't turn off her course | Towing a heavy barge that can hardly leave its course |
+| Cue | Heavy tow: she can't turn off her course | Towing a heavy barge; she and her tow can hardly leave their course |
 | Why | A tow that severely limits turning from her course makes her restricted. | A tow that severely restricts her and her tow from leaving their course makes her restricted. |
 
 **`rule3:deep-draft`.** The answer and the International-only marking are right. Rule 3(h) applies only to a power-driven vessel, and the tanker is one. The old reason's "pins her to her course" overstates "severely restricted in her ability to deviate". The Inland line is right: 83.03(h) is reserved.
