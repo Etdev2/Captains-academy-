@@ -245,7 +245,8 @@ export class DefinitionsLevel {
     this.renderStatus();
     if (!this.menuOpen) {
       this.questionStartedAt = this.opts.now();
-      this.buttons[0]?.focus({ preventScroll: true });
+      // Focus follows the player from card to card, but a fresh page leaves it alone.
+      if (animate) this.buttons[0]?.focus({ preventScroll: true });
     }
     this.publish();
   }
