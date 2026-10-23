@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#59",
-  "sourceDigest": "sha256:69a68bf69a798112e30a66d09803be7fc9925c6670fe4a72cce2964c3d8f3bea",
-  "capturedAt": "2026-10-23T16:14:36Z",
+  "sourceDigest": "sha256:fc6268e84028b13128f53efe8c9c06f3517887e101fb8ffaa37a37847c768c24",
+  "capturedAt": "2026-10-23T16:35:45Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.test.sh",
-    "fixture": "PR #59 at its new head: DECISIONS.md and chapter-1-build-plan.md order Definitions (#47) then Lights (#29), with #46 parked"
+    "fixture": "PR #59 at its new head: DECISIONS.md, the build plan, the definitions spec and ADRs 0003 and 0007 order Definitions (#47) then Lights (#29), with #46 parked"
   },
   "commands": [
     {
