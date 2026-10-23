@@ -65,7 +65,8 @@ async function run(step) {
       }
       page = await context.newPage();
       touch = VIEWPORTS[step.viewport ?? 'desktop'].hasTouch ? await context.newCDPSession(page) : null;
-      await page.goto(url);
+      // `query` adds a search string to /play/, such as "?unlock=all".
+      await page.goto(step.query ? url + step.query : url);
       if (step.viewport !== 'phone-portrait') {
         await page.locator('#game canvas').waitFor({ state: 'visible' });
       }
