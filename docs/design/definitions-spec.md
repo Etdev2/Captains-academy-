@@ -307,7 +307,7 @@ The branch is 3 commits ahead of `main` and 54 behind. Stage 1 ports what is sou
 | `src/game/rapid/vesselArt.ts` | Keep the drawings, rework the colors | The 17 drawings are clear top-down hulls and show the detail each card turns on. They use `gold`, `blue` and `purple` in about ten places (lines 164 to 439 on `3c67dd4`), which are now feedback colors. Swap those for neutral art tokens: `art-hull #e8eef3`, `art-deck #9aa8b4`, `art-cabin #c9d3db`, `art-sail #f4f6f8`, `art-line #b8c6d2`, `art-wake #8fd0ff`, `art-buoy #c9a46a`, `art-bank #2a2f2a`. Add a `detail` region per drawing for the miss highlight. The art draws no navigation lights or day shapes, so it teaches nothing wrong about Rules 20 to 30 |
 | `rules/index.html`, `src/game/rapid/main.ts`, `vite.config.ts` entry | Keep | The `/rules` page, its offline entry and the front page link work. Rebuild the page body to hold the HTML components |
 | `e2e/rules.spec.ts` | Keep the flows, rewrite the selectors | It covers a clean run, a miss with its replay and running out of hearts. Point it at the HTML buttons and add the cleared screen, the axe check and the tap-target check |
-| `.claude/skills/verify-captains-academy/` changes | Port by hand | Both #46 and #47 edited `drive.mjs`; #46 merged first. Re-apply the Definitions feature to the current file |
+| `.claude/skills/verify-captains-academy/` changes | Port by hand | The old branch edited `drive.mjs`, and #46's merged slices have changed it on `main` since. Port the Definitions feature onto the current `main` file. Nothing here waits on #46's remaining work, which is parked (G19a) |
 | `proof/` and the old time card | Drop | The proof covers an old head and is stale. The time card belongs to the old branch's history |
 
 ## Out of scope

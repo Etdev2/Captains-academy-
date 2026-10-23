@@ -6,7 +6,7 @@ status: proposed
 
 Branch #47 adds `src/sim/rapid.ts` for shuffle order, hearts, combos, missed-item return and stars. Levels 2 to 5 use different pictures and controls, but they use the same run rules from G11 and G12.
 
-Et settled the product choices that constrain this proposal on 2026-10-22 from 7:11 to 7:17 AM PT, recorded in [PR #50's decision comment](https://github.com/Etdev2/Captains-academy-/pull/50#issuecomment-6343017518). Chapter 1 starts alongside the sea-time log, mixed-review stops follow level 5 and the rule-set difference levels, and #47 becomes checked, split build pull requests after #46. The shared state-machine boundary remains proposed.
+Et settled the product choices that constrain this proposal on 2026-10-22 from 7:11 to 7:17 AM PT, recorded in [PR #50's decision comment](https://github.com/Etdev2/Captains-academy-/pull/50#issuecomment-6343017518). Chapter 1 starts alongside the sea-time log, mixed-review stops follow level 5 and the rule-set difference levels, and #47 becomes checked, split build pull requests after #46. Et changed that order on 2026-10-23 (G19a in `DECISIONS.md`): #47 goes first, then Lights (#29), and #46's remaining work is parked. The shared state-machine boundary remains proposed.
 
 ## Decision
 
