@@ -119,6 +119,23 @@ export class Sound {
     });
   }
 
+  /** One bell note for a right answer, a step higher for each combo step (G13). */
+  rightAnswer(combo: number): void {
+    const { ctx, master } = this;
+    if (!ctx || !master) return;
+    const start = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.value = 660 * 2 ** (Math.min(combo, 5) / 12);
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.exponentialRampToValueAtTime(0.3, start + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.5);
+    osc.connect(gain).connect(master);
+    osc.start(start);
+    osc.stop(start + 0.6);
+  }
+
   /** A ship's horn blast. A short blast is about 1 second (Rule 32). */
   horn(seconds: number): void {
     const { ctx, master } = this;

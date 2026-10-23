@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#47",
-  "sourceDigest": "sha256:6ab2f2790323a3610320f282add3fb198affdbc0e4de044ae549ce7879454ad5",
-  "capturedAt": "2026-10-23T13:53:40Z",
+  "sourceDigest": "sha256:ef2f67cd508ba8cc31adb2b978b2b6d3c309974b105be26f24e2b4c685067248",
+  "capturedAt": "2026-10-23T15:41:48Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.test.sh",
-    "fixture": "Stage 0 docs: docs/design/definitions-spec.md and docs/product/definitions-regs-check-2026-10-23.md, read against branch head-dev/ch1-definitions at 3c67dd4"
+    "fixture": "/rules/?seed=47 on the production build: phone upright, phone sideways and desktop; the verify-captains-academy recipes definitions-phone-390 and definitions-desktop-wide"
   },
   "commands": [
     {
@@ -18,13 +18,12 @@
       "exitCode": 0
     }
   ],
-  "behaviorChanged": false,
+  "behaviorChanged": true,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "The repository still verifies with the two new docs and the time card; no app code changed"
+      "shows": "The Definitions level plays 16 checked Rule 3 cards: right answers build the combo, a miss costs a heart and shows a pausable explanation with the citation, the card returns three cards later, and the run ends cleared with stars or out of hearts. axe, contrast and tap-target checks pass"
     }
-  ],
-  "noBehaviorReason": "Stage 0 adds a design spec, a regulation check and a time card only. No code, config or content the app loads changed."
+  ]
 }
