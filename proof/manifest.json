@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#47",
-  "sourceDigest": "sha256:6ab2f2790323a3610320f282add3fb198affdbc0e4de044ae549ce7879454ad5",
-  "capturedAt": "2026-10-23T13:53:40Z",
+  "ticket": "Etdev2/Captains-academy-#59",
+  "sourceDigest": "sha256:0b4eb0a5c12144f01badeeaf9c4125d7c91e78cb3372ed5d650eada8fee98ce2",
+  "capturedAt": "2026-10-23T14:50:51Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.test.sh",
-    "fixture": "Stage 0 docs: docs/design/definitions-spec.md and docs/product/definitions-regs-check-2026-10-23.md, read against branch head-dev/ch1-definitions at 3c67dd4"
+    "command": "bash scripts/verify.sh",
+    "fixture": "PR #59 merged with main: docs/product/DECISIONS.md order change (relates to #47/#29); checks run on Node 22.23.4"
   },
   "commands": [
     {
@@ -23,8 +23,8 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "The repository still verifies with the two new docs and the time card; no app code changed"
+      "shows": "verify.test.sh and verify.sh both exit 0 on the PR #59 code merged with main"
     }
   ],
-  "noBehaviorReason": "Stage 0 adds a design spec, a regulation check and a time card only. No code, config or content the app loads changed."
+  "noBehaviorReason": "Docs only (DECISIONS.md order). No app code, mission or replay changed"
 }
