@@ -72,7 +72,7 @@ Badges and the license screen
 
 Order
 - **G19.** The Long Beach docking prototype proved the game direction. The arcade track is now parked (see A3); Chapter 1 continues with Definitions then Lights.
-- **G19a.** #47 (Definitions) is the first Chapter 1 build: stage 0 is a docs-only `ux-ui` design pass (UI spec) plus a `uscg-regs` check of the 17 cards, then stage 1 build in small pull requests. #29 (Lights) follows. #46's remaining work is parked with the arcade track.
+- **G19a.** #47 (Definitions) is the first Chapter 1 build: stage 0 is a docs-only `ux-ui` design pass (UI spec) plus a `uscg-regs` check of the 17 cards, then stage 1 build in small pull requests. #29 (Lights) follows. #46's remaining work is parked with the arcade track. Status 2026-10-23: #47 stage 1 has merged to `main` via PR #63.
 
 Teaching
 - **G20.** The game teaches with four methods from learning research. Perceptual learning: many fast visual examples, each classified by the player with instant feedback, until recognition is automatic. Retrieval practice: the player recalls every answer instead of rereading it. Spaced repetition: missed situations come back at growing intervals. Interleaving: levels mix situation types so the player learns to tell them apart. Every visual is paired with words and its citation: the rule number in Chapter 1, and the chapter's own source citation in later chapters (G10). Three rules keep it fun: all teaching happens through play, in the replay after a miss and a one-line rule citation; nothing stops the player for more than 5 seconds to read or watch; and a level that is correct but boring gets redesigned, never shipped.

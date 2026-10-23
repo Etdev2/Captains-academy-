@@ -755,7 +755,7 @@ Superseded on 2026-10-23 (G19a in `DECISIONS.md`): Definitions (#47) goes first,
 
 Current order:
 
-1. `uscg-regs` checks #47's Rule 3 cards. Stage 0 is a docs-only `ux-ui` design pass.
+1. `uscg-regs` checks #47's Rule 3 cards. Stage 0 is a docs-only `ux-ui` design pass. Stage 1 has merged to `main` via PR #63 (2026-10-23).
 2. Split `head-dev/ch1-definitions` into small, dependency-ordered build pull requests against current `main`. The Git Integration Agent reruns verification and regenerates proof for each slice.
 3. The Lights level (#29) and the remaining Chapter 1 tickets start from the merged #47 slices.
 4. When Et resumes the arcade track, `uscg-regs` checks #46's four traffic lessons against primary text, including Rules 5, 6, 9, 14 and 15. Then `head-dev/harbor-traffic-course` is split into small pull requests and updated from the then-current `main`.

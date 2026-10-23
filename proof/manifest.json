@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#59",
-  "sourceDigest": "sha256:fc6268e84028b13128f53efe8c9c06f3517887e101fb8ffaa37a37847c768c24",
-  "capturedAt": "2026-10-23T16:35:45Z",
+  "ticket": "Etdev2/Captains-academy-#47",
+  "sourceDigest": "sha256:ef2f67cd508ba8cc31adb2b978b2b6d3c309974b105be26f24e2b4c685067248",
+  "capturedAt": "2026-10-23T15:41:48Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.test.sh",
-    "fixture": "PR #59 at its new head: DECISIONS.md, the build plan, the definitions spec and ADRs 0003 and 0007 order Definitions (#47) then Lights (#29), with #46 parked"
+    "fixture": "/rules/?seed=47 on the production build: phone upright, phone sideways and desktop; the verify-captains-academy recipes definitions-phone-390 and definitions-desktop-wide"
   },
   "commands": [
     {
@@ -18,13 +18,12 @@
       "exitCode": 0
     }
   ],
-  "behaviorChanged": false,
+  "behaviorChanged": true,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.test.sh and verify.sh both exit 0; docs only"
+      "shows": "The Definitions level plays 16 checked Rule 3 cards: right answers build the combo, a miss costs a heart and shows a pausable explanation with the citation, the card returns three cards later, and the run ends cleared with stars or out of hearts. axe, contrast and tap-target checks pass"
     }
-  ],
-  "noBehaviorReason": "Docs and a time card only. No app code, mission or replay changed"
+  ]
 }

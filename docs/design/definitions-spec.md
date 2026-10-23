@@ -68,6 +68,7 @@ Every text and background pair the level uses, computed with the WCAG 2.x relati
 | `purple-300` | `purple-tint` | "Your pick", "Not quite", "Comes back" lines | 9.36:1 | 4.5:1 | Pass |
 | `purple-500` | `ocean-900` | Wrong border against the page | 7.30:1 | 3:1 | Pass |
 | `purple-500` | `purple-tint` | Countdown bar on the panel | 6.69:1 | 3:1 | Pass |
+| `line-500` | `purple-tint` | Pause button and citation chip border on the panel | 4.28:1 | 3:1 | Pass |
 | `ink-300` | `purple-tint` | Cue line inside the explanation | 8.95:1 | 4.5:1 | Pass |
 | `blue-300` | `ocean-900` | Citation chip text | 11.34:1 | 4.5:1 | Pass |
 | `gold-500` | `ocean-900` | Combo, points, star icons, cleared title | 12.66:1 | 4.5:1 | Pass |
@@ -174,9 +175,10 @@ This is the G11 replay, about 5 seconds.
 - The card shakes (`shake`). One hull heart empties and its label updates, "2 left".
 - The tapped button takes the `wrong` state. The right answer takes the `answer` state. The other buttons are disabled for the replay.
 - The vessel art shows its deciding detail: the trawl net, the buoy on the crane, the furled sails, the slack steering cables. A white pulse outlines that detail twice. Reduced motion shows a steady white outline instead. Stage 1 adds a `detail` region to each drawing for this.
-- The explanation panel covers the card. See the component below.
-- The panel's countdown bar runs for 5 s, then the next card comes in. From 0.8 s a tap on the panel, the panel's "Next" button or the Enter key ends it early. The miss sound has the shake and the purple panel as its visual partner.
-- An assertive live region reads the panel's heading and answer line.
+- After 0.6 s, long enough to see the outline, the explanation panel covers the card. See the component below.
+- The panel's countdown runs for 5 s, then the next card comes in. From 0.8 s a tap on the panel, the panel's "Next" button or the Enter key ends it early. The miss sound has the shake and the purple panel as its visual partner.
+- "Pause" stops the countdown and keeps the panel until the player presses "Next", for a slow reader or a screen reader user (issue #62). Focus moves to "Next" when the panel opens, so Tab reaches "Pause" and Enter goes on. The menu also pauses it.
+- An assertive live region reads the whole explanation at once: heading, answer line, reason, citation and when the card returns. A screen reader hears it in full even if the panel then closes (issue #62).
 - The missed card returns three cards later with the "Again" tag (G11).
 - If that miss empties the last heart, the replay still plays in full, and then the out-of-hearts screen follows.
 
@@ -221,7 +223,7 @@ Hidden under 2. Shows "×3 combo" in `gold-500`, `body` 700. At the cap it reads
 ### `RuleSetChip`
 
 Props: `ruleSet` (`both` or `international`).
-Text "Inland + International" or "International only", `small`, `blue-300`, 2 px `blue-500` border, pill shape, 32 px tall. It is not tappable and has no hover state. Accessible name: "Rule set: Inland and International".
+Text "Inland + International" or "International only", `small`, `blue-300`, 2 px `blue-500` border, pill shape, 32 px tall. It is not tappable and has no hover state. Its accessible name follows the prop, so it always says what the visible text says: "Rule set: Inland and International" for `both`, "Rule set: International only" for `international` (issue #62).
 
 ### `ProgressCount`
 
@@ -253,7 +255,7 @@ Right and wrong differ by border style (solid or dashed), by icon shape (check o
 
 ### `ExplanationPanel`
 
-The miss replay's text. Props: `cue`, `answerLabel`, `why`, `citation`, `returnsIn`, `elapsedMs`, `onNext`.
+The miss replay's text. Props: `cue`, `answerLabel`, `why`, `citation`, `returnsIn`, `elapsedMs`, `paused`, `onPause`, `onNext`.
 `purple-tint` fill, 4 px dashed `purple-500` border, covering the card. Top to bottom:
 
 1. Cross icon and "Not quite", `title`, `purple-300`.
@@ -262,10 +264,12 @@ The miss replay's text. Props: `cue`, `answerLabel`, `why`, `citation`, `returns
 4. The reason, `body-lg`, `ink-100`, from the regs check word for word.
 5. The citation chip: a book icon and the citation string from the regs check, such as "Rule 3(g)(i), 33 CFR 83.03(g)(i)", `small`, `blue-300` on `ocean-900`, 2 px `line-500` border.
 6. "This one comes back in 3 cards." `small`, `purple-300`.
-7. The countdown bar, 6 px, `purple-500`, emptying over 5 s. In reduced motion, the text "Next card in 5 s".
-8. "Next" button, full panel width, 56 px, `gold-500` fill and `ocean-900` text, enabled from 0.8 s.
+7. The countdown bar, 6 px, `purple-500`, emptying over 5 s. In reduced motion, the text "Next card in 5 s". When paused, the text "Paused. Press Next when you are ready."
+8. "Pause" ("Resume" while paused), one third of the width, 56 px, `ocean-800` fill and `line-500` border, and "Next", two thirds, 56 px, `gold-500` fill and `ocean-900` text, enabled from 0.8 s.
 
-Nothing in the panel needs more than 5 seconds to read at the sizes above (G20). The longest reason line in the regs check is 24 words.
+Items 1 to 6 scroll inside the panel on a short screen. The countdown and the two buttons stay pinned at the bottom of the panel, so they never leave reach.
+
+Nothing in the panel needs more than 5 seconds to read at the sizes above (G20). The longest reason line in the regs check is 24 words. A player who needs longer presses Pause; the level never holds anyone back on its own.
 
 ### `LevelEndOverlay`
 
@@ -290,7 +294,7 @@ Every sound has a visual partner, and the level plays fully muted (G16). The lev
 ## Keyboard and screen readers
 
 - Keys 1 to 5 (1 to 6 in the variant) answer. Enter goes to the next card from the replay or presses the focused button. Esc opens and closes the menu.
-- Focus moves to the first answer button when a card comes in, except when a screen reader user is inside the panel, where focus stays until they press Next.
+- Focus moves to the first answer button when a new card comes in, but not on the first card of a fresh page. When the panel opens, focus moves to its "Next" button.
 - The question is the grid's group label: `role="group"` with `aria-labelledby` on the question.
 
 ## Reuse audit of `head-dev/ch1-definitions` at `3c67dd4`

@@ -1,0 +1,18 @@
+{
+  "rule3:motorboat": 1,
+  "rule3:container-ship": 1,
+  "rule3:sailing": 2,
+  "rule3:spinnaker": 2,
+  "rule3:motorsailing": 1,
+  "rule3:sails-furled": 1,
+  "rule3:trawler": 3,
+  "rule3:longliner": 3,
+  "rule3:trolling": 1,
+  "rule3:engine-failed": 4,
+  "rule3:steering-failed": 4,
+  "rule3:buoy-tender": 5,
+  "rule3:dredge": 5,
+  "rule3:divers": 5,
+  "rule3:heavy-tow": 5,
+  "rule3:replenishment": 5
+}
