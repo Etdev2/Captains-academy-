@@ -121,6 +121,7 @@ test('?unlock=all opens level 3 with no stars, and plain /play stays locked', as
   expect((await debug())?.level).toBe(0);
 
   await page.goto('/play/?unlock=all');
+  await expect.poll(async () => (await debug())?.frame ?? 0).toBeGreaterThan(30);
   await tapLevel3();
   await expect.poll(async () => (await debug())?.level).toBe(2);
 });
