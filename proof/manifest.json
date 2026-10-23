@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#61",
-  "sourceDigest": "sha256:0d871eb6d075432bb61b793ec2cc3aedc5b41fd10d578c1f46285a3cef7478e3",
-  "capturedAt": "2026-10-23T14:41:12Z",
+  "sourceDigest": "sha256:d5bb0c2449313246f959a22cdb54bf4da7b668dbf216ca32e2dcd9075903e5d2",
+  "capturedAt": "2026-10-23T16:10:26Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.sh",
-    "fixture": "PR #61 merged with main b082190: .github/workflows/claude.yml widened (allowedTools, setup-node 22, fetch-depth 0); checks run on Node 22.23.4"
+    "command": "bash scripts/verify.test.sh",
+    "fixture": "PR #61 at its new head: .github/workflows/claude.yml with shell tools gated to same-repository heads and a repository-wide builder concurrency group; checks run on Node 22"
   },
   "commands": [
     {
@@ -23,8 +23,8 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.test.sh and verify.sh both exit 0 on the PR #61 code merged with main"
+      "shows": "verify.test.sh and verify.sh both exit 0 on the PR #61 code; no app code changed"
     }
   ],
-  "noBehaviorReason": "CI workflow config only (claude.yml). No app code, mission or replay changed"
+  "noBehaviorReason": "CI workflow config (claude.yml) and a time card only. No app code, mission or replay changed"
 }
