@@ -344,12 +344,31 @@
         display: flex;
         flex-direction: column;
         gap: var(--s2);
-        padding: var(--s4);
+        padding: var(--s3);
         background: var(--purple-tint);
         border: 4px dashed var(--purple-500);
         border-radius: 16px;
-        overflow-y: auto;
         text-align: center;
+      }
+      /* The text scrolls on a short screen; Pause and Next stay in reach. */
+      .panel-body {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: var(--s2);
+      }
+      @media (max-height: 900px) {
+        .panel-answer {
+          --fs-answer-line: 1.375rem;
+          --lh-answer-line: 1.75rem;
+        }
+        .panel-title,
+        .panel-cue {
+          font-size: var(--fs-body);
+          line-height: var(--lh-body);
+        }
       }
       .panel[hidden] {
         display: none;
@@ -420,7 +439,6 @@
         display: grid;
         grid-template-columns: 1fr 2fr;
         gap: var(--s3);
-        margin-top: auto;
       }
 
       .btn {
@@ -474,7 +492,7 @@
         align-items: center;
         justify-content: center;
         min-height: 72px;
-        padding: var(--s2) var(--s3) var(--s2) 40px;
+        padding: var(--s2) var(--s2) var(--s2) 36px;
         background: var(--ocean-800);
         border: 2px solid var(--line-500);
         border-radius: 12px;
@@ -489,7 +507,7 @@
       }
       .answer .mark {
         position: absolute;
-        left: var(--s3);
+        left: 10px;
         top: 50%;
         transform: translateY(-50%);
         display: inline-flex;
@@ -514,6 +532,17 @@
         background: var(--ocean-700);
         border-color: var(--blue-500);
         transform: scale(0.98);
+      }
+      /* The 4 px state borders take 2 px from the padding, so labels keep their width. */
+      .answer[data-state='correct'],
+      .answer[data-state='answer'],
+      .answer[data-state='wrong'] {
+        padding: 6px 6px 6px 34px;
+      }
+      .answer[data-state='correct'] .mark,
+      .answer[data-state='answer'] .mark,
+      .answer[data-state='wrong'] .mark {
+        left: 8px;
       }
       .answer[data-state='correct'],
       .answer[data-state='answer'] {
@@ -783,28 +812,30 @@
         <div class="points" id="points" aria-hidden="true"></div>
 
         <div class="panel" id="panel" role="region" aria-labelledby="panel-title" hidden>
-          <h2 class="panel-title" id="panel-title" tabindex="-1">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" />
-              <path d="M8 8l8 8M16 8l-8 8" stroke="currentColor" stroke-width="2" />
-            </svg>
-            Not quite
-          </h2>
-          <p class="panel-cue" id="panel-cue"></p>
-          <p class="panel-answer" id="panel-answer"></p>
-          <p class="panel-why" id="panel-why"></p>
-          <span class="citation">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M5 4h9a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M17 20h2V6"
-                stroke="currentColor"
-                stroke-width="2"
-                fill="none"
-              />
-            </svg>
-            <span id="panel-citation"></span>
-          </span>
-          <p class="panel-back" id="panel-back"></p>
+          <div class="panel-body">
+            <h2 class="panel-title" id="panel-title" tabindex="-1">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" />
+                <path d="M8 8l8 8M16 8l-8 8" stroke="currentColor" stroke-width="2" />
+              </svg>
+              Not quite
+            </h2>
+            <p class="panel-cue" id="panel-cue"></p>
+            <p class="panel-answer" id="panel-answer"></p>
+            <p class="panel-why" id="panel-why"></p>
+            <span class="citation">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M5 4h9a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M17 20h2V6"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  fill="none"
+                />
+              </svg>
+              <span id="panel-citation"></span>
+            </span>
+            <p class="panel-back" id="panel-back"></p>
+          </div>
           <div class="countdown" id="countdown" aria-hidden="true">
             <div id="countdown-fill"></div>
           </div>

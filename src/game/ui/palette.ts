@@ -93,6 +93,12 @@ export const PAIRS: readonly ContrastPair[] = [
   },
   { fg: 'purple-500', bg: 'ocean-900', where: 'Wrong border against the page', kind: 'ui' },
   { fg: 'purple-500', bg: 'purple-tint', where: 'Countdown bar on the panel', kind: 'ui' },
+  {
+    fg: 'line-500',
+    bg: 'purple-tint',
+    where: 'Pause button and citation chip border on the panel',
+    kind: 'ui',
+  },
   { fg: 'ink-300', bg: 'purple-tint', where: 'Cue line inside the explanation', kind: 'text' },
   { fg: 'blue-300', bg: 'ocean-900', where: 'Citation chip text', kind: 'text' },
   {
