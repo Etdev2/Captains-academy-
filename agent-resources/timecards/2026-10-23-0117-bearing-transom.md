@@ -22,11 +22,11 @@
 
 | Field | Value |
 | --- | --- |
-| Clock out (UTC) | still clocked in |
-| Outcome | |
-| Pull requests | |
+| Clock out (UTC) | 2026-10-23 01:23 |
+| Outcome | finished/passed |
+| Pull requests | the unlock-all pull request on head-dev/play-unlock-all |
 | Tokens | |
-| Token standing | |
+| Token standing | unavailable |
 | Token coverage | |
-| Handoff to | |
-| Note | |
+| Handoff to | none |
+| Note | Et asked for every level unlocked for testing only, so G12's star lock stays for players. Playwright ran on the image's Chromium 1243 mapped into build 1194's path |
