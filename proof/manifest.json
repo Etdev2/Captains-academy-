@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#59",
-  "sourceDigest": "sha256:0b4eb0a5c12144f01badeeaf9c4125d7c91e78cb3372ed5d650eada8fee98ce2",
-  "capturedAt": "2026-10-23T14:50:51Z",
+  "sourceDigest": "sha256:69a68bf69a798112e30a66d09803be7fc9925c6670fe4a72cce2964c3d8f3bea",
+  "capturedAt": "2026-10-23T16:14:36Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.sh",
-    "fixture": "PR #59 merged with main: docs/product/DECISIONS.md order change (relates to #47/#29); checks run on Node 22.23.4"
+    "command": "bash scripts/verify.test.sh",
+    "fixture": "PR #59 at its new head: DECISIONS.md and chapter-1-build-plan.md order Definitions (#47) then Lights (#29), with #46 parked"
   },
   "commands": [
     {
@@ -23,8 +23,8 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.test.sh and verify.sh both exit 0 on the PR #59 code merged with main"
+      "shows": "verify.test.sh and verify.sh both exit 0; docs only"
     }
   ],
-  "noBehaviorReason": "Docs only (DECISIONS.md order). No app code, mission or replay changed"
+  "noBehaviorReason": "Docs and a time card only. No app code, mission or replay changed"
 }
