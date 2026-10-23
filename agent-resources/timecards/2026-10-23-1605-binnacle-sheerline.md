@@ -22,11 +22,11 @@
 
 | Field | Value |
 | --- | --- |
-| Clock out (UTC) | still clocked in |
-| Outcome | |
-| Pull requests | |
+| Clock out (UTC) | 2026-10-23 16:07 |
+| Outcome | finished/handoff |
+| Pull requests | Etdev2/Captains-academy-#61 |
 | Tokens | |
-| Token standing | |
+| Token standing | unavailable |
 | Token coverage | |
-| Handoff to | |
-| Note | |
+| Handoff to | Codex for re-review; Sweet Potato merges once the head passes |
+| Note | Fixed Codex's three P1s at Et's request: shell tools only on trusted heads, a repository-wide builder lock, and this card. The workflow cannot be run from this session; actionlint 1.7.7 passes. |
