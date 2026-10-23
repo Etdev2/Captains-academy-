@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#59",
-  "sourceDigest": "sha256:6cc4f10b592b9d96a56a86cd7f3df79ec8e33c771435b8e003f3884af305d4ca",
-  "capturedAt": "2026-10-23T17:18:29Z",
+  "ticket": "Etdev2/Captains-academy-#61",
+  "sourceDigest": "sha256:3783bfd72355cd6a0ebfbbe78c328eb45ca1be0ef4a78c63c0023cd3c66a5263",
+  "capturedAt": "2026-10-23T18:30:55Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.test.sh",
-    "fixture": "PR #59 merged with main b1e2137: DECISIONS.md, build plan, definitions spec and ADRs 0003/0007 order Definitions (#47) then Lights (#29), arcade parked; notes #47 stage 1 merged via #63"
+    "fixture": "PR #61 on main 95691d6: .github/workflows/claude.yml gates build tools on a same-repository PR head and, for issues runs, on a trusted issue author; repository-wide builder concurrency group; checks run on Node 22"
   },
   "commands": [
     {
@@ -23,8 +23,8 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.test.sh and verify.sh both exit 0 on the PR #59 docs merged with main; no app code changed by this PR"
+      "shows": "verify.test.sh and verify.sh both exit 0 on the PR #61 code; no app code changed"
     }
   ],
-  "noBehaviorReason": "Docs only (decisions, build plan, spec, ADRs). No app code, mission or replay changed by this PR"
+  "noBehaviorReason": "CI workflow config (claude.yml) and a time card only. No app code, mission or replay changed"
 }
