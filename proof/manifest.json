@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#46",
-  "sourceDigest": "sha256:2dee7ea931051273ed4ec86df67f9ab2f052732a21e17d6e1ecb56d1e7233e9c",
-  "capturedAt": "2026-10-22T21:28:29Z",
+  "ticket": "Etdev2/Captains-academy-#58",
+  "sourceDigest": "sha256:2b2549e431d1fd25ff354e65f761367db6503ac5d8a3a0101d21ee94f3f5468e",
+  "capturedAt": "2026-10-23T01:29:55Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.test.sh",
-    "fixture": "missions/long-beach-traffic.json without the powerboat, and the harbor course golden replays"
+    "command": "bash .claude/skills/verify-captains-academy/control.sh drive .claude/skills/verify-captains-academy/features/steps/levels.steps.json",
+    "fixture": "Fresh browser with no saved stars, opening /play/ and then /play/?unlock=all on the production build"
   },
   "commands": [
     {
@@ -23,7 +23,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh passes; harbor course clean and ferry-hit replays pass with the ferry's bearing pinned; existing level replays unchanged"
+      "shows": "Without the switch LEVEL 3 stays locked and a tap keeps level 1. With ?unlock=all a tap on LEVEL 3 starts the harbor course (level index 2). Driven on the real build with the verify-captains-academy levels recipe, 15 of 15 steps"
     }
   ]
 }
