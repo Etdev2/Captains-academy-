@@ -38,6 +38,24 @@ export const ART = {
   bank: 0x2a2f2a,
   bankEdge: 0x4a5048,
   highlight: 0xffffff,
+  // The night horizon behind the lights (Lights, docs/design/lights-spec.md).
+  sky: 0x050b14,
+  sea: 0x0a1a2c,
+  horizon: 0x1b3a58,
+  star: 0xc9d3db,
+} as const;
+
+/**
+ * The real navigation-light colors (G15). These are the only red and green on
+ * any screen: port and starboard lights, and the red and green of other lights
+ * such as red over white. The interface never uses them, and
+ * tests/palette.test.ts keeps them out of every other game file.
+ */
+export const LIGHT_COLORS = {
+  white: 0xffffff,
+  red: 0xff3b30,
+  green: 0x2ee66b,
+  yellow: 0xffd23f,
 } as const;
 
 export interface ContrastPair {

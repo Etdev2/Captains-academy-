@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import type { Art } from '../../sim/chapter1/definitions';
 import { ART } from '../ui/palette';
+import type { ArtView } from './spec';
 import { detailOf, drawArt } from './vesselArt';
 
 // The one part of the Definitions level that Phaser draws: the vessel on the
@@ -62,7 +63,7 @@ class VesselScene extends Phaser.Scene {
   }
 }
 
-export class VesselView {
+export class VesselView implements ArtView<Art> {
   private readonly scene = new VesselScene();
   readonly game: Phaser.Game;
 
