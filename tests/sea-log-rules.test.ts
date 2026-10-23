@@ -168,7 +168,7 @@ describe('front page', () => {
     const links = [...read(join(root, 'index.html')).matchAll(/href="([^"]+)"/g)].map(
       (match) => match[1],
     );
-    expect(links).toEqual(['/play/', '/log/']);
+    expect(links).toEqual(['/play/', '/rules/', '/log/']);
     const config = read(join(root, 'vite.config.ts'));
     for (const link of links) expect(config).toContain(`'${link?.slice(1)}index.html'`);
   });
