@@ -43,18 +43,28 @@ jobs:
       issues: write
       id-token: write
     steps:
-      # Shell tools run the checked-out code: npm ci runs lifecycle scripts, and
-      # package.json and scripts/ come from the PR head. Only code someone with
-      # write access pushed to this repository may run with this job's
-      # credentials. An issue (no PR) or a PR whose head branch is in this
-      # repository is trusted. A PR from a fork, or one whose head repository is
-      # gone, gets the read-only tools only.
+      # Build tools need trusted code and trusted instructions.
+      # Code: npm ci runs lifecycle scripts, and package.json and scripts/ come
+      # from the PR head. Only code someone with write access pushed to this
+      # repository may run with this job's credentials, so a PR from a fork, or
+      # one whose head repository is gone, gets the read-only tools.
+      # Instructions: an `issues` run (opened or assigned) acts on the issue's
+      # own title and body, so its author must be Et or the coordinator. A
+      # trusted assigner does not make a stranger's issue text trusted; a fresh
+      # @claude comment from Et or the coordinator does.
       - name: Decide whether this run may use shell tools
         id: trust
         env:
           GH_TOKEN: ${{ github.token }}
+          EVENT: ${{ github.event_name }}
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login || '' }}
           PR_URL: ${{ github.event.issue.pull_request.url || github.event.pull_request.url || '' }}
         run: |
+          if [ "$EVENT" = "issues" ] && [ "$ISSUE_AUTHOR" != "Etdev2" ] && [ "$ISSUE_AUTHOR" != "sweet-potato-coordinator[bot]" ]; then
+            echo "build=false" >> "$GITHUB_OUTPUT"
+            echo "Issue text is by ${ISSUE_AUTHOR:-an unknown author}, not Et or the coordinator: read-only tools only."
+            exit 0
+          fi
           if [ -z "$PR_URL" ]; then
             echo "build=true" >> "$GITHUB_OUTPUT"
             exit 0
@@ -83,12 +93,12 @@ jobs:
           # Claude can build and test on ready-for-agent tickets.
           claude_args: |
             --allowedTools "WebFetch,WebSearch,Read,Edit,Write,Glob,Grep,Bash(git:*),Bash(npm:*),Bash(npx:*),Bash(node:*),Bash(bash scripts/*),Bash(scripts/*)"
-      - name: Run Claude Code (read-only tools, fork head)
+      - name: Run Claude Code (read-only tools, untrusted code or text)
         if: steps.trust.outputs.build != 'true'
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           allowed_bots: sweet-potato-coordinator[bot]
-          # Read-only web lookups: nothing from the PR head runs.
+          # Read-only web lookups: nothing from a fork runs and untrusted issue text gets no shell.
           claude_args: |
             --allowedTools "WebFetch,WebSearch"
