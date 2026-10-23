@@ -11,7 +11,7 @@ Et settled the Chapter 1 follow-up decisions on 2026-10-22 from 7:11 to 7:17 AM 
 ### Product shape
 - **A1.** The academy is a standalone product: its own repo, its own Supabase project (database and login). It shares nothing with Fish Log Book.
 - **A2.** The academy owns the only sea-time log. Fish Log Book gets no sea-time feature.
-- **A3.** Continue the sea-time log and start Chapter 1 of the arcade game alongside it. The one-level arcade prototype already tested the game direction (see G19). Et changed the earlier serial order on 2026-10-22.
+- **A3.** Et parked the arcade-style track on 2026-10-22 (9:35-9:46 PM PT) to focus on the real training. Build order: finish Definitions (#47, branch `head-dev/ch1-definitions`) first, then Lights (#29). The arcade track (#45, #46 remainder, #56, PR #58) stays open but parked; resume only on Et's go. Et changed the earlier serial order on 2026-10-22 and again on 2026-10-23.
 - **A4.** One academy login across the web app and the Unity app.
 
 ### Sea-time log
@@ -71,8 +71,8 @@ Badges and the license screen
 - **G18.** One license screen per license shows the Exam Ready badge, the sea-time status ("appears to meet" plus what is still needed) and the rest of the checklist (physical, drug test, TWIC, courses).
 
 Order
-- **G19.** The Long Beach docking prototype proved the game direction. Continue the sea-time log and start Chapter 1 alongside it, as A3 now says.
-- **G19a.** Issues #46 and #47 become the first Chapter 1 build pull requests after `uscg-regs` checks their rule content. Split each branch into small pull requests that fit the Chapter 1 plan. Integrate #46 before #47.
+- **G19.** The Long Beach docking prototype proved the game direction. The arcade track is now parked (see A3); Chapter 1 continues with Definitions then Lights.
+- **G19a.** #47 (Definitions) is the first Chapter 1 build: stage 0 is a docs-only `ux-ui` design pass (UI spec) plus a `uscg-regs` check of the 17 cards, then stage 1 build in small pull requests. #29 (Lights) follows. #46's remaining work is parked with the arcade track. Status 2026-10-23: #47 stage 1 has merged to `main` via PR #63.
 
 Teaching
 - **G20.** The game teaches with four methods from learning research. Perceptual learning: many fast visual examples, each classified by the player with instant feedback, until recognition is automatic. Retrieval practice: the player recalls every answer instead of rereading it. Spaced repetition: missed situations come back at growing intervals. Interleaving: levels mix situation types so the player learns to tell them apart. Every visual is paired with words and its citation: the rule number in Chapter 1, and the chapter's own source citation in later chapters (G10). Three rules keep it fun: all teaching happens through play, in the replay after a miss and a one-line rule citation; nothing stops the player for more than 5 seconds to read or watch; and a level that is correct but boring gets redesigned, never shipped.
@@ -99,4 +99,4 @@ The 2026-10-20 follow-up verified both Rule 32 blast lengths. Et's supplied NMC 
 2. Settle the parked items: course type and pricing.
 3. Verify the figures listed above against the current regulations.
 4. Done on 2026-10-21: the Long Beach docking prototype (G19) merged in #26, with twin engine levers and a second level. Et liked it and called it still a prototype; #25 stays open for later rounds.
-5. Continue the sea-time log and start the checked, split Chapter 1 pull requests under A3, G19 and G19a.
+5. Finish Definitions (#47) then Lights (#29) under A3, G19 and G19a; arcade track parked.

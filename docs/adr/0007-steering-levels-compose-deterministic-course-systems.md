@@ -6,7 +6,7 @@ status: proposed
 
 Branch #46 adds gates, fixed-track traffic and collision state to the docking simulation. The three shared steering lessons need the same helm and traffic, plus bearing observations, encounter grading, radar and fog signals. Adding those concerns directly to `HarborScene` would bind the lesson to one renderer and make headless replay checks incomplete.
 
-Et settled the product choices that constrain this proposal on 2026-10-22 from 7:11 to 7:17 AM PT, recorded in [PR #50's decision comment](https://github.com/Etdev2/Captains-academy-/pull/50#issuecomment-6343017518). Level 9, fog, traffic separation schemes and narrow channels, includes Rule 10 with Rules 9 and 19 (Et's decision calls it level 8, from the earlier G7 list without the first mixed-review stop), #46 becomes checked, split build pull requests before #47, and Night Harbor Run is a later level after the boss. The simulation composition remains proposed.
+Et settled the product choices that constrain this proposal on 2026-10-22 from 7:11 to 7:17 AM PT, recorded in [PR #50's decision comment](https://github.com/Etdev2/Captains-academy-/pull/50#issuecomment-6343017518). Level 9, fog, traffic separation schemes and narrow channels, includes Rule 10 with Rules 9 and 19 (Et's decision calls it level 8, from the earlier G7 list without the first mixed-review stop), #46 becomes checked, split build pull requests before #47 (Et changed that on 2026-10-23, G19a in `DECISIONS.md`: #47 and then Lights #29 go first, and #46's remaining work is parked with the arcade track), and Night Harbor Run is a later level after the boss. The simulation composition remains proposed.
 
 ## Decision
 
