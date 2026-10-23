@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#56",
-  "sourceDigest": "sha256:8c8a05a8ddb260dc6c899021ff43e136adb858e228f7501be5a815f634469f4e",
-  "capturedAt": "2026-10-23T01:01:00Z",
+  "ticket": "Etdev2/Captains-academy-#47",
+  "sourceDigest": "sha256:6ab2f2790323a3610320f282add3fb198affdbc0e4de044ae549ce7879454ad5",
+  "capturedAt": "2026-10-23T13:53:40Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.test.sh",
-    "fixture": "Stage A of #56: docs/product/harbor-powerboat-regs-check-2026-10-22.md plus a time card. The geometry came from PR #54's replays at b8784da and 7df4aec's clean replay, run in scratch worktrees outside the repository"
+    "fixture": "Stage 0 docs: docs/design/definitions-spec.md and docs/product/definitions-regs-check-2026-10-23.md, read against branch head-dev/ch1-definitions at 3c67dd4"
   },
   "commands": [
     {
@@ -23,8 +23,8 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "The repository's checks pass with the new regs check committed. The check verifies the Rule 15 crossing line, a new Rule 13 overtaking line, and that an encounter's class is fixed when risk of collision begins"
+      "shows": "The repository still verifies with the two new docs and the time card; no app code changed"
     }
   ],
-  "noBehaviorReason": "Docs and a time card only. No code, mission or replay changed"
+  "noBehaviorReason": "Stage 0 adds a design spec, a regulation check and a time card only. No code, config or content the app loads changed."
 }
