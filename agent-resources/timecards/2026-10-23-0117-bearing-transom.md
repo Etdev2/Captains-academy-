@@ -24,7 +24,7 @@
 | --- | --- |
 | Clock out (UTC) | 2026-10-23 01:23 |
 | Outcome | finished/passed |
-| Pull requests | the unlock-all pull request on head-dev/play-unlock-all |
+| Pull requests | Etdev2/Captains-academy-#58 |
 | Tokens | |
 | Token standing | unavailable |
 | Token coverage | |
