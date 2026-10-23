@@ -36,7 +36,7 @@ The plan also uses issue #45, the Rules of the Road prototype gallery, the 2026-
 | Boss unlocks later chapters and permits unlimited retries | Decided | G12 |
 | Candidates and cadets as the audience | Decided | G3 |
 | Chapter 1 starts alongside the sea-time log | Decided | A3 and G19 |
-| Checked, split #46 before checked, split #47 | Decided | G19a |
+| Checked, split #47 (Definitions) first, then #29 (Lights); #46 parked with the arcade track | Decided | A3, G19 and G19a |
 | Validated content files and review evidence | Proposed | ADR 0002 |
 | One rapid-fire run state machine | Proposed | ADR 0003 |
 | One integer Rule 21 visibility module | Proposed | ADR 0004 |
@@ -57,16 +57,16 @@ Et settled the former Questions for Et from 7:11 to 7:17 AM PT on 2026-10-22. Th
 - Mixed-review stops follow level 5 and the rule-set difference levels.
 - Beating the Chapter 1 boss unlocks later chapters. The boss permits unlimited retries.
 - `uscg-regs` is the only rules reviewer for now. G10a has no named human Coast Guard reviewer yet. G10a still requires a human Coast Guard reviewer to review the game before launch.
-- #46 and #47 become small build pull requests after `uscg-regs` checks their content. All #46 slices integrate before #47.
+- #46 and #47 become small build pull requests after `uscg-regs` checks their content. Superseded on 2026-10-23: Definitions (#47) goes first, then Lights (#29). The arcade track, including #46's remaining work, is parked until Et says go. See G19 and G19a in `DECISIONS.md`.
 
 ## Smallest build path
 
-1. Have `uscg-regs` check #46 and #47, split each branch into small pull requests, then integrate #46 before #47 as described under [Merge order](#merge-order-for-46-and-47).
+1. Have `uscg-regs` check #47's 17 cards, split `head-dev/ch1-definitions` into small pull requests and integrate them as described under [Merge order](#merge-order-for-47-and-46). #46 is parked.
 2. In the Definitions ticket, migrate #47's deck and mastery data before adding another deck. Extract its shared rapid-fire scene flow instead of copying `DefinitionsScene`.
-3. Build the Lights level next. It supplies the Rule 21 module needed by flashcards and any Night Harbor Run port.
+3. Build the Lights level (#29) next. It supplies the Rule 21 module needed by flashcards and any Night Harbor Run port.
 4. Add day shapes and Rule 18 as view and input adapters over the same rapid-fire state machine.
 5. Add the first mixed-review stop after Rule 18.
-6. Reuse #46's course, traffic and helm for the three shared steering levels. Add only the lesson state each level needs.
+6. When the arcade track resumes on Et's go, reuse #46's course, traffic and helm for the three shared steering levels. Add only the lesson state each level needs.
 7. Add separate Inland and International difference levels, then the second mixed-review stop.
 8. Build the G10 exam boss after its NMC gate. Give it unlimited retries and unlock later chapters when the player beats it.
 9. Build Night Harbor Run later from the checked shared systems and corrected prototype content.
@@ -749,17 +749,18 @@ Tests:
 
 Roles: `uscg-regs` checks corrections; `ux-ui` owns the combined-course load and accessibility; `head-dev` ports only shared checked systems; `test-agent` covers gates, replays and unlock independence; `code-reviewer` checks against the PR #49 findings; `git-integrator` prepares it for Et.
 
-## Merge order for #46 and #47
+## Merge order for #47 and #46
 
-Recommended order:
+Superseded on 2026-10-23 (G19a in `DECISIONS.md`): Definitions (#47) goes first, then Lights (#29). #46 is parked with the arcade track and resumes only on Et's go.
 
-1. `uscg-regs` checks #46's four traffic lessons against primary text, including Rules 5, 6, 9, 14 and 15, and checks #47's Rule 3 cards.
-2. Split `head-dev/harbor-traffic-course` into small, dependency-ordered build pull requests. The Git Integration Agent updates each #46 slice from current `main`, reruns verification and regenerates proof.
-3. After Et merges all #46 slices, split `head-dev/ch1-definitions` into small build pull requests against the new `main`.
-4. The Git Integration Agent merges the verification-skill features by hand in the #47 slices, reruns verification and regenerates proof.
-5. The remaining Chapter 1 tickets start from the merged #47 slices.
+Current order:
 
-#46 goes first because its verification-driver change is small and `/play`-specific. #47 makes the broader driver change that supports both `/play` and `/rules`, so the second integration can retain that generalization while adding #46's course recipe.
+1. `uscg-regs` checks #47's Rule 3 cards. Stage 0 is a docs-only `ux-ui` design pass. Stage 1 has merged to `main` via PR #63 (2026-10-23).
+2. Split `head-dev/ch1-definitions` into small, dependency-ordered build pull requests against current `main`. The Git Integration Agent reruns verification and regenerates proof for each slice.
+3. The Lights level (#29) and the remaining Chapter 1 tickets start from the merged #47 slices.
+4. When Et resumes the arcade track, `uscg-regs` checks #46's four traffic lessons against primary text, including Rules 5, 6, 9, 14 and 15. Then `head-dev/harbor-traffic-course` is split into small pull requests and updated from the then-current `main`.
+
+The earlier plan put #46 first because its verification-driver change is small and `/play`-specific. With #47 first, its broader driver change that supports both `/play` and `/rules` lands first, and #46's course recipe is added on top when it resumes.
 
 Both branches edit:
 
@@ -769,7 +770,7 @@ Both branches edit:
 - `proof/manifest.json`
 - `proof/verification.txt`
 
-The skill conflict is semantic, not a choose-one conflict. The result must retain #46's harbor-course feature, steps and shorter `LEVER_HALF = 135`, plus #47's route-aware open step, dynamic canvas coordinates, Definitions answers and `/rules` state. The final feature index lists both.
+The skill conflict is semantic, not a choose-one conflict. When #46 resumes, the result must retain #46's harbor-course feature, steps and shorter `LEVER_HALF = 135`, plus #47's route-aware open step, dynamic canvas coordinates, Definitions answers and `/rules` state. The final feature index lists both.
 
 Proof files cannot be combined. Regenerate one proof bundle from the integrated head after all conflict edits. The Git Integration Agent owns the mechanics, and Et performs each merge.
 
