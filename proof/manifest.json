@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#46",
-  "sourceDigest": "sha256:2dee7ea931051273ed4ec86df67f9ab2f052732a21e17d6e1ecb56d1e7233e9c",
-  "capturedAt": "2026-10-22T21:28:29Z",
+  "ticket": "Etdev2/Captains-academy-#56",
+  "sourceDigest": "sha256:8c8a05a8ddb260dc6c899021ff43e136adb858e228f7501be5a815f634469f4e",
+  "capturedAt": "2026-10-23T01:01:00Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.test.sh",
-    "fixture": "missions/long-beach-traffic.json without the powerboat, and the harbor course golden replays"
+    "fixture": "Stage A of #56: docs/product/harbor-powerboat-regs-check-2026-10-22.md plus a time card. The geometry came from PR #54's replays at b8784da and 7df4aec's clean replay, run in scratch worktrees outside the repository"
   },
   "commands": [
     {
@@ -18,12 +18,13 @@
       "exitCode": 0
     }
   ],
-  "behaviorChanged": true,
+  "behaviorChanged": false,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh passes; harbor course clean and ferry-hit replays pass with the ferry's bearing pinned; existing level replays unchanged"
+      "shows": "The repository's checks pass with the new regs check committed. The check verifies the Rule 15 crossing line, a new Rule 13 overtaking line, and that an encounter's class is fixed when risk of collision begins"
     }
-  ]
+  ],
+  "noBehaviorReason": "Docs and a time card only. No code, mission or replay changed"
 }
