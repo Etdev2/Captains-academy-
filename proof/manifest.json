@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#56",
-  "sourceDigest": "sha256:8c8a05a8ddb260dc6c899021ff43e136adb858e228f7501be5a815f634469f4e",
-  "capturedAt": "2026-10-23T01:01:00Z",
+  "ticket": "Etdev2/Captains-academy-#61",
+  "sourceDigest": "sha256:d3299fe9bccf3c3a277c2d03aef06b596a3446f1ebdc8464fbdf8a8aa61ff916",
+  "capturedAt": "2026-10-23T14:27:46Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.test.sh",
-    "fixture": "Stage A of #56: docs/product/harbor-powerboat-regs-check-2026-10-22.md plus a time card. The geometry came from PR #54's replays at b8784da and 7df4aec's clean replay, run in scratch worktrees outside the repository"
+    "command": "bash scripts/verify.sh",
+    "fixture": "PR #61 head 84f400a: .github/workflows/claude.yml widened (allowedTools, setup-node 22, fetch-depth 0); repo checks run on Node 22.23.4"
   },
   "commands": [
     {
@@ -23,8 +23,8 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "The repository's checks pass with the new regs check committed. The check verifies the Rule 15 crossing line, a new Rule 13 overtaking line, and that an encounter's class is fixed when risk of collision begins"
+      "shows": "verify.test.sh and verify.sh both exit 0 on the PR #61 code"
     }
   ],
-  "noBehaviorReason": "Docs and a time card only. No code, mission or replay changed"
+  "noBehaviorReason": "CI workflow config only (claude.yml). No app code, mission or replay changed"
 }
