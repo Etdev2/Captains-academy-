@@ -22,11 +22,11 @@
 
 | Field | Value |
 | --- | --- |
-| Clock out (UTC) | still clocked in |
-| Outcome | |
-| Pull requests | |
+| Clock out (UTC) | 2026-10-23 13:50 |
+| Outcome | finished/handoff |
+| Pull requests | Etdev2/Captains-academy-#60 |
 | Tokens | |
-| Token standing | |
+| Token standing | unavailable |
 | Token coverage | |
-| Handoff to | |
-| Note | |
+| Handoff to | Et to merge Stage 0 and rule on regs-check finding F1; then head-dev for Stage 1 |
+| Note | Docs only. One session wrote both the ux-ui spec and the uscg-regs check. The shell could not download Playwright's pinned Chromium, so local checks ran on the preinstalled Chromium mapped to the pinned build path. |
