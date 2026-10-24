@@ -22,11 +22,11 @@
 
 | Field | Value |
 | --- | --- |
-| Clock out (UTC) | still clocked in |
-| Outcome | |
-| Pull requests | |
-| Tokens | |
+| Clock out (UTC) | 2026-10-24 16:05 (second run, 40108658321; paused, not finished) |
+| Outcome | Partial: regs check, spec, golden replays, e2e (27 pass) and verification steps done. Screenshots, proof bundle and the verification feature doc are left |
+| Pull requests | None opened; the sandbox cannot run `gh pr create` |
+| Tokens | unavailable |
 | Token standing | unavailable |
-| Token coverage | |
-| Handoff to | |
-| Note | |
+| Token coverage | none |
+| Handoff to | sweet-potato-coordinator |
+| Note | Resume on claude/issue-29-20261023-2037 |
