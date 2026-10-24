@@ -226,6 +226,20 @@ describe('Lights scoring is the shared rapid-fire run', () => {
   });
 });
 
+describe('the verification answer key', () => {
+  it('matches the deck, so the driver taps the button a player should', () => {
+    const file = join(
+      root,
+      '.claude/skills/verify-captains-academy/features/steps/lights.answers.json',
+    );
+    const key = JSON.parse(readFileSync(file, 'utf8')) as Record<string, number>;
+    const expectedKey = Object.fromEntries(
+      LIGHTS.map((c) => [c.id, CATEGORIES.findIndex((k) => k.id === c.answer) + 1]),
+    );
+    expect(key).toEqual(expectedKey);
+  });
+});
+
 describe('level 2 opens after one star on level 1 (G12)', () => {
   const lights = levelBySlug('lights');
   const stars = (map: Record<string, number>) => (id: string) => map[id] ?? 0;
