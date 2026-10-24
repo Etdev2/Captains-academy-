@@ -287,7 +287,7 @@ const rawDeck: z.input<typeof deckSchema> = [
     cue: 'Closing, her bow angled to your left',
     answer: 'sailing',
     citation: 'Rule 25(c), 33 CFR 83.25(c)',
-    why: 'Red over green at the masthead, with a sidelight: a sailing vessel under way.',
+    why: 'Red over green, all-round, near the top of the mast, with a sidelight: a sailing vessel under way.',
     ruleSet: 'both',
   },
   {
@@ -302,7 +302,7 @@ const rawDeck: z.input<typeof deckSchema> = [
   {
     id: 'rule26:trawling-starboard-beam',
     art: { pattern: 'trawling', aspect: 256 },
-    cue: 'Crossing, her bow pointing to your right',
+    cue: 'Making way, her bow pointing to your right',
     answer: 'fishing',
     citation: 'Rule 26(b), 33 CFR 83.26(b)',
     why: 'Green over white, all-round, with a sidelight: a vessel engaged in fishing, trawling.',
