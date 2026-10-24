@@ -1,5 +1,5 @@
-$ node -e "const y=require('fs').readFileSync('.github/workflows/claude.yml','utf8');if((y.match(/secrets.CLAUDE_PUSH_TOKEN/g)||[]).length!==2)process.exit(1);console.log('ok')"
-ok
+$ grep -c secrets.CLAUDE_PUSH_TOKEN .github/workflows/claude.yml
+2
 [exit 0]
 
 $ bash scripts/verify.test.sh

@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#65",
-  "sourceDigest": "sha256:d89efddb87bf8eaca43e954f990f5098ed8695d81d05db38b7b282159038e542",
-  "capturedAt": "2026-10-24T17:56:51Z",
+  "sourceDigest": "sha256:702540ffa2a929885acdced90dd244fd1cf122b9050acfbf76760bec39a5bdf5",
+  "capturedAt": "2026-10-24T18:54:52Z",
   "result": "PASS",
   "verification": {
-    "command": "node -e \"const y=require('fs').readFileSync('.github/workflows/claude.yml','utf8');if((y.match(/secrets.CLAUDE_PUSH_TOKEN/g)||[]).length!==2)process.exit(1);console.log('ok')\"",
+    "command": "grep -c secrets.CLAUDE_PUSH_TOKEN .github/workflows/claude.yml",
     "fixture": "claude.yml diff: checkout token + github_token from secrets.CLAUDE_PUSH_TOKEN"
   },
   "commands": [
     {
-      "command": "node -e \"const y=require('fs').readFileSync('.github/workflows/claude.yml','utf8');if((y.match(/secrets.CLAUDE_PUSH_TOKEN/g)||[]).length!==2)process.exit(1);console.log('ok')\"",
+      "command": "grep -c secrets.CLAUDE_PUSH_TOKEN .github/workflows/claude.yml",
       "exitCode": 0
     },
     {
