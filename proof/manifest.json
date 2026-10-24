@@ -1,20 +1,16 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#65",
-  "sourceDigest": "sha256:688f1084bbf404cf221a003d9fa05c275d8384f94979bbbfb9ed16955e646719",
-  "capturedAt": "2026-10-24T18:19:12Z",
+  "sourceDigest": "sha256:ff3c9713e11e2a9afb6e759ac008b519548eeeb18e65bdf679481674d42350f8",
+  "capturedAt": "2026-10-24T18:53:45Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.sh",
-    "fixture": "Docs-only change on main badc1c2"
+    "command": "git diff origin/main -- AGENTS.md",
+    "fixture": "AGENTS.md merge-authority text"
   },
   "commands": [
     {
-      "command": "bash scripts/verify.test.sh",
-      "exitCode": 0
-    },
-    {
-      "command": "bash scripts/verify.sh",
+      "command": "git diff origin/main -- AGENTS.md",
       "exitCode": 0
     }
   ],
@@ -23,8 +19,8 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh and its tests pass with the new CONTRIBUTING.md and CODEOWNERS"
+      "shows": "AGENTS.md names the coordinator as merge authority after a Codex pass on the exact head"
     }
   ],
-  "noBehaviorReason": "Adds contributor docs and CODEOWNERS only; no app code or workflow changes"
+  "noBehaviorReason": "docs-only AGENTS.md edit approved by Et 5:18 PM PT Oct 23, 2026"
 }
