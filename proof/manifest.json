@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#65",
-  "sourceDigest": "sha256:688f1084bbf404cf221a003d9fa05c275d8384f94979bbbfb9ed16955e646719",
-  "capturedAt": "2026-10-24T18:19:12Z",
+  "ticket": "Etdev2/Captains-academy-#29",
+  "sourceDigest": "sha256:4937fc3562bc83abe1f671f50529dd546e09018d258dfce49d2ce9935fcc131c",
+  "capturedAt": "2026-10-24T19:32:51Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.sh",
-    "fixture": "Docs-only change on main badc1c2"
+    "command": "bash scripts/verify.test.sh",
+    "fixture": "Seeded Lights deck (19 cards, seed 29), Rule 21 sector-edge golden replays, e2e at /rules/?level=lights on desktop, phone-landscape and phone-portrait"
   },
   "commands": [
     {
@@ -18,13 +18,12 @@
       "exitCode": 0
     }
   ],
-  "behaviorChanged": false,
+  "behaviorChanged": true,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh and its tests pass with the new CONTRIBUTING.md and CODEOWNERS"
+      "shows": "Lights at /rules/?level=lights opens after one star on Definitions and plays 19 checked cards from Rules 23 to 30: each shows a night horizon with the lights Rule 21 lets the player see, the chip reads Inland + International, a right answer cites its rule, a miss costs a heart and shows a pausable explanation with the citation, the card returns three cards later, and the run ends cleared with stars or out of hearts. axe, contrast, tap-target and palette checks pass, and Definitions still passes unchanged"
     }
-  ],
-  "noBehaviorReason": "Adds contributor docs and CODEOWNERS only; no app code or workflow changes"
+  ]
 }
