@@ -1,20 +1,20 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#61",
-  "sourceDigest": "sha256:3783bfd72355cd6a0ebfbbe78c328eb45ca1be0ef4a78c63c0023cd3c66a5263",
-  "capturedAt": "2026-10-23T18:30:55Z",
+  "ticket": "Etdev2/Captains-academy-#66",
+  "sourceDigest": "sha256:824bf3b2e14e3825c24233301ac9414687501388d84c3899200918efdd2c67d8",
+  "capturedAt": "2026-10-24T00:28:45Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.test.sh",
-    "fixture": "PR #61 on main 95691d6: .github/workflows/claude.yml gates build tools on a same-repository PR head and, for issues runs, on a trusted issue author; repository-wide builder concurrency group; checks run on Node 22"
+    "command": "bash scripts/verify.sh",
+    "fixture": "Dependency-only change: zod 4.6.5 -> 4.6.7 in package.json and package-lock.json; no source changes"
   },
   "commands": [
     {
-      "command": "bash scripts/verify.test.sh",
+      "command": "npm ls zod",
       "exitCode": 0
     },
     {
-      "command": "bash scripts/verify.sh",
+      "command": "npm audit --omit=dev",
       "exitCode": 0
     }
   ],
@@ -23,8 +23,8 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.test.sh and verify.sh both exit 0 on the PR #61 code; no app code changed"
+      "shows": "npm audit --omit=dev reports 0 vulnerabilities (GHSA-mrhx-c7xc-m3w5 resolved) and the full verify suite still passes"
     }
   ],
-  "noBehaviorReason": "CI workflow config (claude.yml) and a time card only. No app code, mission or replay changed"
+  "noBehaviorReason": "Patch-level dependency bump for a security advisory; no application code changed"
 }
