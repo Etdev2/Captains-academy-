@@ -35,13 +35,13 @@ The sky, sea, horizon and star colors are not red or green; `tests/palette.test.
 
 ### Phone, portrait first (G8)
 
-Same stack as Definitions: header, hearts and combo, progress, the card, then the answer buttons under the thumb. Seven answers do not fit two across at 390 wide with 64 px tap targets, so they stack one per row at full width, each 64 px tall or more. The card shrinks to leave room, and the page scrolls only inside the explanation sheet, which has `max-height: 100%` and scrolls its own content.
+Same stack as Definitions: header, hearts and combo, progress, the card, then the answer buttons under the thumb. The seven answers sit two across in the Definitions grid, and the seventh, the longest label, spans the full width. Each is 64 px tall or more, and a label that runs long wraps to two lines inside its button. The card shrinks to leave room, and the page scrolls only inside the explanation sheet, which has `max-height: 100%` and scrolls its own content.
 
 The picture is 660 by 480 drawing units scaled to the card width. Lights sit 30 units apart across and 15 up, so two lights are always far enough apart to tell at 390 wide.
 
 ### Desktop
 
-The card sits left of the answers, as in Definitions. Keys 1 to 7 answer, Enter skips the replay once it can be skipped, Esc opens the menu.
+The same centered column as Definitions, with the card above the answers. Keys 1 to 7 answer, Enter skips the replay once it can be skipped, Esc opens the menu. The line under the grid reads "Keys 1 to 7 answer. Enter goes to the next card. Esc opens the menu." On a short window, such as 1280 by 768, the card gives up height to the seven answers and the picture draws small; at 1440 by 900 it is about 300 px wide.
 
 ## Screens
 
@@ -75,7 +75,14 @@ Keys 1 to 7 answer. The cue, the question and the answers are real text. The rig
 
 ## Screenshots
 
-Phone 390 and desktop-wide screenshots of the first card, a right answer, a wrong answer with its explanation, and the cleared screen go in `docs/design/screenshots/lights/`, taken from the real build with `features/steps/lights-phone-390.steps.json` and `features/steps/lights-desktop-wide.steps.json`.
+Taken from the real build on 2026-10-24 with `features/steps/lights-phone-390.steps.json` (390 by 844) and `features/steps/lights-desktop-wide.steps.json` (1440 by 900), seed 29. Both runs answer two cards right, miss the third, pause the explanation and clear with 2 stars.
+
+| Screen | Phone 390 | Desktop wide |
+| --- | --- | --- |
+| First card | [phone-390-1-first-card.png](screenshots/lights/phone-390-1-first-card.png) | [desktop-wide-1-first-card.png](screenshots/lights/desktop-wide-1-first-card.png) |
+| Right answer | [phone-390-2-correct.png](screenshots/lights/phone-390-2-correct.png) | [desktop-wide-2-correct.png](screenshots/lights/desktop-wide-2-correct.png) |
+| Wrong answer with explanation | [phone-390-3-wrong-explanation.png](screenshots/lights/phone-390-3-wrong-explanation.png) | [desktop-wide-3-wrong-explanation.png](screenshots/lights/desktop-wide-3-wrong-explanation.png) |
+| Cleared | [phone-390-4-cleared.png](screenshots/lights/phone-390-4-cleared.png) | [desktop-wide-4-cleared.png](screenshots/lights/desktop-wide-4-cleared.png) |
 
 ## Out of scope
 

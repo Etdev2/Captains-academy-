@@ -1,5 +1,5 @@
 [
-  {"do": "open", "viewport": "desktop", "path": "/rules/?level=lights&seed=29", "storage": {"captains-academy:stars:ch1-definitions": "1"}},
+  {"do": "open", "viewport": "desktop-wide", "path": "/rules/?level=lights&seed=29", "storage": {"captains-academy:stars:ch1-definitions": "1"}},
   {"do": "wait", "ms": 1200},
   {"do": "expect", "field": "phase", "eq": "question"},
   {"do": "expect", "field": "level", "eq": "ch1-lights"},
