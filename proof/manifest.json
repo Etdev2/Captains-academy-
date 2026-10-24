@@ -1,20 +1,16 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#61",
-  "sourceDigest": "sha256:3783bfd72355cd6a0ebfbbe78c328eb45ca1be0ef4a78c63c0023cd3c66a5263",
-  "capturedAt": "2026-10-23T18:30:55Z",
+  "ticket": "Etdev2/Captains-academy-#65",
+  "sourceDigest": "sha256:529c4315baef9b2a65b8012aed9727815b8e2e5ca8fd2aa03956276642977767",
+  "capturedAt": "2026-10-24T00:21:55Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.test.sh",
-    "fixture": "PR #61 on main 95691d6: .github/workflows/claude.yml gates build tools on a same-repository PR head and, for issues runs, on a trusted issue author; repository-wide builder concurrency group; checks run on Node 22"
+    "command": "git diff main -- AGENTS.md",
+    "fixture": "AGENTS.md merge-authority text"
   },
   "commands": [
     {
-      "command": "bash scripts/verify.test.sh",
-      "exitCode": 0
-    },
-    {
-      "command": "bash scripts/verify.sh",
+      "command": "git diff main -- AGENTS.md",
       "exitCode": 0
     }
   ],
@@ -23,8 +19,8 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.test.sh and verify.sh both exit 0 on the PR #61 code; no app code changed"
+      "shows": "AGENTS.md names the coordinator as merge authority after a Codex pass on the exact head"
     }
   ],
-  "noBehaviorReason": "CI workflow config (claude.yml) and a time card only. No app code, mission or replay changed"
+  "noBehaviorReason": "docs-only AGENTS.md edit approved by Et 5:18 PM PT Oct 23, 2026"
 }
