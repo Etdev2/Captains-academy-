@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#65",
-  "sourceDigest": "sha256:cdc4671ea159fc7b6dd4cd6e978d2c367e55eaf13f9b593227b822931d9b75ac",
-  "capturedAt": "2026-10-24T00:56:31Z",
+  "sourceDigest": "sha256:ff3c9713e11e2a9afb6e759ac008b519548eeeb18e65bdf679481674d42350f8",
+  "capturedAt": "2026-10-24T18:53:45Z",
   "result": "PASS",
   "verification": {
     "command": "git diff origin/main -- AGENTS.md",
