@@ -1,9 +1,18 @@
-$ npm ls zod
-captains-academy@0.0.0 /workspace/ca
-└── zod@4.6.7
-
+$ node -e "const y=require('fs').readFileSync('.github/workflows/claude.yml','utf8');if((y.match(/secrets.CLAUDE_PUSH_TOKEN/g)||[]).length!==2)process.exit(1);console.log('ok')"
+ok
 [exit 0]
 
-$ npm audit --omit=dev
-found 0 vulnerabilities
+$ bash scripts/verify.test.sh
+ok   empty project skips all nine steps
+ok   app code without package.json fails
+ok   package.json without a Node pin fails
+ok   wrong Node major fails
+ok   missing lockfile fails
+ok   phaser with a caret range fails
+ok   app code without tsconfig fails
+ok   tsconfig without the tsc binary fails
+ok   mission JSON without validate:missions fails
+ok   a failing mission validation fails
+
+verify.test.sh: 10 passed, 0 failed.
 [exit 0]

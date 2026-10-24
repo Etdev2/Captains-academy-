@@ -1,20 +1,20 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#66",
-  "sourceDigest": "sha256:824bf3b2e14e3825c24233301ac9414687501388d84c3899200918efdd2c67d8",
-  "capturedAt": "2026-10-24T00:28:45Z",
+  "ticket": "Etdev2/Captains-academy-#65",
+  "sourceDigest": "sha256:d89efddb87bf8eaca43e954f990f5098ed8695d81d05db38b7b282159038e542",
+  "capturedAt": "2026-10-24T17:56:51Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.sh",
-    "fixture": "Dependency-only change: zod 4.6.5 -> 4.6.7 in package.json and package-lock.json; no source changes"
+    "command": "node -e \"const y=require('fs').readFileSync('.github/workflows/claude.yml','utf8');if((y.match(/secrets.CLAUDE_PUSH_TOKEN/g)||[]).length!==2)process.exit(1);console.log('ok')\"",
+    "fixture": "claude.yml diff: checkout token + github_token from secrets.CLAUDE_PUSH_TOKEN"
   },
   "commands": [
     {
-      "command": "npm ls zod",
+      "command": "node -e \"const y=require('fs').readFileSync('.github/workflows/claude.yml','utf8');if((y.match(/secrets.CLAUDE_PUSH_TOKEN/g)||[]).length!==2)process.exit(1);console.log('ok')\"",
       "exitCode": 0
     },
     {
-      "command": "npm audit --omit=dev",
+      "command": "bash scripts/verify.test.sh",
       "exitCode": 0
     }
   ],
@@ -23,8 +23,8 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "npm audit --omit=dev reports 0 vulnerabilities (GHSA-mrhx-c7xc-m3w5 resolved) and the full verify suite still passes"
+      "shows": "the checkout and build-tools Claude step both use CLAUDE_PUSH_TOKEN; app code unchanged"
     }
   ],
-  "noBehaviorReason": "Patch-level dependency bump for a security advisory; no application code changed"
+  "noBehaviorReason": "CI workflow config only; no app code changed"
 }
