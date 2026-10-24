@@ -63,8 +63,8 @@ const readState = () =>
 // keep them in step with the decks. Card ids never repeat across levels.
 const answers = Object.assign(
   {},
-  ...["definitions", "lights"].map((level) =>
-    JSON.parse(readFileSync(new URL(`./features/steps/${level}.answers.json`, import.meta.url), "utf8")),
+  ...['definitions', 'lights'].map((level) =>
+    JSON.parse(readFileSync(new URL(`./features/steps/${level}.answers.json`, import.meta.url), 'utf8')),
   ),
 );
 async function settle() {
@@ -80,7 +80,7 @@ async function answerCard(right) {
   if (s.phase === 'done') return;
   const n = answers[s.card];
   if (!n) throw new Error(`no answer on file for card ${JSON.stringify(s.card)}`);
-  const answerCount = await page.locator("#answers [data-answer]").count();
+  const answerCount = await page.locator('#answers [data-answer]').count();
   const target = page.locator(`#answers [data-answer="${right ? n : (n % answerCount) + 1}"]`);
   if (touch) await target.tap();
   else await target.click();
