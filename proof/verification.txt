@@ -1,4 +1,4 @@
-$ git diff main -- AGENTS.md
+$ git diff origin/main -- AGENTS.md
 diff --git a/AGENTS.md b/AGENTS.md
 index 5d7296a..542845d 100644
 --- a/AGENTS.md

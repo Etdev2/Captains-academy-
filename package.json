@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "phaser": "4.2.1",
-    "zod": "4.6.5"
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.11.0",
