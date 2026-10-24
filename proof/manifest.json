@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#65",
-  "sourceDigest": "sha256:702540ffa2a929885acdced90dd244fd1cf122b9050acfbf76760bec39a5bdf5",
-  "capturedAt": "2026-10-24T18:54:52Z",
+  "sourceDigest": "sha256:03f15eda3b4aab174cb3840fa4e9df1f4c2e84805294c8093c35cec6b7a474f7",
+  "capturedAt": "2026-10-24T20:57:36Z",
   "result": "PASS",
   "verification": {
     "command": "grep -c secrets.CLAUDE_PUSH_TOKEN .github/workflows/claude.yml",
