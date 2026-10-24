@@ -1,6 +1,6 @@
 # Lights level regulation check, 2026-10-23
 
-Claude, acting as `uscg-regs`, checked the 19 shared cards of the issue #29 Lights level, plus the one International-only card kept out of it, against the current Inland Rules 20 to 31 (33 CFR 83.20 to 83.31) on 2026-10-23. The International Rules were not re-read line by line; the cards assume the same rule numbers and paragraph letters (see "How the sources were used"). Every card was checked for its answer, its cue, its one-line reason and its paragraph citation. The Rule 21 sectors the bridge view draws were checked too.
+Claude, acting as `uscg-regs`, checked the 19 shared cards of the issue #29 Lights level, plus the one International-only card kept out of it, against the current Inland Rules 20 to 31 (33 CFR 83.20 to 83.31) on 2026-10-23. On 2026-10-24 a second pass read the eCFR text of 33 CFR 83 and the International Rules in the NavCen amalgamated rules, and compared the two paragraph by paragraph (see "How the sources were used"). Every card was checked for its answer, its cue, its one-line reason and its paragraph citation. The Rule 21 sectors the bridge view draws were checked too.
 
 Of 19 cards, 17 are `verified` and 2 are `corrected`. No card is left open. The text below is the text the deck ships, word for word. With it, the cards appear to meet the paragraphs they cite. The Coast Guard and the NMC still have the last word.
 
@@ -9,13 +9,16 @@ Of 19 cards, 17 are `verified` and 2 are `corrected`. No card is left open. The 
 | Source of the cards | `src/sim/chapter1/lights.ts` on branch `claude/issue-29-20261023-2037` |
 | Fields checked per card | `cue`, `answer`, `citation`, `why`, `ruleSet`, the aspect it is drawn from, and the seven answer labels in `CATEGORIES` |
 | Inland text read | Cornell LII copy of 33 CFR 83.20, 83.21, 83.23, 83.24, 83.25, 83.26, 83.27 and 83.30, read 2026-10-23 |
-| International text | Not re-read. Rules 20 to 31 are the Inland text's source and the paragraph letters match. See below |
-| Date checked | 2026-10-23 |
+| Inland text, second read | eCFR full text of 33 CFR part 83 as of 2026-10-01, read 2026-10-24. SHA-256 of the XML response `0f25e0a75accf2c84e51f61fe49642a51381a019794f28b1783b0abba7c3b228` |
+| International text read | NavCen amalgamated navigation rules page (`navcen.uscg.gov/navigation-rules-amalgamated`), Rules 20 to 31 and Annex I, read 2026-10-24. SHA-256 of the HTML response `cc26ac94b8ac02e82694c6ffb38167a56caddc3037b6a2b5041ae6f0da56cd9c` |
+| Dates checked | 2026-10-23, 2026-10-24 |
 
 ## How the sources were used
 
-- The session's web reader returned the Inland sections from Cornell LII. It cannot quote more than short passages, so long paragraphs were checked from summaries plus short verbatim excerpts. The session's shell could not reach `ecfr.gov` or `navcen.uscg.gov`, so this check has no SHA-256 values. A second read against eCFR is worth doing before launch.
-- Not read: the printed Handbook PDF, the NavCen amalgamated page and the IMO's own COLREGS text for these rules. The Inland rules (33 CFR 83) restate the International Rules paragraph for paragraph, and the Definitions check ([definitions-regs-check-2026-10-23.md](definitions-regs-check-2026-10-23.md)) found the two texts to agree on Rule 3. The cards cite the International rule number and the Inland CFR paragraph, which are the same letters. Any difference found later is a reason to re-open the card.
+- First pass, 2026-10-23: the session's web reader returned the Inland sections from Cornell LII. It could quote only short passages, so long paragraphs were checked from summaries plus short verbatim excerpts. That session's shell could not reach `ecfr.gov` or `navcen.uscg.gov`.
+- Second pass, 2026-10-24: the shell fetched the eCFR XML of 33 CFR part 83 and the NavCen amalgamated rules page. Every paragraph in the tables below was read in full from both. The hashes in the table above identify the responses read.
+- The NavCen page prints the two rule sets as one text. A paragraph or phrase that applies under one set only is labeled `International` or `Inland`, or set in single (International) or double (Inland) angle quotes. None of the paragraphs a played card cites carries such a label or quote mark. The only one inside them is in 83.21(a) and (b), an Inland-only phrase on where a vessel under 12 meters places her masthead light and combined lantern, which no card draws.
+- Not read: the printed Handbook PDF and the IMO's own COLREGS text. NavCen's page is the Coast Guard's own publication of both rule sets.
 - In the tables, "83.23" means 33 CFR 83.23.
 
 ## Rules 20 and 21: when lights show and what the sectors are
@@ -35,7 +38,7 @@ Of 19 cards, 17 are `verified` and 2 are `corrected`. No card is left open. The 
 
 The deck does not pick which lights show. `shownLights` in `src/sim/chapter1/lights.ts` asks the Rule 21 module, so the cue and the drawing cannot disagree with the sectors. The edges fall on exact turn units: 112.5 degrees is 320 of 1,024 units. A card never sits on an edge, so no card depends on the edge rule.
 
-Annex I (the forward cutoff of the sidelights): `isVisible` takes an `overlap` that defaults to none, so the sidelights meet exactly at dead ahead. No card uses the Annex I value, and none is checked here. `unverified`.
+Annex I (the cutoff of the lights at their sector edges): the sidelights' intensity "shall decrease to reach practical cut-off between 1 and 3 degrees outside the prescribed sectors" in the forward direction, and every sector light shall reach practical cut-off "at not more than 5 degrees outside the prescribed sectors" at its other edges. `isVisible` takes an `overlap` that defaults to none, so the sidelights meet exactly at dead ahead and every sector ends on its Rule 21 edge. No card sits inside those bands: the cards are drawn at 0, 45, 70, 90 and 180 degrees from the bow, and the nearest edge to any of them is more than 20 degrees away. Dead ahead shows both sidelights under either reading. `verified` for the deck as it stands. A card added within 5 degrees of an edge would need the Annex I band modeled first.
 
 ## Rules 23 to 30 paragraphs the cards use
 
@@ -103,7 +106,7 @@ The "Citation to show" column is the exact citation string the deck shows on the
 | `rule27:nuc-stopped` | Not moving, no way on | Two red lights in a vertical line and no others: a vessel not under command, with no way on. | Matches 83.27(a). With no way on, no sidelights or sternlight show |
 | `rule27:nuc-under-way` | Making way, heading straight at you | Two red lights in a vertical line, with sidelights: a vessel not under command, making way. | Matches 83.27(a) |
 | `rule27:ram-stopped` | Not moving, no way on | Red, white, red in a vertical line and no others: a vessel restricted in her ability to maneuver, with no way on. | Matches 83.27(b)(i). Mine clearance, which has other lights, is not a card |
-| `rule27:ram-under-way` | Making way, her bow angled to your right | Red, white, red in a vertical line, with a masthead light and a sidelight: a vessel restricted in her ability to maneuver, making way. | Matches 83.27(b)(i) and (ii) |
+| `rule27:ram-under-way` | Making way, her bow angled to your right | Red, white, red in a vertical line, with a masthead light and a sidelight: a vessel restricted in her ability to maneuver, making way. | Matches 83.27(b)(i) and (iii). The first pass cited (ii), which is the shapes; corrected on the second pass |
 | `rule30:anchor-small` | Not moving, riding to her anchor | One white light seen all round: a vessel at anchor. | Matches 83.30(b). The rule allows it for a vessel under 50 meters, which the cue does not state; a vessel under oars or a small sailboat could also show one white light, but neither is an answer |
 | `rule30:anchor-long` | Not moving, riding to her anchor | Two white lights all round, the after one lower: a vessel at anchor. | Matches 83.30(a)(i) and (ii) |
 
@@ -156,9 +159,9 @@ This follows finding F1 of the Definitions check. G6 says Inland and Internation
 
 ## Findings above single cards
 
-**F1. Rule 28 is a difference and stays out.** See above. The International text of Rule 28 was not re-read in this session. `unverified` until it is.
+**F1. Rule 28 is a difference and stays out.** See above. The NavCen text labels Rule 28 "International Rules Only" and gives the vessel, in addition to her Rule 23(a) lights, three all-round red lights in a vertical line, or a cylinder. eCFR prints 83.28 as `[Reserved]`. `verified`.
 
-**F2. A shared card has to hold under both rule sets.** Every played card cites a paragraph that reads the same in the Inland and International rules, apart from the lettering of the CFR sections. The International text was not re-read, so that claim is `unverified`. A difference found later would need a flagged card in a differences level.
+**F2. A shared card has to hold under both rule sets.** Every played card cites a paragraph that reads the same in the Inland and International rules: 21(a) to (e), 23(a), 24(a), 25(a) and (c), 26(b) and (c), 27(a) and (b), and 30(a) and (b). The only wording that differs is the CFR's cross-references, such as "(§§ 83.23(a)(i) and (ii))" in 83.24(a)(i). `verified` against the 2026-10-24 read. A difference found later would need a flagged card in a differences level.
 
 **F3. A picture leaves out lights the rules allow.** See "Rules 23 to 30 paragraphs the cards use". The deck draws one version of each vessel. A player who knows a vessel can carry a longer version of the same pattern is not wrong. The test `shows from every card a picture that no other vessel in the answers shares` proves no two answers draw the same lights from the same angle.
 
