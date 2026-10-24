@@ -22,11 +22,11 @@
 
 | Field | Value |
 | --- | --- |
-| Clock out (UTC) | still clocked in |
-| Outcome | finished/passed, finished/handoff or finished/failed |
-| Pull requests | |
+| Clock out (UTC) | 2026-10-24 19:27 |
+| Outcome | finished/passed |
+| Pull requests | Etdev2/Captains-academy-#70 |
 | Tokens | |
-| Token standing | measured, estimated or unavailable |
-| Token coverage | complete or partial |
-| Handoff to | |
-| Note | |
+| Token standing | unavailable |
+| Token coverage | |
+| Handoff to | none |
+| Note | Finished #29: International text and eCFR read for the regs check, spec screenshots, Lights feature in the verification skill. verify.test.sh and verify.sh pass. Locally, Playwright 1.56's headless shell was symlinked to the container's newer build; nothing in the repo changed for it. get_session exposed no token figure |
