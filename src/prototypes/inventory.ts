@@ -32,15 +32,23 @@ const itemSchema = z
     /** The image's own pixel size, so a page can reserve its space before it loads. */
     width: z.number().int().positive().optional(),
     height: z.number().int().positive().optional(),
+    /** The image's dominant color, painted in its space until it loads. */
+    color: z
+      .string()
+      .regex(/^#[0-9a-f]{6}$/)
+      .optional(),
     availability: z.enum(['available', 'unavailable']),
     notes: z.string(),
     extractedFrom: z.string().optional(),
     document: z.string().optional(),
   })
   .strict()
-  .refine((i) => (i.image !== null) === (i.width !== undefined && i.height !== undefined), {
-    message: 'an item with an image records its width and height, and only then',
-  })
+  .refine(
+    (i) =>
+      (i.image !== null) ===
+      (i.width !== undefined && i.height !== undefined && i.color !== undefined),
+    { message: 'an item with an image records its width, height and color, and only then' },
+  )
   .refine(
     (i) => (i.availability === 'available') === (i.image !== null || i.document !== undefined),
     { message: 'an available item has an image or a document, and an unavailable one has neither' },

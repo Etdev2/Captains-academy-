@@ -22,7 +22,7 @@ import { newId, openBoardStore } from './store';
 // the page. Every change saves to the device at once; a rule the board refuses
 // to break comes back as a message, not an exception.
 
-interface BoardApi {
+export interface BoardApi {
   readonly state: BoardState;
   readonly reviewer: string;
   readonly persistent: boolean;
@@ -38,9 +38,13 @@ interface BoardApi {
   decide(itemId: string, reason: string): boolean;
   importFile(text: string): ImportResult | null;
   say(text: string, tone?: 'info' | 'error'): void;
-  /** Opens the full-size viewer on an item. */
-  open(item: Item): void;
+  /**
+   * Opens the full-screen viewer on an item. `sequence` is the order next and
+   * previous step through; it defaults to the one the viewer was opened with.
+   */
+  open(item: Item, sequence?: readonly Item[]): void;
   readonly opened: Item | null;
+  readonly sequence: readonly Item[];
   close(): void;
   /** Puts focus back on whatever opened the viewer. */
   returnFocus(): void;
@@ -63,6 +67,7 @@ export function BoardProvider({ children }: { children: React.ReactNode }) {
   const [persistent, setPersistent] = React.useState(store.persistent);
   const [message, setMessage] = React.useState<BoardApi['message']>(null);
   const [opened, setOpened] = React.useState<Item | null>(null);
+  const [sequence, setSequence] = React.useState<readonly Item[]>([]);
   const opener = React.useRef<HTMLElement | null>(null);
 
   const apply = React.useCallback(
@@ -92,6 +97,7 @@ export function BoardProvider({ children }: { children: React.ReactNode }) {
     persistent,
     message,
     opened,
+    sequence,
     setReviewer(name) {
       const clean = displayName(name).slice(0, 60);
       setReviewerState(name.slice(0, 60));
@@ -117,11 +123,13 @@ export function BoardProvider({ children }: { children: React.ReactNode }) {
       return result;
     },
     say: (text, tone = 'info') => setMessage({ text, tone }),
-    open(item) {
+    open(item, next) {
       // Moving from a concept to its source board keeps the first opener.
       if (opened === null && document.activeElement instanceof HTMLElement) {
         opener.current = document.activeElement;
       }
+      if (next) setSequence(next);
+      else if (opened === null) setSequence([]);
       setOpened(item);
     },
     close: () => setOpened(null),

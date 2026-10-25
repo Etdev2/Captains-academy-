@@ -4,7 +4,8 @@
 The decision board loads these on its cards; the full-size viewer always opens
 the original, which this script never changes. It also records each original's
 width and height in docs/prototypes/inventory.json, so the board reserves the
-right space before an image loads. Rerun after adding an image to the
+right space before an image loads, and its dominant color, which the board
+paints in that space until the image arrives. Rerun after adding an image to the
 inventory. Needs Python 3 and Pillow.
 """
 import json
@@ -15,6 +16,16 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / 'docs/prototypes/thumbnails'
 WIDTH = 720
+
+
+
+def dominant(im):
+    """The most common color of a small, 8-color version of the image, as #rrggbb."""
+    small = im.convert('RGB').resize((64, 64), Image.BILINEAR).quantize(8)
+    count, index = max(small.getcolors())
+    r, g, b = small.getpalette()[index * 3 : index * 3 + 3]
+    return f'#{r:02x}{g:02x}{b:02x}'
+
 
 OUT.mkdir(exist_ok=True)
 inventory = json.loads((ROOT / 'docs/prototypes/inventory.json').read_text())
@@ -30,11 +41,12 @@ for item in inventory['items']:
         # Keep the inventory's key order: width and height follow image.
         entry = {}
         for key, value in item.items():
-            if key in ('width', 'height'):
+            if key in ('width', 'height', 'color'):
                 continue
             entry[key] = value
             if key == 'image':
                 entry['width'], entry['height'] = im.size
+                entry['color'] = dominant(im)
         sized.append(entry)
         im = im.convert('RGB')
         if im.width > WIDTH:

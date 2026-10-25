@@ -26,6 +26,7 @@
       "image": "docs/prototypes/frontend-directions/boards/p1-home-directions-coastal-precision-ocean.png",
       "width": 1536,
       "height": 1024,
+      "color": "#f0efee",
       "notes": "Comparison board. Its concepts are reviewed one by one as extracted details; the board itself is not ranked.",
       "availability": "available"
     },
@@ -41,6 +42,7 @@
       "image": "docs/prototypes/frontend-directions/boards/p2-home-directions-chart-pacific-fieldbook.png",
       "width": 1536,
       "height": 1024,
+      "color": "#eeeae2",
       "notes": "Comparison board. Its concepts are reviewed one by one as extracted details; the board itself is not ranked.",
       "availability": "available"
     },
@@ -56,6 +58,7 @@
       "image": "docs/prototypes/frontend-directions/boards/p3-definitions-lesson-concepts.png",
       "width": 1536,
       "height": 1024,
+      "color": "#f8fafb",
       "notes": "Comparison board. Its concepts are reviewed one by one as extracted details; the board itself is not ranked.",
       "availability": "available"
     },
@@ -71,6 +74,7 @@
       "image": "docs/prototypes/frontend-directions/boards/p4-lights-lesson-concepts.png",
       "width": 1536,
       "height": 1024,
+      "color": "#202d3b",
       "notes": "Comparison board. Its concepts are reviewed one by one as extracted details; the board itself is not ranked.",
       "availability": "available"
     },
@@ -86,6 +90,7 @@
       "image": "docs/prototypes/frontend-directions/extracted/home-coastal-editorial.png",
       "width": 1536,
       "height": 384,
+      "color": "#b3b7ba",
       "extractedFrom": "gpt-board-home-a",
       "notes": "Row 1 of 3 cropped from its board, full width, no other change.",
       "availability": "available"
@@ -102,6 +107,7 @@
       "image": "docs/prototypes/frontend-directions/extracted/home-precision-marine.png",
       "width": 1536,
       "height": 336,
+      "color": "#efefef",
       "extractedFrom": "gpt-board-home-a",
       "notes": "Row 2 of 3 cropped from its board, full width, no other change.",
       "availability": "available"
@@ -118,6 +124,7 @@
       "image": "docs/prototypes/frontend-directions/extracted/home-ocean-studio.png",
       "width": 1536,
       "height": 304,
+      "color": "#111c24",
       "extractedFrom": "gpt-board-home-a",
       "notes": "Row 3 of 3 cropped from its board, full width, no other change.",
       "availability": "available"
@@ -134,6 +141,7 @@
       "image": "docs/prototypes/frontend-directions/extracted/home-chart-house.png",
       "width": 1536,
       "height": 356,
+      "color": "#ece9e5",
       "extractedFrom": "gpt-board-home-b",
       "notes": "Row 1 of 3 cropped from its board, full width, no other change.",
       "availability": "available"
@@ -150,6 +158,7 @@
       "image": "docs/prototypes/frontend-directions/extracted/home-pacific-modern.png",
       "width": 1536,
       "height": 343,
+      "color": "#f7fafc",
       "extractedFrom": "gpt-board-home-b",
       "notes": "Row 2 of 3 cropped from its board, full width, no other change.",
       "availability": "available"
@@ -166,6 +175,7 @@
       "image": "docs/prototypes/frontend-directions/extracted/home-academy-fieldbook.png",
       "width": 1536,
       "height": 325,
+      "color": "#f1ece3",
       "extractedFrom": "gpt-board-home-b",
       "notes": "Row 3 of 3 cropped from its board, full width, no other change.",
       "availability": "available"
@@ -182,6 +192,7 @@
       "image": "docs/prototypes/frontend-directions/extracted/definitions-chart-house.png",
       "width": 1536,
       "height": 362,
+      "color": "#f6f8fa",
       "extractedFrom": "gpt-board-definitions",
       "notes": "Row 1 of 3 cropped from its board, full width, no other change.",
       "availability": "available"
@@ -198,6 +209,7 @@
       "image": "docs/prototypes/frontend-directions/extracted/definitions-precision-marine.png",
       "width": 1536,
       "height": 332,
+      "color": "#f8fafc",
       "extractedFrom": "gpt-board-definitions",
       "notes": "Row 2 of 3 cropped from its board, full width, no other change.",
       "availability": "available"
@@ -214,6 +226,7 @@
       "image": "docs/prototypes/frontend-directions/extracted/definitions-ocean-studio.png",
       "width": 1536,
       "height": 330,
+      "color": "#0f2237",
       "extractedFrom": "gpt-board-definitions",
       "notes": "Row 3 of 3 cropped from its board, full width, no other change.",
       "availability": "available"
@@ -230,6 +243,7 @@
       "image": "docs/prototypes/frontend-directions/extracted/lights-chart-house.png",
       "width": 1536,
       "height": 346,
+      "color": "#14212c",
       "extractedFrom": "gpt-board-lights",
       "notes": "Row 1 of 3 cropped from its board, full width, no other change. Signal artwork requires verification.",
       "availability": "available"
@@ -246,6 +260,7 @@
       "image": "docs/prototypes/frontend-directions/extracted/lights-precision-marine.png",
       "width": 1536,
       "height": 342,
+      "color": "#dde6ef",
       "extractedFrom": "gpt-board-lights",
       "notes": "Row 2 of 3 cropped from its board, full width, no other change. Signal artwork requires verification.",
       "availability": "available"
@@ -262,6 +277,7 @@
       "image": "docs/prototypes/frontend-directions/extracted/lights-ocean-studio.png",
       "width": 1536,
       "height": 336,
+      "color": "#122840",
       "extractedFrom": "gpt-board-lights",
       "notes": "Row 3 of 3 cropped from its board, full width, no other change. Signal artwork requires verification.",
       "availability": "available"
@@ -278,6 +294,7 @@
       "image": "docs/prototypes/frontend-directions/boards/p5-prototype-book-dark-cleanup.png",
       "width": 1426,
       "height": 1103,
+      "color": "#122537",
       "notes": "One concept shown across 16 book pages. Page text is generated and not verified.",
       "availability": "available"
     },
@@ -293,6 +310,7 @@
       "image": "docs/prototypes/frontend-directions/boards/p6-prototype-book-light-alternate.png",
       "width": 1426,
       "height": 1103,
+      "color": "#fcfaf3",
       "notes": "One concept shown across six spreads. Its lesson text contains errors (for example, a cylinder day shape is labeled power-driven) and needs verification before instructional use.",
       "availability": "available"
     },
@@ -308,6 +326,7 @@
       "image": "docs/prototypes/frontend-directions/boards/p7-original-prototype-book-reference.png",
       "width": 1320,
       "height": 1020,
+      "color": "#142436",
       "notes": "The owner supplied this as the reference the two book concepts start from.",
       "availability": "available"
     },
@@ -362,6 +381,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/mockups/ch1-map.jpg",
       "width": 390,
       "height": 844,
+      "color": "#081120",
       "notes": "Mockup. Rule content is a draft until uscg-regs checks it.",
       "availability": "available"
     },
@@ -377,6 +397,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/mockups/ch1-01-definitions.jpg",
       "width": 390,
       "height": 844,
+      "color": "#102236",
       "notes": "Mockup. Rule content is a draft until uscg-regs checks it. The book version corrects the counter from 7 of 20 to 7 of 17.",
       "availability": "available"
     },
@@ -392,6 +413,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/mockups/ch1-02-lights.jpg",
       "width": 390,
       "height": 844,
+      "color": "#102236",
       "notes": "Mockup. Rule content is a draft until uscg-regs checks it.",
       "availability": "available"
     },
@@ -407,6 +429,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/mockups/ch1-03-day-shapes.jpg",
       "width": 390,
       "height": 844,
+      "color": "#7fa3c3",
       "notes": "Mockup. Rule content is a draft until uscg-regs checks it.",
       "availability": "available"
     },
@@ -422,6 +445,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/mockups/ch1-04-horn-signals.jpg",
       "width": 390,
       "height": 844,
+      "color": "#081120",
       "notes": "Mockup. Rule content is a draft until uscg-regs checks it.",
       "availability": "available"
     },
@@ -437,6 +461,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/mockups/ch1-05-pecking-order.jpg",
       "width": 390,
       "height": 844,
+      "color": "#102236",
       "notes": "Mockup. Rule content is a draft until uscg-regs checks it.",
       "availability": "available"
     },
@@ -452,6 +477,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/mockups/ch1-06-steady-bearing.jpg",
       "width": 844,
       "height": 390,
+      "color": "#0a192c",
       "notes": "Mockup. Rule content is a draft until uscg-regs checks it.",
       "availability": "available"
     },
@@ -467,6 +493,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/mockups/ch1-07-who-gives-way.jpg",
       "width": 844,
       "height": 390,
+      "color": "#0a192c",
       "notes": "Mockup. Rule content is a draft until uscg-regs checks it.",
       "availability": "available"
     },
@@ -482,6 +509,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/mockups/ch1-08-fog.jpg",
       "width": 844,
       "height": 390,
+      "color": "#55677b",
       "notes": "Mockup. Rule content is a draft until uscg-regs checks it.",
       "availability": "available"
     },
@@ -497,6 +525,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/mockups/ch1-replay-steering-miss.jpg",
       "width": 390,
       "height": 844,
+      "color": "#0a192c",
       "notes": "Mockup. Rule content is a draft until uscg-regs checks it.",
       "availability": "available"
     },
@@ -512,6 +541,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/mockups/ch1-replay-lights-miss.jpg",
       "width": 390,
       "height": 844,
+      "color": "#050b17",
       "notes": "Mockup. Rule content is a draft until uscg-regs checks it.",
       "availability": "available"
     },
@@ -527,6 +557,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/mockups/ch1-boss-exam.jpg",
       "width": 390,
       "height": 844,
+      "color": "#081120",
       "notes": "Mockup. Rule content is a draft until uscg-regs checks it.",
       "availability": "available"
     },
@@ -542,6 +573,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/harbor-run/course.jpg",
       "width": 1400,
       "height": 875,
+      "color": "#0a192c",
       "notes": "Course design mockup. The arcade track is parked (A3).",
       "availability": "available"
     },
@@ -557,6 +589,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/harbor-run/dredge-diamond-side.jpg",
       "width": 844,
       "height": 390,
+      "color": "#2f5675",
       "notes": "Course design mockup. The arcade track is parked (A3).",
       "availability": "available"
     },
@@ -572,6 +605,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/harbor-run/call-while-steering.jpg",
       "width": 844,
       "height": 390,
+      "color": "#2f5675",
       "notes": "Course design mockup. The arcade track is parked (A3).",
       "availability": "available"
     },
@@ -587,6 +621,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/harbor-run/finish-splits.jpg",
       "width": 844,
       "height": 390,
+      "color": "#081120",
       "notes": "Course design mockup. The arcade track is parked (A3).",
       "availability": "available"
     },
@@ -602,6 +637,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/night-harbor-run/01-start-screen.png",
       "width": 1280,
       "height": 760,
+      "color": "#050c17",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them.",
       "availability": "available"
     },
@@ -617,6 +653,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/night-harbor-run/02-head-on-lights.png",
       "width": 1280,
       "height": 760,
+      "color": "#081220",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them.",
       "availability": "available"
     },
@@ -632,6 +669,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/night-harbor-run/03-call-it-question.png",
       "width": 1280,
       "height": 760,
+      "color": "#0a1626",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them.",
       "availability": "available"
     },
@@ -647,6 +685,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/night-harbor-run/04-answer-and-rule.png",
       "width": 1280,
       "height": 760,
+      "color": "#0f1e2f",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them.",
       "availability": "available"
     },
@@ -662,6 +701,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/night-harbor-run/05-phone.png",
       "width": 824,
       "height": 1720,
+      "color": "#081422",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them.",
       "availability": "available"
     },
@@ -677,6 +717,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/night-harbor-run/06-crossing-from-starboard.png",
       "width": 2560,
       "height": 1520,
+      "color": "#050d17",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them. Captured 2026-10-25 with the #gate start link.",
       "availability": "available"
     },
@@ -692,6 +733,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/night-harbor-run/07-sailing-vessel.png",
       "width": 2560,
       "height": 1520,
+      "color": "#050d17",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them. Captured 2026-10-25 with the #gate start link.",
       "availability": "available"
     },
@@ -707,6 +749,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/night-harbor-run/08-day-leg-shapes.png",
       "width": 2560,
       "height": 1520,
+      "color": "#2a4b67",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them. Captured 2026-10-25 with the #gate start link.",
       "availability": "available"
     },
@@ -722,6 +765,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/night-harbor-run/09-channel-dredge.png",
       "width": 2560,
       "height": 1520,
+      "color": "#050d17",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them. Captured 2026-10-25 with the #gate start link.",
       "availability": "available"
     },
@@ -737,6 +781,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/night-harbor-run/10-tug-and-tow-from-astern.png",
       "width": 2560,
       "height": 1520,
+      "color": "#050d17",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them. Captured 2026-10-25 with the #gate start link.",
       "availability": "available"
     },
@@ -752,6 +797,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/night-harbor-run/11-fog-leg.png",
       "width": 2560,
       "height": 1520,
+      "color": "#606b73",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them. Captured 2026-10-25 with the #gate start link.",
       "availability": "available"
     },
@@ -767,6 +813,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/built/01-level-1-docking-desktop.png",
       "width": 1280,
       "height": 768,
+      "color": "#06121f",
       "notes": "Screenshot of built code. On main.",
       "availability": "available"
     },
@@ -782,6 +829,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/built/02-level-1-docking-phone-landscape.png",
       "width": 2265,
       "height": 945,
+      "color": "#06121f",
       "notes": "Screenshot of built code. On main.",
       "availability": "available"
     },
@@ -797,6 +845,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/built/03-level-2-crosswind-slip.png",
       "width": 1280,
       "height": 768,
+      "color": "#06121f",
       "notes": "Screenshot of built code. On main.",
       "availability": "available"
     },
@@ -812,6 +861,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/built/04-level-3-course-start.png",
       "width": 1280,
       "height": 768,
+      "color": "#06121f",
       "notes": "Screenshot of built code. Branch only, parked (#46).",
       "availability": "available"
     },
@@ -827,6 +877,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/built/05-level-3-container-ship.png",
       "width": 1280,
       "height": 768,
+      "color": "#06121f",
       "notes": "Screenshot of built code. Branch only, parked (#46).",
       "availability": "available"
     },
@@ -842,6 +893,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/built/06-level-3-hit-by-ship.png",
       "width": 1280,
       "height": 768,
+      "color": "#06121f",
       "notes": "Screenshot of built code. Branch only, parked (#46).",
       "availability": "available"
     },
@@ -857,6 +909,7 @@
       "image": "docs/design/screenshots/definitions/desktop-wide-1-first-card.png",
       "width": 1440,
       "height": 900,
+      "color": "#06121f",
       "notes": "Screenshot of the Definitions level on main (#47 stage 1, PR #63).",
       "availability": "available"
     },
@@ -872,6 +925,7 @@
       "image": "docs/design/screenshots/definitions/desktop-wide-2-correct.png",
       "width": 1440,
       "height": 900,
+      "color": "#06121f",
       "notes": "Screenshot of the Definitions level on main (#47 stage 1, PR #63).",
       "availability": "available"
     },
@@ -887,6 +941,7 @@
       "image": "docs/design/screenshots/definitions/desktop-wide-3-wrong-explanation.png",
       "width": 1440,
       "height": 900,
+      "color": "#06121f",
       "notes": "Screenshot of the Definitions level on main (#47 stage 1, PR #63).",
       "availability": "available"
     },
@@ -902,6 +957,7 @@
       "image": "docs/design/screenshots/definitions/desktop-wide-4-cleared.png",
       "width": 1440,
       "height": 900,
+      "color": "#06121f",
       "notes": "Screenshot of the Definitions level on main (#47 stage 1, PR #63).",
       "availability": "available"
     },
@@ -917,6 +973,7 @@
       "image": "docs/design/screenshots/definitions/phone-390-1-first-card.png",
       "width": 1170,
       "height": 2532,
+      "color": "#0f2236",
       "notes": "Screenshot of the Definitions level on main (#47 stage 1, PR #63).",
       "availability": "available"
     },
@@ -932,6 +989,7 @@
       "image": "docs/design/screenshots/definitions/phone-390-2-correct.png",
       "width": 1170,
       "height": 2532,
+      "color": "#0f2236",
       "notes": "Screenshot of the Definitions level on main (#47 stage 1, PR #63).",
       "availability": "available"
     },
@@ -947,6 +1005,7 @@
       "image": "docs/design/screenshots/definitions/phone-390-3-wrong-explanation.png",
       "width": 1170,
       "height": 2532,
+      "color": "#06121f",
       "notes": "Screenshot of the Definitions level on main (#47 stage 1, PR #63).",
       "availability": "available"
     },
@@ -962,6 +1021,7 @@
       "image": "docs/design/screenshots/definitions/phone-390-4-cleared.png",
       "width": 1170,
       "height": 2532,
+      "color": "#06121f",
       "notes": "Screenshot of the Definitions level on main (#47 stage 1, PR #63).",
       "availability": "available"
     },
@@ -977,6 +1037,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/decks/lights-deck.jpg",
       "width": 1240,
       "height": 1300,
+      "color": "#081120",
       "notes": "Content deck. Rules content is a draft until uscg-regs checks it.",
       "availability": "available"
     },
@@ -992,6 +1053,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/decks/day-shapes-deck.jpg",
       "width": 1240,
       "height": 1100,
+      "color": "#081120",
       "notes": "Content deck. Rules content is a draft until uscg-regs checks it.",
       "availability": "available"
     },
@@ -1007,6 +1069,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/wireframes/play-landscape.png",
       "width": 1464,
       "height": 798,
+      "color": "#fafafa",
       "notes": "Wireframe with layout numbers.",
       "availability": "available"
     },
@@ -1022,6 +1085,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/wireframes/rules-portrait.png",
       "width": 1464,
       "height": 1300,
+      "color": "#ffffff",
       "notes": "Wireframe of the old canvas layout, before the PR #63 redesign.",
       "availability": "available"
     },
@@ -1037,6 +1101,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/wireframes/night-harbor-run.png",
       "width": 1464,
       "height": 942,
+      "color": "#fafafa",
       "notes": "Wireframe with layout numbers.",
       "availability": "available"
     },
@@ -1052,6 +1117,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/built/level-3-layout.png",
       "width": 1464,
       "height": 1176,
+      "color": "#f4f8fb",
       "notes": "Drawn from the mission file. Navigation diagram requires verification before instructional use.",
       "availability": "available"
     },
@@ -1067,6 +1133,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/night-harbor-run/course-layout.png",
       "width": 1464,
       "height": 1192,
+      "color": "#ffffff",
       "notes": "Navigation diagram requires verification before instructional use.",
       "availability": "available"
     },
@@ -1082,6 +1149,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/built/07-rules-level-1-definitions-card.png",
       "width": 1082,
       "height": 2202,
+      "color": "#06121f",
       "notes": "Superseded by the PR #63 redesign. Kept for comparison, not ranked.",
       "availability": "available"
     },
@@ -1097,6 +1165,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/built/08-rules-level-1-miss-replay.png",
       "width": 1082,
       "height": 2202,
+      "color": "#06121f",
       "notes": "Superseded by the PR #63 redesign. Kept for comparison, not ranked.",
       "availability": "available"
     },
@@ -1112,6 +1181,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/built/09-rules-level-1-cleared.png",
       "width": 1082,
       "height": 2202,
+      "color": "#07111f",
       "notes": "Superseded by the PR #63 redesign. Kept for comparison, not ranked.",
       "availability": "available"
     },
@@ -1127,6 +1197,7 @@
       "image": "docs/prototypes/rules-of-the-road/images/built/10-rules-level-1-all-17-vessels.jpg",
       "width": 1680,
       "height": 624,
+      "color": "#102236",
       "notes": "Superseded by the PR #63 redesign. Kept for comparison, not ranked.",
       "availability": "available"
     },

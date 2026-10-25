@@ -1,6 +1,5 @@
-import { Maximize2, StickyNote, Trash2 } from 'lucide-react';
+import { StickyNote, Trash2 } from 'lucide-react';
 import * as React from 'react';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -23,8 +22,16 @@ import {
 } from './board';
 import { useBoard } from './BoardContext';
 import { DotImage } from './DotImage';
+import { Masonry } from './Masonry';
 import { categories, kindLabel, type Item } from './inventory';
-import { byId, conceptIds, concepts, ROUND, thumbUrl } from './round';
+import { byId, conceptIds, ROUND, thumbUrl } from './round';
+import { layout, order, shapeOf, tileIds, tileLabel, twinOf } from './sections';
+
+/** The concepts with a tile of their own; desktop twins open from the viewer. */
+const tiles: readonly Item[] = tileIds().flatMap((id) => {
+  const item = byId.get(id);
+  return item ? [item] : [];
+});
 
 const ALL = 'all';
 
@@ -36,63 +43,159 @@ export function kindOf(item: Item) {
   return item.extractedFrom ? 'Extracted detail' : kindLabel[item.kind];
 }
 
-function ConceptCard({ item }: { item: Item }) {
-  const { state, reviewer, open, placeDot } = useBoard();
+// The image is the card: it spans the tile at its own proportions, and a tap
+// anywhere on the tile opens the full-screen viewer, where dots are placed.
+function Tile({
+  item,
+  sequence,
+  eager,
+  as,
+}: {
+  item: Item;
+  sequence: readonly Item[];
+  /** On the first screen: load at once, not when scrolled to. */
+  eager: boolean;
+  as: 'grid' | 'row';
+}) {
+  const { state, reviewer, open } = useBoard();
   const shown = visibleDots(state, reviewer).filter((d) => d.itemId === item.id);
   const others = canSeeOthers(state, reviewer);
   const mine = shown.filter((d) => d.mine).length;
-  const voting = state.phase === 'vote';
+  const count = others ? shown.length : mine;
+  const label = tileLabel(item);
+  const twin = twinOf(item.id);
+  const tags = [
+    item.style !== label && item.kind === 'concept' ? item.style : null,
+    item.device,
+    item.extractedFrom ? 'Extracted' : null,
+    twin ? `${twin.device} twin` : null,
+  ].filter((t): t is string => t !== null);
+  const dotText =
+    count === 0 ? '' : others ? `, ${plural(count, 'dot')}` : `, your ${plural(count, 'dot')}`;
 
   return (
-    <Card className="gap-0 overflow-hidden py-0" data-id={item.id}>
-      <DotImage
-        item={item}
-        src={thumbUrl(item)}
-        label={item.title}
-        className="border-b"
-        maxHeight="14rem"
-        loading="lazy"
-      />
-      <CardContent className="flex flex-1 flex-col gap-2 p-3">
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="leading-tight font-semibold">{item.title}</h3>
-          <Badge variant="secondary" className="shrink-0" data-count>
-            {others
-              ? plural(shown.length, 'dot')
-              : mine > 0
-                ? `Your ${plural(mine, 'dot')}`
-                : 'No dots yet'}
-          </Badge>
-        </div>
-        <div className="flex flex-wrap gap-1.5">
-          <Badge variant="outline">{item.style}</Badge>
-          <Badge variant="outline">{item.feature}</Badge>
-          <Badge variant="outline" className="text-muted-foreground">
-            {kindOf(item)}
-          </Badge>
-        </div>
-        <div className="mt-auto flex gap-2 pt-1">
-          {voting && (
-            <Button
-              variant="outline"
-              className="flex-1"
-              onClick={() => placeDot(item.id, 0.5, 0.5)}
-            >
-              Add a dot
-            </Button>
+    <li
+      className="tile-item"
+      data-id={item.id}
+      data-shape={shapeOf(item)}
+      style={{ '--ratio': (item.width ?? 4) / (item.height ?? 3) } as React.CSSProperties}
+    >
+      <button
+        type="button"
+        className="tile"
+        onClick={() => open(item, sequence)}
+        aria-label={`Open ${item.title}${dotText}`}
+      >
+        <span className="tile-media">
+          <DotImage
+            item={item}
+            src={thumbUrl(item)}
+            alt=""
+            label={item.title}
+            mode={as === 'row' ? 'row' : 'tile'}
+            loading={eager ? 'eager' : 'lazy'}
+            priority={eager}
+          />
+        </span>
+        <span className="tile-caption">
+          <span className="tile-label">{label}</span>
+          <span className="tile-tags">{tags.join(' · ')}</span>
+          {count > 0 && (
+            <span className="tile-count" data-count aria-hidden>
+              <span className="dot size-2.5" />
+              {count}
+            </span>
           )}
-          <Button
-            variant={voting ? 'ghost' : 'outline'}
-            className={voting ? '' : 'flex-1'}
-            onClick={() => open(item)}
-            aria-label={`Open ${item.title} full size`}
+        </span>
+      </button>
+    </li>
+  );
+}
+
+/** How many tiles, in board order, load at once: about one phone screen. */
+const EAGER = 4;
+
+function Sections({ keep }: { keep: (item: Item) => boolean }) {
+  const laidOut = layout(keep);
+  const sequence = order(laidOut);
+  const eager = new Set(sequence.slice(0, EAGER).map((i) => i.id));
+  if (laidOut.length === 0) {
+    return (
+      <p className="rounded-lg border border-dashed p-8 text-center text-muted-foreground">
+        Nothing matches these filters.
+      </p>
+    );
+  }
+  return (
+    <>
+      <nav aria-label="Screens" className="section-nav">
+        <ul>
+          {laidOut.map(({ section, count }) => (
+            <li key={section.id}>
+              <a href={`#section-${section.id}`}>
+                {section.title}
+                <span className="section-nav-count">{count}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <div id="board" className="flex flex-col gap-6">
+        {laidOut.map(({ section, groups, asBuilt, count }) => (
+          <section
+            key={section.id}
+            id={`section-${section.id}`}
+            className="board-section"
+            aria-labelledby={`section-${section.id}-title`}
           >
-            <Maximize2 />
-            {voting ? null : 'Open'}
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+            <h2 className="section-head" id={`section-${section.id}-title`}>
+              {section.title}
+              <span className="section-head-count">{plural(count, 'screen')}</span>
+            </h2>
+            {groups.map((g) => (
+              <div key={g.title ?? section.id} className="flex flex-col gap-2">
+                {g.title && <h3 className="group-head">{g.title}</h3>}
+                {g.buckets.map((b) => (
+                  <Masonry key={b.shape} shape={b.shape} items={b.items}>
+                    {(item) => (
+                      <Tile
+                        key={item.id}
+                        item={item}
+                        sequence={sequence}
+                        eager={eager.has(item.id)}
+                        as="grid"
+                      />
+                    )}
+                  </Masonry>
+                ))}
+              </div>
+            ))}
+            {asBuilt.length > 0 && (
+              <div className="as-built flex flex-col gap-2">
+                <h3 className="group-head">
+                  As built
+                  <span className="font-normal normal-case tracking-normal text-muted-foreground">
+                    {' '}
+                    · the app today
+                  </span>
+                </h3>
+                <ul className="as-built-row">
+                  {asBuilt.map((item) => (
+                    <Tile
+                      key={item.id}
+                      item={item}
+                      sequence={sequence}
+                      eager={eager.has(item.id)}
+                      as="row"
+                    />
+                  ))}
+                </ul>
+              </div>
+            )}
+          </section>
+        ))}
+      </div>
+    </>
   );
 }
 
@@ -110,7 +213,7 @@ function FilterSelect({
   options: { value: string; label: string }[];
 }) {
   return (
-    <div className="flex min-w-48 flex-1 flex-col gap-1.5 sm:max-w-64 sm:flex-none">
+    <div className="flex min-w-0 flex-1 basis-36 flex-col gap-1.5 sm:max-w-64 sm:flex-none">
       <Label htmlFor={id}>{label}</Label>
       <Select value={value} onValueChange={onChange}>
         <SelectTrigger id={id} className="w-full bg-background">
@@ -318,17 +421,16 @@ export function BoardView() {
   const left = dotsLeft(state, reviewer);
   const others = canSeeOthers(state, reviewer);
   const dottedIds = new Set(state.reviewers.flatMap((r) => r.dots.map((d) => d.itemId)));
-  const shown = concepts.filter(
-    (i) =>
-      (style === ALL || i.style === style) &&
-      (feature === ALL || i.feature === feature) &&
-      (!dottedOnly || dottedIds.has(i.id)),
-  );
+  const keep = (i: Item) =>
+    (style === ALL || i.style === style) &&
+    (feature === ALL || i.feature === feature) &&
+    (!dottedOnly || dottedIds.has(i.id));
+  const shown = tiles.filter(keep);
   const option = (field: 'style' | 'feature', all: string) => [
-    { value: ALL, label: `${all} (${concepts.length})` },
-    ...categories(concepts, field).map((v) => ({
+    { value: ALL, label: `${all} (${tiles.length})` },
+    ...categories(tiles, field).map((v) => ({
       value: v,
-      label: `${v} (${concepts.filter((i) => i[field] === v).length})`,
+      label: `${v} (${tiles.filter((i) => i[field] === v).length})`,
     })),
   ];
 
@@ -378,26 +480,14 @@ export function BoardView() {
           </div>
         </div>
         <p className="text-sm text-muted-foreground" id="board-count">
-          Showing {shown.length} of {concepts.length}.
+          Showing {shown.length} of {tiles.length}.
           {state.phase === 'vote'
-            ? ' Click a spot on an image to drop a dot there. Click your dot to take it back.'
+            ? ' Open a screen and tap a spot on it to drop a dot there. Tap your dot to take it back.'
             : state.phase === 'look'
               ? ' Look through everything in silence and add notes. Voting opens in the next step.'
               : ''}
         </p>
-        {shown.length === 0 ? (
-          <p className="rounded-lg border border-dashed p-8 text-center text-muted-foreground">
-            Nothing matches these filters.
-          </p>
-        ) : (
-          <ul className="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4" id="board">
-            {shown.map((item) => (
-              <li key={item.id} className="flex">
-                <ConceptCard item={item} />
-              </li>
-            ))}
-          </ul>
-        )}
+        <Sections keep={keep} />
       </section>
       <aside
         className="flex min-w-0 flex-[1_1_300px] flex-col gap-4 lg:max-w-sm"

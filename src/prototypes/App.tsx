@@ -29,7 +29,7 @@ function Stepper() {
   const { state, setPhase } = useBoard();
   const current = phases.indexOf(state.phase);
   return (
-    <Card className="flex-row flex-wrap items-center gap-x-6 gap-y-3 px-5 py-4">
+    <Card className="flex-row flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3">
       <ol className="flex flex-wrap items-center gap-x-5 gap-y-2" aria-label="Round steps">
         {phases.map((p, i) => (
           <li
@@ -49,7 +49,7 @@ function Stepper() {
             <span
               className={cn(
                 'text-sm font-medium',
-                i === current ? 'text-foreground' : 'text-muted-foreground',
+                i === current ? 'text-foreground' : 'text-muted-foreground max-sm:sr-only',
               )}
             >
               {phaseLabel[p]}
@@ -58,7 +58,7 @@ function Stepper() {
         ))}
       </ol>
       <div className="flex w-full flex-wrap items-center gap-2 sm:ml-auto sm:w-auto">
-        <Label htmlFor="round-step" className="text-sm text-muted-foreground">
+        <Label htmlFor="round-step" className="text-sm text-muted-foreground max-sm:sr-only">
           Step, set by whoever runs the review
         </Label>
         <Select value={state.phase} onValueChange={(v) => setPhase(v as Phase)}>
@@ -103,17 +103,17 @@ function Page() {
   const { reviewer, setReviewer, persistent, message } = useBoard();
   const [tab, setTab] = React.useState('board');
   return (
-    <div className="min-h-dvh bg-muted/40">
-      <header className="border-b bg-background">
-        <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-8">
+    <div className="min-h-dvh">
+      <header className="border-b" id="page-header">
+        <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-x-3 px-3 py-0.5 sm:px-8">
           <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-sm">
-            <a href="/" className="text-muted-foreground hover:text-foreground">
+            <a href="/" className="page-link text-muted-foreground hover:text-foreground">
               {ROUND.project}
             </a>
-            <span className="text-muted-foreground" aria-hidden>
+            <span className="text-muted-foreground max-sm:hidden" aria-hidden>
               /
             </span>
-            <span className="text-muted-foreground">Design reviews</span>
+            <span className="text-muted-foreground max-sm:hidden">Design reviews</span>
             <span className="text-muted-foreground" aria-hidden>
               /
             </span>
@@ -126,9 +126,9 @@ function Page() {
           </Badge>
         </div>
       </header>
-      <main className="mx-auto flex max-w-[1400px] flex-col gap-5 px-4 py-6 sm:px-8">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <h1 className="text-2xl font-semibold tracking-tight">Decision board</h1>
+      <main className="mx-auto flex max-w-[1400px] flex-col gap-4 px-3 py-4 sm:px-8 sm:py-6">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <h1 className="page-title">Decision board</h1>
           <div className="flex w-full flex-col gap-1.5 sm:w-72">
             <Label htmlFor="reviewer">Your name</Label>
             <Input
@@ -138,7 +138,6 @@ function Page() {
               placeholder="Shown with your dots and notes"
               value={reviewer}
               onChange={(e) => setReviewer(e.target.value)}
-              className="bg-background"
             />
           </div>
         </div>
@@ -157,7 +156,7 @@ function Page() {
           role="status"
           id="board-status"
           className={cn(
-            'min-h-5 text-sm',
+            'text-sm empty:-mt-4',
             message?.tone === 'error' && 'font-medium text-destructive',
           )}
         >

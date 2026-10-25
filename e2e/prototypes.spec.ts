@@ -5,16 +5,21 @@ import { join } from 'node:path';
 import { isReviewable, parseInventory } from '../src/prototypes/inventory';
 
 // The decision board at /prototypes (issue #72, ADR 0009), on a desktop and on
-// phones: every image loads at its own size, reviewers drop five dots where
-// they like a concept, others' dots stay hidden until they finish, the heat
-// ranks concepts with ties shown, and only the decider makes the call. The
-// board is saved on this device and moves between devices as a file.
+// phones: every image loads at its own size in a space reserved for it, tiles
+// open a full-screen viewer that steps with swipes and arrow keys, reviewers
+// drop five dots there where they like a concept, others' dots stay hidden until
+// they finish, the heat ranks concepts with ties shown, and only the decider
+// makes the call. The board is saved on this device and moves between devices
+// as a file.
 
 const root = join(import.meta.dirname, '..');
 const inventory = parseInventory(
   JSON.parse(readFileSync(join(root, 'docs/prototypes/inventory.json'), 'utf8')),
 );
 const concepts = inventory.items.filter(isReviewable);
+// The desktop captures of the Definitions screen open from their phone twins'
+// viewer instead of having tiles of their own (src/prototypes/sections.ts).
+const tiles = concepts.filter((i) => !i.id.startsWith('app-definitions-desktop-'));
 const withImages = inventory.items.filter((i) => i.image !== null);
 const [first, second, third] = concepts;
 if (!first || !second || !third) throw new Error('need three concepts');
@@ -37,7 +42,9 @@ function sizeOnDisk(path: string): { width: number; height: number } {
 }
 
 const card = (page: Page, id: string) => page.locator(`#board [data-id="${id}"]`);
-const dropZone = (page: Page, id: string) => card(page, id).locator(`[data-drop="${id}"]`);
+const tileButton = (page: Page, id: string) => card(page, id).getByRole('button');
+const viewer = (page: Page) => page.getByRole('dialog');
+const dropZone = (page: Page, id: string) => viewer(page).locator(`[data-drop="${id}"]`);
 
 async function open(page: Page) {
   const errors: string[] = [];
@@ -59,13 +66,28 @@ async function setName(page: Page, name: string) {
   await page.getByLabel('Your name').fill(name);
 }
 
-/** Drops a dot at a fraction of the image's width and height. */
-async function dropAt(page: Page, id: string, x: number, y: number) {
+/** Opens a tile in the full-screen viewer. */
+async function openViewer(page: Page, id: string) {
+  await tileButton(page, id).click();
+  await expect(viewer(page)).toBeVisible();
+}
+
+async function closeViewer(page: Page) {
+  await page.keyboard.press('Escape');
+  await expect(viewer(page)).toHaveCount(0);
+}
+
+/**
+ * Opens a concept, drops a dot at a fraction of the image's width and height,
+ * and closes the viewer again unless asked to keep it open.
+ */
+async function dropAt(page: Page, id: string, x: number, y: number, keepOpen = false) {
+  await openViewer(page, id);
   const zone = dropZone(page, id);
-  await zone.scrollIntoViewIfNeeded();
   const box = await zone.boundingBox();
   if (!box) throw new Error(`no image for ${id}`);
   await zone.click({ position: { x: box.width * x, y: box.height * y } });
+  if (!keepOpen) await closeViewer(page);
 }
 
 function boardFile(reviewer: string, dots: { itemId: string; x: number; y: number }[]) {
@@ -123,7 +145,11 @@ test('every listed image and preview loads, at the size of the file in the repo'
     expect(loaded[item.id]?.image, item.id).toEqual([size.width, size.height]);
     expect(loaded[item.id]?.thumb[0], `${item.id} preview`).toBeGreaterThan(0);
   }
-  await expect(page.locator('#board > li')).toHaveCount(concepts.length);
+  await expect(page.locator('#board li[data-id]')).toHaveCount(tiles.length);
+  // Every tile carries a label of its own.
+  for (const label of await page.locator('#board .tile-label').allTextContents()) {
+    expect(label.trim().length).toBeGreaterThan(1);
+  }
   // Nothing runs wider than the screen, on a phone or a desktop.
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
     page.viewportSize()?.width ?? 0,
@@ -131,17 +157,23 @@ test('every listed image and preview loads, at the size of the file in the repo'
   expect(errors).toEqual([]);
 });
 
-test('a dot lands where you click, five at most, and you can take one back', async ({ page }) => {
+test('a dot lands where you tap in the viewer, five at most, and you can take one back', async ({
+  page,
+}) => {
   const errors = await open(page);
   // Looking silently: no dots yet.
+  await openViewer(page, first.id);
   await expect(dropZone(page, first.id)).toHaveCount(0);
+  await closeViewer(page);
   await setStep(page, /Dot vote/);
-  // A dot needs a name.
-  await dropAt(page, first.id, 0.5, 0.5);
-  await expect(page.locator('#board-status')).toHaveText('Enter your name first.');
+  // A dot needs a name, and the viewer says so.
+  await dropAt(page, first.id, 0.5, 0.5, true);
+  await expect(page.locator('#viewer-status')).toHaveText('Enter your name first.');
+  await closeViewer(page);
 
   await setName(page, 'Ana');
   await dropAt(page, first.id, 0.25, 0.4);
+  // The dot shows on the tile, in the same place on the image.
   const dot = card(page, first.id).locator('[data-dot="mine"]');
   await expect(dot).toHaveCount(1);
   const style = (await dot.getAttribute('style')) ?? '';
@@ -150,25 +182,32 @@ test('a dot lands where you click, five at most, and you can take one back', asy
   expect(Math.abs((top ?? 0) - 40)).toBeLessThan(3);
 
   await dropAt(page, first.id, 0.7, 0.6);
-  await card(page, second.id).getByRole('button', { name: 'Add a dot' }).click();
+  await openViewer(page, second.id);
+  await viewer(page)
+    .getByRole('button', { name: /^Add a dot/ })
+    .click();
+  await closeViewer(page);
   await dropAt(page, third.id, 0.5, 0.5);
   await dropAt(page, third.id, 0.6, 0.5);
   await expect(page.locator('#dots-left')).toHaveText('0 of 5 dots left');
-  await dropAt(page, second.id, 0.2, 0.2);
-  await expect(page.locator('#board-status')).toContainText('You have placed all 5 dots');
+  await dropAt(page, second.id, 0.2, 0.2, true);
+  await expect(page.locator('#viewer-status')).toContainText('You have placed all 5 dots');
+  await closeViewer(page);
 
-  await card(page, first.id)
+  await openViewer(page, first.id);
+  await viewer(page)
     .getByRole('button', { name: /^Take back your dot/ })
     .first()
     .click();
+  await closeViewer(page);
   await expect(page.locator('#dots-left')).toHaveText('1 of 5 dots left');
-  await expect(card(page, first.id)).toContainText('Your 1 dot');
+  await expect(tileButton(page, first.id)).toHaveAttribute('aria-label', /, your 1 dot$/);
 
   // Saved on this device: the name, the step and the dots survive a refresh.
   await page.reload();
   await expect(page.getByLabel('Your name')).toHaveValue('Ana');
   await expect(page.locator('#dots-left')).toHaveText('1 of 5 dots left');
-  await expect(card(page, third.id)).toContainText('Your 2 dots');
+  await expect(tileButton(page, third.id)).toHaveAttribute('aria-label', /, your 2 dots$/);
   await expect(page.locator('#saved-where')).toHaveText('Saved on this device');
   expect(errors).toEqual([]);
 });
@@ -203,14 +242,14 @@ test("others' dots stay hidden until you finish voting, then the heat ranks conc
 
   await page.getByRole('button', { name: 'Done voting' }).click();
   await expect(card(page, second.id).locator('[data-dot="other"]')).toHaveCount(2);
-  await expect(card(page, second.id)).toContainText('2 dots');
+  await expect(tileButton(page, second.id)).toHaveAttribute('aria-label', /, 2 dots$/);
   // Two dots each: a tie, shown as =1.
   await expect(page.locator(`[data-heat="${first.id}"]`)).toContainText('=1');
   await expect(page.locator(`[data-heat="${second.id}"]`)).toContainText('=1');
 
   await setStep(page, /Discuss/);
   await page.getByRole('button', { name: 'Only dotted concepts' }).click();
-  await expect(page.locator('#board > li')).toHaveCount(2);
+  await expect(page.locator('#board li[data-id]')).toHaveCount(2);
 });
 
 test('only the decider makes the call, with a reason', async ({ page }) => {
@@ -229,7 +268,7 @@ test('only the decider makes the call, with a reason', async ({ page }) => {
   await expect(page.locator('#decision')).toContainText('Decided by elliott');
 });
 
-test('the viewer keeps proportions, closes with Escape, links an extracted detail to its board, and shows notes as text', async ({
+test('the viewer fills the screen, keeps proportions, closes with Escape, links an extracted detail to its board, and shows notes as text', async ({
   page,
 }) => {
   await open(page);
@@ -237,19 +276,34 @@ test('the viewer keeps proportions, closes with Escape, links an extracted detai
   const detail = concepts.find((i) => i.extractedFrom !== undefined);
   const board = inventory.items.find((i) => i.id === detail?.extractedFrom);
   if (!detail || !board) throw new Error('no extracted detail');
-  const opener = card(page, detail.id).getByRole('button', { name: /full size/ });
+  const opener = tileButton(page, detail.id);
   await opener.click();
-  const dialog = page.getByRole('dialog');
+  const dialog = viewer(page);
   await expect(dialog.getByRole('heading', { name: detail.title })).toBeVisible();
+  // Full screen, with the page header and anything floating over it hidden.
+  const screen = page.viewportSize();
+  const frame = await dialog.boundingBox();
+  expect(frame?.width).toBe(screen?.width);
+  expect(frame?.height).toBe(screen?.height);
+  await expect(page.locator('#page-header')).toBeHidden();
   const image = dialog.getByRole('img', { name: detail.title });
   await expect
     .poll(() => image.evaluate((img: HTMLImageElement) => img.naturalWidth))
     .toBeGreaterThan(0);
-  const ratio = await image.evaluate((img: HTMLImageElement) => {
+  const shown = await image.evaluate((img: HTMLImageElement) => {
     const box = img.getBoundingClientRect();
-    return { shown: box.width / box.height, file: img.naturalWidth / img.naturalHeight };
+    return {
+      ratio: box.width / box.height,
+      file: img.naturalWidth / img.naturalHeight,
+      inside: box.left >= 0 && box.top >= 0 && box.right <= innerWidth && box.bottom <= innerHeight,
+    };
   });
-  expect(Math.abs(ratio.shown - ratio.file) / ratio.file).toBeLessThan(0.01);
+  expect(Math.abs(shown.ratio - shown.file) / shown.file).toBeLessThan(0.01);
+  expect(shown.inside).toBe(true);
+
+  // Notes and details open in a sheet over the bottom of the image.
+  await dialog.getByRole('button', { name: /^Notes and details/ }).click();
+  await expect(dialog.locator('#viewer-sheet')).toBeVisible();
   await expect(dialog).toContainText('require verification before instructional use');
 
   const hostile = '<img src=x onerror="window.__hacked=1"> Calm and clear';
@@ -266,19 +320,159 @@ test('the viewer keeps proportions, closes with Escape, links an extracted detai
   await page.keyboard.press('Escape');
   await expect(dialog).toHaveCount(0);
   await expect(opener).toBeFocused();
+  await expect(page.locator('#page-header')).toBeVisible();
   await expect(
     page.getByLabel('Your sticky notes').or(page.getByText('Your sticky notes')),
   ).toBeVisible();
   await expect(page.locator('aside')).toContainText('Calm and clear');
 });
 
+test('the viewer steps through the board with the arrow keys, a swipe and its buttons', async ({
+  page,
+}) => {
+  await open(page);
+  await openViewer(page, first.id);
+  const heading = (title: string) => viewer(page).getByRole('heading', { name: title });
+  await expect(heading(first.title)).toBeVisible();
+  await page.keyboard.press('ArrowRight');
+  await expect(heading(second.title)).toBeVisible();
+  await page.keyboard.press('ArrowLeft');
+  await expect(heading(first.title)).toBeVisible();
+  await expect(viewer(page).getByRole('button', { name: 'Previous screen' })).toBeDisabled();
+  await viewer(page).getByRole('button', { name: 'Next screen' }).click();
+  await expect(heading(second.title)).toBeVisible();
+
+  // A sideways swipe to the left moves on; a short one is a tap, not a step.
+  const stage = viewer(page).locator('.viewer-stage');
+  const swipe = async (from: number, to: number) => {
+    const init = { pointerType: 'touch', pointerId: 7, isPrimary: true, clientY: 200 };
+    await stage.dispatchEvent('pointerdown', { ...init, clientX: from });
+    await stage.dispatchEvent('pointerup', { ...init, clientX: to });
+  };
+  await swipe(300, 120);
+  await expect(heading(third.title)).toBeVisible();
+  await swipe(300, 290);
+  await expect(heading(third.title)).toBeVisible();
+  await swipe(100, 320);
+  await expect(heading(second.title)).toBeVisible();
+
+  // Zoom shows the image larger than the screen; the next image starts fitted.
+  const zoom = viewer(page).getByRole('button', { name: 'Zoom in' });
+  await zoom.click();
+  await expect(zoom).toHaveAttribute('aria-pressed', 'true');
+  const wider = await viewer(page)
+    .locator('#viewer-image')
+    .evaluate((img) => img.getBoundingClientRect().width > innerWidth);
+  expect(wider).toBe(true);
+  await page.keyboard.press('ArrowRight');
+  await expect(heading(third.title)).toBeVisible();
+  await expect(zoom).toHaveAttribute('aria-pressed', 'false');
+});
+
+test('images keep their space, show their color until they load, and the first screen loads at once', async ({
+  page,
+}) => {
+  // Add up every layout shift the page makes while it loads and scrolls.
+  await page.addInitScript(() => {
+    const w = window as unknown as { __cls: number };
+    w.__cls = 0;
+    new PerformanceObserver((list) => {
+      for (const e of list.getEntries() as unknown as { value: number; hadRecentInput: boolean }[])
+        if (!e.hadRecentInput) w.__cls += e.value;
+    }).observe({ type: 'layout-shift', buffered: true });
+  });
+  await open(page);
+  const images = page.locator('#board img');
+  await expect(images).toHaveCount(tiles.length);
+  for (const img of await images.all()) {
+    await expect(img).toHaveAttribute('width', /^\d+$/);
+    await expect(img).toHaveAttribute('height', /^\d+$/);
+  }
+  // Each image sits in a box painted its dominant color, never blank.
+  const colors = await page
+    .locator('#board .dot-image')
+    .evaluateAll((els) => els.map((el) => getComputedStyle(el).backgroundColor));
+  for (const c of colors) expect(c).toMatch(/^rgb\(/);
+  // The first tiles load at once; the rest wait until they are near the screen.
+  const loading = await images.evaluateAll((els) =>
+    els.map((el) => (el as HTMLImageElement).loading),
+  );
+  expect(loading.slice(0, 4)).toEqual(['eager', 'eager', 'eager', 'eager']);
+  expect(loading.slice(4).every((l) => l === 'lazy')).toBe(true);
+
+  // Scroll the whole board quickly: nothing moves.
+  const height = await page.evaluate(() => document.documentElement.scrollHeight);
+  for (let y = 0; y < height; y += 600) {
+    await page.evaluate((to) => window.scrollTo(0, to), y);
+    await page.waitForTimeout(30);
+  }
+  await page.waitForLoadState('networkidle');
+  expect(await page.evaluate(() => (window as unknown as { __cls: number }).__cls)).toBeLessThan(
+    0.05,
+  );
+});
+
+test('the board groups concepts by screen under headers that stick while scrolling', async ({
+  page,
+}) => {
+  await open(page);
+  const headers = page.locator('#board .section-head');
+  await expect(headers).toHaveCount(5);
+  await expect(page.locator('#board section > h2')).toHaveText([
+    /^Home/,
+    /^Definitions/,
+    /^Lights/,
+    /^Night Harbor/,
+    /^Docking/,
+  ]);
+  // The app's own screenshots sit in an as-built row at the end of their section.
+  await expect(page.locator('#section-definitions .as-built-row li')).toHaveCount(4);
+  await expect(page.locator('#section-docking .as-built-row li')).toHaveCount(6);
+  // Jump to a section: its header stays at the top as you scroll through it.
+  await page.getByRole('link', { name: /^Night Harbor/ }).click();
+  await page.mouse.wheel(0, 900);
+  await expect
+    .poll(() =>
+      page
+        .locator('#section-night-harbor .section-head')
+        .evaluate((h) => h.getBoundingClientRect().top),
+    )
+    .toBeLessThan(2);
+});
+
+test('every control on the board and in the viewer is at least 44px each way', async ({ page }) => {
+  await open(page);
+  await setName(page, 'Ana');
+  await setStep(page, /Dot vote/);
+  await dropAt(page, first.id, 0.5, 0.5);
+  const small = async (scope: string) =>
+    page.locator(scope).evaluateAll((els) =>
+      els.flatMap((el) => {
+        const box = el.getBoundingClientRect();
+        const style = getComputedStyle(el);
+        if (style.visibility === 'hidden' || box.width === 0) return [];
+        if (el.closest('.sr-only')) return [];
+        return box.width < 43.5 || box.height < 43.5
+          ? [`${el.outerHTML.slice(0, 80)} ${Math.round(box.width)}x${Math.round(box.height)}`]
+          : [];
+      }),
+    );
+  const controls = 'button, a[href], input, textarea, [role="combobox"], [role="tab"]';
+  expect(await small(`main :is(${controls})`)).toEqual([]);
+  await openViewer(page, first.id);
+  await viewer(page)
+    .getByRole('button', { name: /^Notes and details/ })
+    .click();
+  expect(await small(`[role="dialog"] :is(${controls})`)).toEqual([]);
+});
+
 test('filters narrow the board to one style and one feature', async ({ page }) => {
   await open(page);
   await choose(page, '#filter-style', /^Chart house/);
-  const chart = concepts.filter((i) => i.style === 'Chart house');
-  await expect(page.locator('#board > li')).toHaveCount(chart.length);
+  const chart = tiles.filter((i) => i.style === 'Chart house');
+  await expect(page.locator('#board li[data-id]')).toHaveCount(chart.length);
   await choose(page, '#filter-feature', /^Lights/);
-  await expect(page.locator('#board > li')).toHaveCount(
+  await expect(page.locator('#board li[data-id]')).toHaveCount(
     chart.filter((i) => i.feature === 'Lights').length,
   );
   await expect(page.locator('#board-count')).toContainText('Showing 1 of');
@@ -358,9 +552,7 @@ test('the offline cache never stores the board or its images', async ({ page }) 
     .poll(() => page.evaluate(() => navigator.serviceWorker.controller !== null))
     .toBe(true);
   await open(page);
-  await card(page, first.id)
-    .getByRole('button', { name: /full size/ })
-    .click();
+  await openViewer(page, first.id);
   await expect
     .poll(() =>
       page
@@ -396,9 +588,10 @@ test('the board and the viewer pass axe with no violations', async ({ page }) =>
   await setStep(page, /Dot vote/);
   await dropAt(page, first.id, 0.5, 0.5);
   await scan('board while voting');
-  await card(page, first.id)
-    .getByRole('button', { name: /full size/ })
-    .click();
-  await expect(page.getByRole('dialog')).toBeVisible();
+  await openViewer(page, first.id);
   await scan('viewer');
+  await viewer(page)
+    .getByRole('button', { name: /^Notes and details/ })
+    .click();
+  await scan('viewer with notes open');
 });
