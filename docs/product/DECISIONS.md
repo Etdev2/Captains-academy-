@@ -13,6 +13,7 @@ Et settled the Chapter 1 follow-up decisions on 2026-10-22 from 7:11 to 7:17 AM 
 - **A2.** The academy owns the only sea-time log. Fish Log Book gets no sea-time feature.
 - **A3.** Et parked the arcade-style track on 2026-10-22 (9:35-9:46 PM PT) to focus on the real training. Build order: finish Definitions (#47, branch `head-dev/ch1-definitions`) first, then Lights (#29). The arcade track (#45, #46 remainder, #56, PR #58) stays open but parked; resume only on Et's go. Et changed the earlier serial order on 2026-10-22 and again on 2026-10-23.
 - **A4.** One academy login across the web app and the Unity app.
+- **A5.** Et decided on 2026-10-25 that app screens (the front page, the sea-time log, the prototype review hub, and later sign-in and account screens) move to React, Tailwind CSS and shadcn/ui. The arcade game at `/play` and the Chapter 1 levels at `/rules` stay as built. See [ADR 0009](../adr/0009-app-screens-use-react-tailwind-and-shadcn.md), which is proposed until Et merges it.
 
 ### Sea-time log
 - **Licenses:** all of them, STCW included. Each license appears only after its rules are checked against the current regulations and tested.
