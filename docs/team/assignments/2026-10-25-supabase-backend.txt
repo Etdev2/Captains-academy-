@@ -1,0 +1,13 @@
+INITIATIVE: Guest progress and prototype feedback backend, #74
+COORDINATOR: Codex session, owner request 2026-10-25
+RUNTIME: CODEX
+ROLE: architect
+MODEL TIER: HIGH
+BRANCH: architect/supabase-progress-prototypes
+WORKTREE: GitHub connector, no authenticated local checkout
+ALLOWED WRITES: supabase/; docs/team/handoff/2026-10-25-supabase-backend.md; this assignment; session time card
+DEPENDENCIES: Dedicated Supabase project confirmed active and initially empty
+STATUS: READY_FOR_INTEGRATION
+SOURCE / CONSTRAINTS: Owner requests progress and prototyping without login UI
+TASK / EXPECTED ARTIFACT: Applied isolated database schema, migration source and SQL verification
+DONE CRITERIA: Real SQL isolation test passes; migration and handoff saved; no frontend release claimed
