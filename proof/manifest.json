@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#29",
-  "sourceDigest": "sha256:4937fc3562bc83abe1f671f50529dd546e09018d258dfce49d2ce9935fcc131c",
-  "capturedAt": "2026-10-24T19:32:51Z",
+  "sourceDigest": "sha256:24b6c991d7700ab73d19743c1454d5e8fc91c7dead644f8e2546058cfafe1066",
+  "capturedAt": "2026-10-25T20:26:58Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.test.sh",
-    "fixture": "Seeded Lights deck (19 cards, seed 29), Rule 21 sector-edge golden replays, e2e at /rules/?level=lights on desktop, phone-landscape and phone-portrait"
+    "fixture": "Seeded Lights deck (19 cards, seed 29), Rule 21 sector-edge golden replays, e2e at /rules/?level=lights on desktop, phone-landscape and phone-portrait; sw offline test: /rules/?level=lights served from cached /rules/ with the network down"
   },
   "commands": [
     {
@@ -23,7 +23,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "Lights at /rules/?level=lights opens after one star on Definitions and plays 19 checked cards from Rules 23 to 30: each shows a night horizon with the lights Rule 21 lets the player see, the chip reads Inland + International, a right answer cites its rule, a miss costs a heart and shows a pausable explanation with the citation, the card returns three cards later, and the run ends cleared with stars or out of hearts. axe, contrast, tap-target and palette checks pass, and Definitions still passes unchanged"
+      "shows": "Lights at /rules/?level=lights opens after one star on Definitions and plays 19 checked cards from Rules 23 to 30: each shows a night horizon with the lights Rule 21 lets the player see, the chip reads Inland + International, a right answer cites its rule, a miss costs a heart and shows a pausable explanation with the citation, the card returns three cards later, and the run ends cleared with stars or out of hearts. axe, contrast, tap-target and palette checks pass, and Definitions still passes unchanged. Offline: a /rules/?level=lights navigation with no network is served from the cached /rules/ page (ignoreSearch), other pages keep exact matching"
     }
   ]
 }
