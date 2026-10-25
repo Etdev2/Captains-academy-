@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#72",
-  "sourceDigest": "sha256:c587c1836e5dc36298f65639a014abfe45e062f325c72fe7dfb88a722382bef6",
-  "capturedAt": "2026-10-25T18:03:36Z",
+  "sourceDigest": "sha256:b9cdab7e175f21612cf8b284a6dd5efcfcd2d6651fd574a410dcc5cb0cc0cc08",
+  "capturedAt": "2026-10-25T20:04:47Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "The 76-item docs/prototypes/inventory.json on the decision board, built by vite build and served by vite preview, on desktop Chrome, Pixel 7 landscape and Pixel 7 portrait"
+    "fixture": "The 76-item docs/prototypes/inventory.json on the decision board, built by vite build and served by vite preview, on desktop Chrome, Pixel 7 landscape and Pixel 7 portrait; screenshots at 390x844, 844x390 and 1280x800"
   },
   "commands": [
     {
@@ -19,57 +19,97 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh passes: the board's rules in tests/decision-board.test.ts, the inventory checks, and e2e/prototypes.spec.ts proving every image loads at its file size, dots land where clicked with five per reviewer, others' dots stay hidden until you finish, heat ties share a rank, only the decider makes the call, notes render as text, export and import work, the page fits a phone, the offline cache skips it and axe finds no violations; the game's own tests still pass"
+      "shows": "verify.sh passes: tsc, ESLint, Prettier, 375 Vitest tests including tests/prototype-sections.test.ts (every concept placed once, every tile labeled), vite build, 190 Playwright tests including e2e/prototypes.spec.ts proving tiles open a full-screen viewer that steps by arrow keys, swipe and buttons, dots land where tapped there, sections stick, images keep their space with no layout shift, the first screen loads eagerly, every control is 44px, nothing overflows a phone and axe finds no violations on the board, the viewer and its notes sheet; the game's tests still pass; npm audit"
     },
     {
-      "path": "proof/screenshots/desktop-1-look.png",
+      "path": "proof/screenshots/before-390x844-1-top.png",
       "kind": "screenshot",
-      "shows": "Desktop, step 1: the notice, the step picker, filters, concept cards and the notes, heat and decider panels"
+      "shows": "Before, 390x844, the top of the board: white chrome before any concept"
     },
     {
-      "path": "proof/screenshots/desktop-2-voting.png",
+      "path": "proof/screenshots/before-390x844-2-section.png",
       "kind": "screenshot",
-      "shows": "Desktop, step 2: dots dropped where clicked, the dots-left counter and Done voting; another reviewer's imported dots still hidden"
+      "shows": "Before, 390x844, the Night Harbor section: one stacked card per screen, image above a block of tags and an Open button"
     },
     {
-      "path": "proof/screenshots/desktop-3-discuss.png",
+      "path": "proof/screenshots/before-390x844-3-viewer.png",
       "kind": "screenshot",
-      "shows": "Desktop, step 3: every reviewer's dots on the cards and the heat ranking with tied ranks shown as =3"
+      "shows": "Before, 390x844, the viewer open on the first concept: a modal with the title above a cropped strip"
     },
     {
-      "path": "proof/screenshots/desktop-4-viewer.png",
+      "path": "proof/screenshots/before-844x390-1-top.png",
       "kind": "screenshot",
-      "shows": "Desktop full-size viewer: the original image with dots, the visual-concept caution, the source-board link and a reviewer's note"
+      "shows": "Before, 844x390, the top of the board: white chrome fills the short screen"
     },
     {
-      "path": "proof/screenshots/desktop-5-decided.png",
+      "path": "proof/screenshots/before-844x390-2-section.png",
       "kind": "screenshot",
-      "shows": "Desktop, step 4: the decider's call and reason shown at the top of the board"
+      "shows": "Before, 844x390, the Night Harbor section: stacked cards taller than the screen"
     },
     {
-      "path": "proof/screenshots/phone-1-look.png",
+      "path": "proof/screenshots/before-844x390-3-viewer.png",
       "kind": "screenshot",
-      "shows": "iPhone 13, step 1: the board fits the phone width"
+      "shows": "Before, 844x390, the viewer open on the first concept: the modal title and Open the original bar crowd the image"
     },
     {
-      "path": "proof/screenshots/phone-2-voting.png",
+      "path": "proof/screenshots/before-1280x800-1-top.png",
       "kind": "screenshot",
-      "shows": "iPhone 13, step 2: the step picker wraps under the steps"
+      "shows": "Before, 1280x800, the top of the board: white and gray cards with default shadows"
     },
     {
-      "path": "proof/screenshots/phone-3-discuss.png",
+      "path": "proof/screenshots/before-1280x800-2-section.png",
       "kind": "screenshot",
-      "shows": "iPhone 13, step 3: dotted cards and the heat"
+      "shows": "Before, 1280x800, the Night Harbor section: the uneven grid leaves holes around the Level 6 to 8 cards"
     },
     {
-      "path": "proof/screenshots/phone-4-viewer.png",
+      "path": "proof/screenshots/before-1280x800-3-viewer.png",
       "kind": "screenshot",
-      "shows": "iPhone 13 viewer with dots and a note"
+      "shows": "Before, 1280x800, the viewer open on the first concept: a centered modal on a gray overlay"
     },
     {
-      "path": "proof/screenshots/phone-5-decided.png",
+      "path": "proof/screenshots/after-390x844-1-top.png",
       "kind": "screenshot",
-      "shows": "iPhone 13, step 4: the decision at the top"
+      "shows": "After, 390x844, the top of the board: navy board; the first Home concept reaches the first screen after the jump links"
+    },
+    {
+      "path": "proof/screenshots/after-390x844-2-section.png",
+      "kind": "screenshot",
+      "shows": "After, 390x844, the Night Harbor section: sticky NIGHT HARBOR header and phone mockups two to a row, each image edge to edge with a one-line label and tags"
+    },
+    {
+      "path": "proof/screenshots/after-390x844-3-viewer.png",
+      "kind": "screenshot",
+      "shows": "After, 390x844, the viewer open on the first concept: full-screen viewer: close and title on top, the image fitted, Previous, Notes, Zoom and Next below"
+    },
+    {
+      "path": "proof/screenshots/after-844x390-1-top.png",
+      "kind": "screenshot",
+      "shows": "After, 844x390, the top of the board: navy header, notice and step picker"
+    },
+    {
+      "path": "proof/screenshots/after-844x390-2-section.png",
+      "kind": "screenshot",
+      "shows": "After, 844x390, the Night Harbor section: sticky header and Chapter 1 mockups packed side by side, each short enough to see whole"
+    },
+    {
+      "path": "proof/screenshots/after-844x390-3-viewer.png",
+      "kind": "screenshot",
+      "shows": "After, 844x390, the viewer open on the first concept: the image takes the full height with the controls in a rail at the right"
+    },
+    {
+      "path": "proof/screenshots/after-1280x800-1-top.png",
+      "kind": "screenshot",
+      "shows": "After, 1280x800, the top of the board: navy board with jump links per screen and the first Home strip"
+    },
+    {
+      "path": "proof/screenshots/after-1280x800-2-section.png",
+      "kind": "screenshot",
+      "shows": "After, 1280x800, the Night Harbor section: Chapter 1 mockups in four packed columns with no hole beside them"
+    },
+    {
+      "path": "proof/screenshots/after-1280x800-3-viewer.png",
+      "kind": "screenshot",
+      "shows": "After, 1280x800, the viewer open on the first concept: full-screen viewer with the image fitted between a slim top bar and the control bar"
     }
   ]
 }
