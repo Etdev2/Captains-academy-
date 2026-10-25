@@ -1,7 +1,7 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { ART, PAIRS, PALETTE, contrast, hueSaturation } from '../src/game/ui/palette';
+import { ART, LIGHT_COLORS, PAIRS, PALETTE, contrast, hueSaturation } from '../src/game/ui/palette';
 
 // The interface palette (DECISIONS.md G15) and the contrast table in
 // docs/design/definitions-spec.md.
@@ -58,6 +58,38 @@ describe('the interface palette', () => {
   it('computes the reference ratios', () => {
     expect(contrast('#000000', '#ffffff')).toBeCloseTo(21, 5);
     expect(contrast('#ffffff', '#ffffff')).toBe(1);
+  });
+});
+
+describe('red and green belong to the navigation lights alone (G15, Lights)', () => {
+  it('has red and green only among the light colors', () => {
+    const asHex = (v: number) => `#${v.toString(16).padStart(6, '0')}`;
+    expect(isRedOrGreen(asHex(LIGHT_COLORS.red))).toBe(true);
+    expect(isRedOrGreen(asHex(LIGHT_COLORS.green))).toBe(true);
+    expect(isRedOrGreen(asHex(LIGHT_COLORS.white))).toBe(false);
+    expect(isRedOrGreen(asHex(LIGHT_COLORS.yellow))).toBe(false);
+  });
+
+  it('uses the light colors in the lights drawing and nowhere else in the game', () => {
+    const users = ['src/game/rapid/LightsView.ts', 'src/game/ui/palette.ts'];
+    const files = readdirSync(join(root, 'src/game'), { recursive: true })
+      .map(String)
+      .filter((f) => f.endsWith('.ts'))
+      .map((f) => `src/game/${f}`)
+      .filter((f) => !f.startsWith('src/game/grok/'));
+    expect(files.length).toBeGreaterThan(5);
+    for (const f of files) {
+      const text = readFileSync(join(root, f), 'utf8');
+      if (users.includes(f)) continue;
+      expect(text, f).not.toMatch(/LIGHT_COLORS|0xff3b30|0x2ee66b/i);
+    }
+  });
+
+  it('keeps the sky, sea and horizon behind the lights free of red and green', () => {
+    for (const k of ['sky', 'sea', 'horizon', 'star'] as const) {
+      const hex = `#${ART[k].toString(16).padStart(6, '0')}`;
+      expect(isRedOrGreen(hex), k).toBe(false);
+    }
   });
 });
 

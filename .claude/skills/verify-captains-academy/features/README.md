@@ -35,6 +35,7 @@ Each feature file starts with an H1 title and one paragraph describing what the 
 - [Portrait pause](./portrait-pause.md): on a phone held upright the level waits behind a rotate prompt.
 - [Offline play](./offline-play.md): after one online visit the level loads and runs with no network.
 - [Definitions level](./definitions.md): Chapter 1, level 1 at `/rules/`: name each vessel, a miss costs a heart and shows a pausable explanation with the rule, and the run ends cleared or out of hearts.
+- [Lights level](./lights.md): Chapter 1, level 2 at `/rules/?level=lights`, open once Definitions has a star: name each vessel from her lights on a night horizon, a right answer cites its rule, a miss costs a heart and shows a pausable explanation, and the run ends cleared or out of hearts.
 - [Horn and sound](./horn-and-sound.md): the SOUND and HORN buttons and their M and H keys, the saved sound setting, and the horn's rings.
 
 Together these drive every control the game handles, each through its own recipe step: both touch levers; every lever key and alias (↑ ↓ ← →, W S A D, Q Z, E C) and X, in `keyboard.steps.json`; the SOUND, HORN and LEVEL buttons, including LEVEL 3 in `harbor-course.steps.json`; M and H; and tap, Enter and Space to retry after a run.

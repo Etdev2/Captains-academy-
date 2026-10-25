@@ -58,12 +58,15 @@ async function touchDrag(x, fromY, toY) {
 const readState = () =>
   page.evaluate(() => window.__captainsAcademy ?? window.__captainsAcademyQuiz ?? null);
 
-// definitions.answers.json maps each /rules card id to its right button, 1 to 5.
-// tests/rapid.test.ts keeps it in step with the deck.
-const answers = JSON.parse(
-  readFileSync(new URL('./features/steps/definitions.answers.json', import.meta.url), 'utf8'),
+// definitions.answers.json and lights.answers.json map each /rules card id to its
+// right button (1 to 5, and 1 to 7). tests/rapid.test.ts and tests/lights.test.ts
+// keep them in step with the decks. Card ids never repeat across levels.
+const answers = Object.assign(
+  {},
+  ...['definitions', 'lights'].map((level) =>
+    JSON.parse(readFileSync(new URL(`./features/steps/${level}.answers.json`, import.meta.url), 'utf8')),
+  ),
 );
-const answerCount = Math.max(...Object.values(answers));
 async function settle() {
   for (const deadline = Date.now() + 9000; Date.now() < deadline; ) {
     const s = await readState();
@@ -77,6 +80,7 @@ async function answerCard(right) {
   if (s.phase === 'done') return;
   const n = answers[s.card];
   if (!n) throw new Error(`no answer on file for card ${JSON.stringify(s.card)}`);
+  const answerCount = await page.locator('#answers [data-answer]').count();
   const target = page.locator(`#answers [data-answer="${right ? n : (n % answerCount) + 1}"]`);
   if (touch) await target.tap();
   else await target.click();
