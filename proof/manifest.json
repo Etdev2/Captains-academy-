@@ -1,26 +1,75 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#65",
-  "sourceDigest": "sha256:ff3c9713e11e2a9afb6e759ac008b519548eeeb18e65bdf679481674d42350f8",
-  "capturedAt": "2026-10-24T18:53:45Z",
+  "ticket": "Etdev2/Captains-academy-#72",
+  "sourceDigest": "sha256:4dff119b8635f638b356388cfe1da4bb3d4f6fc52f7cf177a11442c51577aeb2",
+  "capturedAt": "2026-10-25T15:51:59Z",
   "result": "PASS",
   "verification": {
-    "command": "git diff origin/main -- AGENTS.md",
-    "fixture": "AGENTS.md merge-authority text"
+    "command": "bash scripts/verify.sh",
+    "fixture": "The 76-item docs/prototypes/inventory.json against the production build served by vite preview, on desktop Chrome, Pixel 7 landscape and Pixel 7 portrait"
   },
   "commands": [
     {
-      "command": "git diff origin/main -- AGENTS.md",
+      "command": "bash scripts/verify.sh",
       "exitCode": 0
     }
   ],
-  "behaviorChanged": false,
+  "behaviorChanged": true,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "AGENTS.md names the coordinator as merge authority after a Codex pass on the exact head"
+      "shows": "verify.sh passes: inventory and ratings unit tests, and e2e/prototypes.spec.ts proving every image loads at its file size, the viewer keeps proportions and closes with Escape, filters and compare work, ratings save, edit, survive refresh, tie and import correctly, comments render as text, and the offline cache skips the gallery"
+    },
+    {
+      "path": "proof/screenshots/desktop-1-gallery.png",
+      "kind": "screenshot",
+      "shows": "Desktop gallery: the internal-review notice, the \"Saved on this device\" label, the four tabs, style and feature filters, and extracted-detail cards"
+    },
+    {
+      "path": "proof/screenshots/desktop-2-viewer-rated.png",
+      "kind": "screenshot",
+      "shows": "Desktop viewer: the fitted original image, the visual-concept caution, the extracted-detail link to its board, and a saved 8 of 10 rating with the exact question and anchors"
+    },
+    {
+      "path": "proof/screenshots/desktop-3-compare.png",
+      "kind": "screenshot",
+      "shows": "Desktop compare: three picked concepts side by side"
+    },
+    {
+      "path": "proof/screenshots/desktop-4-results.png",
+      "kind": "screenshot",
+      "shows": "Desktop results after importing a second reviewer: averages with n beside each, score spreads, a tie shown as =2, a comment containing <b> shown as text, and 52 items hidden until rated"
+    },
+    {
+      "path": "proof/screenshots/desktop-5-reference.png",
+      "kind": "screenshot",
+      "shows": "Desktop reference: the four comparison boards and other unrated material, the private Night Harbor Run link, and the three unavailable styles"
+    },
+    {
+      "path": "proof/screenshots/phone-1-gallery.png",
+      "kind": "screenshot",
+      "shows": "iPhone 13 gallery: the notice, name field and the four tabs fitting the width"
+    },
+    {
+      "path": "proof/screenshots/phone-2-viewer-rated.png",
+      "kind": "screenshot",
+      "shows": "iPhone 13 viewer with a saved rating"
+    },
+    {
+      "path": "proof/screenshots/phone-3-compare.png",
+      "kind": "screenshot",
+      "shows": "iPhone 13 compare: the picked concepts one after another"
+    },
+    {
+      "path": "proof/screenshots/phone-4-results.png",
+      "kind": "screenshot",
+      "shows": "iPhone 13 results with the imported reviewer, a tie and comments"
+    },
+    {
+      "path": "proof/screenshots/phone-5-reference.png",
+      "kind": "screenshot",
+      "shows": "iPhone 13 reference section"
     }
-  ],
-  "noBehaviorReason": "docs-only AGENTS.md edit approved by Et 5:18 PM PT Oct 23, 2026"
+  ]
 }
