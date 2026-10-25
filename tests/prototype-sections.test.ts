@@ -27,6 +27,8 @@ describe('the decision board sections', () => {
   it('groups by screen in the agreed order', () => {
     expect(sections.map((s) => s.title)).toEqual([
       'Home',
+      'Forms & License Navigator',
+      'Sea-Time Logbook',
       'Definitions',
       'Lights',
       'Night Harbor',

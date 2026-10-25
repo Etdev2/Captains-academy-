@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sea-Time Logbook · Captain's Console mockup</title>
+<link rel="stylesheet" href="console.css">
+<style>
+  .log-grid { grid-template-columns: 1fr 380px; align-items: start; }
+  .readouts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 18px; }
+  .readouts .panel { padding: 16px 18px; }
+  .readouts .readout { margin-top: 8px; }
+  .readouts .d { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .checkin { display: flex; align-items: center; gap: 18px; }
+  .checkin .big { min-height: 64px; padding: 0 28px; font-size: 18px; border-radius: 14px; }
+  .checkin .big svg { width: 24px; height: 24px; }
+  .checkin .live { font-size: 14px; color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: left; font: 600 10px var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding: 0 10px 10px; border-bottom: 1px solid var(--line-2); }
+  td { padding: 12px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  td .s { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+  td.num { font-weight: 700; text-align: right; }
+  th.num { text-align: right; }
+  tr.back td { background: rgba(183,166,240,.04); }
+
+  .chart { display: flex; align-items: flex-end; gap: 10px; height: 170px; padding: 6px 0 0; border-bottom: 1px solid var(--line-2); }
+  .chart .col { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; height: 100%; }
+  .chart .col i { display: block; border-radius: 3px; }
+  .chart .nc { background: var(--amber); }
+  .chart .in { background: var(--ice); }
+  .chart .bf { background: repeating-linear-gradient(135deg, rgba(183,166,240,.8) 0 4px, rgba(183,166,240,.35) 4px 8px); }
+  .months { display: flex; gap: 10px; font: 500 10px var(--mono); color: var(--faint); margin-top: 6px; }
+  .months span { flex: 1; text-align: center; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-top: 12px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+
+  .vessel { border: 1px solid var(--line-2); border-radius: 12px; padding: 14px; background: var(--panel-2); }
+  .vessel + .vessel { margin-top: 12px; }
+  .vessel .name { font-weight: 800; font-size: 17px; font-style: italic; }
+  .vessel .spec { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+  .vessel .spec div { font-size: 14px; font-weight: 650; }
+  .vessel .spec .label { font-size: 9px; display: block; margin-bottom: 2px; }
+  .vessel .foot { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; font-size: 13px; color: var(--muted); }
+
+  .toward .row { margin-bottom: 14px; }
+  .toward .row .top { display: flex; justify-content: space-between; font-size: 14px; font-weight: 650; margin-bottom: 6px; }
+  .apart { border-top: 1px solid var(--line); padding-top: 12px; margin-top: 4px; font-size: 13px; color: var(--muted); }
+  .apart div { display: flex; justify-content: space-between; padding: 4px 0; }
+  .apart b { color: var(--text); }
+
+  .cards { display: none; }
+  @media (max-width: 600px) {
+    .readouts { grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    .readouts .panel { padding: 12px 14px; }
+    .readouts .readout { font-size: 26px; }
+    .checkin { flex-direction: column; align-items: stretch; gap: 10px; }
+    .checkin .big { width: 100%; }
+    .checkin .live { text-align: center; }
+    table { display: none; }
+    .cards { display: block; list-style: none; }
+    .cards li { padding: 12px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; }
+    .cards li:first-child { border-top: 0; padding-top: 0; }
+    .cards .t { font-weight: 700; font-size: 15px; }
+    .cards .d { font-size: 13px; color: var(--muted); }
+    .cards .r { text-align: right; font-weight: 800; font-size: 15px; }
+    .chart { height: 120px; gap: 6px; }
+    .months { gap: 6px; }
+  }
+</style>
+</head>
+<body>
+<div class="fiction"><b>Fictional sample data</b><span class="long"> · concept mockup for review · not a real mariner, vessel or record</span><span class="phone-only"> · concept mockup</span></div>
+
+<header class="bar">
+  <div class="brand">
+    <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#7fcdec" stroke-width="1.5"/><path d="M16 4 19 16 16 28 13 16Z" fill="#f3b23c"/><path d="M4 16 16 13 28 16 16 19Z" fill="#7fcdec" opacity=".6"/></svg>
+    <div>CAPTAIN'S ACADEMY<small>CAPTAIN'S CONSOLE</small></div>
+  </div>
+  <nav class="tabs desk-only"><a>Console</a><a>License Navigator</a><a>Forms</a><a class="on">Sea-Time Log</a><a>Study</a></nav>
+  <div class="status">
+    <span class="pill"><span class="dot"></span><span class="desk-only">Works offline · </span>synced 14:02</span>
+    <span class="avatar desk-only">JS</span>
+  </div>
+</header>
+
+<main>
+  <div class="head">
+    <div>
+      <div class="eyebrow">Sea-Time Logbook</div>
+      <h1>Logged trips &amp; credited days</h1>
+      <div class="sub">Toward OUPV · Near coastal · Jordan Sample (fictional)</div>
+    </div>
+    <div class="right checkin">
+      <span class="live desk-only">Not underway · last trip ended Oct 19</span>
+      <span class="btn primary big"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 3v14M12 4l6 9h-6M3 17h18l-3 4H6z"/></svg>Check in · start trip</span>
+      <span class="live phone-only">Not underway · last trip ended Oct 19</span>
+    </div>
+  </div>
+
+  <div class="readouts">
+    <section class="panel"><div class="label">Credited days</div><div class="readout">298 <small>/ 360</small></div><div class="d">62 to go</div></section>
+    <section class="panel"><div class="label">Near coastal</div><div class="readout amber">61 <small>/ 90</small></div><div class="d">29 to go</div></section>
+    <section class="panel"><div class="label">Backfilled</div><div class="readout" style="color:var(--lilac)">42 <small>days</small></div><div class="d">Labeled, not GPS</div></section>
+    <section class="panel"><div class="label">Simulator</div><div class="readout" style="color:var(--faint)">0 <small>counted</small></div><div class="d">Never sea time</div></section>
+  </div>
+
+  <div class="grid log-grid">
+    <div class="grid" style="gap:18px">
+      <section class="panel">
+        <div class="ph">Trip log<span class="count">most recent 7 of 214 trips</span></div>
+        <table>
+          <thead><tr><th>Date</th><th>Vessel</th><th>Waters</th><th>Role</th><th class="num">Hours</th><th>Credit</th><th>Source</th></tr></thead>
+          <tbody>
+            <tr><td>Oct 19, 2026</td><td><i>Morro Dawn</i><span class="s">Long Beach → Avalon</span></td><td>Near coastal</td><td>Operator</td><td class="num">9.5</td><td><span class="tag done">1 day</span></td><td>GPS track</td></tr>
+            <tr><td>Oct 18, 2026</td><td><i>Morro Dawn</i><span class="s">Avalon → Long Beach</span></td><td>Near coastal</td><td>Operator</td><td class="num">8.0</td><td><span class="tag done">1 day</span></td><td>GPS track</td></tr>
+            <tr><td>Oct 12, 2026</td><td><i>Kelp Runner</i><span class="s">Alamitos Bay</span></td><td>Inland</td><td>Operator</td><td class="num">5.5</td><td><span class="tag need">4–8 h day</span></td><td>GPS track</td></tr>
+            <tr><td>Oct 11, 2026</td><td><i>Kelp Runner</i><span class="s">Harbor tour, 2 entries</span></td><td>Inland</td><td>Deckhand</td><td class="num">8.5</td><td><span class="tag done">1 day</span></td><td>GPS track</td></tr>
+            <tr><td>Oct 5, 2026</td><td><i>Morro Dawn</i><span class="s">Horseshoe Kelp</span></td><td>Near coastal</td><td>Operator</td><td class="num">10.0</td><td><span class="tag done">1 day</span></td><td>GPS track</td></tr>
+            <tr class="back"><td>Apr 2025</td><td><i>Kelp Runner</i><span class="s">14 trips, entered later</span></td><td>Inland</td><td>Operator</td><td class="num">—</td><td><span class="tag done">14 days</span></td><td><span class="tag back">Backfilled</span></td></tr>
+            <tr class="back"><td>Mar 2025</td><td><i>Kelp Runner</i><span class="s">12 trips, entered later</span></td><td>Inland</td><td>Operator</td><td class="num">—</td><td><span class="tag done">12 days</span></td><td><span class="tag back">Backfilled</span></td></tr>
+          </tbody>
+        </table>
+        <ul class="cards">
+          <li><div><div class="t"><i>Morro Dawn</i> · Oct 19</div><div class="d">Near coastal · operator · GPS track</div></div><div class="r">9.5 h<br><span class="tag done">1 day</span></div></li>
+          <li><div><div class="t"><i>Morro Dawn</i> · Oct 18</div><div class="d">Near coastal · operator · GPS track</div></div><div class="r">8.0 h<br><span class="tag done">1 day</span></div></li>
+          <li><div><div class="t"><i>Kelp Runner</i> · Oct 12</div><div class="d">Inland · operator · GPS track</div></div><div class="r">5.5 h<br><span class="tag need">4–8 h day</span></div></li>
+          <li><div><div class="t"><i>Kelp Runner</i> · Apr 2025</div><div class="d">14 trips, entered later</div></div><div class="r"><span class="tag back">Backfilled</span><br><span class="tag done" style="margin-top:4px">14 days</span></div></li>
+        </ul>
+      </section>
+
+      <section class="panel">
+        <div class="ph">Credited days by month<span class="count">Nov 2025 – Oct 2026</span></div>
+        <div class="chart">
+          <div class="col"><i class="in" style="height:30%"></i></div>
+          <div class="col"><i class="in" style="height:22%"></i></div>
+          <div class="col"><i class="nc" style="height:8%"></i><i class="in" style="height:14%"></i></div>
+          <div class="col"><i class="in" style="height:26%"></i></div>
+          <div class="col"><i class="nc" style="height:12%"></i><i class="in" style="height:30%"></i></div>
+          <div class="col"><i class="nc" style="height:20%"></i><i class="in" style="height:34%"></i></div>
+          <div class="col"><i class="nc" style="height:28%"></i><i class="in" style="height:40%"></i></div>
+          <div class="col"><i class="nc" style="height:34%"></i><i class="in" style="height:44%"></i></div>
+          <div class="col"><i class="nc" style="height:30%"></i><i class="in" style="height:38%"></i></div>
+          <div class="col"><i class="nc" style="height:22%"></i><i class="in" style="height:36%"></i></div>
+          <div class="col"><i class="nc" style="height:18%"></i><i class="in" style="height:28%"></i></div>
+          <div class="col"><i class="nc" style="height:14%"></i><i class="in" style="height:12%"></i></div>
+        </div>
+        <div class="months"><span>N</span><span>D</span><span>J</span><span>F</span><span>M</span><span>A</span><span>M</span><span>J</span><span>J</span><span>A</span><span>S</span><span>O</span></div>
+        <div class="legend"><span><i style="background:var(--amber)"></i>Ocean / near coastal</span><span><i style="background:var(--ice)"></i>Inland</span></div>
+      </section>
+    </div>
+
+    <div class="grid side" style="gap:18px">
+      <section class="panel toward">
+        <div class="ph">Toward OUPV · near coastal</div>
+        <div class="row"><div class="top"><span>Any waters</span><span>298 / 360</span></div><div class="track"><i style="width:71%"></i><i class="back" style="width:11.7%"></i></div></div>
+        <div class="row"><div class="top"><span>Ocean / near coastal</span><span class="amber">61 / 90</span></div><div class="track"><i class="amber" style="width:67.8%"></i></div></div>
+        <p style="font-size:13px;color:var(--muted)">Logged sea time <b style="color:var(--text)">appears to meet 0 of 2</b> parts. Still needed: 62 days, 29 of them near coastal.</p>
+        <div class="apart">
+          <div><span>4-to-8-hour days, shown apart</span><b>14</b></div>
+          <div><span>Days with no tonnage on file</span><b>0</b></div>
+          <div><span>Simulator hours (never sea time)</span><b>11.5 h</b></div>
+        </div>
+        <p class="cite" style="margin-top:10px"><b>46 CFR 11.467(c)</b> · <b>10.107</b> · <b>10.232</b>. One calendar day credits once.</p>
+      </section>
+
+      <section class="panel">
+        <div class="ph">Vessels<span class="count">2</span></div>
+        <div class="vessel">
+          <div class="name">Morro Dawn</div>
+          <div class="spec"><div><span class="label">Type</span>Sportfisher</div><div><span class="label">Length</span>32 ft</div><div><span class="label">Tonnage</span>11 GRT</div></div>
+          <div class="foot"><span>Owner: R. Example (fictional)</span><span class="tag done">61 days</span></div>
+        </div>
+        <div class="vessel">
+          <div class="name">Kelp Runner</div>
+          <div class="spec"><div><span class="label">Type</span>Center console</div><div><span class="label">Length</span>24 ft</div><div><span class="label">Tonnage</span>3 GRT</div></div>
+          <div class="foot"><span>Owner: T. Placeholder (fictional)</span><span class="tag done">237 days</span></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<nav class="tabbar">
+  <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="m15 9-2 4-4 2 2-4z"/></svg>Console</a>
+  <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19 9 5l6 9 5-7"/></svg>Navigator</a>
+  <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg>Forms</a>
+  <a class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h12a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2z"/><path d="M9 8h6M9 12h6"/></svg>Log</a>
+</nav>
+</body>
+</html>

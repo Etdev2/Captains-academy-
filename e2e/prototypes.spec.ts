@@ -419,9 +419,11 @@ test('the board groups concepts by screen under headers that stick while scrolli
 }) => {
   await open(page);
   const headers = page.locator('#board .section-head');
-  await expect(headers).toHaveCount(5);
+  await expect(headers).toHaveCount(7);
   await expect(page.locator('#board section > h2')).toHaveText([
     /^Home/,
+    /^Forms & License Navigator/,
+    /^Sea-Time Logbook/,
     /^Definitions/,
     /^Lights/,
     /^Night Harbor/,

@@ -1,16 +1,20 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#72",
-  "sourceDigest": "sha256:5898bff40147c7e1e6c8ac49cc9d172f7fb8e941136d327d838a3fc1f89885ec",
-  "capturedAt": "2026-10-25T21:14:39Z",
+  "sourceDigest": "sha256:ba9ddf9f5f53354b7dec5d8fbf533f083fa47df8ad679de61015588439e0f79a",
+  "capturedAt": "2026-10-25T21:57:32Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "The 76-item docs/prototypes/inventory.json on the decision board, built by vite build and served by vite preview, on desktop Chrome, Pixel 7 landscape and Pixel 7 portrait; screenshots at 390x844, 844x390 and 1280x800"
+    "fixture": "Six Captain's Console mockups (License Navigator, Forms workspace, Sea-Time Logbook; desktop and iPhone) added to docs/prototypes/inventory.json under two new board sections"
   },
   "commands": [
     {
       "command": "bash scripts/verify.sh",
+      "exitCode": 0
+    },
+    {
+      "command": "node scripts/check-console-mockups.mjs http://localhost:4173 proof/screenshots",
       "exitCode": 0
     }
   ],
@@ -19,127 +23,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh passes: tsc, ESLint, Prettier, Vitest including tests/decision-board.test.ts (thumbs: one per reviewer per concept, replaced or taken back, closed for the call, hidden like dots, old boards still load, unlisted ones skipped on import) and tests/prototype-sections.test.ts (every concept placed once, every tile labeled), vite build, and Playwright including e2e/prototypes.spec.ts proving tiles open a full-screen viewer that steps by arrow keys, swipe and buttons, dots land where tapped, thumbs show on tiles and in the heat and close for the call, sections stick, no layout shift, the first screen loads eagerly, every control is 44px, nothing overflows a phone and axe finds no violations; the game's tests still pass; npm audit"
-    },
-    {
-      "path": "proof/screenshots/before-390x844-1-top.png",
-      "kind": "screenshot",
-      "shows": "Before, 390x844, the top of the board: white chrome before any concept"
-    },
-    {
-      "path": "proof/screenshots/before-390x844-2-section.png",
-      "kind": "screenshot",
-      "shows": "Before, 390x844, the Night Harbor section: one stacked card per screen, image above a block of tags and an Open button"
-    },
-    {
-      "path": "proof/screenshots/before-390x844-3-viewer.png",
-      "kind": "screenshot",
-      "shows": "Before, 390x844, the viewer open on the first concept: a modal with the title above a cropped strip"
-    },
-    {
-      "path": "proof/screenshots/before-844x390-1-top.png",
-      "kind": "screenshot",
-      "shows": "Before, 844x390, the top of the board: white chrome fills the short screen"
-    },
-    {
-      "path": "proof/screenshots/before-844x390-2-section.png",
-      "kind": "screenshot",
-      "shows": "Before, 844x390, the Night Harbor section: stacked cards taller than the screen"
-    },
-    {
-      "path": "proof/screenshots/before-844x390-3-viewer.png",
-      "kind": "screenshot",
-      "shows": "Before, 844x390, the viewer open on the first concept: the modal title and Open the original bar crowd the image"
-    },
-    {
-      "path": "proof/screenshots/before-1280x800-1-top.png",
-      "kind": "screenshot",
-      "shows": "Before, 1280x800, the top of the board: white and gray cards with default shadows"
-    },
-    {
-      "path": "proof/screenshots/before-1280x800-2-section.png",
-      "kind": "screenshot",
-      "shows": "Before, 1280x800, the Night Harbor section: the uneven grid leaves holes around the Level 6 to 8 cards"
-    },
-    {
-      "path": "proof/screenshots/before-1280x800-3-viewer.png",
-      "kind": "screenshot",
-      "shows": "Before, 1280x800, the viewer open on the first concept: a centered modal on a gray overlay"
-    },
-    {
-      "path": "proof/screenshots/after-390x844-1-top.png",
-      "kind": "screenshot",
-      "shows": "After, 390x844, the top of the board: navy board; the first Home concept reaches the first screen after the jump links"
-    },
-    {
-      "path": "proof/screenshots/after-390x844-2-section.png",
-      "kind": "screenshot",
-      "shows": "After, 390x844, the Night Harbor section: sticky NIGHT HARBOR header and phone mockups two to a row, each image edge to edge with a one-line label and tags"
-    },
-    {
-      "path": "proof/screenshots/after-390x844-3-viewer.png",
-      "kind": "screenshot",
-      "shows": "After, 390x844, the viewer open on the first concept: full-screen viewer: close and title on top, the image fitted, Previous, thumbs, Notes, Zoom and Next below"
-    },
-    {
-      "path": "proof/screenshots/after-390x844-home.png",
-      "kind": "screenshot",
-      "shows": "After, 390x844, the Home section after a thumbs up on the first concept and a thumbs down on the second: whole strips edge to edge, thumb counts in the captions"
-    },
-    {
-      "path": "proof/screenshots/after-390x844-viewer-thumbs.png",
-      "kind": "screenshot",
-      "shows": "After, 390x844, the viewer on the second concept with its thumbs down pressed: the whole strip fitted, the filled thumbs down pressed in the bottom bar"
-    },
-    {
-      "path": "proof/screenshots/after-844x390-1-top.png",
-      "kind": "screenshot",
-      "shows": "After, 844x390, the top of the board: navy header, notice and step picker"
-    },
-    {
-      "path": "proof/screenshots/after-844x390-2-section.png",
-      "kind": "screenshot",
-      "shows": "After, 844x390, the Night Harbor section: sticky header and Chapter 1 mockups packed side by side, each short enough to see whole"
-    },
-    {
-      "path": "proof/screenshots/after-844x390-3-viewer.png",
-      "kind": "screenshot",
-      "shows": "After, 844x390, the viewer open on the first concept: the image takes the full height with the controls in a rail at the right"
-    },
-    {
-      "path": "proof/screenshots/after-844x390-home.png",
-      "kind": "screenshot",
-      "shows": "After, 844x390, the Home section after a thumbs up on the first concept and a thumbs down on the second: whole strips with thumb counts in the captions"
-    },
-    {
-      "path": "proof/screenshots/after-844x390-viewer-thumbs.png",
-      "kind": "screenshot",
-      "shows": "After, 844x390, the viewer on the second concept with its thumbs down pressed: the image at full height, thumbs in the side rail"
-    },
-    {
-      "path": "proof/screenshots/after-1280x800-1-top.png",
-      "kind": "screenshot",
-      "shows": "After, 1280x800, the top of the board: navy board with jump links per screen and the first Home strip"
-    },
-    {
-      "path": "proof/screenshots/after-1280x800-2-section.png",
-      "kind": "screenshot",
-      "shows": "After, 1280x800, the Night Harbor section: Chapter 1 mockups in four packed columns with no hole beside them"
-    },
-    {
-      "path": "proof/screenshots/after-1280x800-3-viewer.png",
-      "kind": "screenshot",
-      "shows": "After, 1280x800, the viewer open on the first concept: full-screen viewer with the image fitted between a slim top bar and the control bar"
-    },
-    {
-      "path": "proof/screenshots/after-1280x800-home.png",
-      "kind": "screenshot",
-      "shows": "After, 1280x800, the Home section after a thumbs up on the first concept and a thumbs down on the second: whole strips, one per row, with thumb counts in the captions"
-    },
-    {
-      "path": "proof/screenshots/after-1280x800-viewer-thumbs.png",
-      "kind": "screenshot",
-      "shows": "After, 1280x800, the viewer on the second concept with its thumbs down pressed: the image fitted, thumbs up and down beside Previous in the bar"
+      "shows": "The board shows both sections; every mockup's preview and full-size image load at the file's size on desktop 1440x900 and iPhone 390x844, and each opens in the viewer with thumbs, notes and zoom"
     }
   ]
 }
