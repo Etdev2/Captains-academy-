@@ -9,11 +9,11 @@ This repository is a Sweet Potato project. It follows the rules in Sweet Potato'
 | Field | Value |
 | --- | --- |
 | Registry entry | `projects.json` in Sweet Potato, name `Captain's Academy`, added by the pull request that moves the academy to stage 1 |
-| Trust stage | `stage-1-supervised`: one ticket at a time while Et watches each transition. Et reviews the proof and merges |
+| Trust stage | `stage-1-supervised`: one ticket at a time while Et watches each transition. Codex reviews; the coordinator merges under the merge-authority rule below |
 | Language lane | `typescript-web` for the web app. The Unity simulator has no lane yet and needs a Sweet Potato ADR before simulator work starts |
 | Verification command | `bash scripts/verify.sh`. The project-local verification skill is `.claude/skills/verify-captains-academy/` |
-| Required checks | `verify` and `proof`, the GitHub Actions jobs in `.github/workflows/`. Branch protection is not available on the current GitHub plan, so they do not block a merge by themselves: Et merges only when both are green on the head commit |
-| Merge authority | Et |
+| Required checks | `verify` and `proof`, the GitHub Actions jobs in `.github/workflows/`. Branch protection is not available on the current GitHub plan, so they do not block a merge by themselves: the coordinator (or Et) merges only when both are green on the head commit |
+| Merge authority | The coordinator (Sweet Potato, GitHub `sweet-potato-coordinator[bot]`) merges a pull request once Codex has reviewed its exact current head SHA with no unresolved P0/P1 findings, all checks are green, and the pull request is mergeable and not a draft. It squash-merges pinned to that head SHA, then posts a merge handoff naming the SHA. The coordinator never approves a review. Et keeps override and may still merge himself |
 
 ## Before work
 
