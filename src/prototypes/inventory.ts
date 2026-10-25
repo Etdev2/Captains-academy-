@@ -1,13 +1,13 @@
 import { z } from 'zod';
 
-// The prototype inventory (issue #72): every image the review gallery shows,
-// read from docs/prototypes/inventory.json. Ids are stable, so ratings saved or
+// The prototype inventory (issue #72): every image the decision board shows,
+// read from docs/prototypes/inventory.json. Ids are stable, so dots saved or
 // exported today still match the same image after the inventory grows.
 //
-// Only design concepts and current-app screenshots are rated and ranked.
+// Only design concepts and current-app screenshots go on the decision board.
 // Comparison boards, decks, wireframes and documents are reference material:
-// a board's concepts are rated one by one as extracted details, so rating the
-// board too would count the same concept twice.
+// a comparison board's concepts are on the board one by one as extracted
+// details, so adding the comparison board too would count them twice.
 
 export const kinds = ['concept', 'app-screenshot', 'reference'] as const;
 export type Kind = (typeof kinds)[number];
@@ -29,12 +29,18 @@ const itemSchema = z
     kind: z.enum(kinds),
     device: z.string().min(1),
     image: z.string().min(1).nullable(),
+    /** The image's own pixel size, so a page can reserve its space before it loads. */
+    width: z.number().int().positive().optional(),
+    height: z.number().int().positive().optional(),
     availability: z.enum(['available', 'unavailable']),
     notes: z.string(),
     extractedFrom: z.string().optional(),
     document: z.string().optional(),
   })
   .strict()
+  .refine((i) => (i.image !== null) === (i.width !== undefined && i.height !== undefined), {
+    message: 'an item with an image records its width and height, and only then',
+  })
   .refine(
     (i) => (i.availability === 'available') === (i.image !== null || i.document !== undefined),
     { message: 'an available item has an image or a document, and an unavailable one has neither' },
@@ -58,7 +64,7 @@ export type Item = z.infer<typeof itemSchema>;
 
 export const parseInventory = (data: unknown): Inventory => inventorySchema.parse(data);
 
-/** Rated and ranked: an available concept or current-app screenshot. */
+/** On the decision board: an available concept or current-app screenshot. */
 export const isReviewable = (item: Item): boolean =>
   item.kind !== 'reference' && item.availability === 'available';
 
@@ -95,7 +101,7 @@ export function inventoryMarkdown(inventory: Inventory): string {
     `${items.length} items: ${count((i) => i.kind === 'concept')} visual concepts, ` +
       `${count((i) => i.kind === 'app-screenshot')} current-app screenshots and ` +
       `${count((i) => i.kind === 'reference')} reference items. ` +
-      `${count(isReviewable)} are rated in the review gallery at /prototypes/. ` +
+      `${count(isReviewable)} are on the decision board at /prototypes/. ` +
       `${count((i) => i.availability === 'unavailable')} are unavailable.`,
     '',
     'Generated screens are visual concepts. Their lesson text and navigation diagrams need ' +
@@ -111,7 +117,7 @@ export function inventoryMarkdown(inventory: Inventory): string {
     '',
     '## Items',
     '',
-    '| Id | Title | Kind | Rated | Creator | Style | Feature | Device | Image | Source | Notes |',
+    '| Id | Title | Kind | On the board | Creator | Style | Feature | Device | Image | Source | Notes |',
     '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |',
     ...items
       .map((i) =>

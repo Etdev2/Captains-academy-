@@ -4,17 +4,20 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { isReviewable, parseInventory } from '../src/prototypes/inventory';
 
-// The prototype review gallery at /prototypes (issue #72), on a desktop and an
-// upright phone: every image loads at its own size, the viewer keeps
-// proportions and closes with Escape, filters and comparison work, and ratings
-// save, edit, survive a refresh and add up correctly on this device.
+// The decision board at /prototypes (issue #72, ADR 0009), on a desktop and on
+// phones: every image loads at its own size, reviewers drop five dots where
+// they like a concept, others' dots stay hidden until they finish, the heat
+// ranks concepts with ties shown, and only the decider makes the call. The
+// board is saved on this device and moves between devices as a file.
 
 const root = join(import.meta.dirname, '..');
 const inventory = parseInventory(
   JSON.parse(readFileSync(join(root, 'docs/prototypes/inventory.json'), 'utf8')),
 );
-const reviewable = inventory.items.filter(isReviewable);
+const concepts = inventory.items.filter(isReviewable);
 const withImages = inventory.items.filter((i) => i.image !== null);
+const [first, second, third] = concepts;
+if (!first || !second || !third) throw new Error('need three concepts');
 
 /** A PNG's or JPEG's pixel size, read from the file on disk. */
 function sizeOnDisk(path: string): { width: number; height: number } {
@@ -22,48 +25,77 @@ function sizeOnDisk(path: string): { width: number; height: number } {
   if (bytes.readUInt32BE(0) === 0x89504e47) {
     return { width: bytes.readUInt32BE(16), height: bytes.readUInt32BE(20) };
   }
-  // JPEG: walk the segments to the start-of-frame marker.
   let at = 2;
   while (at < bytes.length) {
     const marker = bytes.readUInt16BE(at);
-    const length = bytes.readUInt16BE(at + 2);
     if (marker >= 0xffc0 && marker <= 0xffc3) {
       return { height: bytes.readUInt16BE(at + 5), width: bytes.readUInt16BE(at + 7) };
     }
-    at += 2 + length;
+    at += 2 + bytes.readUInt16BE(at + 2);
   }
   throw new Error(`${path}: no image size found`);
 }
 
-const card = (page: Page, id: string) => page.locator(`.card[data-id="${id}"]`);
+const card = (page: Page, id: string) => page.locator(`#board [data-id="${id}"]`);
+const dropZone = (page: Page, id: string) => card(page, id).locator(`[data-drop="${id}"]`);
 
 async function open(page: Page) {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/prototypes/');
-  await expect(page.getByRole('heading', { name: 'Prototype review' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Decision board' })).toBeVisible();
   return errors;
 }
 
-async function setName(page: Page, name: string) {
-  await page.getByLabel('Your name').fill(name);
-  await page.getByLabel('Your name').press('Enter');
-  await page.getByLabel('Your name').blur();
+async function choose(page: Page, trigger: string, option: string | RegExp) {
+  await page.locator(trigger).click();
+  await page.getByRole('option', { name: option }).click();
+  await expect(page.getByRole('listbox')).toHaveCount(0);
 }
 
-async function rate(page: Page, id: string, score: number, comment = '', favorite = false) {
-  await card(page, id).locator('.open').click();
-  const dialog = page.locator('#viewer');
-  await expect(dialog).toBeVisible();
-  await dialog.getByLabel(`${score} of 10`, { exact: true }).check({ force: true });
-  if (comment !== '') await dialog.getByLabel('Comment (optional)').fill(comment);
-  if (favorite) await dialog.getByLabel('Mark as a favorite').check();
-  await dialog.getByRole('button', { name: /Save rating|Update rating/ }).click();
-  await expect(dialog.locator('form .status')).toContainText(
-    `Saved on this device: ${score} of 10`,
-  );
-  await page.keyboard.press('Escape');
-  await expect(dialog).toBeHidden();
+const setStep = (page: Page, step: RegExp) => choose(page, '#round-step', step);
+
+async function setName(page: Page, name: string) {
+  await page.getByLabel('Your name').fill(name);
+}
+
+/** Drops a dot at a fraction of the image's width and height. */
+async function dropAt(page: Page, id: string, x: number, y: number) {
+  const zone = dropZone(page, id);
+  await zone.scrollIntoViewIfNeeded();
+  const box = await zone.boundingBox();
+  if (!box) throw new Error(`no image for ${id}`);
+  await zone.click({ position: { x: box.width * x, y: box.height * y } });
+}
+
+function boardFile(reviewer: string, dots: { itemId: string; x: number; y: number }[]) {
+  const at = '2026-10-25T12:00:00.000Z';
+  return {
+    kind: 'captains-academy/decision-board',
+    version: 1,
+    exportedAt: at,
+    phase: 'look',
+    phaseUpdatedAt: '2000-01-01T00:00:00.000Z',
+    reviewers: [
+      {
+        reviewer,
+        dots: dots.map((d, i) => ({ id: `${reviewer}-${i}`, ...d })),
+        notes: [],
+        doneVoting: true,
+        updatedAt: at,
+      },
+    ],
+    decision: null,
+  };
+}
+
+async function importFile(page: Page, name: string, content: string) {
+  await page.getByRole('tab', { name: 'Share' }).click();
+  await page.locator('#import-file').setInputFiles({
+    name,
+    mimeType: 'application/json',
+    buffer: Buffer.from(content),
+  });
 }
 
 test('every listed image and preview loads, at the size of the file in the repo', async ({
@@ -71,7 +103,6 @@ test('every listed image and preview loads, at the size of the file in the repo'
 }) => {
   const errors = await open(page);
   const urls = await page.evaluate(() => window.__prototypeGallery);
-  expect(urls).toBeDefined();
   expect(Object.keys(urls?.images ?? {}).sort()).toEqual(withImages.map((i) => i.id).sort());
   const loaded = await page.evaluate(async (all) => {
     const load = (src: string) =>
@@ -92,240 +123,201 @@ test('every listed image and preview loads, at the size of the file in the repo'
     expect(loaded[item.id]?.image, item.id).toEqual([size.width, size.height]);
     expect(loaded[item.id]?.thumb[0], `${item.id} preview`).toBeGreaterThan(0);
   }
-  expect(errors).toEqual([]);
-});
-
-test('the full-size viewer keeps proportions, zooms to 100% and closes with Escape', async ({
-  page,
-}) => {
-  await open(page);
-  const item = reviewable[0];
-  if (!item) throw new Error('no reviewable item');
-  const opener = card(page, item.id).locator('.open');
-  await opener.click();
-  const dialog = page.locator('#viewer');
-  await expect(dialog).toBeVisible();
-  await expect(dialog.getByRole('heading', { name: item.title })).toBeVisible();
-  const image = page.locator('#viewer-image');
-  await expect
-    .poll(() => image.evaluate((img: HTMLImageElement) => img.naturalWidth))
-    .toBeGreaterThan(0);
-  const ratio = () =>
-    image.evaluate((img: HTMLImageElement) => {
-      const box = img.getBoundingClientRect();
-      return {
-        shown: box.width / box.height,
-        file: img.naturalWidth / img.naturalHeight,
-        width: box.width,
-        natural: img.naturalWidth,
-      };
-    });
-  const fitted = await ratio();
-  expect(Math.abs(fitted.shown - fitted.file) / fitted.file).toBeLessThan(0.01);
-  await dialog.getByRole('button', { name: '100%' }).click();
-  const actual = await ratio();
-  expect(Math.round(actual.width)).toBe(actual.natural);
-  expect(Math.abs(actual.shown - actual.file) / actual.file).toBeLessThan(0.01);
-  await dialog.getByRole('button', { name: 'Zoom in' }).click();
-  await expect(page.locator('#zoom-level')).toHaveText('150%');
-  await expect(dialog).toContainText('Visual concept');
-  await expect(dialog).toContainText('require verification before instructional use');
-
-  await page.keyboard.press('Escape');
-  await expect(dialog).toBeHidden();
-  await expect(opener).toBeFocused();
-});
-
-test('an extracted detail links to its whole source board, which is not rated', async ({
-  page,
-}) => {
-  await open(page);
-  const detail = reviewable.find((i) => i.extractedFrom !== undefined);
-  const board = inventory.items.find((i) => i.id === detail?.extractedFrom);
-  if (!detail || !board) throw new Error('no extracted detail');
-  await card(page, detail.id).locator('.open').click();
-  const dialog = page.locator('#viewer');
-  await expect(dialog).toContainText('Extracted detail');
-  await dialog.getByRole('button', { name: 'View the source board' }).click();
-  await expect(dialog.getByRole('heading', { name: board.title })).toBeVisible();
-  await expect(dialog).toContainText('Reference material. Not rated or ranked.');
-  await expect(dialog.locator('form')).toHaveCount(0);
-});
-
-test('filters narrow the gallery to one style and one feature', async ({ page }) => {
-  await open(page);
-  await expect(page.locator('#gallery .card')).toHaveCount(reviewable.length);
-  await page.getByLabel('Style').selectOption('Chart house');
-  const chart = reviewable.filter((i) => i.style === 'Chart house');
-  await expect(page.locator('#gallery .card')).toHaveCount(chart.length);
-  await page.getByLabel('Screen or feature').selectOption('Lights');
-  await expect(page.locator('#gallery .card')).toHaveCount(
-    chart.filter((i) => i.feature === 'Lights').length,
-  );
-  await expect(page.locator('#filter-count')).toHaveText(/^Showing 1 of /);
-  // Boards are not in the gallery's style list: they are reference only.
-  await expect(
-    page.getByLabel('Style').locator('option', { hasText: 'Comparison board' }),
-  ).toHaveCount(0);
-});
-
-test('compare puts up to four images side by side on a desktop and one after another on a phone', async ({
-  page,
-}) => {
-  await open(page);
-  const ids = reviewable.slice(0, 5).map((i) => i.id);
-  for (const id of ids.slice(0, 4))
-    await card(page, id)
-      .getByLabel(/^Compare /)
-      .check();
-  await expect(card(page, ids[4] ?? '').getByLabel(/^Compare /)).toBeDisabled();
-  await page.getByRole('button', { name: /^Compare/ }).click();
-  await page.locator('#compare').getByRole('button', { name: 'Remove' }).nth(3).click();
-  const figures = page.locator('#compare figure');
-  await expect(figures).toHaveCount(3);
-  const first = await figures.nth(0).boundingBox();
-  const second = await figures.nth(1).boundingBox();
-  if (!first || !second) throw new Error('no figures');
-  // Side by side from 900 px wide (prototypes/index.html), so a phone stacks them
-  // even when held sideways.
-  if ((page.viewportSize()?.width ?? 0) < 900) {
-    expect(second.y).toBeGreaterThanOrEqual(first.y + first.height);
-  } else {
-    expect(Math.abs(second.y - first.y)).toBeLessThan(2);
-    expect(second.x).toBeGreaterThan(first.x);
-  }
+  await expect(page.locator('#board > li')).toHaveCount(concepts.length);
+  // Nothing runs wider than the screen, on a phone or a desktop.
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
     page.viewportSize()?.width ?? 0,
   );
-  await page.getByRole('button', { name: 'Clear comparison' }).click();
-  await expect(figures).toHaveCount(0);
-  await expect(page.getByRole('button', { name: /^Compare/ })).toHaveText('Compare');
-});
-
-test('a rating saves, survives a refresh and can be changed, and a comment shows as plain text', async ({
-  page,
-}) => {
-  const errors = await open(page);
-  const item = reviewable[0];
-  if (!item) throw new Error('no reviewable item');
-  // No name, no rating.
-  await card(page, item.id).locator('.open').click();
-  await expect(page.locator('#viewer').getByRole('button', { name: 'Save rating' })).toBeDisabled();
-  await page.keyboard.press('Escape');
-
-  await setName(page, 'Ana');
-  const hostile = '<img src=x onerror="window.__hacked=1"> Calm and clear';
-  await rate(page, item.id, 8, hostile, true);
-  await expect(card(page, item.id)).toContainText('Your score: 8 of 10 · ★ favorite');
-
-  await page.reload();
-  await expect(page.getByLabel('Your name')).toHaveValue('Ana');
-  await expect(card(page, item.id)).toContainText('Your score: 8 of 10');
-  await card(page, item.id).locator('.open').click();
-  await expect(page.locator('#viewer').getByLabel('8 of 10', { exact: true })).toBeChecked();
-  await page.keyboard.press('Escape');
-  await rate(page, item.id, 6);
-
-  await page.getByRole('button', { name: 'Results' }).click();
-  const row = page.locator(`.result[data-id="${item.id}"]`);
-  await expect(row).toContainText('6.00');
-  await expect(row).toContainText('n = 1 reviewer');
-  await row.getByText('1 comment').click();
-  await expect(row.locator('.comments li')).toContainText(hostile);
-  await expect(row.locator('.comments img')).toHaveCount(0);
-  expect(await page.evaluate(() => (window as { __hacked?: number }).__hacked)).toBeUndefined();
-  await expect(page.locator('#results-scope')).toContainText('Saved on this device');
-  await expect(page.locator('#results-scope')).toContainText('not shared team results');
   expect(errors).toEqual([]);
 });
 
-test('results stay hidden until you rate, leave unrated items out, show ties and merge imports', async ({
-  page,
-}) => {
-  await open(page);
-  const [a, b, c] = reviewable;
-  if (!a || !b || !c) throw new Error('need three reviewable items');
+test('a dot lands where you click, five at most, and you can take one back', async ({ page }) => {
+  const errors = await open(page);
+  // Looking silently: no dots yet.
+  await expect(dropZone(page, first.id)).toHaveCount(0);
+  await setStep(page, /Dot vote/);
+  // A dot needs a name.
+  await dropAt(page, first.id, 0.5, 0.5);
+  await expect(page.locator('#board-status')).toHaveText('Enter your name first.');
+
   await setName(page, 'Ana');
-  await rate(page, a.id, 8);
+  await dropAt(page, first.id, 0.25, 0.4);
+  const dot = card(page, first.id).locator('[data-dot="mine"]');
+  await expect(dot).toHaveCount(1);
+  const style = (await dot.getAttribute('style')) ?? '';
+  const [left, top] = [...style.matchAll(/([\d.]+)%/g)].map((m) => Number(m[1]));
+  expect(Math.abs((left ?? 0) - 25)).toBeLessThan(3);
+  expect(Math.abs((top ?? 0) - 40)).toBeLessThan(3);
 
-  const at = new Date().toISOString();
-  const file = {
-    kind: 'captains-academy/prototype-ratings',
-    version: 1,
-    exportedAt: at,
-    reviews: [
-      { itemId: a.id, reviewer: 'Ben', score: 6, comment: '', favorite: false, updatedAt: at },
-      { itemId: b.id, reviewer: 'Ben', score: 4, comment: '', favorite: true, updatedAt: at },
-      {
-        itemId: 'no-such-item',
-        reviewer: 'Ben',
-        score: 9,
-        comment: '',
-        favorite: false,
-        updatedAt: at,
-      },
-    ],
-  };
-  await page.getByRole('button', { name: 'Results' }).click();
-  await page.locator('#import-file').setInputFiles({
-    name: 'ben.json',
-    mimeType: 'application/json',
-    buffer: Buffer.from(JSON.stringify(file)),
-  });
-  await expect(page.locator('#import-status')).toContainText('2 added, 0 updated, 1 skipped');
-  await expect(page.locator('#results-scope')).toContainText('from 2 reviewers');
+  await dropAt(page, first.id, 0.7, 0.6);
+  await card(page, second.id).getByRole('button', { name: 'Add a dot' }).click();
+  await dropAt(page, third.id, 0.5, 0.5);
+  await dropAt(page, third.id, 0.6, 0.5);
+  await expect(page.locator('#dots-left')).toHaveText('0 of 5 dots left');
+  await dropAt(page, second.id, 0.2, 0.2);
+  await expect(page.locator('#board-status')).toContainText('You have placed all 5 dots');
 
-  // Ana rated a only: b's score from Ben stays hidden, and c has no ratings at all.
-  await expect(page.locator('.result')).toHaveCount(1);
-  await expect(page.locator(`.result[data-id="${a.id}"]`)).toContainText('7.00');
-  await expect(page.locator(`.result[data-id="${a.id}"]`)).toContainText('n = 2 reviewers');
-  await expect(page.locator(`.result[data-id="${b.id}"]`)).toHaveCount(0);
-  await expect(page.locator('#results-hidden')).toContainText('Not yet rated by you');
+  await card(page, first.id)
+    .getByRole('button', { name: /^Take back your dot/ })
+    .first()
+    .click();
+  await expect(page.locator('#dots-left')).toHaveText('1 of 5 dots left');
+  await expect(card(page, first.id)).toContainText('Your 1 dot');
 
-  // Once Ana rates b at 10, b averages 7 too: a tie, shown as one shared rank.
-  await page.getByRole('button', { name: 'Gallery' }).click();
-  await rate(page, b.id, 10);
-  await page.getByRole('button', { name: 'Results' }).click();
-  await expect(page.locator('.result')).toHaveCount(2);
-  await expect(page.locator('.result .rank')).toHaveText(['=1Tied', '=1Tied']);
-  await expect(page.locator(`.result[data-id="${c.id}"]`)).toHaveCount(0);
-
-  await page.locator('#import-file').setInputFiles({
-    name: 'notes.json',
-    mimeType: 'application/json',
-    buffer: Buffer.from('{"hello":1}'),
-  });
-  await expect(page.locator('#import-status')).toHaveText(
-    "This is not a Captain's Academy ratings file.",
-  );
+  // Saved on this device: the name, the step and the dots survive a refresh.
+  await page.reload();
+  await expect(page.getByLabel('Your name')).toHaveValue('Ana');
+  await expect(page.locator('#dots-left')).toHaveText('1 of 5 dots left');
+  await expect(card(page, third.id)).toContainText('Your 2 dots');
+  await expect(page.locator('#saved-where')).toHaveText('Saved on this device');
+  expect(errors).toEqual([]);
 });
 
-test("export downloads this reviewer's ratings as a file another device can import", async ({
+test("others' dots stay hidden until you finish voting, then the heat ranks concepts with ties", async ({
   page,
 }) => {
   await open(page);
-  const item = reviewable[1];
-  if (!item) throw new Error('no reviewable item');
   await setName(page, 'Ana');
-  await rate(page, item.id, 9, 'Strong');
-  await page.getByRole('button', { name: 'Results' }).click();
+  await importFile(
+    page,
+    'ben.json',
+    JSON.stringify(
+      boardFile('Ben', [
+        { itemId: second.id, x: 0.5, y: 0.5 },
+        { itemId: second.id, x: 0.4, y: 0.5 },
+        { itemId: 'not-on-the-board', x: 0.5, y: 0.5 },
+      ]),
+    ),
+  );
+  await expect(page.locator('#share-status')).toContainText(
+    '1 reviewers added, 0 updated, 1 dots or notes skipped',
+  );
+  await page.getByRole('tab', { name: 'Board' }).click();
+  await setStep(page, /Dot vote/);
+  await dropAt(page, first.id, 0.5, 0.5);
+  await dropAt(page, first.id, 0.6, 0.5);
+
+  // Still voting: Ben's two dots are not shown and the heat is hidden.
+  await expect(card(page, second.id).locator('[data-dot]')).toHaveCount(0);
+  await expect(page.locator('[data-heat]')).toHaveCount(0);
+
+  await page.getByRole('button', { name: 'Done voting' }).click();
+  await expect(card(page, second.id).locator('[data-dot="other"]')).toHaveCount(2);
+  await expect(card(page, second.id)).toContainText('2 dots');
+  // Two dots each: a tie, shown as =1.
+  await expect(page.locator(`[data-heat="${first.id}"]`)).toContainText('=1');
+  await expect(page.locator(`[data-heat="${second.id}"]`)).toContainText('=1');
+
+  await setStep(page, /Discuss/);
+  await page.getByRole('button', { name: 'Only dotted concepts' }).click();
+  await expect(page.locator('#board > li')).toHaveCount(2);
+});
+
+test('only the decider makes the call, with a reason', async ({ page }) => {
+  await open(page);
+  await setName(page, 'Ana');
+  await setStep(page, /Decider's call/);
+  await expect(page.getByRole('button', { name: 'Only Elliott makes the call' })).toBeDisabled();
+
+  await setName(page, 'elliott');
+  await choose(page, '#decision-pick', first.title);
+  await page.getByLabel('Why this one').fill('Clearest on a phone in sun glare.');
+  await page.getByRole('button', { name: 'Make the call' }).click();
+  await expect(page.locator('#decision')).toContainText(`Decision: ${first.title}`);
+  await expect(page.locator('#decision')).toContainText('Clearest on a phone in sun glare.');
+  await page.reload();
+  await expect(page.locator('#decision')).toContainText('Decided by elliott');
+});
+
+test('the viewer keeps proportions, closes with Escape, links an extracted detail to its board, and shows notes as text', async ({
+  page,
+}) => {
+  await open(page);
+  await setName(page, 'Ana');
+  const detail = concepts.find((i) => i.extractedFrom !== undefined);
+  const board = inventory.items.find((i) => i.id === detail?.extractedFrom);
+  if (!detail || !board) throw new Error('no extracted detail');
+  const opener = card(page, detail.id).getByRole('button', { name: /full size/ });
+  await opener.click();
+  const dialog = page.getByRole('dialog');
+  await expect(dialog.getByRole('heading', { name: detail.title })).toBeVisible();
+  const image = dialog.getByRole('img', { name: detail.title });
+  await expect
+    .poll(() => image.evaluate((img: HTMLImageElement) => img.naturalWidth))
+    .toBeGreaterThan(0);
+  const ratio = await image.evaluate((img: HTMLImageElement) => {
+    const box = img.getBoundingClientRect();
+    return { shown: box.width / box.height, file: img.naturalWidth / img.naturalHeight };
+  });
+  expect(Math.abs(ratio.shown - ratio.file) / ratio.file).toBeLessThan(0.01);
+  await expect(dialog).toContainText('require verification before instructional use');
+
+  const hostile = '<img src=x onerror="window.__hacked=1"> Calm and clear';
+  await dialog.getByLabel('Add a note').fill(hostile);
+  await dialog.getByRole('button', { name: 'Save note' }).click();
+  await expect(dialog.locator('li').filter({ hasText: 'Calm and clear' })).toContainText(hostile);
+  await expect(dialog.locator('li img')).toHaveCount(0);
+  expect(await page.evaluate(() => (window as { __hacked?: number }).__hacked)).toBeUndefined();
+
+  await dialog.getByRole('button', { name: 'View the source board' }).click();
+  await expect(dialog.getByRole('heading', { name: board.title })).toBeVisible();
+  await expect(dialog).toContainText('Reference material. Not on the board.');
+
+  await page.keyboard.press('Escape');
+  await expect(dialog).toHaveCount(0);
+  await expect(opener).toBeFocused();
+  await expect(
+    page.getByLabel('Your sticky notes').or(page.getByText('Your sticky notes')),
+  ).toBeVisible();
+  await expect(page.locator('aside')).toContainText('Calm and clear');
+});
+
+test('filters narrow the board to one style and one feature', async ({ page }) => {
+  await open(page);
+  await choose(page, '#filter-style', /^Chart house/);
+  const chart = concepts.filter((i) => i.style === 'Chart house');
+  await expect(page.locator('#board > li')).toHaveCount(chart.length);
+  await choose(page, '#filter-feature', /^Lights/);
+  await expect(page.locator('#board > li')).toHaveCount(
+    chart.filter((i) => i.feature === 'Lights').length,
+  );
+  await expect(page.locator('#board-count')).toContainText('Showing 1 of');
+});
+
+test('export writes your dots to a file, and import refuses a file that is not a board', async ({
+  page,
+}) => {
+  await open(page);
+  await setName(page, 'Ana');
+  await setStep(page, /Dot vote/);
+  await dropAt(page, second.id, 0.5, 0.5);
+  await page.getByRole('tab', { name: 'Share' }).click();
   const [download] = await Promise.all([
     page.waitForEvent('download'),
-    page.getByRole('button', { name: 'Export my ratings' }).click(),
+    page.getByRole('button', { name: 'Export my dots and notes' }).click(),
   ]);
   expect(download.suggestedFilename()).toMatch(
-    /^captains-academy-prototype-ratings-ana-\d{4}-\d{2}-\d{2}\.json$/,
+    /^decision-board-frontend-direction-1-ana-\d{4}-\d{2}-\d{2}\.json$/,
   );
-  const path = await download.path();
-  const file = JSON.parse(readFileSync(path, 'utf8')) as {
+  const file = JSON.parse(readFileSync(await download.path(), 'utf8')) as {
     kind: string;
-    reviews: { itemId: string; score: number }[];
+    reviewers: { reviewer: string; dots: { itemId: string }[] }[];
   };
-  expect(file.kind).toBe('captains-academy/prototype-ratings');
-  expect(file.reviews).toEqual([expect.objectContaining({ itemId: item.id, score: 9 })]);
+  expect(file.kind).toBe('captains-academy/decision-board');
+  expect(file.reviewers).toEqual([
+    expect.objectContaining({
+      reviewer: 'Ana',
+      dots: [expect.objectContaining({ itemId: second.id })],
+    }),
+  ]);
+
+  await importFile(page, 'notes.json', '{"hello":1}');
+  await expect(page.locator('#share-status')).toHaveText(
+    "This is not a Captain's Academy decision board file.",
+  );
 });
 
-test('with storage blocked, the page says ratings are not saved', async ({ page }) => {
+test('with storage blocked, the page says the board is not saved', async ({ page }) => {
   await page.addInitScript(() => {
     Object.defineProperty(window, 'localStorage', {
       get() {
@@ -334,19 +326,19 @@ test('with storage blocked, the page says ratings are not saved', async ({ page 
     });
   });
   const errors = await open(page);
-  await expect(page.locator('#saved-where')).toContainText(
-    'Not saved: this browser is blocking storage',
-  );
+  await expect(page.locator('#saved-where')).toHaveText('Not saved: storage is blocked');
   expect(errors).toEqual([]);
 });
 
-test('reference keeps the boards, the playable example and the missing styles apart from the ranking', async ({
+test('reference keeps the boards, the playable example and the missing styles off the board', async ({
   page,
 }) => {
   await open(page);
-  await page.getByRole('button', { name: 'Reference' }).click();
-  const boards = inventory.items.filter((i) => i.style === 'Comparison board');
-  for (const board of boards) await expect(card(page, board.id)).toBeVisible();
+  await page.getByRole('tab', { name: 'Reference' }).click();
+  for (const board of inventory.items.filter((i) => i.style === 'Comparison board')) {
+    await expect(page.locator(`#reference [data-id="${board.id}"]`)).toBeVisible();
+    await expect(page.locator(`#board [data-id="${board.id}"]`)).toHaveCount(0);
+  }
   await expect(page.getByRole('link', { name: 'Open Night Harbor Run' })).toHaveAttribute(
     'href',
     'https://claude.ai/artifact/QNbtXuSXRQzjc64s4LWbVU',
@@ -359,35 +351,40 @@ test('reference keeps the boards, the playable example and the missing styles ap
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
 });
 
-test('the offline cache never stores the gallery or its images', async ({ page }) => {
+test('the offline cache never stores the board or its images', async ({ page }) => {
   // Opening the sea-time log installs the site's service worker.
   await page.goto('/log/');
   await expect
     .poll(() => page.evaluate(() => navigator.serviceWorker.controller !== null))
     .toBe(true);
   await open(page);
-  const item = reviewable[0];
-  if (!item) throw new Error('no reviewable item');
-  await card(page, item.id).locator('.open').click();
+  await card(page, first.id)
+    .getByRole('button', { name: /full size/ })
+    .click();
   await expect
-    .poll(() => page.locator('#viewer-image').evaluate((img: HTMLImageElement) => img.naturalWidth))
+    .poll(() =>
+      page
+        .getByRole('dialog')
+        .getByRole('img')
+        .first()
+        .evaluate((img: HTMLImageElement) => img.naturalWidth),
+    )
     .toBeGreaterThan(0);
   const cached = await page.evaluate(async () => {
     const cache = await caches.open('captains-academy-offline-v1');
     return (await cache.keys()).map((r) => new URL(r.url).pathname);
   });
   const urls = await page.evaluate(() => window.__prototypeGallery);
-  const galleryFiles = [
+  const files = [
     ...Object.values(urls?.images ?? {}),
     ...Object.values(urls?.thumbnails ?? {}),
   ].map((u) => new URL(u, page.url()).pathname);
   expect(cached.filter((path) => path.startsWith('/prototypes/'))).toEqual([]);
-  expect(cached.filter((path) => galleryFiles.includes(path))).toEqual([]);
-  // The log's own copy is still there.
+  expect(cached.filter((path) => files.includes(path))).toEqual([]);
   expect(cached).toContain('/log/');
 });
 
-test('the gallery and the viewer pass axe with no violations', async ({ page }) => {
+test('the board and the viewer pass axe with no violations', async ({ page }) => {
   await open(page);
   const scan = async (label: string) => {
     const results = await new AxeBuilder({ page })
@@ -395,11 +392,13 @@ test('the gallery and the viewer pass axe with no violations', async ({ page }) 
       .analyze();
     expect(results.violations, label).toEqual([]);
   };
-  await scan('gallery');
   await setName(page, 'Ana');
-  await card(page, reviewable[0]?.id ?? '')
-    .locator('.open')
+  await setStep(page, /Dot vote/);
+  await dropAt(page, first.id, 0.5, 0.5);
+  await scan('board while voting');
+  await card(page, first.id)
+    .getByRole('button', { name: /full size/ })
     .click();
-  await expect(page.locator('#viewer')).toBeVisible();
+  await expect(page.getByRole('dialog')).toBeVisible();
   await scan('viewer');
 });

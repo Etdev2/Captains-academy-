@@ -20,7 +20,7 @@ Each PDF page holds one embedded image. `pdfimages` copied each one out lossless
 
 ## Extracted details
 
-Pages 1 to 4 are comparison boards with three directions stacked in rows. To rate each direction on its own, `extracted/` holds each row cropped at full width. The crop changes nothing else, and each extracted detail links back to its board in the gallery. The boards stay whole as reference and are not rated, so no concept is counted twice.
+Pages 1 to 4 are comparison boards with three directions stacked in rows. To judge each direction on its own, `extracted/` holds each row cropped at full width. The crop changes nothing else, and each extracted detail links back to its board on the decision board. The boards stay whole under Reference and are left off the board, so no concept is counted twice.
 
 | Board | Row 1 (y) | Row 2 (y) | Row 3 (y) |
 | --- | --- | --- | --- |
@@ -29,15 +29,15 @@ Pages 1 to 4 are comparison boards with three directions stacked in rows. To rat
 | p3 | Chart house, 0 to 362 | Precision marine, 362 to 694 | Ocean studio, 694 to 1024 |
 | p4 | Chart house, 0 to 346 | Precision marine, 346 to 688 | Ocean studio, 688 to 1024 |
 
-Pages 5 and 6 each show one concept, so they are rated whole. Page 7 is reference.
+Pages 5 and 6 each show one concept, so each is on the board whole. Page 7 is reference.
 
 ## Labels and grouping
 
-The gallery keeps ChatGPT's own names as the style labels. It groups nothing beyond that: the Chart house home screen and the Chart house Lights lesson share the style "Chart house", so the style filter shows them together. The two book concepts keep their full names, "Dark prototype-book cleanup" and "Light coastal-field-guide alternate", and are not merged with any home-screen direction.
+The decision board keeps ChatGPT's own names as the style labels. It groups nothing beyond that: the Chart house home screen and the Chart house Lights lesson share the style "Chart house", so the style filter shows them together. The two book concepts keep their full names, "Dark prototype-book cleanup" and "Light coastal-field-guide alternate", and are not merged with any home-screen direction.
 
 ## Not supplied
 
-The review brief names three more directions: Clean maritime, Professional academy and Night bridge. Neither PDF contains them. The inventory lists them as unavailable with no image, and the gallery shows them under Reference. Nothing was made up to stand in for them.
+The review brief names three more directions: Clean maritime, Professional academy and Night bridge. Neither PDF contains them. The inventory lists them as unavailable with no image, and the decision board shows them under Reference. Nothing was made up to stand in for them.
 
 ## Errors to fix before any of this teaches
 

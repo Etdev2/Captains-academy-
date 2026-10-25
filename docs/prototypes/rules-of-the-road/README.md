@@ -352,7 +352,7 @@ Known limits:
 | Path | What it is |
 | --- | --- |
 | `handoff/rules-of-the-road-handoff-2026-10-22.pdf` | The original 25-page handoff PDF |
-| `handoff/prototype-book-2026-10-25.pdf` | The 16-page prototype book, as supplied to the review gallery (#72) |
+| `handoff/prototype-book-2026-10-25.pdf` | The 16-page prototype book, as supplied to the prototype review (#72) |
 | `playable/night-harbor-run.html` | The Night Harbor Run prototype. Download and open in a browser. SHA-256 `b0f14e5beee0f8d9bd0325c1278c655b1da98194047561394d4f50b267b64d73` |
 | `images/mockups/` | Chapter 1 map and the eleven level mockups |
 | `images/decks/` | Lights deck and day shapes deck |

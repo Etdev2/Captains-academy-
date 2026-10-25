@@ -1,5 +1,6 @@
 import js from '@eslint/js';
 import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
 import tseslint from 'typescript-eslint';
 
 // Import boundaries from ADR 0001. scripts/verify.sh checks that each one is
@@ -15,6 +16,20 @@ const domGlobals = Object.keys(globals.browser).filter((name) => !(name in globa
 const revenuecatOnlyInPlatform = {
   group: ['@revenuecat/*'],
   message: '@revenuecat packages belong in src/platform only.',
+};
+// ADR 0009: React, Tailwind and shadcn/ui are for app screens. The arcade game stays as built.
+const noReactInGame = {
+  group: [
+    'react',
+    'react/*',
+    'react-dom',
+    'react-dom/*',
+    'radix-ui',
+    'lucide-react',
+    '@/*',
+    '**/components/*',
+  ],
+  message: 'ADR 0009: the game never imports React, shadcn components or app-screen code.',
 };
 const noSeaLog = {
   group: ['**/log', '**/log/*'],
@@ -46,6 +61,8 @@ export default tseslint.config(
       'src/store/**',
       'src/offline/**',
       'src/prototypes/**',
+      'src/components/**',
+      'src/lib/**',
       'e2e/**',
     ],
     languageOptions: { globals: { ...globals.browser } },
@@ -70,8 +87,15 @@ export default tseslint.config(
     // The rule above applies here too; a later block replaces its options, so it is repeated.
     files: ['src/game/**'],
     rules: {
-      'no-restricted-imports': ['error', { patterns: [revenuecatOnlyInPlatform, noSeaLog] }],
+      'no-restricted-imports': [
+        'error',
+        { patterns: [revenuecatOnlyInPlatform, noSeaLog, noReactInGame] },
+      ],
     },
+  },
+  {
+    files: ['src/prototypes/**/*.tsx', 'src/components/**/*.tsx'],
+    ...reactHooks.configs.flat['recommended-latest'],
   },
   {
     files: ['src/log/**'],
@@ -106,6 +130,7 @@ export default tseslint.config(
             { group: ['**/game', '**/game/*'], message: 'src/sim never imports the renderer.' },
             revenuecatOnlyInPlatform,
             noSeaLog,
+            noReactInGame,
             { group: ['node:*'], message: 'src/sim runs in the browser and in tests alike.' },
           ],
         },

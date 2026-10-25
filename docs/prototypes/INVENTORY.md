@@ -2,7 +2,7 @@
 
 <!-- Generated from inventory.json by scripts/prototype-inventory.ts. Do not edit by hand. -->
 
-76 items: 44 visual concepts, 14 current-app screenshots and 18 reference items. 55 are rated in the review gallery at /prototypes/. 3 are unavailable.
+76 items: 44 visual concepts, 14 current-app screenshots and 18 reference items. 55 are on the decision board at /prototypes/. 3 are unavailable.
 
 Generated screens are visual concepts. Their lesson text and navigation diagrams need checking before anyone uses them to teach.
 
@@ -15,7 +15,7 @@ Generated screens are visual concepts. Their lesson text and navigation diagrams
 
 ## Items
 
-| Id | Title | Kind | Rated | Creator | Style | Feature | Device | Image | Source | Notes |
+| Id | Title | Kind | On the board | Creator | Style | Feature | Device | Image | Source | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | `gpt-board-home-a` | Home directions: Coastal editorial, Precision marine, Ocean studio | Reference | no | ChatGPT, supplied by Elliott | Comparison board | Home | Board: desktop and phone | [image](../../docs/prototypes/frontend-directions/boards/p1-home-directions-coastal-precision-ocean.png) | Captains_Academy_All_Prototypes.pdf (supplied 2026-10-25), page 1, embedded image extracted losslessly | Comparison board. Its concepts are reviewed one by one as extracted details; the board itself is not ranked. |
 | `gpt-board-home-b` | Home directions: Chart house, Pacific modern, Academy fieldbook | Reference | no | ChatGPT, supplied by Elliott | Comparison board | Home | Board: desktop and phone | [image](../../docs/prototypes/frontend-directions/boards/p2-home-directions-chart-pacific-fieldbook.png) | Captains_Academy_All_Prototypes.pdf (supplied 2026-10-25), page 2, embedded image extracted losslessly | Comparison board. Its concepts are reviewed one by one as extracted details; the board itself is not ranked. |

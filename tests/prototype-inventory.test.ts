@@ -10,7 +10,7 @@ import {
   thumbnailPath,
 } from '../src/prototypes/inventory';
 
-// The review gallery's inventory (issue #72) must match the files on disk, so
+// The decision board's inventory (issue #72) must match the files on disk, so
 // every listed image loads, nothing is counted twice and the ids stay stable.
 
 const root = join(import.meta.dirname, '..');
@@ -25,8 +25,8 @@ describe('the prototype inventory', () => {
     expect(new Set(items.map((i) => i.id)).size).toBe(items.length);
   });
 
-  it('keeps the ids that ratings already point at', () => {
-    // A rename would orphan saved and exported ratings. Add new ids instead.
+  it('keeps the ids that saved boards already point at', () => {
+    // A rename would orphan saved and exported dots. Add new ids instead.
     for (const id of [
       'gpt-home-coastal-editorial',
       'gpt-lights-ocean-studio',
@@ -52,12 +52,31 @@ describe('the prototype inventory', () => {
     }
   });
 
-  it('keeps every image where the gallery build looks for it', () => {
+  it('keeps every image where the decision board build looks for it', () => {
     // src/prototypes/main.ts bundles only these folders.
     const served = /^docs\/(prototypes\/.+\.(png|jpg|pdf)|design\/screenshots\/.+\.png)$/;
     for (const item of items) {
       if (item.image !== null) expect(item.image, item.id).toMatch(served);
       if (item.document !== undefined) expect(item.document, item.id).toMatch(served);
+    }
+  });
+
+  it('records each image at the pixel size of the file', () => {
+    const size = (path: string) => {
+      const bytes = readFileSync(join(root, path));
+      if (bytes.readUInt32BE(0) === 0x89504e47)
+        return [bytes.readUInt32BE(16), bytes.readUInt32BE(20)];
+      let at = 2;
+      while (at < bytes.length) {
+        const marker = bytes.readUInt16BE(at);
+        if (marker >= 0xffc0 && marker <= 0xffc3)
+          return [bytes.readUInt16BE(at + 7), bytes.readUInt16BE(at + 5)];
+        at += 2 + bytes.readUInt16BE(at + 2);
+      }
+      return [0, 0];
+    };
+    for (const item of items) {
+      if (item.image !== null) expect([item.width, item.height], item.id).toEqual(size(item.image));
     }
   });
 
@@ -77,10 +96,10 @@ describe('the prototype inventory', () => {
     }
   });
 
-  it('rates each image once: boards and reference stay out, and no two rated items share an image', () => {
-    const rated = items.filter(isReviewable);
-    expect(rated.some((i) => i.style === 'Comparison board')).toBe(false);
-    const images = rated.map((i) => i.image);
+  it('puts each image on the board once: comparison boards and reference stay off, and no two concepts share an image', () => {
+    const onBoard = items.filter(isReviewable);
+    expect(onBoard.some((i) => i.style === 'Comparison board')).toBe(false);
+    const images = onBoard.map((i) => i.image);
     expect(new Set(images).size).toBe(images.length);
   });
 
