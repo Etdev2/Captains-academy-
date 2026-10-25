@@ -22,6 +22,7 @@ import type { Item } from './inventory';
 export function DotImage({
   item,
   src,
+  narrowSrc,
   alt,
   label,
   mode,
@@ -32,6 +33,8 @@ export function DotImage({
 }: {
   item: Item;
   src: string | undefined;
+  /** A tile's file for phone-width screens: a wide strip's 4:3 crop. */
+  narrowSrc?: string | undefined;
   /** The image's text alternative; empty when a surrounding button names it. */
   alt: string;
   /** The concept's name, for the dot buttons. */
@@ -69,18 +72,21 @@ export function DotImage({
         } as React.CSSProperties
       }
     >
-      <img
-        src={src}
-        alt={alt}
-        width={item.width}
-        height={item.height}
-        className="block size-full select-none"
-        draggable={false}
-        decoding="async"
-        loading={loading}
-        fetchPriority={priority ? 'high' : undefined}
-        id={id}
-      />
+      <picture className="contents">
+        {narrowSrc && <source media="(max-width: 40rem)" srcSet={narrowSrc} />}
+        <img
+          src={src}
+          alt={alt}
+          width={item.width}
+          height={item.height}
+          className="block size-full select-none"
+          draggable={false}
+          decoding="async"
+          loading={loading}
+          fetchPriority={priority ? 'high' : undefined}
+          id={id}
+        />
+      </picture>
       {droppable && voting && (
         <div
           onClick={drop}

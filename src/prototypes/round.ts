@@ -37,6 +37,8 @@ const fileUrl = (repoPath: string | null | undefined) =>
 
 export const imageUrl = (item: Item) => fileUrl(item.image);
 export const thumbUrl = (item: Item) => fileUrl(thumbnailPath(item));
+/** A wide strip's 4:3 crop for phones (sections.ts, cropOf), if it has one. */
+export const cropUrl = (item: Item) => fileUrl(`docs/prototypes/thumbnails/${item.id}-crop.jpg`);
 export const documentUrl = (item: Item) => fileUrl(item.document);
 
 declare global {

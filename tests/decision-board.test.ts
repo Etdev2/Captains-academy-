@@ -8,12 +8,16 @@ import {
   exportBoard,
   heat,
   importBoard,
+  myThumb,
+  parseBoard,
   placeDot,
   removeDot,
   reviewerKey,
   setDone,
   setPhase,
+  setThumb,
   visibleDots,
+  visibleThumbs,
   addNote,
   type BoardState,
 } from '../src/prototypes/board';
@@ -111,6 +115,56 @@ describe('heat', () => {
       ['a', 1, 1, 3, false],
       ['d', 0, 0, null, false],
     ]);
+  });
+});
+
+describe('thumbs up and down', () => {
+  const thumb = (s: BoardState, who: string, itemId: string, value: 'up' | 'down' | null) =>
+    setThumb(s, who, { itemId, value }, at(5), known);
+
+  it('keeps one thumb per reviewer per concept, which a new one replaces and null takes back', () => {
+    let s = thumb(emptyBoard(at(0)), 'Ana', 'a', 'up');
+    expect(myThumb(s, 'Ana', 'a')).toBe('up');
+    s = thumb(s, 'ana ', 'a', 'down');
+    expect(myThumb(s, 'Ana', 'a')).toBe('down');
+    expect(visibleThumbs(s, 'Ana', 'a')).toEqual({ up: 0, down: 1 });
+    s = thumb(s, 'Ana', 'a', null);
+    expect(myThumb(s, 'Ana', 'a')).toBeUndefined();
+  });
+
+  it('opens in every step before the call, for a named reviewer, on a listed concept', () => {
+    for (const phase of ['look', 'vote', 'discuss'] as const) {
+      const s = setPhase(emptyBoard(at(0)), phase, at(1));
+      expect(myThumb(thumb(s, 'Ana', 'a', 'up'), 'Ana', 'a')).toBe('up');
+    }
+    const deciding = setPhase(emptyBoard(at(0)), 'decide', at(1));
+    expect(() => thumb(deciding, 'Ana', 'a', 'up')).toThrow(/decider decides/);
+    expect(() => thumb(emptyBoard(at(0)), ' ', 'a', 'up')).toThrow(/name/);
+    expect(() => thumb(emptyBoard(at(0)), 'Ana', 'board', 'up')).toThrow(/not on this board/);
+  });
+
+  it("hides others' thumbs until you finish voting, like dots", () => {
+    let s = thumb(voting(), 'Ben', 'a', 'up');
+    s = thumb(s, 'Ana', 'a', 'down');
+    expect(visibleThumbs(s, 'Ana', 'a')).toEqual({ up: 0, down: 1 });
+    s = setDone(s, 'Ana', true, at(6));
+    expect(visibleThumbs(s, 'Ana', 'a')).toEqual({ up: 1, down: 1 });
+  });
+
+  it('reads boards saved before thumbs existed, and drops thumbs on unlisted concepts on import', () => {
+    const old = {
+      phase: 'look',
+      phaseUpdatedAt: at(0),
+      reviewers: [{ reviewer: 'Ana', dots: [], notes: [], doneVoting: false, updatedAt: at(1) }],
+      decision: null,
+    };
+    expect(parseBoard(old).reviewers[0]?.thumbs).toEqual([]);
+    let ben = thumb(emptyBoard(at(0)), 'Ben', 'a', 'up');
+    ben = setThumb(ben, 'Ben', { itemId: 'gone', value: 'down' }, at(6), [...known, 'gone']);
+    const file = JSON.stringify(exportBoard(ben, 'Ben', at(7)));
+    const result = importBoard(emptyBoard(at(0)), file, known);
+    expect(result.skipped).toBe(1);
+    expect(result.state.reviewers[0]?.thumbs).toEqual([{ itemId: 'a', value: 'up' }]);
   });
 });
 

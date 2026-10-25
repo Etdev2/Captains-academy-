@@ -212,13 +212,29 @@ export function tileLabel(item: Item): string {
 
 export type Shape = 'wide' | 'landscape' | 'portrait';
 
+// A wide strip is a label, a desktop mockup and a phone mockup side by side,
+// about five times wider than tall. On a phone its tile shows a 4:3 crop
+// around the desktop mockup, cut from the original by
+// scripts/prototype-thumbnails.py with these same numbers.
+export const WIDE = 2.6;
+export const CROP_RATIO = 4 / 3;
+export const FOCUS = 0.31;
+
+/** Where a wide strip's phone crop sits in it, as fractions of its width. */
+export function cropOf(item: Item): { left: number; width: number } | undefined {
+  const ratio = (item.width ?? 4) / (item.height ?? 3);
+  if (ratio < WIDE || item.kind === 'reference') return undefined;
+  const width = CROP_RATIO / ratio;
+  return { left: FOCUS * (1 - width), width };
+}
+
 /**
  * Concepts of one shape share a masonry grid sized for that shape, so a wide
  * strip never shrinks to the width of a phone screen beside it.
  */
 export function shapeOf(item: Item): Shape {
   const ratio = (item.width ?? 4) / (item.height ?? 3);
-  if (ratio >= 2.6) return 'wide';
+  if (ratio >= WIDE) return 'wide';
   if (ratio >= 1.15) return 'landscape';
   return 'portrait';
 }
