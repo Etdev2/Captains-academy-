@@ -1,30 +1,29 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#71",
-  "sourceDigest": "sha256:e5e2b5628f77c02b1875f1f38ab9eb31d8161b36f0a3048ca1f0fb0d0eff3ae8",
-  "capturedAt": "2026-10-25T19:28:19Z",
+  "ticket": "Etdev2/Captains-academy-#29",
+  "sourceDigest": "sha256:24b6c991d7700ab73d19743c1454d5e8fc91c7dead644f8e2546058cfafe1066",
+  "capturedAt": "2026-10-25T20:26:58Z",
   "result": "PASS",
   "verification": {
-    "command": "PATH=/tmp/captains-node-22/node_modules/node/bin:$PATH bash scripts/verify.sh",
-    "fixture": "Nine Lights stills, spoken trawling sample, and inventory additions for draft PR #73"
+    "command": "bash scripts/verify.test.sh",
+    "fixture": "Seeded Lights deck (19 cards, seed 29), Rule 21 sector-edge golden replays, e2e at /rules/?level=lights on desktop, phone-landscape and phone-portrait; sw offline test: /rules/?level=lights served from cached /rules/ with the network down"
   },
   "commands": [
     {
-      "command": "PATH=/tmp/captains-node-22/node_modules/node/bin:$PATH bash scripts/verify.sh",
+      "command": "bash scripts/verify.test.sh",
       "exitCode": 0
     },
     {
-      "command": "python3 design/prototypes/lights/decision-board/add-to-inventory.py --inventory /tmp/captains-board-inventory-proof.json && python3 design/prototypes/lights/decision-board/add-to-inventory.py --inventory /tmp/captains-board-inventory-proof.json --dry-run",
+      "command": "bash scripts/verify.sh",
       "exitCode": 0
     }
   ],
-  "behaviorChanged": false,
+  "behaviorChanged": true,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "The static images and audio are valid; the board importer adds the nine items once; project verification passes"
+      "shows": "Lights at /rules/?level=lights opens after one star on Definitions and plays 19 checked cards from Rules 23 to 30: each shows a night horizon with the lights Rule 21 lets the player see, the chip reads Inland + International, a right answer cites its rule, a miss costs a heart and shows a pausable explanation with the citation, the card returns three cards later, and the run ends cleared with stars or out of hearts. axe, contrast, tap-target and palette checks pass, and Definitions still passes unchanged. Offline: a /rules/?level=lights navigation with no network is served from the cached /rules/ page (ignoreSearch), other pages keep exact matching"
     }
-  ],
-  "noBehaviorReason": "This branch adds only design images, audio, an import helper, and documentation"
+  ]
 }
