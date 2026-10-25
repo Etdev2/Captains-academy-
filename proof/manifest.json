@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#72",
-  "sourceDigest": "sha256:6bb7113ffd7d9a92437572d50b9bd240a60c225335a5cf3116a04ada1d315b93",
-  "capturedAt": "2026-10-25T20:48:10Z",
+  "sourceDigest": "sha256:5898bff40147c7e1e6c8ac49cc9d172f7fb8e941136d327d838a3fc1f89885ec",
+  "capturedAt": "2026-10-25T21:14:39Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
@@ -19,7 +19,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh passes: tsc, ESLint, Prettier, Vitest including tests/decision-board.test.ts (thumbs: one per reviewer per concept, replaced or taken back, closed for the call, hidden like dots, old boards still load, unlisted ones skipped on import) and tests/prototype-sections.test.ts (every concept placed once, every tile labeled, a 4:3 crop file for each wide strip cut where the page expects it), vite build, and Playwright including e2e/prototypes.spec.ts proving tiles open a full-screen viewer that steps by arrow keys, swipe and buttons, dots land where tapped, thumbs show on tiles and in the heat, wide strips fill a 4:3 tile from their crop on phones and stay whole on desktop and in the viewer, sections stick, no layout shift, the first screen loads eagerly, every control is 44px, nothing overflows a phone and axe finds no violations; the game's tests still pass; npm audit"
+      "shows": "verify.sh passes: tsc, ESLint, Prettier, Vitest including tests/decision-board.test.ts (thumbs: one per reviewer per concept, replaced or taken back, closed for the call, hidden like dots, old boards still load, unlisted ones skipped on import) and tests/prototype-sections.test.ts (every concept placed once, every tile labeled), vite build, and Playwright including e2e/prototypes.spec.ts proving tiles open a full-screen viewer that steps by arrow keys, swipe and buttons, dots land where tapped, thumbs show on tiles and in the heat and close for the call, sections stick, no layout shift, the first screen loads eagerly, every control is 44px, nothing overflows a phone and axe finds no violations; the game's tests still pass; npm audit"
     },
     {
       "path": "proof/screenshots/before-390x844-1-top.png",
@@ -84,7 +84,7 @@
     {
       "path": "proof/screenshots/after-390x844-home.png",
       "kind": "screenshot",
-      "shows": "After, 390x844, the Home section after a thumbs up on the first concept and a thumbs down on the second: each wide strip is a 4:3 tile cropped sharply around its desktop mockup, with thumb counts in the caption"
+      "shows": "After, 390x844, the Home section after a thumbs up on the first concept and a thumbs down on the second: whole strips edge to edge, thumb counts in the captions"
     },
     {
       "path": "proof/screenshots/after-390x844-viewer-thumbs.png",
@@ -109,7 +109,7 @@
     {
       "path": "proof/screenshots/after-844x390-home.png",
       "kind": "screenshot",
-      "shows": "After, 844x390, the Home section after a thumbs up on the first concept and a thumbs down on the second: wide strips stay whole at this width, with thumb counts in the caption"
+      "shows": "After, 844x390, the Home section after a thumbs up on the first concept and a thumbs down on the second: whole strips with thumb counts in the captions"
     },
     {
       "path": "proof/screenshots/after-844x390-viewer-thumbs.png",
@@ -134,7 +134,7 @@
     {
       "path": "proof/screenshots/after-1280x800-home.png",
       "kind": "screenshot",
-      "shows": "After, 1280x800, the Home section after a thumbs up on the first concept and a thumbs down on the second: wide strips whole, one per row, with thumb counts in the caption"
+      "shows": "After, 1280x800, the Home section after a thumbs up on the first concept and a thumbs down on the second: whole strips, one per row, with thumb counts in the captions"
     },
     {
       "path": "proof/screenshots/after-1280x800-viewer-thumbs.png",
