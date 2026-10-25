@@ -1,0 +1,800 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#06121f" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Prototype review · Captain's Academy</title>
+    <style>
+      /* The prototype review gallery (issue #72). An internal design review: it
+         uses the site's own neutral colors so no concept's palette is favored. */
+      :root {
+        --bg: #f4f1e8;
+        --card: #ffffff;
+        --ink: #0b1f33;
+        --muted: #33475b;
+        --line: #b9c2cc;
+        --soft: #e8e4d8;
+        --accent: #1d4f80;
+        --bar: #3a6f9f;
+        --warn-bg: #fff4d6;
+        --warn-line: #8a6400;
+        --stage: #d9dde2;
+        color-scheme: light dark;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #06121f;
+          --card: #0d2236;
+          --ink: #eef2f6;
+          --muted: #b4c0cc;
+          --line: #2b4560;
+          --soft: #12293f;
+          --accent: #8cc4f5;
+          --bar: #79aedc;
+          --warn-bg: #2b2310;
+          --warn-line: #d9b45a;
+          --stage: #020a13;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: var(--bg);
+        color: var(--ink);
+        font:
+          16px/1.45 system-ui,
+          -apple-system,
+          'Segoe UI',
+          sans-serif;
+        -webkit-text-size-adjust: 100%;
+      }
+      main {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+          max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      a {
+        color: var(--accent);
+      }
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        line-height: 1.2;
+      }
+      h1 {
+        font-size: 26px;
+      }
+      h2 {
+        font-size: 20px;
+      }
+      h3 {
+        font-size: 16px;
+      }
+      p {
+        margin: 0;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .top {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 8px;
+      }
+      .notice {
+        background: var(--warn-bg);
+        border: 2px solid var(--warn-line);
+        border-radius: 12px;
+        padding: 12px 14px;
+      }
+      .notice ul {
+        margin: 6px 0 0;
+        padding-left: 20px;
+      }
+      button,
+      select,
+      input,
+      textarea {
+        font: inherit;
+        color: inherit;
+      }
+      button,
+      .button {
+        min-height: 44px;
+        padding: 8px 14px;
+        border: 2px solid var(--line);
+        border-radius: 10px;
+        background: var(--card);
+        cursor: pointer;
+        touch-action: manipulation;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+      button:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+      button.primary {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: var(--bg);
+        font-weight: 600;
+      }
+      :focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px;
+      }
+      input[type='text'],
+      select,
+      textarea {
+        min-height: 44px;
+        padding: 8px 10px;
+        border: 2px solid var(--line);
+        border-radius: 10px;
+        background: var(--card);
+      }
+      textarea {
+        width: 100%;
+        font-weight: 400;
+        min-height: 88px;
+        resize: vertical;
+      }
+      label {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-weight: 600;
+      }
+      label.inline {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        font-weight: 400;
+        min-height: 44px;
+      }
+      .reviewer {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        gap: 12px;
+        background: var(--card);
+        border: 2px solid var(--line);
+        border-radius: 12px;
+        padding: 12px 14px;
+      }
+      .reviewer label {
+        flex: 1 1 220px;
+      }
+      .saved-where {
+        font-weight: 600;
+      }
+      .saved-where[data-state='memory'] {
+        color: var(--warn-line);
+      }
+      .tabs {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 6px;
+        max-width: 560px;
+      }
+      .tabs button {
+        padding: 8px 4px;
+      }
+      .tabs button[aria-current='page'] {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: var(--bg);
+      }
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: end;
+      }
+      .filters label {
+        flex: 1 1 200px;
+        max-width: 320px;
+      }
+      .count {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+      }
+      .grid {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 16px;
+      }
+      .card {
+        display: flex;
+        flex-direction: column;
+        background: var(--card);
+        border: 2px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .card .open {
+        all: unset;
+        cursor: pointer;
+        display: block;
+      }
+      .card .open:focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: -3px;
+      }
+      .thumb {
+        display: block;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: contain;
+        background: var(--stage);
+      }
+      .card .body {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 10px 12px 12px;
+        flex: 1;
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .tag {
+        font-size: 13px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: var(--soft);
+      }
+      .tag.kind {
+        font-weight: 600;
+      }
+      .card .foot {
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+      .empty {
+        padding: 24px;
+        text-align: center;
+        border: 2px dashed var(--line);
+        border-radius: 12px;
+      }
+      section > h2 + p {
+        margin-top: 4px;
+      }
+      .stack {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .compare {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      @media (min-width: 900px) {
+        .compare[data-count='2'] {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .compare[data-count='3'] {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .compare[data-count='4'] {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (min-width: 1400px) {
+        .compare[data-count='4'] {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+      .compare figure {
+        margin: 0;
+        background: var(--card);
+        border: 2px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      .compare img {
+        display: block;
+        width: 100%;
+        height: auto;
+        background: var(--stage);
+      }
+      .compare figcaption {
+        padding: 10px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .results {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .result {
+        display: grid;
+        grid-template-columns: 56px 96px 1fr;
+        gap: 12px;
+        align-items: start;
+        background: var(--card);
+        border: 2px solid var(--line);
+        border-radius: 12px;
+        padding: 12px;
+      }
+      .rank {
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+      }
+      .rank small {
+        display: block;
+        font-size: 12px;
+        font-weight: 400;
+        color: var(--muted);
+      }
+      .result .thumb {
+        aspect-ratio: 4 / 3;
+        border-radius: 6px;
+      }
+      .result .detail {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-width: 0;
+      }
+      .score {
+        font-size: 18px;
+      }
+      .score strong {
+        font-size: 22px;
+      }
+      @media (max-width: 560px) {
+        .result {
+          grid-template-columns: 44px 1fr;
+        }
+        .result .thumb {
+          grid-column: 2;
+        }
+        .result .detail {
+          grid-column: 1 / -1;
+        }
+      }
+      .dist {
+        display: grid;
+        grid-template-columns: repeat(10, minmax(18px, 1fr));
+        gap: 2px;
+        max-width: 360px;
+        align-items: end;
+      }
+      .dist .col {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2px;
+      }
+      .dist .well {
+        height: 48px;
+        display: flex;
+        align-items: flex-end;
+        border-bottom: 1px solid var(--line);
+      }
+      .dist .bar {
+        width: 100%;
+        background: var(--bar);
+        border-radius: 4px 4px 0 0;
+      }
+      .dist .tick {
+        font-size: 12px;
+        text-align: center;
+        color: var(--muted);
+      }
+      .comments {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .comments li {
+        background: var(--soft);
+        border-radius: 8px;
+        padding: 8px 10px;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+      .comments b {
+        display: block;
+        white-space: normal;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+      }
+
+      /* The full-size viewer. */
+      dialog {
+        width: min(1200px, 100vw);
+        max-width: 100vw;
+        max-height: 100dvh;
+        height: 100dvh;
+        margin: 0 auto;
+        padding: 0;
+        border: 0;
+        background: var(--bg);
+        color: var(--ink);
+      }
+      @media (min-width: 900px) {
+        dialog {
+          height: calc(100dvh - 32px);
+          margin-top: 16px;
+          border-radius: 14px;
+          border: 2px solid var(--line);
+        }
+      }
+      dialog::backdrop {
+        background: rgb(0 0 0 / 0.7);
+      }
+      .viewer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      .viewer header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: max(10px, env(safe-area-inset-top)) 14px 10px;
+        border-bottom: 2px solid var(--line);
+      }
+      .viewer .scroll {
+        flex: 1;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+      }
+      .viewer .split {
+        display: flex;
+        flex-direction: column;
+      }
+      @media (min-width: 900px) {
+        .viewer .scroll {
+          overflow: hidden;
+        }
+        .viewer .split {
+          flex-direction: row;
+          height: 100%;
+        }
+        .viewer .stage {
+          flex: 1;
+          height: 100%;
+        }
+        .viewer .side {
+          width: 380px;
+          overflow-y: auto;
+          border-left: 2px solid var(--line);
+        }
+      }
+      .stage {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        background: var(--stage);
+      }
+      .zoom {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: center;
+        padding: 8px;
+        background: var(--card);
+        border-bottom: 1px solid var(--line);
+      }
+      .zoom output {
+        min-width: 52px;
+        text-align: center;
+      }
+      .pane {
+        flex: 1;
+        overflow: auto;
+        max-height: 75vh;
+        display: flex;
+        align-items: safe center;
+        justify-content: safe center;
+        padding: 8px;
+      }
+      @media (min-width: 900px) {
+        .pane {
+          min-height: 0;
+          max-height: none;
+        }
+      }
+      .pane img {
+        display: block;
+        flex: none;
+      }
+      .pane[data-fit='true'] img {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+      }
+      @media (max-width: 899px) {
+        .pane[data-fit='true'] img {
+          max-height: 70vh;
+        }
+      }
+      .side {
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      dl.facts {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        gap: 4px 12px;
+        margin: 0;
+      }
+      dl.facts dt {
+        font-weight: 600;
+      }
+      dl.facts dd {
+        margin: 0;
+        overflow-wrap: anywhere;
+      }
+      fieldset {
+        border: 2px solid var(--line);
+        border-radius: 12px;
+        margin: 0;
+        padding: 10px 12px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      legend {
+        font-weight: 700;
+        padding: 0 4px;
+      }
+      .scale {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+      }
+      @media (min-width: 420px) and (max-width: 899px) {
+        .scale {
+          grid-template-columns: repeat(10, 1fr);
+        }
+      }
+      .scale label {
+        position: relative;
+        display: block;
+      }
+      .scale input {
+        position: absolute;
+        opacity: 0;
+        inset: 0;
+        margin: 0;
+      }
+      .scale span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        border: 2px solid var(--line);
+        border-radius: 10px;
+        background: var(--card);
+        font-weight: 700;
+      }
+      .scale input:checked + span {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: var(--bg);
+      }
+      .scale input:focus-visible + span {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px;
+      }
+      .anchors {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .status {
+        min-height: 1.45em;
+      }
+      .status[data-tone='error'] {
+        color: var(--warn-line);
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="top">
+        <h1>Prototype review</h1>
+        <a href="/">Captain's Academy home</a>
+      </div>
+
+      <div class="notice" role="note">
+        <strong>Internal design review, not for release.</strong>
+        <ul>
+          <li>
+            Compare the Claude and ChatGPT prototype images and rate how strongly you support each
+            visual direction. Elliott makes the final selection. Scores do not approve any
+            implementation.
+          </li>
+          <li>
+            Generated screens are visual concepts. Their lesson text and navigation diagrams require
+            verification before instructional use.
+          </li>
+        </ul>
+      </div>
+
+      <div class="reviewer">
+        <label>
+          Your name
+          <input
+            id="reviewer"
+            type="text"
+            autocomplete="name"
+            maxlength="60"
+            placeholder="Shown with your ratings"
+          />
+        </label>
+        <p id="saved-where" class="saved-where" data-state="device">Saved on this device</p>
+      </div>
+
+      <nav class="tabs" aria-label="Review sections">
+        <button type="button" data-tab="gallery">Gallery</button>
+        <button type="button" data-tab="compare">Compare <span id="compare-count"></span></button>
+        <button type="button" data-tab="results">Results</button>
+        <button type="button" data-tab="reference">Reference</button>
+      </nav>
+
+      <div class="filters" id="filters">
+        <label>
+          Style
+          <select id="filter-style"></select>
+        </label>
+        <label>
+          Screen or feature
+          <select id="filter-feature"></select>
+        </label>
+        <p class="count muted" id="filter-count" aria-live="polite"></p>
+      </div>
+
+      <section id="tab-gallery" class="stack" aria-labelledby="gallery-title">
+        <h2 id="gallery-title" class="sr-only">Gallery</h2>
+        <p class="muted" id="progress"></p>
+        <ul class="grid" id="gallery"></ul>
+      </section>
+
+      <section id="tab-compare" class="stack" aria-labelledby="compare-title" hidden>
+        <div class="top">
+          <h2 id="compare-title">Compare</h2>
+          <button type="button" id="compare-clear">Clear comparison</button>
+        </div>
+        <p class="muted">
+          Pick two to four images with the Compare box on each card. They sit side by side on a wide
+          screen and one after another on a phone.
+        </p>
+        <div class="compare" id="compare"></div>
+      </section>
+
+      <section id="tab-results" class="stack" aria-labelledby="results-title" hidden>
+        <h2 id="results-title">Results</h2>
+        <p id="results-scope" class="saved-where"></p>
+        <p class="muted">
+          An item's results stay hidden until you rate it yourself, so your score is your own. Tied
+          items share a rank (shown as =2) and stay in gallery order; the number of reviewers never
+          breaks a tie. Elliott makes the final selection. Scores do not approve any implementation.
+        </p>
+        <div class="actions">
+          <button type="button" id="export-mine">Export my ratings</button>
+          <button type="button" id="export-all">Export all ratings on this device</button>
+          <label class="button" for="import-file">Import a ratings file</label>
+          <input id="import-file" class="sr-only" type="file" accept="application/json,.json" />
+        </div>
+        <p id="import-status" class="status" aria-live="polite"></p>
+        <p id="results-note" class="muted"></p>
+        <ol class="results" id="results"></ol>
+        <div id="results-hidden" class="stack"></div>
+      </section>
+
+      <section id="tab-reference" class="stack" aria-labelledby="reference-title" hidden>
+        <h2 id="reference-title">Reference</h2>
+        <p class="muted">
+          Comparison boards, decks, wireframes and documents. They are not rated, so the concepts on
+          a board are never counted twice: each is rated once in the gallery as an extracted detail.
+        </p>
+        <ul class="grid" id="reference"></ul>
+        <h2>Interactive example</h2>
+        <ul class="grid" id="interactive"></ul>
+        <h2>Unavailable</h2>
+        <p class="muted">Listed by name in the ChatGPT set, but no image of them was supplied.</p>
+        <ul id="unavailable"></ul>
+      </section>
+    </main>
+
+    <dialog id="viewer" aria-labelledby="viewer-title">
+      <div class="viewer">
+        <header>
+          <h2 id="viewer-title"></h2>
+          <button type="button" id="viewer-close" aria-label="Close">Close</button>
+        </header>
+        <div class="scroll">
+          <div class="split">
+            <div class="stage">
+              <div class="zoom" role="group" aria-label="Zoom">
+                <button type="button" id="zoom-fit">Fit</button>
+                <button type="button" id="zoom-actual">100%</button>
+                <button type="button" id="zoom-out" aria-label="Zoom out">−</button>
+                <output id="zoom-level" aria-live="polite">Fit</output>
+                <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
+                <a id="viewer-original" class="button" target="_blank" rel="noopener"
+                  >Open original</a
+                >
+              </div>
+              <div class="pane" id="viewer-pane" data-fit="true">
+                <img id="viewer-image" alt="" />
+              </div>
+            </div>
+            <div class="side" id="viewer-side"></div>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <script type="module" src="/src/prototypes/main.ts"></script>
+  </body>
+</html>

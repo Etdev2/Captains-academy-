@@ -40,9 +40,18 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+// The internal prototype review gallery at /prototypes (issue #72) works
+// online only. Its review images add up to tens of megabytes, so neither the
+// page nor anything it loads goes into the offline cache.
+function isPrototypeReview(request) {
+  const under = (url) => url !== '' && new URL(url).pathname.startsWith('/prototypes/');
+  return under(request.url) || under(request.referrer);
+}
+
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   if (request.method !== 'GET' || new URL(request.url).origin !== self.location.origin) return;
+  if (isPrototypeReview(request)) return;
 
   if (request.mode === 'navigate') {
     event.respondWith(

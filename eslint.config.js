@@ -45,6 +45,7 @@ export default tseslint.config(
       'src/log/**',
       'src/store/**',
       'src/offline/**',
+      'src/prototypes/**',
       'e2e/**',
     ],
     languageOptions: { globals: { ...globals.browser } },
