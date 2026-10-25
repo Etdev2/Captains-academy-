@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#72",
-  "sourceDigest": "sha256:4dff119b8635f638b356388cfe1da4bb3d4f6fc52f7cf177a11442c51577aeb2",
-  "capturedAt": "2026-10-25T15:51:59Z",
+  "sourceDigest": "sha256:1c4353c6606802d76f052a9387864fb3b4aba61dcdb538ebfcfbf2d6be0a2a5f",
+  "capturedAt": "2026-10-25T17:58:49Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "The 76-item docs/prototypes/inventory.json against the production build served by vite preview, on desktop Chrome, Pixel 7 landscape and Pixel 7 portrait"
+    "fixture": "The 76-item docs/prototypes/inventory.json on the decision board, built by vite build and served by vite preview, on desktop Chrome, Pixel 7 landscape and Pixel 7 portrait"
   },
   "commands": [
     {
@@ -19,57 +19,57 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh passes: inventory and ratings unit tests, and e2e/prototypes.spec.ts proving every image loads at its file size, the viewer keeps proportions and closes with Escape, filters and compare work, ratings save, edit, survive refresh, tie and import correctly, comments render as text, and the offline cache skips the gallery"
+      "shows": "verify.sh passes: the board's rules in tests/decision-board.test.ts, the inventory checks, and e2e/prototypes.spec.ts proving every image loads at its file size, dots land where clicked with five per reviewer, others' dots stay hidden until you finish, heat ties share a rank, only the decider makes the call, notes render as text, export and import work, the page fits a phone, the offline cache skips it and axe finds no violations; the game's own tests still pass"
     },
     {
-      "path": "proof/screenshots/desktop-1-gallery.png",
+      "path": "proof/screenshots/desktop-1-look.png",
       "kind": "screenshot",
-      "shows": "Desktop gallery: the internal-review notice, the \"Saved on this device\" label, the four tabs, style and feature filters, and extracted-detail cards"
+      "shows": "Desktop, step 1: the notice, the step picker, filters, concept cards and the notes, heat and decider panels"
     },
     {
-      "path": "proof/screenshots/desktop-2-viewer-rated.png",
+      "path": "proof/screenshots/desktop-2-voting.png",
       "kind": "screenshot",
-      "shows": "Desktop viewer: the fitted original image, the visual-concept caution, the extracted-detail link to its board, and a saved 8 of 10 rating with the exact question and anchors"
+      "shows": "Desktop, step 2: dots dropped where clicked, the dots-left counter and Done voting; another reviewer's imported dots still hidden"
     },
     {
-      "path": "proof/screenshots/desktop-3-compare.png",
+      "path": "proof/screenshots/desktop-3-discuss.png",
       "kind": "screenshot",
-      "shows": "Desktop compare: three picked concepts side by side"
+      "shows": "Desktop, step 3: every reviewer's dots on the cards and the heat ranking with tied ranks shown as =3"
     },
     {
-      "path": "proof/screenshots/desktop-4-results.png",
+      "path": "proof/screenshots/desktop-4-viewer.png",
       "kind": "screenshot",
-      "shows": "Desktop results after importing a second reviewer: averages with n beside each, score spreads, a tie shown as =2, a comment containing <b> shown as text, and 52 items hidden until rated"
+      "shows": "Desktop full-size viewer: the original image with dots, the visual-concept caution, the source-board link and a reviewer's note"
     },
     {
-      "path": "proof/screenshots/desktop-5-reference.png",
+      "path": "proof/screenshots/desktop-5-decided.png",
       "kind": "screenshot",
-      "shows": "Desktop reference: the four comparison boards and other unrated material, the private Night Harbor Run link, and the three unavailable styles"
+      "shows": "Desktop, step 4: the decider's call and reason shown at the top of the board"
     },
     {
-      "path": "proof/screenshots/phone-1-gallery.png",
+      "path": "proof/screenshots/phone-1-look.png",
       "kind": "screenshot",
-      "shows": "iPhone 13 gallery: the notice, name field and the four tabs fitting the width"
+      "shows": "iPhone 13, step 1: the board fits the phone width"
     },
     {
-      "path": "proof/screenshots/phone-2-viewer-rated.png",
+      "path": "proof/screenshots/phone-2-voting.png",
       "kind": "screenshot",
-      "shows": "iPhone 13 viewer with a saved rating"
+      "shows": "iPhone 13, step 2: the step picker wraps under the steps"
     },
     {
-      "path": "proof/screenshots/phone-3-compare.png",
+      "path": "proof/screenshots/phone-3-discuss.png",
       "kind": "screenshot",
-      "shows": "iPhone 13 compare: the picked concepts one after another"
+      "shows": "iPhone 13, step 3: dotted cards and the heat"
     },
     {
-      "path": "proof/screenshots/phone-4-results.png",
+      "path": "proof/screenshots/phone-4-viewer.png",
       "kind": "screenshot",
-      "shows": "iPhone 13 results with the imported reviewer, a tie and comments"
+      "shows": "iPhone 13 viewer with dots and a note"
     },
     {
-      "path": "proof/screenshots/phone-5-reference.png",
+      "path": "proof/screenshots/phone-5-decided.png",
       "kind": "screenshot",
-      "shows": "iPhone 13 reference section"
+      "shows": "iPhone 13, step 4: the decision at the top"
     }
   ]
 }
