@@ -4,7 +4,9 @@ import { z } from 'zod';
 // follows the Design Sprint "decide" steps: everyone looks in silence, places
 // a limited number of dots on what they like, the team discusses the dotted
 // concepts, and the decider makes the call with a written reason. Dots point
-// the discussion; they never pick the winner.
+// the discussion; they never pick the winner. Alongside the dots, a reviewer
+// can give any concept a thumbs up or down, a quick yes or no that shows next
+// to the dots and, like them, stays hidden from others until they finish.
 //
 // Pure data in and data out, so the rules are tested without a browser. Ids and
 // times come from the caller.
@@ -42,11 +44,21 @@ const noteSchema = z
     at: iso,
   })
   .strict();
+export const thumbValues = ['up', 'down'] as const;
+export type ThumbValue = (typeof thumbValues)[number];
+const thumbSchema = z
+  .object({
+    itemId: z.string().min(1).max(120),
+    value: z.enum(thumbValues),
+  })
+  .strict();
 const reviewerSchema = z
   .object({
     reviewer: z.string().trim().min(1).max(MAX_NAME),
     dots: z.array(dotSchema).max(DOTS_PER_REVIEWER),
     notes: z.array(noteSchema).max(500),
+    // Boards and files saved before thumbs existed have none.
+    thumbs: z.array(thumbSchema).max(500).default([]),
     doneVoting: z.boolean(),
     updatedAt: iso,
   })
@@ -81,6 +93,7 @@ const fileSchema = z
 
 export type Dot = z.infer<typeof dotSchema>;
 export type Note = z.infer<typeof noteSchema>;
+export type Thumb = z.infer<typeof thumbSchema>;
 export type ReviewerEntry = z.infer<typeof reviewerSchema>;
 export type Decision = z.infer<typeof decisionSchema>;
 export type BoardState = z.infer<typeof stateSchema>;
@@ -128,6 +141,7 @@ function withEntry(
     reviewer: name,
     dots: [],
     notes: [],
+    thumbs: [],
     doneVoting: false,
     updatedAt: at,
   };
@@ -256,6 +270,61 @@ export function heat(state: BoardState, itemIds: readonly string[]): Heat[] {
   ];
 }
 
+/**
+ * Gives a concept this reviewer's thumbs up or down, replacing their earlier
+ * one; null takes it back. Open in every step before the decider's call.
+ */
+export function setThumb(
+  state: BoardState,
+  reviewer: string,
+  thumb: { itemId: string; value: ThumbValue | null },
+  at: string,
+  known: readonly string[],
+): BoardState {
+  if (state.phase === 'decide')
+    throw new BoardError('Thumbs are closed while the decider decides.');
+  if (!known.includes(thumb.itemId)) throw new BoardError('That concept is not on this board.');
+  return withEntry(state, reviewer, at, (e) => {
+    const rest = e.thumbs.filter((t) => t.itemId !== thumb.itemId);
+    return {
+      ...e,
+      thumbs: thumb.value === null ? rest : [...rest, { itemId: thumb.itemId, value: thumb.value }],
+    };
+  });
+}
+
+/** This reviewer's own thumb on a concept, if any. */
+export const myThumb = (
+  state: BoardState,
+  reviewer: string,
+  itemId: string,
+): ThumbValue | undefined =>
+  entryOf(state, reviewer)?.thumbs.find((t) => t.itemId === itemId)?.value;
+
+export interface ThumbCount {
+  readonly up: number;
+  readonly down: number;
+}
+
+/**
+ * The thumbs on a concept this reviewer may see: their own always, others'
+ * under the same rule as dots.
+ */
+export function visibleThumbs(state: BoardState, reviewer: string, itemId: string): ThumbCount {
+  const key = reviewerKey(reviewer);
+  const others = canSeeOthers(state, reviewer);
+  let up = 0;
+  let down = 0;
+  for (const r of state.reviewers) {
+    const mine = key !== '' && reviewerKey(r.reviewer) === key;
+    if (!mine && !others) continue;
+    const t = r.thumbs.find((x) => x.itemId === itemId);
+    if (t?.value === 'up') up++;
+    if (t?.value === 'down') down++;
+  }
+  return { up, down };
+}
+
 export function addNote(
   state: BoardState,
   reviewer: string,
@@ -314,7 +383,7 @@ export function decide(
   };
 }
 
-/** A board file. With a reviewer, only that reviewer's dots and notes go in it. */
+/** A board file. With a reviewer, only that reviewer's dots, thumbs and notes go in it. */
 export function exportBoard(
   state: BoardState,
   reviewer: string | undefined,
@@ -338,7 +407,7 @@ export interface ImportResult {
   readonly added: number;
   /** Reviewers whose newer copy replaced this device's. */
   readonly updated: number;
-  /** Dots and notes on concepts this board does not list. */
+  /** Dots, thumbs and notes on concepts this board does not list. */
   readonly skipped: number;
 }
 
@@ -374,8 +443,15 @@ export function importBoard(
   for (const incoming of file.reviewers) {
     const dots = incoming.dots.filter((d) => known.includes(d.itemId));
     const notes = incoming.notes.filter((n) => known.includes(n.itemId));
-    skipped += incoming.dots.length - dots.length + incoming.notes.length - notes.length;
-    const clean = { ...incoming, dots, notes };
+    const thumbs = incoming.thumbs.filter((t) => known.includes(t.itemId));
+    skipped +=
+      incoming.dots.length -
+      dots.length +
+      incoming.notes.length -
+      notes.length +
+      incoming.thumbs.length -
+      thumbs.length;
+    const clean = { ...incoming, dots, notes, thumbs };
     const at = reviewers.findIndex(
       (r) => reviewerKey(r.reviewer) === reviewerKey(incoming.reviewer),
     );

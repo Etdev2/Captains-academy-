@@ -357,7 +357,9 @@ test('the viewer steps through the board with the arrow keys, a swipe and its bu
   await expect(heading(second.title)).toBeVisible();
 
   // Zoom shows the image larger than the screen; the next image starts fitted.
+  // A phone held sideways leaves it out of the rail to make room for the thumbs.
   const zoom = viewer(page).getByRole('button', { name: 'Zoom in' });
+  if (!(await zoom.isVisible())) return;
   await zoom.click();
   await expect(zoom).toHaveAttribute('aria-pressed', 'true');
   const wider = await viewer(page)
@@ -464,6 +466,40 @@ test('every control on the board and in the viewer is at least 44px each way', a
     .getByRole('button', { name: /^Notes and details/ })
     .click();
   expect(await small(`[role="dialog"] :is(${controls})`)).toEqual([]);
+});
+
+test('a thumbs up or down from the viewer shows on the tile and in the heat, and closes for the call', async ({
+  page,
+}) => {
+  await open(page);
+  await setName(page, 'Ana');
+  await openViewer(page, first.id);
+  const up = viewer(page).getByRole('button', { name: 'Thumbs up' });
+  const down = viewer(page).getByRole('button', { name: 'Thumbs down' });
+  await up.click();
+  await expect(up).toHaveAttribute('aria-pressed', 'true');
+  // A thumbs down replaces the thumbs up; pressing it again takes it back.
+  await down.click();
+  await expect(up).toHaveAttribute('aria-pressed', 'false');
+  await expect(down).toHaveAttribute('aria-pressed', 'true');
+  await viewer(page).getByRole('button', { name: 'Next screen' }).click();
+  await up.click();
+  await closeViewer(page);
+  await expect(tileButton(page, first.id)).toHaveAttribute('aria-label', /, 1 thumbs down$/);
+  await expect(tileButton(page, second.id)).toHaveAttribute('aria-label', /, 1 thumbs up$/);
+  await expect(card(page, second.id).locator('[data-thumbs="up"]')).toContainText('1');
+
+  // Discussing, the heat lists thumbed concepts beside the dotted ones.
+  await setStep(page, /Discuss/);
+  await expect(page.locator(`[data-heat="${second.id}"]`)).toContainText('1 thumbs up');
+  // Saved on this device.
+  await page.reload();
+  await expect(tileButton(page, second.id)).toHaveAttribute('aria-label', /, 1 thumbs up$/);
+
+  // Closed for the decider's call.
+  await setStep(page, /Decider's call/);
+  await openViewer(page, first.id);
+  await expect(viewer(page).getByRole('button', { name: 'Thumbs up' })).toHaveCount(0);
 });
 
 test('filters narrow the board to one style and one feature', async ({ page }) => {

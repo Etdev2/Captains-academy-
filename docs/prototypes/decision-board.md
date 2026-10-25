@@ -10,6 +10,7 @@ The board follows the "decide" steps of Google Ventures' Design Sprint. Whoever 
 
 1. **Look silently.** Everyone looks through the concepts and writes sticky notes. Nobody can place a dot yet.
 2. **Dot vote.** Each reviewer has 5 dots. Open a concept, then tap a spot on its image to drop a dot there, so the dots build a heat map of what people like. The Add a dot button puts a dot in the middle of the image for keyboard and screen-reader users. Two dots may go on the same concept. Tapping your own dot takes it back. Dots show on the tiles too. Other people's dots stay hidden until you press Done voting or place all 5, so nobody follows the crowd.
+   Alongside the dots, the viewer's thumbs up and thumbs down buttons give a quick yes or no on any concept, in every step before the decider's call. Each reviewer has one thumb per concept; a new one replaces it and pressing it again takes it back. Thumbs show on the tiles and in the heat panel, and others' thumbs stay hidden under the same rule as their dots. They point the discussion and do not change the ranking, which counts dots.
 3. **Discuss top dots.** Everyone sees every dot. The heat panel ranks concepts by dots, and concepts with the same number share a rank, shown as "=3". Only dotted concepts narrows the board to what people chose.
 4. **Decider's call.** Only the decider, Elliott, can pick one concept and write why. The decision shows at the top of the board and goes to a build ticket next.
 
