@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#72",
-  "sourceDigest": "sha256:a03f81591352489e501c65b200bad25e53ccd43c4f98724fa94b9593dadfc901",
-  "capturedAt": "2026-10-25T20:13:26Z",
+  "sourceDigest": "sha256:6bb7113ffd7d9a92437572d50b9bd240a60c225335a5cf3116a04ada1d315b93",
+  "capturedAt": "2026-10-25T20:48:10Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
@@ -19,7 +19,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh passes: tsc, ESLint, Prettier, 375 Vitest tests including tests/prototype-sections.test.ts (every concept placed once, every tile labeled), vite build, 190 Playwright tests including e2e/prototypes.spec.ts proving tiles open a full-screen viewer that steps by arrow keys, swipe and buttons, dots land where tapped there, sections stick, images keep their space with no layout shift, the first screen loads eagerly, every control is 44px, nothing overflows a phone and axe finds no violations on the board, the viewer and its notes sheet; the game's tests still pass; npm audit"
+      "shows": "verify.sh passes: tsc, ESLint, Prettier, Vitest including tests/decision-board.test.ts (thumbs: one per reviewer per concept, replaced or taken back, closed for the call, hidden like dots, old boards still load, unlisted ones skipped on import) and tests/prototype-sections.test.ts (every concept placed once, every tile labeled, a 4:3 crop file for each wide strip cut where the page expects it), vite build, and Playwright including e2e/prototypes.spec.ts proving tiles open a full-screen viewer that steps by arrow keys, swipe and buttons, dots land where tapped, thumbs show on tiles and in the heat, wide strips fill a 4:3 tile from their crop on phones and stay whole on desktop and in the viewer, sections stick, no layout shift, the first screen loads eagerly, every control is 44px, nothing overflows a phone and axe finds no violations; the game's tests still pass; npm audit"
     },
     {
       "path": "proof/screenshots/before-390x844-1-top.png",
@@ -79,7 +79,17 @@
     {
       "path": "proof/screenshots/after-390x844-3-viewer.png",
       "kind": "screenshot",
-      "shows": "After, 390x844, the viewer open on the first concept: full-screen viewer: close and title on top, the image fitted, Previous, Notes, Zoom and Next below"
+      "shows": "After, 390x844, the viewer open on the first concept: full-screen viewer: close and title on top, the image fitted, Previous, thumbs, Notes, Zoom and Next below"
+    },
+    {
+      "path": "proof/screenshots/after-390x844-home.png",
+      "kind": "screenshot",
+      "shows": "After, 390x844, the Home section after a thumbs up on the first concept and a thumbs down on the second: each wide strip is a 4:3 tile cropped sharply around its desktop mockup, with thumb counts in the caption"
+    },
+    {
+      "path": "proof/screenshots/after-390x844-viewer-thumbs.png",
+      "kind": "screenshot",
+      "shows": "After, 390x844, the viewer on the second concept with its thumbs down pressed: the whole strip fitted, the filled thumbs down pressed in the bottom bar"
     },
     {
       "path": "proof/screenshots/after-844x390-1-top.png",
@@ -97,6 +107,16 @@
       "shows": "After, 844x390, the viewer open on the first concept: the image takes the full height with the controls in a rail at the right"
     },
     {
+      "path": "proof/screenshots/after-844x390-home.png",
+      "kind": "screenshot",
+      "shows": "After, 844x390, the Home section after a thumbs up on the first concept and a thumbs down on the second: wide strips stay whole at this width, with thumb counts in the caption"
+    },
+    {
+      "path": "proof/screenshots/after-844x390-viewer-thumbs.png",
+      "kind": "screenshot",
+      "shows": "After, 844x390, the viewer on the second concept with its thumbs down pressed: the image at full height, thumbs in the side rail"
+    },
+    {
       "path": "proof/screenshots/after-1280x800-1-top.png",
       "kind": "screenshot",
       "shows": "After, 1280x800, the top of the board: navy board with jump links per screen and the first Home strip"
@@ -110,6 +130,16 @@
       "path": "proof/screenshots/after-1280x800-3-viewer.png",
       "kind": "screenshot",
       "shows": "After, 1280x800, the viewer open on the first concept: full-screen viewer with the image fitted between a slim top bar and the control bar"
+    },
+    {
+      "path": "proof/screenshots/after-1280x800-home.png",
+      "kind": "screenshot",
+      "shows": "After, 1280x800, the Home section after a thumbs up on the first concept and a thumbs down on the second: wide strips whole, one per row, with thumb counts in the caption"
+    },
+    {
+      "path": "proof/screenshots/after-1280x800-viewer-thumbs.png",
+      "kind": "screenshot",
+      "shows": "After, 1280x800, the viewer on the second concept with its thumbs down pressed: the image fitted, thumbs up and down beside Previous in the bar"
     }
   ]
 }
