@@ -21,7 +21,7 @@ On branch `ux-ui/prototype-gallery`, draft PR #73:
 - The board's rules in `src/prototypes/board.ts`, with 14 unit tests in `tests/decision-board.test.ts`. The page's browser tests are in `e2e/prototypes.spec.ts` and run on a desktop, a landscape phone and an upright phone.
 - The service worker leaves the review page and its images out of the offline cache.
 
-Checked locally: TypeScript, ESLint, all 367 unit tests, and all 51 browser tests for the board and the front page passed. The full `scripts/verify.sh` run and the new proof bundle are still to do before PR #73 is ready for review. PR #73 stays a draft, because the coordinator merges non-draft pull requests and a merge publishes the page.
+`scripts/verify.sh` passes, and PR #73 carries a PASS proof bundle with screenshots of each step on a desktop and a phone. PR #73 stays a draft, because the coordinator merges non-draft pull requests and a merge publishes the page.
 
 ## Order of the next work
 
