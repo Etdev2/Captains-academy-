@@ -1,4 +1,4 @@
-import { StickyNote, ThumbsDown, ThumbsUp, Trash2 } from 'lucide-react';
+import { StickyNote, Trash2 } from 'lucide-react';
 import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -17,17 +17,15 @@ import {
   dotsLeft,
   heat,
   isDecider,
-  myThumb,
   reviewerKey,
   visibleDots,
-  visibleThumbs,
 } from './board';
 import { useBoard } from './BoardContext';
 import { DotImage } from './DotImage';
 import { Masonry } from './Masonry';
 import { categories, kindLabel, type Item } from './inventory';
-import { byId, conceptIds, cropUrl, ROUND, thumbUrl } from './round';
-import { cropOf, FOCUS, layout, order, shapeOf, tileIds, tileLabel, twinOf } from './sections';
+import { byId, conceptIds, ROUND, thumbUrl } from './round';
+import { layout, order, shapeOf, tileIds, tileLabel, twinOf } from './sections';
 
 /** The concepts with a tile of their own; desktop twins open from the viewer. */
 const tiles: readonly Item[] = tileIds().flatMap((id) => {
@@ -64,11 +62,8 @@ function Tile({
   const others = canSeeOthers(state, reviewer);
   const mine = shown.filter((d) => d.mine).length;
   const count = others ? shown.length : mine;
-  const thumbs = visibleThumbs(state, reviewer, item.id);
-  const myThumbValue = myThumb(state, reviewer, item.id);
   const label = tileLabel(item);
   const twin = twinOf(item.id);
-  const crop = as === 'grid' ? cropOf(item) : undefined;
   const tags = [
     item.style !== label && item.kind === 'concept' ? item.style : null,
     item.device,
@@ -77,72 +72,38 @@ function Tile({
   ].filter((t): t is string => t !== null);
   const dotText =
     count === 0 ? '' : others ? `, ${plural(count, 'dot')}` : `, your ${plural(count, 'dot')}`;
-  const thumbText = [
-    thumbs.up > 0 ? `, ${thumbs.up} thumbs up` : '',
-    thumbs.down > 0 ? `, ${thumbs.down} thumbs down` : '',
-  ].join('');
 
   return (
     <li
       className="tile-item"
       data-id={item.id}
       data-shape={shapeOf(item)}
-      style={
-        {
-          '--ratio': (item.width ?? 4) / (item.height ?? 3),
-          ...(crop && {
-            '--focus': `${FOCUS * 100}%`,
-            '--crop-left': `${crop.left * 100}%`,
-            '--crop-width': `${crop.width * 100}%`,
-          }),
-        } as React.CSSProperties
-      }
+      style={{ '--ratio': (item.width ?? 4) / (item.height ?? 3) } as React.CSSProperties}
     >
       <button
         type="button"
         className="tile"
         onClick={() => open(item, sequence)}
-        aria-label={`Open ${item.title}${thumbText}${dotText}`}
+        aria-label={`Open ${item.title}${dotText}`}
       >
         <span className="tile-media">
-          {/* A wide strip in a narrow tile is cropped to a taller frame around
-              its main screen; the viewer shows all of it. See board.css. */}
-          <span className="tile-crop">
-            <DotImage
-              item={item}
-              src={thumbUrl(item)}
-              narrowSrc={crop ? cropUrl(item) : undefined}
-              alt=""
-              label={item.title}
-              mode={as === 'row' ? 'row' : 'tile'}
-              loading={eager ? 'eager' : 'lazy'}
-              priority={eager}
-            />
-          </span>
+          <DotImage
+            item={item}
+            src={thumbUrl(item)}
+            alt=""
+            label={item.title}
+            mode={as === 'row' ? 'row' : 'tile'}
+            loading={eager ? 'eager' : 'lazy'}
+            priority={eager}
+          />
         </span>
         <span className="tile-caption">
           <span className="tile-label">{label}</span>
           <span className="tile-tags">{tags.join(' · ')}</span>
-          {(count > 0 || thumbs.up > 0 || thumbs.down > 0) && (
+          {count > 0 && (
             <span className="tile-count" data-count aria-hidden>
-              {thumbs.up > 0 && (
-                <span className="tile-thumb" data-mine={myThumbValue === 'up'} data-thumbs="up">
-                  <ThumbsUp className="size-3.5" />
-                  {thumbs.up}
-                </span>
-              )}
-              {thumbs.down > 0 && (
-                <span className="tile-thumb" data-mine={myThumbValue === 'down'} data-thumbs="down">
-                  <ThumbsDown className="size-3.5" />
-                  {thumbs.down}
-                </span>
-              )}
-              {count > 0 && (
-                <span className="tile-thumb">
-                  <span className="dot size-2.5" />
-                  {count}
-                </span>
-              )}
+              <span className="dot size-2.5" />
+              {count}
             </span>
           )}
         </span>
@@ -320,26 +281,23 @@ function NotesPanel() {
 function HeatPanel() {
   const { state, reviewer, open } = useBoard();
   const visible = canSeeOthers(state, reviewer);
-  // Ranked by dots; concepts with only thumbs follow, unranked.
-  const rows = heat(state, conceptIds)
-    .map((h) => ({ ...h, thumbs: visibleThumbs(state, reviewer, h.itemId) }))
-    .filter((h) => h.dots > 0 || h.thumbs.up > 0 || h.thumbs.down > 0);
+  const rows = heat(state, conceptIds).filter((h) => h.dots > 0);
   const max = Math.max(1, ...rows.map((r) => r.dots));
-  const voters = state.reviewers.filter((r) => r.dots.length > 0 || r.thumbs.length > 0).length;
+  const voters = state.reviewers.filter((r) => r.dots.length > 0).length;
   return (
     <Card className="gap-3">
       <CardHeader>
         <CardTitle>Heat so far</CardTitle>
         <CardDescription>
           {visible
-            ? `Dots and thumbs from ${plural(voters, 'reviewer')} on this device. They point the discussion. They do not pick the winner.`
+            ? `Dots from ${plural(voters, 'reviewer')} on this device. Dots point the discussion. They do not pick the winner.`
             : 'Shown once you finish voting, so you vote without seeing the crowd.'}
         </CardDescription>
       </CardHeader>
       {visible && (
         <CardContent>
           {rows.length === 0 ? (
-            <p className="text-sm text-muted-foreground">No dots or thumbs yet.</p>
+            <p className="text-sm text-muted-foreground">No dots yet.</p>
           ) : (
             <ol className="flex flex-col gap-2" aria-label="Concepts by dots">
               {rows.slice(0, 10).map((r) => {
@@ -347,21 +305,15 @@ function HeatPanel() {
                 return (
                   <li
                     key={r.itemId}
-                    className="grid grid-cols-[2.25rem_1fr_auto_2rem] items-center gap-2 text-sm"
+                    className="grid grid-cols-[2.25rem_1fr_2rem] items-center gap-2 text-sm"
                     data-heat={r.itemId}
                   >
                     <span className="font-semibold tabular-nums">
-                      {r.rank === null ? (
-                        <span title="No dots">·</span>
-                      ) : r.tied ? (
-                        `=${r.rank}`
-                      ) : (
-                        r.rank
-                      )}
+                      {r.tied ? `=${r.rank}` : r.rank}
                     </span>
                     <button
                       type="button"
-                      className="flex min-h-11 min-w-0 flex-col justify-center gap-1 text-left"
+                      className="flex min-w-0 flex-col gap-1 text-left"
                       onClick={() => item && open(item)}
                     >
                       <span className="truncate">{item?.title}</span>
@@ -375,15 +327,6 @@ function HeatPanel() {
                         />
                       </span>
                     </button>
-                    <span className="heat-thumbs" data-thumbs-up={r.thumbs.up}>
-                      <ThumbsUp className="size-3.5" aria-hidden />
-                      <span aria-hidden>{r.thumbs.up}</span>
-                      <ThumbsDown className="size-3.5" aria-hidden />
-                      <span aria-hidden>{r.thumbs.down}</span>
-                      <span className="sr-only">
-                        {r.thumbs.up} thumbs up, {r.thumbs.down} thumbs down
-                      </span>
-                    </span>
                     <span
                       className="text-right font-medium tabular-nums"
                       title={`${plural(r.reviewers, 'reviewer')}`}

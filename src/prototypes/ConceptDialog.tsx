@@ -4,8 +4,6 @@ import {
   CirclePlus,
   ExternalLink,
   StickyNote,
-  ThumbsDown,
-  ThumbsUp,
   X,
   ZoomIn,
   ZoomOut,
@@ -21,15 +19,7 @@ import {
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import {
-  canSeeOthers,
-  DOTS_PER_REVIEWER,
-  dotsLeft,
-  MAX_NOTE,
-  myThumb,
-  reviewerKey,
-  type ThumbValue,
-} from './board';
+import { canSeeOthers, DOTS_PER_REVIEWER, dotsLeft, MAX_NOTE, reviewerKey } from './board';
 import { useBoard, type BoardApi } from './BoardContext';
 import { kindOf } from './BoardView';
 import { DotImage } from './DotImage';
@@ -230,18 +220,8 @@ const typing = (target: EventTarget | null) =>
   (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName));
 
 export function ConceptDialog() {
-  const {
-    opened,
-    sequence,
-    close,
-    open,
-    returnFocus,
-    state,
-    reviewer,
-    placeDot,
-    setThumb,
-    message,
-  } = useBoard();
+  const { opened, sequence, close, open, returnFocus, state, reviewer, placeDot, message } =
+    useBoard();
   const item = opened;
   const [sheet, setSheet] = React.useState(false);
   // Zoomed, the image shows at two and a half times its fitted size and scrolls,
@@ -259,11 +239,6 @@ export function ConceptDialog() {
   const src = item ? imageUrl(item) : undefined;
   const voting = state.phase === 'vote' && item !== null && isReviewable(item);
   const left = dotsLeft(state, reviewer);
-  const thumbsOpen = item !== null && isReviewable(item) && state.phase !== 'decide';
-  const mine = item ? myThumb(state, reviewer, item.id) : undefined;
-  const thumb = (value: ThumbValue) => {
-    if (item) setThumb(item.id, mine === value ? null : value);
-  };
   const noteCount = item ? notesFor(state, reviewer, item.id).length : 0;
 
   // The page's own header and anything floating over it stay hidden while the
@@ -415,30 +390,6 @@ export function ConceptDialog() {
                 <ChevronLeft aria-hidden />
                 <span className="bar-text">Previous</span>
               </Button>
-              {thumbsOpen && (
-                <>
-                  <Button
-                    variant={mine === 'up' ? 'secondary' : 'ghost'}
-                    onClick={() => thumb('up')}
-                    aria-pressed={mine === 'up'}
-                    aria-label="Thumbs up"
-                    className="thumb"
-                    data-on={mine === 'up'}
-                  >
-                    <ThumbsUp aria-hidden />
-                  </Button>
-                  <Button
-                    variant={mine === 'down' ? 'secondary' : 'ghost'}
-                    onClick={() => thumb('down')}
-                    aria-pressed={mine === 'down'}
-                    aria-label="Thumbs down"
-                    className="thumb"
-                    data-on={mine === 'down'}
-                  >
-                    <ThumbsDown aria-hidden />
-                  </Button>
-                </>
-              )}
               <Button
                 ref={notesButton}
                 variant={sheet ? 'secondary' : 'ghost'}
@@ -453,7 +404,6 @@ export function ConceptDialog() {
               </Button>
               {src && (
                 <Button
-                  className="zoom-button"
                   variant={zoom ? 'secondary' : 'ghost'}
                   onClick={() => setZoomedId(zoom ? null : (item?.id ?? null))}
                   aria-pressed={zoom}

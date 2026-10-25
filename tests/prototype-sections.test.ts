@@ -1,11 +1,7 @@
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { concepts } from '../src/prototypes/round';
 import {
   byShape,
-  CROP_RATIO,
-  cropOf,
   layout,
   order,
   sections,
@@ -74,32 +70,6 @@ describe('the decision board sections', () => {
     for (const g of night?.groups ?? [])
       for (const b of g.buckets) for (const i of b.items) expect(shapeOf(i)).toBe(b.shape);
     expect(byShape([]).length).toBe(0);
-  });
-
-  it('has a 4:3 crop file for every wide strip, cut where the page expects it', () => {
-    const root = join(import.meta.dirname, '..');
-    const jpegSize = (path: string) => {
-      const bytes = readFileSync(join(root, path));
-      let at = 2;
-      while (at < bytes.length) {
-        const marker = bytes.readUInt16BE(at);
-        if (marker >= 0xffc0 && marker <= 0xffc3)
-          return { width: bytes.readUInt16BE(at + 7), height: bytes.readUInt16BE(at + 5) };
-        at += 2 + bytes.readUInt16BE(at + 2);
-      }
-      throw new Error(`${path}: no size`);
-    };
-    const wide = concepts.filter((c) => shapeOf(c) === 'wide');
-    expect(wide.length).toBe(12);
-    for (const c of wide) {
-      const crop = cropOf(c);
-      const size = jpegSize(`docs/prototypes/thumbnails/${c.id}-crop.jpg`);
-      expect(size.height, c.id).toBe(c.height);
-      expect(Math.abs(size.width / size.height - CROP_RATIO), c.id).toBeLessThan(0.01);
-      expect(Math.abs((crop?.width ?? 0) * (c.width ?? 0) - size.width), c.id).toBeLessThan(1);
-    }
-    for (const c of concepts.filter((i) => shapeOf(i) !== 'wide'))
-      expect(cropOf(c), c.id).toBeUndefined();
   });
 
   it('drops empty sections when a filter leaves nothing in them', () => {

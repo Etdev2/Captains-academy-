@@ -10,11 +10,9 @@ import {
   removeNote,
   setDone,
   setPhase,
-  setThumb,
   type BoardState,
   type ImportResult,
   type Phase,
-  type ThumbValue,
 } from './board';
 import type { Item } from './inventory';
 import { conceptIds, ROUND } from './round';
@@ -35,8 +33,6 @@ export interface BoardApi {
   placeDot(itemId: string, x: number, y: number): void;
   removeDot(dotId: string): void;
   setDone(done: boolean): void;
-  /** Gives a concept your thumbs up or down; null takes it back. */
-  setThumb(itemId: string, value: ThumbValue | null): void;
   addNote(itemId: string, text: string): boolean;
   removeNote(noteId: string): void;
   decide(itemId: string, reason: string): boolean;
@@ -114,8 +110,6 @@ export function BoardProvider({ children }: { children: React.ReactNode }) {
     },
     removeDot: (dotId) => void apply((s) => removeDot(s, reviewer, dotId, now())),
     setDone: (done) => void apply((s) => setDone(s, reviewer, done, now())),
-    setThumb: (itemId, value) =>
-      void apply((s) => setThumb(s, reviewer, { itemId, value }, now(), conceptIds)),
     addNote(itemId, text) {
       const id = newId();
       return apply((s) => addNote(s, reviewer, { id, itemId, text }, now(), conceptIds));

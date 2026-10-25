@@ -7,9 +7,6 @@ width and height in docs/prototypes/inventory.json, so the board reserves the
 right space before an image loads, and its dominant color, which the board
 paints in that space until the image arrives. Rerun after adding an image to the
 inventory. Needs Python 3 and Pillow.
-
-A wide strip also gets a 4:3 crop of its original, <id>-crop.jpg, which a
-phone shows in place of the whole strip (src/prototypes/sections.ts, cropOf).
 """
 import json
 from pathlib import Path
@@ -19,10 +16,6 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / 'docs/prototypes/thumbnails'
 WIDTH = 720
-# Keep these three in step with src/prototypes/sections.ts.
-WIDE = 2.6  # a strip at least this many times wider than tall is cropped on a phone
-CROP_RATIO = 4 / 3
-FOCUS = 0.31  # the point of the strip that stays in the crop frame, as a fraction
 
 
 
@@ -56,14 +49,6 @@ for item in inventory['items']:
                 entry['color'] = dominant(im)
         sized.append(entry)
         im = im.convert('RGB')
-        ratio = im.width / im.height
-        if ratio >= WIDE and item['kind'] != 'reference':
-            share = CROP_RATIO / ratio
-            left = round(FOCUS * (1 - share) * im.width)
-            crop = im.crop((left, 0, left + round(share * im.width), im.height))
-            crop_name = f"{item['id']}-crop.jpg"
-            wanted.add(crop_name)
-            crop.save(OUT / crop_name, 'JPEG', quality=86, optimize=True, progressive=True)
         if im.width > WIDTH:
             im = im.resize((WIDTH, round(im.height * WIDTH / im.width)), Image.LANCZOS)
         im.save(target, 'JPEG', quality=84, optimize=True, progressive=True)

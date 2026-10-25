@@ -10,7 +10,6 @@ The board follows the "decide" steps of Google Ventures' Design Sprint. Whoever 
 
 1. **Look silently.** Everyone looks through the concepts and writes sticky notes. Nobody can place a dot yet.
 2. **Dot vote.** Each reviewer has 5 dots. Open a concept, then tap a spot on its image to drop a dot there, so the dots build a heat map of what people like. The Add a dot button puts a dot in the middle of the image for keyboard and screen-reader users. Two dots may go on the same concept. Tapping your own dot takes it back. Dots show on the tiles too. Other people's dots stay hidden until you press Done voting or place all 5, so nobody follows the crowd.
-   Alongside the dots, the viewer's thumbs up and thumbs down buttons give a quick yes or no on any concept, in every step before the decider's call. Each reviewer has one thumb per concept; a new one replaces it and pressing it again takes it back. Thumbs show on the tiles and in the heat panel, and others' thumbs stay hidden under the same rule as their dots. They point the discussion and do not change the ranking, which counts dots.
 3. **Discuss top dots.** Everyone sees every dot. The heat panel ranks concepts by dots, and concepts with the same number share a rank, shown as "=3". Only dotted concepts narrows the board to what people chose.
 4. **Decider's call.** Only the decider, Elliott, can pick one concept and write why. The decision shows at the top of the board and goes to a build ticket next.
 
@@ -23,7 +22,6 @@ The board groups them by screen: Home, Definitions, Lights, Night Harbor and Doc
 ## How the page looks and behaves
 
 - Each tile is its image, edge to edge at the image's own proportions, with a one-line label and one line of tags. Tapping anywhere on the tile opens it.
-- On a screen 640px wide or less, a wide strip's tile is a 4:3 crop around its desktop mockup instead of the whole strip, which would be about 75px tall. The crop is cut from the original by `scripts/prototype-thumbnails.py`, so it stays sharp, and the viewer shows the whole strip.
 - Tiles of the same shape (wide strips, landscape screens, phone screens) share a masonry grid that adds each tile to the shortest column, so no tile leaves a hole beside a taller one. On a phone held sideways, a tall tile stays short enough to see whole.
 - Every image box has the image's width and height, so nothing moves as images load, and it is painted in the image's dominant color until the file arrives. The first four tiles load at once and the rest load as they near the screen.
 - The page sits on the app's dark navy (#06121F page, #0B1A2B surfaces, #EAF2FA and #A9BDD1 text) whatever the phone's setting, so dark mockups are judged on the ground they were drawn for. Focus shows as a solid #4FC3FF ring. Surfaces have edges and no shadows. Every control is at least 44px each way. These rules live in [`src/prototypes/board.css`](../../src/prototypes/board.css) and apply to this page only; the shared shadcn components keep their standard sizes elsewhere.
