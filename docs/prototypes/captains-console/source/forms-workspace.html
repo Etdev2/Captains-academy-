@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forms workspace · Captain's Console mockup</title>
+<link rel="stylesheet" href="console.css">
+<style>
+  .forms-grid { grid-template-columns: 340px 1fr 380px; align-items: start; }
+  .packet { display: flex; align-items: center; gap: 16px; }
+  .packet .track { flex: 1; height: 12px; }
+  .flist .ic { color: var(--muted); }
+  .flist li.sel { margin: 0 -12px; padding: 11px 12px; border-radius: 10px; background: var(--panel-2); border: 1px solid var(--amber); }
+  .flist li.sel + li { border-top-color: transparent; }
+  .flist .t { font-size: 14px; }
+  .flist .d { font-size: 12px; }
+
+  /* form sheet */
+  .sheet { background: #0a1322; border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px; }
+  .sheet h3 { font-size: 13px; font-family: var(--mono); letter-spacing: 0.12em; color: var(--ice); text-transform: uppercase; margin: 18px 0 10px; }
+  .sheet h3:first-child { margin-top: 0; }
+  .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 14px; }
+  .fields .wide { grid-column: 1 / -1; }
+  .field label { display: block; font: 600 10px var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+  .field .v { min-height: 40px; display: flex; align-items: center; padding: 0 12px; border-radius: 8px; background: var(--panel); border: 1px solid var(--line-2); font-size: 15px; font-weight: 550; }
+  .field .v.empty { color: var(--faint); font-style: italic; font-weight: 400; }
+  .field.flag .v { border: 2px solid var(--amber); background: var(--amber-wash); }
+  .field .pin { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--amber); color: var(--amber-ink); font: 800 11px Inter; margin-left: 6px; vertical-align: 1px; }
+  .field .why { margin-top: 5px; font-size: 12px; color: var(--amber); }
+
+  /* review */
+  .review .fix { border: 1px solid rgba(243, 178, 60, 0.4); background: var(--amber-wash); border-radius: 12px; padding: 13px 14px; margin-bottom: 10px; }
+  .review .fix .top { display: flex; gap: 10px; align-items: flex-start; }
+  .review .fix .n { flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--amber); color: var(--amber-ink); font: 800 12px Inter; }
+  .review .fix .t { font-weight: 700; font-size: 15px; }
+  .review .fix .d { font-size: 13px; color: var(--muted); margin-top: 3px; }
+  .review .fix .diff { margin: 10px 0 0 34px; font: 500 12px/1.6 var(--mono); }
+  .review .fix .diff .was { color: var(--faint); text-decoration: line-through; }
+  .review .fix .diff .now { color: var(--text); }
+  .review .fix .act { margin: 10px 0 0 34px; display: flex; gap: 8px; }
+  .review .fix .act .btn { min-height: 36px; padding: 0 12px; font-size: 13px; }
+  .review .note { border: 1px dashed rgba(183,166,240,.55); border-radius: 12px; padding: 12px 14px; font-size: 13px; color: var(--muted); }
+  .review .note b { color: var(--lilac); }
+  @media (max-width: 600px) {
+    .fields { grid-template-columns: 1fr; }
+    .review .fix .act .btn { flex: 1; }
+    .sheet { padding: 16px; }
+    .forms-grid > * { grid-column: auto !important; grid-row: auto !important; }
+    .forms-grid > .review { order: -1; }
+    .packet { flex-direction: column; align-items: stretch; gap: 10px; }
+    .packet .ticks { font-size: 11px; }
+    .head .right .btn { flex: 1; }
+  }
+</style>
+</head>
+<body>
+<div class="fiction"><b>Fictional sample data</b><span class="long"> · concept mockup for review · not a real mariner, vessel or record</span><span class="phone-only"> · concept mockup</span></div>
+
+<header class="bar">
+  <div class="brand">
+    <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#7fcdec" stroke-width="1.5"/><path d="M16 4 19 16 16 28 13 16Z" fill="#f3b23c"/><path d="M4 16 16 13 28 16 16 19Z" fill="#7fcdec" opacity=".6"/></svg>
+    <div>CAPTAIN'S ACADEMY<small>CAPTAIN'S CONSOLE</small></div>
+  </div>
+  <nav class="tabs desk-only"><a>Console</a><a>License Navigator</a><a class="on">Forms</a><a>Sea-Time Log</a><a>Study</a></nav>
+  <div class="status">
+    <span class="pill"><span class="dot"></span><span class="desk-only">Works offline · </span>synced 14:02</span>
+    <span class="avatar desk-only">JS</span>
+  </div>
+</header>
+
+<main>
+  <div class="head">
+    <div>
+      <div class="eyebrow">Forms workspace</div>
+      <h1>OUPV application packet</h1>
+      <div class="sub">Goal: OUPV · Near coastal · Jordan Sample (fictional)</div>
+    </div>
+    <div class="right">
+      <span class="btn desk-only"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v12m-5-5 5 5 5-5M5 20h14"/></svg>Export packet PDF</span>
+      <span class="btn primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v4h4"/></svg>Run pre-check</span>
+    </div>
+  </div>
+
+  <section class="panel" style="margin-bottom:18px">
+    <div class="packet">
+      <div><div class="label">Packet</div><div class="readout" style="font-size:28px">3 <small>of 6 ready</small></div></div>
+      <div style="flex:1">
+        <div class="track"><i style="width:50%"></i><i class="amber" style="width:33%"></i></div>
+        <div class="ticks"><span>3 complete</span><span class="amber">2 need work</span><span>1 not started</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="grid forms-grid">
+    <section class="panel flist">
+      <div class="ph">Required forms<span class="count">6</span></div>
+      <ul class="rows">
+        <li class="sel"><span class="ic" style="color:var(--amber)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg></span><div><div class="t">CG-719B · Application</div><div class="d">Draft · edited today</div></div><span class="end tag need">3 fixes</span></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17h18l-3 4H6zM12 3v12M12 4l6 9h-6"/></svg></span><div><div class="t">CG-719S · Sea service</div><div class="d">1 of 2 vessels signed</div></div><span class="end tag need">In progress</span></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h4l2-6 4 12 2-6h4"/></svg></span><div><div class="t">CG-719K · Physical</div><div class="d">Signed · Aug 2026</div></div><span class="end tag done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg>Done</span></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/></svg></span><div><div class="t">CG-719P · Drug test</div><div class="d">Result uploaded</div></div><span class="end tag done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg>Done</span></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 12h18"/></svg></span><div><div class="t">First aid &amp; CPR card</div><div class="d">Photo, both sides</div></div><span class="end tag done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg>Done</span></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span><div><div class="t">Exam or course certificate</div><div class="d">After the exam</div></div><span class="end tag idle">Not started</span></li>
+      </ul>
+    </section>
+
+    <section class="panel review" style="grid-column:3;grid-row:1">
+      <div class="ph" style="color:var(--amber)">Pre-check review<span class="count">3 corrections · 1 note</span></div>
+      <div class="fix">
+        <div class="top"><span class="n">1</span><div><div class="t">Name doesn't match your ID</div><div class="d">Use your full legal name as it appears on the uploaded driver's license.</div></div></div>
+        <div class="diff"><span class="was">Jon Q. Sample</span><br><span class="now">→ Jonathan Quincy Sample</span></div>
+        <div class="act"><span class="btn primary">Apply fix</span><span class="btn ghost">Keep mine</span></div>
+      </div>
+      <div class="fix">
+        <div class="top"><span class="n">2</span><div><div class="t">Mailing address is incomplete</div><div class="d">The ZIP code is missing.</div></div></div>
+        <div class="act"><span class="btn">Add ZIP code</span></div>
+      </div>
+      <div class="fix">
+        <div class="top"><span class="n">3</span><div><div class="t">Endorsement doesn't match your goal</div><div class="d">The form says Inland. Your License Navigator goal is Near coastal.</div></div></div>
+        <div class="diff"><span class="was">OUPV · Inland</span><br><span class="now">→ OUPV · Near coastal</span></div>
+        <div class="act"><span class="btn primary">Apply fix</span><span class="btn ghost">Change goal</span></div>
+      </div>
+      <div class="note"><b>Note · backfilled time.</b> 42 days on <i>Kelp Runner</i> were entered after the fact. They stay labeled backfilled on CG-719S and need the owner's signature.</div>
+      <p class="cite" style="margin-top:12px">Pre-check by Captain's Academy, not an NMC evaluation. Form numbers are for illustration until uscg-regs checks them.</p>
+    </section>
+
+    <section class="panel" style="grid-column:2;grid-row:1">
+      <div class="ph">CG-719B · Application for MMC<span class="count">sections I–III of VI</span></div>
+      <div class="sheet">
+        <h3>I · Applicant</h3>
+        <div class="fields">
+          <div class="field flag"><label>Legal name <span class="pin">1</span></label><div class="v">Jon Q. Sample</div><div class="why">Doesn't match ID</div></div>
+          <div class="field"><label>Date of birth</label><div class="v">07 / 04 / 1991</div></div>
+          <div class="field"><label>Email</label><div class="v">jordan.sample@example.com</div></div>
+          <div class="field"><label>Phone</label><div class="v">(555) 010-0199</div></div>
+          <div class="field flag wide"><label>Mailing address <span class="pin">2</span></label><div class="v">100 Sample Pier Way, Long Beach, CA&nbsp;<span class="muted">_____</span></div><div class="why">ZIP code missing</div></div>
+        </div>
+        <h3>II · Credential sought</h3>
+        <div class="fields">
+          <div class="field"><label>Transaction</label><div class="v">Original</div></div>
+          <div class="field flag"><label>Endorsement <span class="pin">3</span></label><div class="v">OUPV · Inland</div><div class="why">Goal is Near coastal</div></div>
+        </div>
+        <h3>III · Supporting documents</h3>
+        <div class="fields">
+          <div class="field"><label>Sea service</label><div class="v">CG-719S · attached</div></div>
+          <div class="field"><label>Medical</label><div class="v">CG-719K · attached</div></div>
+          <div class="field"><label>Drug test</label><div class="v">CG-719P · attached</div></div>
+          <div class="field"><label>Exam</label><div class="v empty">Add after the exam</div></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<nav class="tabbar">
+  <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="m15 9-2 4-4 2 2-4z"/></svg>Console</a>
+  <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19 9 5l6 9 5-7"/></svg>Navigator</a>
+  <a class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg>Forms</a>
+  <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h12a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2z"/><path d="M9 8h6M9 12h6"/></svg>Log</a>
+</nav>
+</body>
+</html>

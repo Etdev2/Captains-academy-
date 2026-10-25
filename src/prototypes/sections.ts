@@ -11,7 +11,14 @@ import { byId } from './round';
 // capture, and the viewer links to its desktop twin. Both ids stay valid, so
 // dots and notes saved on either still count.
 
-export type SectionId = 'home' | 'definitions' | 'lights' | 'night-harbor' | 'docking';
+export type SectionId =
+  | 'home'
+  | 'forms-license'
+  | 'sea-time-logbook'
+  | 'definitions'
+  | 'lights'
+  | 'night-harbor'
+  | 'docking';
 
 export interface Group {
   /** A subheading inside the section, or null when the section has one group. */
@@ -52,6 +59,34 @@ export const sections: readonly Section[] = [
           'gpt-home-pacific-modern',
           'gpt-home-academy-fieldbook',
         ],
+      },
+    ],
+    asBuilt: [],
+  },
+  // Captain's Console mockups (night-bridge direction) of the license and
+  // sea-time screens, each as a desktop and an iPhone view.
+  {
+    id: 'forms-license',
+    title: 'Forms & License Navigator',
+    groups: [
+      {
+        title: 'License Navigator',
+        ids: ['cl-console-license-navigator-desktop', 'cl-console-license-navigator-iphone'],
+      },
+      {
+        title: 'Forms workspace',
+        ids: ['cl-console-forms-workspace-desktop', 'cl-console-forms-workspace-iphone'],
+      },
+    ],
+    asBuilt: [],
+  },
+  {
+    id: 'sea-time-logbook',
+    title: 'Sea-Time Logbook',
+    groups: [
+      {
+        title: null,
+        ids: ['cl-console-sea-time-logbook-desktop', 'cl-console-sea-time-logbook-iphone'],
       },
     ],
     asBuilt: [],
