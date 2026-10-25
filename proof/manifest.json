@@ -1,26 +1,29 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#65",
-  "sourceDigest": "sha256:ff3c9713e11e2a9afb6e759ac008b519548eeeb18e65bdf679481674d42350f8",
-  "capturedAt": "2026-10-24T18:53:45Z",
+  "ticket": "Etdev2/Captains-academy-#29",
+  "sourceDigest": "sha256:24b6c991d7700ab73d19743c1454d5e8fc91c7dead644f8e2546058cfafe1066",
+  "capturedAt": "2026-10-25T20:26:58Z",
   "result": "PASS",
   "verification": {
-    "command": "git diff origin/main -- AGENTS.md",
-    "fixture": "AGENTS.md merge-authority text"
+    "command": "bash scripts/verify.test.sh",
+    "fixture": "Seeded Lights deck (19 cards, seed 29), Rule 21 sector-edge golden replays, e2e at /rules/?level=lights on desktop, phone-landscape and phone-portrait; sw offline test: /rules/?level=lights served from cached /rules/ with the network down"
   },
   "commands": [
     {
-      "command": "git diff origin/main -- AGENTS.md",
+      "command": "bash scripts/verify.test.sh",
+      "exitCode": 0
+    },
+    {
+      "command": "bash scripts/verify.sh",
       "exitCode": 0
     }
   ],
-  "behaviorChanged": false,
+  "behaviorChanged": true,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "AGENTS.md names the coordinator as merge authority after a Codex pass on the exact head"
+      "shows": "Lights at /rules/?level=lights opens after one star on Definitions and plays 19 checked cards from Rules 23 to 30: each shows a night horizon with the lights Rule 21 lets the player see, the chip reads Inland + International, a right answer cites its rule, a miss costs a heart and shows a pausable explanation with the citation, the card returns three cards later, and the run ends cleared with stars or out of hearts. axe, contrast, tap-target and palette checks pass, and Definitions still passes unchanged. Offline: a /rules/?level=lights navigation with no network is served from the cached /rules/ page (ignoreSearch), other pages keep exact matching"
     }
-  ],
-  "noBehaviorReason": "docs-only AGENTS.md edit approved by Et 5:18 PM PT Oct 23, 2026"
+  ]
 }
