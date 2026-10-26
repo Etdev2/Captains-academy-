@@ -573,7 +573,7 @@ export const applicationStages = [
   'Pre-check passed',
   'Sent to REC',
   'NMC evaluating',
-  'Approved to test',
+  'Ready to test',
   'Credential issued',
 ] as const;
 export const applicationStage = 0;

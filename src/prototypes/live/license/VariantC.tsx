@@ -588,7 +588,7 @@ function Status({ j, go }: { j: Journey; go: Go }) {
                 <small>{k < cur ? 'Done' : k === cur ? 'You are here' : 'Later'}</small>
               </h2>
               <p>{s.what}</p>
-              <p className="lic-c-who">Who decides. {s.who}.</p>
+              <p className="lic-c-who">Who decides: {s.who.replace(/\.$/, '')}.</p>
             </div>
           </li>
         ))}
