@@ -888,7 +888,7 @@ function Explain({ lb, go }: { lb: Logbook; go: Go }) {
     ],
     [
       'Who decides.',
-      'The National Maritime Center. Captain’s Academy can say your logged time appears to meet a requirement, and list what is still needed. It never says you qualify.',
+      'The National Maritime Center. Captain’s Academy can say your logged time appears to meet a requirement, and list what is still needed. It never gives a verdict.',
     ],
   ];
   return (

@@ -50,7 +50,9 @@ describe('interactive prototype links', () => {
 
   it('keeps the screenshot script in step with the routes', () => {
     const script = readFileSync('scripts/prototype-live-screenshots.mjs', 'utf8');
-    for (const c of categories) expect(script).toContain(`['${c.id}', ${JSON.stringify(c.title)}]`);
+    for (const c of categories) {
+      expect(script).toMatch(new RegExp(`\\['${c.id}', ["']${c.title}["']\\]`));
+    }
     for (const v of variants) expect(script).toContain(`['${v.id}', '${v.letter}', '${v.name}']`);
   });
 
@@ -138,7 +140,9 @@ describe('the sample sailor', () => {
 
   it('never claims a verdict', () => {
     const text = JSON.stringify(sample);
-    expect(text).not.toMatch(/you qualify|you are eligible|approved by/i);
+    expect(text).not.toMatch(
+      /qualif|you are eligible|you are approved|application approved|approved to/i,
+    );
     expect(sample.NMC_NOTICE).toContain('appears to meet');
   });
 });

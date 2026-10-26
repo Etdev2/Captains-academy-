@@ -20,7 +20,7 @@ export const DEMO_NOTICE =
   'Sample data. Jordan Sample is fictional. Prototype only: nothing here is saved, and nothing here is a Coast Guard decision.';
 
 export const NMC_NOTICE =
-  'The National Maritime Center decides. Captain’s Academy can say logged time “appears to meet” a requirement; it never says you qualify.';
+  'The National Maritime Center decides. Captain’s Academy can say logged time “appears to meet” a requirement. It never gives a verdict.';
 
 export const sailor = {
   name: 'Jordan Sample',
