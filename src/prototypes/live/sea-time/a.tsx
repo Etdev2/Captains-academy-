@@ -39,7 +39,15 @@ import {
   type Row,
   type VesselView,
 } from './logic';
-import { ChoiceGroup, ExportSheet, HoursField, PreviewBox, SelectField, TextField, VesselForm } from './parts';
+import {
+  ChoiceGroup,
+  ExportSheet,
+  HoursField,
+  PreviewBox,
+  SelectField,
+  TextField,
+  VesselForm,
+} from './parts';
 import './a.css';
 
 const SCREENS = ['overview', 'add', 'vessels', 'export'] as const;
@@ -86,7 +94,11 @@ function SourceTag({ r }: { r: Pick<Row, 'source'> }) {
     );
   return (
     <span className="src">
-      {r.source === 'gps' ? <MapPin aria-hidden="true" size={16} /> : <Pencil aria-hidden="true" size={16} />}
+      {r.source === 'gps' ? (
+        <MapPin aria-hidden="true" size={16} />
+      ) : (
+        <Pencil aria-hidden="true" size={16} />
+      )}
       {sourceLabel[r.source]}
     </span>
   );
@@ -108,7 +120,12 @@ export default function NightBridge({ variant }: VariantProps) {
         </div>
         <nav className="a-tabs" aria-label="Logbook sections">
           {TABS.map((t) => (
-            <button key={t.id} type="button" aria-current={screen === t.id ? 'page' : undefined} onClick={() => go(t.id)}>
+            <button
+              key={t.id}
+              type="button"
+              aria-current={screen === t.id ? 'page' : undefined}
+              onClick={() => go(t.id)}
+            >
               {t.label}
             </button>
           ))}
@@ -125,7 +142,12 @@ export default function NightBridge({ variant }: VariantProps) {
       </main>
       <nav className="a-bar" aria-label="Logbook sections, phone">
         {TABS.map((t) => (
-          <button key={t.id} type="button" aria-current={screen === t.id ? 'page' : undefined} onClick={() => go(t.id)}>
+          <button
+            key={t.id}
+            type="button"
+            aria-current={screen === t.id ? 'page' : undefined}
+            onClick={() => go(t.id)}
+          >
             {t.icon}
             <span>{t.label}</span>
           </button>
@@ -150,7 +172,10 @@ function Overview({ lb, go }: { lb: Logbook; go: (s: Screen) => void }) {
         <div>
           <p className="eyebrow">Sea-time logbook</p>
           <h1>Logged trips and credited days</h1>
-          <p className="sub">Jordan Sample (fictional) · {lb.checkedIn ? 'Underway' : `Not underway · last trip ended Oct 19`}</p>
+          <p className="sub">
+            Jordan Sample (fictional) ·{' '}
+            {lb.checkedIn ? 'Underway' : `Not underway · last trip ended Oct 19`}
+          </p>
         </div>
         {lb.checkedIn ? (
           <button
@@ -165,7 +190,11 @@ function Overview({ lb, go }: { lb: Logbook; go: (s: Screen) => void }) {
             Check out · log trip
           </button>
         ) : (
-          <button type="button" className="a-primary" onClick={() => lb.checkIn(lb.rows[0]?.vesselId ?? 'morro-dawn')}>
+          <button
+            type="button"
+            className="a-primary"
+            onClick={() => lb.checkIn(lb.rows[0]?.vesselId ?? 'morro-dawn')}
+          >
             <Ship aria-hidden="true" size={24} />
             Check in · start trip
           </button>
@@ -176,7 +205,8 @@ function Overview({ lb, go }: { lb: Logbook; go: (s: Screen) => void }) {
         <p className="a-banner" role="status">
           <MapPin aria-hidden="true" size={20} />
           <span>
-            Underway on {vesselName} since {CHECK_IN_TIME}. GPS track on. Demo only: nothing is recorded.
+            Underway on {vesselName} since {CHECK_IN_TIME}. GPS track on. Demo only: nothing is
+            recorded.
           </span>
         </p>
       ) : null}
@@ -239,7 +269,10 @@ function Overview({ lb, go }: { lb: Logbook; go: (s: Screen) => void }) {
                 label="Vessel"
                 value={f.vessel}
                 onChange={(v) => setF({ ...f, vessel: v })}
-                options={[{ value: '', label: 'All vessels' }, ...lb.vessels.map((v) => ({ value: v.id, label: v.name }))]}
+                options={[
+                  { value: '', label: 'All vessels' },
+                  ...lb.vessels.map((v) => ({ value: v.id, label: v.name })),
+                ]}
               />
               <SelectField
                 id="a-f-waters"
@@ -253,14 +286,22 @@ function Overview({ lb, go }: { lb: Logbook; go: (s: Screen) => void }) {
                 ]}
               />
               <label className="a-check">
-                <input type="checkbox" checked={f.waiting} onChange={(e) => setF({ ...f, waiting: e.target.checked })} />
+                <input
+                  type="checkbox"
+                  checked={f.waiting}
+                  onChange={(e) => setF({ ...f, waiting: e.target.checked })}
+                />
                 <span>Only days waiting on a signature</span>
               </label>
             </div>
             {rows.length === 0 ? (
               <div className="a-empty">
                 <ClipboardList aria-hidden="true" size={32} />
-                <h3>{f.waiting ? 'No days are waiting on a signature.' : 'No trips match these filters.'}</h3>
+                <h3>
+                  {f.waiting
+                    ? 'No days are waiting on a signature.'
+                    : 'No trips match these filters.'}
+                </h3>
                 <p>
                   {f.waiting
                     ? 'Every credited day on these vessels is signed for. New trips will show up here until the owner signs.'
@@ -318,11 +359,18 @@ function Overview({ lb, go }: { lb: Logbook; go: (s: Screen) => void }) {
               <h2 id="a-chart">Days that appear to count, by month</h2>
               <span className="count">Nov 2025 to Oct 2026 · illustrative split</span>
             </div>
-            <div className="a-chart" role="img" aria-label={`Days that appear to count by month, November 2025 to October 2026. Busiest month: ${peak} days.`}>
+            <div
+              className="a-chart"
+              role="img"
+              aria-label={`Days that appear to count by month, November 2025 to October 2026. Busiest month: ${peak} days.`}
+            >
               {creditedByMonth.map((m, i) => (
                 <div key={m.month} className="col">
                   <span className="tot">{monthTotals[i]}</span>
-                  <div className="bar" style={{ height: `${((monthTotals[i] ?? 0) / peak) * 120}px` }}>
+                  <div
+                    className="bar"
+                    style={{ height: `${((monthTotals[i] ?? 0) / peak) * 120}px` }}
+                  >
                     <span className="nc" style={{ flex: m.nearCoastal }} />
                     <span className="in" style={{ flex: m.inland }} />
                   </div>
@@ -342,10 +390,15 @@ function Overview({ lb, go }: { lb: Logbook; go: (s: Screen) => void }) {
               <h2 id="a-prog">Toward OUPV · Near coastal</h2>
             </div>
             <Meter label="Any waters" value={s.credited} max={s.totalRequired} tone="done" />
-            <Meter label="Ocean or near coastal" value={s.nearCoastal} max={s.ncRequired} tone="attn" />
+            <Meter
+              label="Ocean or near coastal"
+              value={s.nearCoastal}
+              max={s.ncRequired}
+              tone="attn"
+            />
             <p className="verdict">
-              Logged sea time <b>appears to meet 0 of 2</b> parts. Still needed: {s.totalToGo} days, {s.ncToGo} of them
-              near coastal.
+              Logged sea time <b>appears to meet 0 of 2</b> parts. Still needed: {s.totalToGo} days,{' '}
+              {s.ncToGo} of them near coastal.
             </p>
             <dl className="facts">
               <div>
@@ -393,7 +446,17 @@ function Overview({ lb, go }: { lb: Logbook; go: (s: Screen) => void }) {
   );
 }
 
-function Meter({ label, value, max, tone }: { label: string; value: number; max: number; tone: 'done' | 'attn' }) {
+function Meter({
+  label,
+  value,
+  max,
+  tone,
+}: {
+  label: string;
+  value: number;
+  max: number;
+  tone: 'done' | 'attn';
+}) {
   return (
     <div className="meter">
       <p>
@@ -402,7 +465,14 @@ function Meter({ label, value, max, tone }: { label: string; value: number; max:
           {value} / {max}
         </b>
       </p>
-      <div className={`track ${tone}`} role="progressbar" aria-label={label} aria-valuemin={0} aria-valuemax={max} aria-valuenow={value}>
+      <div
+        className={`track ${tone}`}
+        role="progressbar"
+        aria-label={label}
+        aria-valuemin={0}
+        aria-valuemax={max}
+        aria-valuenow={value}
+      >
         <span style={{ width: `${Math.min(100, (value / max) * 100)}%` }} />
       </div>
     </div>
@@ -462,17 +532,37 @@ function AddTrip({ lb, go }: { lb: Logbook; go: (s: Screen) => void }) {
             value={v.vesselId}
             onChange={(x) => set('vesselId', x)}
             error={errors.vesselId}
-            options={[{ value: '', label: 'Pick a vessel' }, ...lb.vessels.map((x) => ({ value: x.id, label: `${x.name} · ${x.grt} GRT` }))]}
+            options={[
+              { value: '', label: 'Pick a vessel' },
+              ...lb.vessels.map((x) => ({ value: x.id, label: `${x.name} · ${x.grt} GRT` })),
+            ]}
           />
-          <TextField id="a-date" type="date" label="Date" max={TODAY} value={v.date} onChange={(x) => set('date', x)} error={errors.date} />
-          <HoursField id="a-hours" value={v.hours} onChange={(x) => set('hours', x)} error={errors.hours} />
+          <TextField
+            id="a-date"
+            type="date"
+            label="Date"
+            max={TODAY}
+            value={v.date}
+            onChange={(x) => set('date', x)}
+            error={errors.date}
+          />
+          <HoursField
+            id="a-hours"
+            value={v.hours}
+            onChange={(x) => set('hours', x)}
+            error={errors.hours}
+          />
           <ChoiceGroup
             name="a-waters"
             legend="Where were you?"
             value={v.waters}
             onChange={(x) => set('waters', x)}
             options={[
-              { value: 'near-coastal', label: 'Near coastal', help: 'Ocean or near-coastal waters' },
+              {
+                value: 'near-coastal',
+                label: 'Near coastal',
+                help: 'Ocean or near-coastal waters',
+              },
               { value: 'inland', label: 'Inland', help: 'Bays, harbors, rivers, lakes' },
             ]}
           />
@@ -493,9 +583,18 @@ function AddTrip({ lb, go }: { lb: Logbook; go: (s: Screen) => void }) {
             value={v.source}
             onChange={(x) => set('source', x)}
             options={[
-              { value: 'gps', label: 'GPS track', help: fromGps ? 'From your check-in' : 'Only from a check-in and check-out', disabled: !fromGps },
+              {
+                value: 'gps',
+                label: 'GPS track',
+                help: fromGps ? 'From your check-in' : 'Only from a check-in and check-out',
+                disabled: !fromGps,
+              },
               { value: 'manual', label: 'Entered by hand', help: 'You are logging it now' },
-              { value: 'backfilled', label: 'Backfilled', help: 'Entered after the fact. Always labeled.' },
+              {
+                value: 'backfilled',
+                label: 'Backfilled',
+                help: 'Entered after the fact. Always labeled.',
+              },
             ]}
           />
         </section>
@@ -510,7 +609,9 @@ function AddTrip({ lb, go }: { lb: Logbook; go: (s: Screen) => void }) {
               Fix the highlighted fields, then save again.
             </p>
           ) : null}
-          <p className="a-note">Simulator and game time never count as sea time, so there is nowhere to add it here.</p>
+          <p className="a-note">
+            Simulator and game time never count as sea time, so there is nowhere to add it here.
+          </p>
         </div>
       </form>
     </>
@@ -528,9 +629,17 @@ function Vessels({ lb }: { lb: Logbook }) {
         <div>
           <p className="eyebrow">Vessels</p>
           <h1>Tonnage and owner signatures</h1>
-          <p className="sub">Tonnage decides how short days are credited. Under 100 GRT, a 4 to 8 hour day is shown apart.</p>
+          <p className="sub">
+            Tonnage decides how short days are credited. Under 100 GRT, a 4 to 8 hour day is shown
+            apart.
+          </p>
         </div>
-        <button type="button" className="a-primary" onClick={() => setAdding((x) => !x)} aria-expanded={adding}>
+        <button
+          type="button"
+          className="a-primary"
+          onClick={() => setAdding((x) => !x)}
+          aria-expanded={adding}
+        >
           <Plus aria-hidden="true" size={24} />
           {adding ? 'Close the form' : 'Add a vessel'}
         </button>
@@ -576,7 +685,9 @@ function Vessels({ lb }: { lb: Logbook }) {
             </dl>
             <p>Owner: {v.owner}</p>
             <p className="tonnage">
-              {v.grt < 100 ? 'Under 100 GRT. A 4 to 8 hour day may count, and is shown apart.' : '100 GRT or more. A 4 to 8 hour day is not a day.'}
+              {v.grt < 100
+                ? 'Under 100 GRT. A 4 to 8 hour day may count, and is shown apart.'
+                : '100 GRT or more. A 4 to 8 hour day is not a day.'}
             </p>
             <p>
               <b>{v.credited}</b> days appear to count · <b>{v.signedDays}</b> signed
@@ -591,7 +702,11 @@ function Vessels({ lb }: { lb: Logbook }) {
             ) : null}
             <div className="actions">
               {v.signature === 'not-requested' ? (
-                <button type="button" className="a-secondary" onClick={() => lb.requestSignature(v.id)}>
+                <button
+                  type="button"
+                  className="a-secondary"
+                  onClick={() => lb.requestSignature(v.id)}
+                >
                   <Send aria-hidden="true" size={20} />
                   Ask owner to sign
                 </button>
@@ -635,7 +750,9 @@ function Export({ lb }: { lb: Logbook }) {
           className="a-primary"
           onClick={() => {
             lb.requestSignature(vessel.id);
-            setSent(`Summary for ${vessel.name} ready for ${vessel.owner}. Demo only: nothing was sent.`);
+            setSent(
+              `Summary for ${vessel.name} ready for ${vessel.owner}. Demo only: nothing was sent.`,
+            );
           }}
         >
           <Send aria-hidden="true" size={24} />
@@ -658,7 +775,11 @@ function Export({ lb }: { lb: Logbook }) {
               setId(x);
               setSent('');
             }}
-            options={lb.vessels.map((v) => ({ value: v.id, label: v.name, help: `${v.credited} days · ${signatureLabel(v.signature)}` }))}
+            options={lb.vessels.map((v) => ({
+              value: v.id,
+              label: v.name,
+              help: `${v.credited} days · ${signatureLabel(v.signature)}`,
+            }))}
           />
         </div>
         <ExportSheet data={sheetFor(vessel, lb.rows)} />

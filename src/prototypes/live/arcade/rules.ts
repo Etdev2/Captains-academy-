@@ -150,7 +150,8 @@ export const correctCount = (a: Answers): number =>
     );
   }, 0);
 
-export const rulesStars = (right: number): 0 | 1 | 2 | 3 => (right === 4 ? 3 : right === 3 ? 2 : right >= 1 ? 1 : 0);
+export const rulesStars = (right: number): 0 | 1 | 2 | 3 =>
+  right === 4 ? 3 : right === 3 ? 2 : right >= 1 ? 1 : 0;
 
 /** Shown when a reviewer opens the result screen without answering. */
 export const SAMPLE_ANSWERS: Answers = {

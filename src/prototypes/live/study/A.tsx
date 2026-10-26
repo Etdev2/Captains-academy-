@@ -16,7 +16,6 @@ import {
   Timer,
 } from 'lucide-react';
 import { studyStreakDays } from '../shared/sample';
-import type { VariantProps } from '../shared/types';
 import { useScreen } from '../shared/routes';
 import {
   CATEGORIES,
@@ -28,6 +27,8 @@ import {
   dayLabel,
   examMissed,
   examParts,
+  firstOpenLesson,
+  lessonByNumber,
   lessonsDone,
   lessonsFor,
   mockExam,
@@ -83,7 +84,7 @@ function Tag({ tone, children }: { tone: 'done' | 'attn'; children: React.ReactN
   );
 }
 
-export default function VariantA(_: VariantProps) {
+export default function VariantA() {
   const [screen, go] = useScreen(SCREENS);
   const [topicId, setTopicId] = React.useState('rules');
   const [lessonN, setLessonN] = React.useState<number>(nextLesson.lesson.n);
@@ -93,7 +94,7 @@ export default function VariantA(_: VariantProps) {
 
   const pickTopic = (t: StudyTopic) => {
     setTopicId(t.id);
-    setLessonN((lessonsFor(t).find((l) => !l.done) ?? lessonsFor(t)[0])!.n);
+    setLessonN(firstOpenLesson(t));
     go('topic');
   };
 
@@ -106,7 +107,7 @@ export default function VariantA(_: VariantProps) {
       if (t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
       const n = Number(e.key);
       if (n >= 1 && n <= CATEGORIES.length && !practice.finished && practice.picked === undefined) {
-        practice.choose(CATEGORIES[n - 1]!.id);
+        practice.choose((CATEGORIES[n - 1] as (typeof CATEGORIES)[number]).id);
       } else if (e.key === 'ArrowRight' && practice.picked !== undefined) {
         practice.next();
       }
@@ -167,7 +168,7 @@ export default function VariantA(_: VariantProps) {
             onLesson={setLessonN}
             onTopic={(t) => {
               setTopicId(t.id);
-              setLessonN((lessonsFor(t).find((l) => !l.done) ?? lessonsFor(t)[0])!.n);
+              setLessonN(firstOpenLesson(t));
             }}
             onStart={() => {
               practice.restart();
@@ -320,7 +321,7 @@ function TopicScreen(props: {
   onStart: () => void;
 }) {
   const lessons = lessonsFor(props.topic);
-  const chosen = lessons.find((l) => l.n === props.lessonN) ?? lessons[0]!;
+  const chosen = lessonByNumber(props.topic, props.lessonN);
   return (
     <>
       <div className="stu-a-head">

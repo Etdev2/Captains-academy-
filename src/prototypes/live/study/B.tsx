@@ -13,7 +13,6 @@ import {
 import { DEFINITIONS } from '../../../sim/chapter1/definitions';
 import { studyStreakDays } from '../shared/sample';
 import { useScreen } from '../shared/routes';
-import type { VariantProps } from '../shared/types';
 import {
   CATEGORIES,
   NOT_EXAM_NOTE,
@@ -24,6 +23,8 @@ import {
   dayLabel,
   examMissed,
   examParts,
+  firstOpenLesson,
+  lessonByNumber,
   lessonsDone,
   lessonsFor,
   mockExam,
@@ -57,7 +58,7 @@ function Status({ ok, children }: { ok: boolean; children: React.ReactNode }) {
   );
 }
 
-export default function VariantB(_: VariantProps) {
+export default function VariantB() {
   const [screen, go] = useScreen(SCREENS);
   const [topicId, setTopicId] = React.useState('rules');
   const [lessonN, setLessonN] = React.useState<number>(nextLesson.lesson.n);
@@ -137,9 +138,7 @@ export default function VariantB(_: VariantProps) {
         <main className="stu-b-main">
           {screen === 'dashboard' && (
             <Overview
-              onOpen={(t) =>
-                openLesson(t, (lessonsFor(t).find((l) => !l.done) ?? lessonsFor(t)[0])!.n)
-              }
+              onOpen={(t) => openLesson(t, firstOpenLesson(t))}
               onNext={() => openLesson(nextLesson.topic, nextLesson.lesson.n)}
               go={go}
             />
@@ -230,7 +229,7 @@ function Overview({
 
 function Lesson({ topic, n, onStart }: { topic: StudyTopic; n: number; onStart: () => void }) {
   const lessons = lessonsFor(topic);
-  const l = lessons.find((x) => x.n === n) ?? lessons[0]!;
+  const l = lessonByNumber(topic, n);
   const defs = DEFINITIONS.slice(0, 8);
   return (
     <article>
@@ -284,8 +283,9 @@ function Lesson({ topic, n, onStart }: { topic: StudyTopic; n: number; onStart: 
 }
 
 function Practice({ p, go }: { p: ReturnType<typeof usePractice>; go: (s: Screen) => void }) {
-  const [sel, setSel] = React.useState<Category | null>(null);
-  React.useEffect(() => setSel(null), [p.index]);
+  const [selected, setSelected] = React.useState<{ i: number; c: Category } | null>(null);
+  const sel = selected?.i === p.index ? selected.c : null;
+  const setSel = (c: Category) => setSelected({ i: p.index, c });
   if (p.finished) {
     return (
       <article>

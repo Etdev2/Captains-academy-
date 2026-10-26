@@ -20,11 +20,14 @@
   --focus: #ffffff;
   min-height: 100dvh;
   background:
-    radial-gradient(1200px 500px at 70% -10%, rgba(127, 205, 236, 0.08), transparent 60%),
-    var(--bg);
+    radial-gradient(1200px 500px at 70% -10%, rgba(127, 205, 236, 0.08), transparent 60%), var(--bg);
   color: var(--ink);
   color-scheme: dark;
-  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
   font-size: 18px;
   line-height: 1.4;
   padding-bottom: 96px;
@@ -767,4 +770,8 @@
   .a-primary {
     min-width: 280px;
   }
+}
+
+.sea-a :is(h1, h2, h3) {
+  font-weight: 800;
 }

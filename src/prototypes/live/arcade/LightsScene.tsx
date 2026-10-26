@@ -55,7 +55,14 @@ export function LightsScene({ lights, label }: { lights: readonly Light[]; label
             fill={GLOW[l.color]}
             opacity="0.14"
           />
-          <circle cx={l.x} cy={l.y} r={l.r * 2.6} fill={GLOW[l.color]} opacity="0.55" filter="url(#arc-glow)" />
+          <circle
+            cx={l.x}
+            cy={l.y}
+            r={l.r * 2.6}
+            fill={GLOW[l.color]}
+            opacity="0.55"
+            filter="url(#arc-glow)"
+          />
           <circle cx={l.x} cy={l.y} r={l.r} fill={FILL[l.color]} />
         </g>
       ))}

@@ -40,10 +40,7 @@ export function filterChallenges(kind: Kind, status: StatusFilter): readonly Arc
 
 /** Where a challenge goes in this demo: a screen of the prototype, a link to the real game, or nowhere. */
 export type Route =
-  | { type: 'dock' }
-  | { type: 'rules' }
-  | { type: 'real'; href: string }
-  | { type: 'locked' };
+  { type: 'dock' } | { type: 'rules' } | { type: 'real'; href: string } | { type: 'locked' };
 
 export function routeOf(c: ArcadeChallenge): Route {
   if (c.status === 'locked') return { type: 'locked' };
@@ -57,7 +54,12 @@ export function Stars({ n, label = true }: { n: number; label?: boolean }) {
     <span className="arc-stars">
       <span aria-hidden className="arc-stars-row">
         {[1, 2, 3].map((i) => (
-          <Star key={i} size={18} className={i <= n ? 'on' : 'off'} fill={i <= n ? 'currentColor' : 'none'} />
+          <Star
+            key={i}
+            size={18}
+            className={i <= n ? 'on' : 'off'}
+            fill={i <= n ? 'currentColor' : 'none'}
+          />
         ))}
       </span>
       {label ? <span>{n} of 3 stars</span> : <span className="sr-only">{n} of 3 stars</span>}
@@ -69,7 +71,8 @@ export function StatusTag({ c }: { c: ArcadeChallenge }) {
   const Icon = c.status === 'cleared' ? CheckCircle2 : c.status === 'locked' ? Lock : AlertTriangle;
   return (
     <span className="arc-tag" data-status={c.status}>
-      <Icon size={16} aria-hidden /> {c.status === 'open' ? 'Not cleared yet' : STATUS_LABEL[c.status]}
+      <Icon size={16} aria-hidden />{' '}
+      {c.status === 'open' ? 'Not cleared yet' : STATUS_LABEL[c.status]}
     </span>
   );
 }
@@ -93,7 +96,12 @@ export function Chips<T extends string>({
     <div role="group" aria-label={label} className="arc-chips">
       <span className="arc-chips-label">{label}</span>
       {options.map((o) => (
-        <button key={o.id} type="button" aria-pressed={o.id === value} onClick={() => onChange(o.id)}>
+        <button
+          key={o.id}
+          type="button"
+          aria-pressed={o.id === value}
+          onClick={() => onChange(o.id)}
+        >
           {o.label}
         </button>
       ))}
@@ -114,12 +122,23 @@ export const STATUS_OPTIONS: readonly { id: StatusFilter; label: string }[] = [
   { id: 'locked', label: 'Locked' },
 ];
 
-export function EmptyFilter({ kind, status, onClear }: { kind: Kind; status: StatusFilter; onClear: () => void }) {
+export function EmptyFilter({
+  kind,
+  status,
+  onClear,
+}: {
+  kind: Kind;
+  status: StatusFilter;
+  onClear: () => void;
+}) {
   const k = kind === 'all' ? 'challenges' : `${KIND_LABEL[kind].toLowerCase()} challenges`;
   const s = status === 'any' ? '' : `${STATUS_LABEL[status].toLowerCase()} `;
   return (
     <div className="arc-empty" role="status">
-      <h3>No {s}{k} here yet.</h3>
+      <h3>
+        No {s}
+        {k} here yet.
+      </h3>
       <p>
         {status === 'cleared'
           ? 'Clear one first and it will show up here with its stars.'
@@ -257,7 +276,12 @@ export function PlayBar({ d }: { d: Docking }) {
       >
         {d.auto ? 'Take the helm' : 'Show me (autopilot)'}
       </button>
-      <button type="button" className="arc-btn ghost" aria-pressed={d.slow} onClick={() => d.setSlow(!d.slow)}>
+      <button
+        type="button"
+        className="arc-btn ghost"
+        aria-pressed={d.slow}
+        onClick={() => d.setSlow(!d.slow)}
+      >
         Half speed: {d.slow ? 'on' : 'off'}
       </button>
     </div>
@@ -276,7 +300,10 @@ export function coach(d: Docking): string {
   if (s.dwell > 0) return 'You are in. Keep her still and she is docked.';
   if (s.t < 4 && d.throttle === 0) return 'Try this first. Tap Slow ahead and watch the speed.';
   if (near && s.ground > 1.6) return 'Too fast for the slip. Tap Slow ahead, then Stop.';
-  if (Math.abs(off) > 6 && s.y > 30) return off > 0 ? 'The slip is to your left. Turn left a little.' : 'The slip is to your right. Turn right a little.';
+  if (Math.abs(off) > 6 && s.y > 30)
+    return off > 0
+      ? 'The slip is to your left. Turn left a little.'
+      : 'The slip is to your right. Turn right a little.';
   if (Math.abs(off) > 2.5 && s.y < 40) return 'Aim a little upwind. The wind pushes you east.';
   if (s.y > 40) return 'Point at the gap between the pilings, then go ahead.';
   return 'Good. Keep her straight and ease off the engine.';
@@ -307,7 +334,12 @@ function Group({
     <fieldset className="arc-group" disabled={checked}>
       <legend>{legend}</legend>
       {options.map((o, i) => (
-        <label key={o.id} className="arc-opt" data-picked={o.id === picked} data-right={checked && o.correct}>
+        <label
+          key={o.id}
+          className="arc-opt"
+          data-picked={o.id === picked}
+          data-right={checked && o.correct}
+        >
           <input type="radio" name={name} checked={o.id === picked} onChange={() => onPick(o.id)} />
           <b aria-hidden>{letter(i)}</b>
           <span>{o.label}</span>
@@ -316,10 +348,16 @@ function Group({
       ))}
       {checked && chosen && right && (
         <p className="arc-why" data-ok={chosen.correct} role="status">
-          {chosen.correct ? <CheckCircle2 size={20} aria-hidden /> : <AlertTriangle size={20} aria-hidden />}
+          {chosen.correct ? (
+            <CheckCircle2 size={20} aria-hidden />
+          ) : (
+            <AlertTriangle size={20} aria-hidden />
+          )}
           <span>
             <b>{chosen.correct ? 'Correct. ' : 'Not quite. '}</b>
-            {chosen.correct ? chosen.why : `${chosen.why} The answer is: ${right.label} ${right.why}`}
+            {chosen.correct
+              ? chosen.why
+              : `${chosen.why} The answer is: ${right.label} ${right.why}`}
           </span>
         </p>
       )}
@@ -337,7 +375,14 @@ export interface RulesCardProps {
   children?: React.ReactNode;
 }
 
-export function RulesCard({ item, answers, onPick, onCheck, stepwise = false, children }: RulesCardProps) {
+export function RulesCard({
+  item,
+  answers,
+  onPick,
+  onCheck,
+  stepwise = false,
+  children,
+}: RulesCardProps) {
   const a = answers[item.id] ?? { checked: false };
   const [sub, setSub] = React.useState<'she' | 'act'>('she');
   const both = (
@@ -410,11 +455,21 @@ export function RulesCard({ item, answers, onPick, onCheck, stepwise = false, ch
       )}
       {children}
       {sub === 'she' ? (
-        <button type="button" className="arc-btn primary" disabled={!picked} onClick={() => setSub('act')}>
+        <button
+          type="button"
+          className="arc-btn primary"
+          disabled={!picked}
+          onClick={() => setSub('act')}
+        >
           Next question
         </button>
       ) : (
-        <button type="button" className="arc-btn primary" disabled={!picked} onClick={() => onCheck(item.id)}>
+        <button
+          type="button"
+          className="arc-btn primary"
+          disabled={!picked}
+          onClick={() => onCheck(item.id)}
+        >
           Finish this scene
         </button>
       )}

@@ -28,8 +28,20 @@ export function DockScene({
         </g>
       ))}
       <rect className="arc-quay" x="0" y="0" width={SLIP.left} height={SLIP.mouth} />
-      <rect className="arc-quay" x={SLIP.right} y="0" width={WORLD.w - SLIP.right} height={SLIP.mouth} />
-      <rect className="arc-quay" x={SLIP.left} y="0" width={SLIP.right - SLIP.left} height={SLIP.back} />
+      <rect
+        className="arc-quay"
+        x={SLIP.right}
+        y="0"
+        width={WORLD.w - SLIP.right}
+        height={SLIP.mouth}
+      />
+      <rect
+        className="arc-quay"
+        x={SLIP.left}
+        y="0"
+        width={SLIP.right - SLIP.left}
+        height={SLIP.back}
+      />
       {PILINGS_Y.map((y) => (
         <g key={y}>
           <circle className="arc-piling" cx={SLIP.left} cy={y} r="1" />
@@ -37,10 +49,7 @@ export function DockScene({
         </g>
       ))}
       <g transform={`translate(${SLIP.cx} ${mid})`} data-ready={dwellRatio > 0 ? 'yes' : 'no'}>
-        <path
-          className="arc-berth"
-          d="M0 -5.8 L1.8 -3 L1.8 5 L-1.8 5 L-1.8 -3 Z"
-        />
+        <path className="arc-berth" d="M0 -5.8 L1.8 -3 L1.8 5 L-1.8 5 L-1.8 -3 Z" />
       </g>
       <g className="arc-wind" aria-hidden>
         <path d="M5 54 H19 M15 51 L19 54 L15 57" />

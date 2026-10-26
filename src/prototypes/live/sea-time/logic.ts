@@ -156,8 +156,8 @@ export function previewTrip(v: TripValues, vessel: Vessel | undefined): Preview 
   const h = parseHours(v.hours);
   if (!vessel || Number.isNaN(h) || h <= 0 || h > 24) return null;
   const credit = creditOf(h, vessel.grt);
-  let headline = '';
-  let detail = '';
+  let headline: string;
+  let detail: string;
   if (credit === 'day') {
     headline = 'Appears to count as 1 day';
     detail =
@@ -214,7 +214,11 @@ export interface Logbook {
   readonly summary: Summary;
   readonly checkedIn: string | null;
   readonly prefill: Partial<TripValues> | null;
-  readonly lastAdded: { readonly id: string; readonly before: number; readonly after: number } | null;
+  readonly lastAdded: {
+    readonly id: string;
+    readonly before: number;
+    readonly after: number;
+  } | null;
   readonly checkIn: (vesselId: string) => void;
   readonly checkOut: () => void;
   readonly addTrip: (v: TripValues) => void;
@@ -252,11 +256,16 @@ export function useLogbook(): Logbook {
       credit: t.credit,
       session: false,
       vesselName: nameOf(t.vesselId),
-      signed: t.credit !== 'day' || vesselStates.find((v) => v.id === t.vesselId)?.signature === 'signed',
+      signed:
+        t.credit !== 'day' || vesselStates.find((v) => v.id === t.vesselId)?.signature === 'signed',
     }));
     const added: Row[] = sessionTrips.map((t) => {
       const v = vesselStates.find((x) => x.id === t.vesselId);
-      return { ...t, signed: t.credit !== 'day' || Boolean(v?.signedSession), vesselName: nameOf(t.vesselId) };
+      return {
+        ...t,
+        signed: t.credit !== 'day' || Boolean(v?.signedSession),
+        vesselName: nameOf(t.vesselId),
+      };
     });
     const rows = [...added, ...base].sort(sortRows);
 
@@ -277,11 +286,13 @@ export function useLogbook(): Logbook {
     const summary: Summary = {
       recorded: seaTime.recordedDays + added.length,
       credited,
-      nearCoastal: seaTime.nearCoastalDays + n((r) => r.credit === 'day' && r.waters === 'near-coastal'),
+      nearCoastal:
+        seaTime.nearCoastalDays + n((r) => r.credit === 'day' && r.waters === 'near-coastal'),
       apart: seaTime.fourToEightDays + n((r) => r.credit === 'four-to-eight'),
       notCredited:
         seaTime.underFourDays + n((r) => r.credit === 'under-four' || r.credit === 'short-large'),
-      backfilled: seaTime.backfilledDays + n((r) => r.source === 'backfilled' && r.credit === 'day'),
+      backfilled:
+        seaTime.backfilledDays + n((r) => r.source === 'backfilled' && r.credit === 'day'),
       gps: seaTime.gpsDays + n((r) => r.source === 'gps' && r.credit === 'day'),
       signed,
       awaiting: Math.max(0, credited - signed),
@@ -453,7 +464,8 @@ export function sheetFor(vessel: VesselView, all: readonly Row[]): SheetData {
       waters: w,
       days,
       apart: mine.filter((r) => r.credit === 'four-to-eight').length,
-      notCredited: mine.filter((r) => r.credit === 'under-four' || r.credit === 'short-large').length,
+      notCredited: mine.filter((r) => r.credit === 'under-four' || r.credit === 'short-large')
+        .length,
     };
   });
   const sessionBackfilled = rows.filter(

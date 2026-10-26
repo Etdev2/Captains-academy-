@@ -1,9 +1,11 @@
 import type { CategoryVariants, VariantProps } from '../shared/types';
+import { VariantA } from './VariantA';
+import { VariantB } from './VariantB';
+import { VariantC } from './VariantC';
 
-// Placeholder until this category's builder replaces it.
-function Placeholder({ variant }: VariantProps) {
-  return <p style={{ padding: 24 }}>Variant {variant.toUpperCase()} is being built.</p>;
+function C({ variant }: VariantProps) {
+  return <VariantC variant={variant} />;
 }
 
-const variants: CategoryVariants = { a: Placeholder, b: Placeholder, c: Placeholder };
+const variants: CategoryVariants = { a: VariantA, b: VariantB, c: C };
 export default variants;

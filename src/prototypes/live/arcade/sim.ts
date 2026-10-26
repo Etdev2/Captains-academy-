@@ -5,7 +5,13 @@
 export const WORLD = { w: 80, h: 100 } as const;
 export const SLIP = { cx: 40, left: 35, right: 45, back: 4, mouth: 24 } as const;
 /** The spot the boat has to reach: centre line x, and a range for the boat's centre. */
-export const BERTH = { halfWidth: 2.6, yMin: 9, yMax: 17.5, maxAngle: 0.22, maxSpeed: 0.7 } as const;
+export const BERTH = {
+  halfWidth: 2.6,
+  yMin: 9,
+  yMax: 17.5,
+  maxAngle: 0.22,
+  maxSpeed: 0.7,
+} as const;
 export const DWELL_SECONDS = 1;
 const MS_TO_KN = 1.944;
 
@@ -20,8 +26,7 @@ export const DETENTS: readonly Detent[] = [
   { id: 0, label: 'Stop', speed: 0 },
   { id: -1, label: 'Astern', speed: -1 },
 ];
-export const detentSpeed = (id: number): number =>
-  DETENTS.find((d) => d.id === id)?.speed ?? 0;
+export const detentSpeed = (id: number): number => DETENTS.find((d) => d.id === id)?.speed ?? 0;
 
 export interface Wind {
   readonly id: string;
@@ -206,7 +211,8 @@ export function autopilot(s: Sim, wind: Wind): Input {
 
 export const hullHeading = (h: number): number => (h * 180) / Math.PI;
 export const knots = (ms: number): number => ms * MS_TO_KN;
-export const headingDeg = (h: number): number => ((Math.round((h * 180) / Math.PI) % 360) + 360) % 360;
+export const headingDeg = (h: number): number =>
+  ((Math.round((h * 180) / Math.PI) % 360) + 360) % 360;
 
 export interface DockResult {
   readonly time: number;

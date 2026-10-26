@@ -128,7 +128,8 @@ export function useDocking(wind: Wind, startAuto: boolean): Docking {
       setAutoState(on);
     },
     setSlow,
-    togglePause: () => setStatus((s) => (s === 'running' ? 'paused' : s === 'paused' ? 'running' : s)),
+    togglePause: () =>
+      setStatus((s) => (s === 'running' ? 'paused' : s === 'paused' ? 'running' : s)),
     restart: () => {
       simRef.current = initialSim();
       trailRef.current = [];
@@ -149,7 +150,11 @@ export function useDockKeys(d: Docking): void {
   ref.current = d;
   React.useEffect(() => {
     const dir = (k: string): -1 | 1 | 0 =>
-      k === 'ArrowLeft' || k === 'a' || k === 'A' ? -1 : k === 'ArrowRight' || k === 'd' || k === 'D' ? 1 : 0;
+      k === 'ArrowLeft' || k === 'a' || k === 'A'
+        ? -1
+        : k === 'ArrowRight' || k === 'd' || k === 'D'
+          ? 1
+          : 0;
     const down = (e: KeyboardEvent) => {
       if (e.ctrlKey || e.metaKey || e.altKey) return;
       const k = e.key;
@@ -176,4 +181,16 @@ export function useDockKeys(d: Docking): void {
       window.removeEventListener('keyup', up);
     };
   }, []);
+}
+
+/** Calls `onDone` with the result a moment after the boat docks, so the reviewer sees it settle. */
+export function useFinish(d: Docking, onDone: (r: DockResult) => void): void {
+  const ref = React.useRef({ d, onDone });
+  ref.current = { d, onDone };
+  const docked = d.status === 'docked';
+  React.useEffect(() => {
+    if (!docked) return undefined;
+    const t = window.setTimeout(() => ref.current.onDone(ref.current.d.result()), 900);
+    return () => window.clearTimeout(t);
+  }, [docked]);
 }

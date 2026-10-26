@@ -387,3 +387,10 @@ export function useReview(missed: readonly DefinitionCard[]): Review {
     },
   };
 }
+
+/** The first lesson not done, or lesson 1 when all are. */
+export const firstOpenLesson = (t: StudyTopic): number =>
+  (lessonsFor(t).find((l) => !l.done) ?? { n: 1 }).n;
+
+export const lessonByNumber = (t: StudyTopic, n: number): Lesson =>
+  lessonsFor(t).find((l) => l.n === n) ?? (lessonsFor(t)[0] as Lesson);

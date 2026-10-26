@@ -213,13 +213,46 @@ export function VesselForm({
         }
       }}
     >
-      <TextField id={`${idPrefix}-name`} label="Vessel name" value={v.name} onChange={set('name')} error={errors.name} />
-      <TextField id={`${idPrefix}-type`} label="What kind of vessel?" hint="For example, sailboat or center console." value={v.type} onChange={set('type')} />
+      <TextField
+        id={`${idPrefix}-name`}
+        label="Vessel name"
+        value={v.name}
+        onChange={set('name')}
+        error={errors.name}
+      />
+      <TextField
+        id={`${idPrefix}-type`}
+        label="What kind of vessel?"
+        hint="For example, sailboat or center console."
+        value={v.type}
+        onChange={set('type')}
+      />
       <div className="f-two">
-        <TextField id={`${idPrefix}-len`} label="Length in feet" inputMode="decimal" value={v.length} onChange={set('length')} error={errors.length} />
-        <TextField id={`${idPrefix}-grt`} label="Tonnage (GRT)" inputMode="decimal" value={v.grt} onChange={set('grt')} error={errors.grt} />
+        <TextField
+          id={`${idPrefix}-len`}
+          label="Length in feet"
+          inputMode="decimal"
+          value={v.length}
+          onChange={set('length')}
+          error={errors.length}
+        />
+        <TextField
+          id={`${idPrefix}-grt`}
+          label="Tonnage (GRT)"
+          inputMode="decimal"
+          value={v.grt}
+          onChange={set('grt')}
+          error={errors.grt}
+        />
       </div>
-      <TextField id={`${idPrefix}-owner`} label="Owner’s name" hint="The owner signs for your days aboard." value={v.owner} onChange={set('owner')} error={errors.owner} />
+      <TextField
+        id={`${idPrefix}-owner`}
+        label="Owner’s name"
+        hint="The owner signs for your days aboard."
+        value={v.owner}
+        onChange={set('owner')}
+        error={errors.owner}
+      />
       <button type="submit" className="f-submit">
         {submitLabel}
       </button>
@@ -237,7 +270,9 @@ export function ExportSheet({ data }: { data: SheetData }) {
   const earlierBackfilled = Math.max(0, data.backfilledDays - data.listedBackfilled);
   return (
     <article className="sheet" aria-label={`Sea-service summary for ${v.name}`}>
-      <p className="sheet-draft">Draft for the owner. Layout is illustrative, not the official form.</p>
+      <p className="sheet-draft">
+        Draft for the owner. Layout is illustrative, not the official form.
+      </p>
       <h3>Small vessel sea service, summary for signature</h3>
       <p className="sheet-sub">Modeled on CG-719S. Prepared from the mariner’s own log.</p>
 
@@ -273,9 +308,15 @@ export function ExportSheet({ data }: { data: SheetData }) {
         <thead>
           <tr>
             <th scope="col">Waters</th>
-            <th scope="col" className="num">Days that appear to count</th>
-            <th scope="col" className="num">4 to 8 h, shown apart</th>
-            <th scope="col" className="num">Not credited</th>
+            <th scope="col" className="num">
+              Days that appear to count
+            </th>
+            <th scope="col" className="num">
+              4 to 8 h, shown apart
+            </th>
+            <th scope="col" className="num">
+              Not credited
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -300,8 +341,8 @@ export function ExportSheet({ data }: { data: SheetData }) {
       <p className="sheet-backfill">
         {data.backfilledDays > 0 ? (
           <>
-            <span className="sheet-tag">Backfilled</span> {data.backfilledDays} of these days were entered after
-            the fact. They are marked backfilled below and are not GPS-verified.
+            <span className="sheet-tag">Backfilled</span> {data.backfilledDays} of these days were
+            entered after the fact. They are marked backfilled below and are not GPS-verified.
           </>
         ) : (
           <>No days on this vessel were backfilled.</>
@@ -318,7 +359,9 @@ export function ExportSheet({ data }: { data: SheetData }) {
               <th scope="col">Date</th>
               <th scope="col">Waters</th>
               <th scope="col">Role</th>
-              <th scope="col" className="num">Hours</th>
+              <th scope="col" className="num">
+                Hours
+              </th>
               <th scope="col">Credit</th>
               <th scope="col">Source</th>
             </tr>
@@ -345,7 +388,8 @@ export function ExportSheet({ data }: { data: SheetData }) {
       )}
       {earlierBackfilled > 0 ? (
         <p className="sheet-note">
-          Plus {earlierBackfilled} earlier backfilled days, counted in the totals above and not listed here.
+          Plus {earlierBackfilled} earlier backfilled days, counted in the totals above and not
+          listed here.
         </p>
       ) : null}
 
@@ -363,8 +407,8 @@ export function ExportSheet({ data }: { data: SheetData }) {
 
       <footer className="sheet-foot">
         <p>
-          {NMC_NOTICE} This summary does not verify service, and a signature does not approve it. Simulator
-          and game time are not included and never count as sea time.
+          {NMC_NOTICE} This summary does not verify service, and a signature does not approve it.
+          Simulator and game time are not included and never count as sea time.
         </p>
       </footer>
     </article>
@@ -402,7 +446,10 @@ export function PreviewBox({
           </p>
         </>
       ) : (
-        <p>Pick a vessel and enter the hours. This box shows how the day would be credited, before you save.</p>
+        <p>
+          Pick a vessel and enter the hours. This box shows how the day would be credited, before
+          you save.
+        </p>
       )}
     </section>
   );
