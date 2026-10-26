@@ -39,14 +39,7 @@
 .sea-b *::after {
   box-sizing: border-box;
 }
-.sea-b h1,
-.sea-b h2,
-.sea-b h3,
-.sea-b p,
-.sea-b dl,
-.sea-b dd,
-.sea-b ul,
-.sea-b ol {
+:where(.sea-b) :where(h1, h2, h3, p, dl, dd, ul, ol) {
   margin: 0;
 }
 .sea-b button {

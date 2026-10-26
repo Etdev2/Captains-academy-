@@ -37,13 +37,7 @@
 .sea-a *::after {
   box-sizing: border-box;
 }
-.sea-a h1,
-.sea-a h2,
-.sea-a h3,
-.sea-a p,
-.sea-a dl,
-.sea-a dd,
-.sea-a ul {
+:where(.sea-a) :where(h1, h2, h3, p, dl, dd, ul, ol) {
   margin: 0;
 }
 .sea-a .sr {

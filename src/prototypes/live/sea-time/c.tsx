@@ -241,8 +241,7 @@ function Home({ lb, go }: { lb: Logbook; go: Go }) {
               <div>
                 <h3>{s.credited} days appear to count</h3>
                 <p>
-                  That is {s.recorded - s.credited} fewer than recorded, because of
-                  the day rules.
+                  That is {s.recorded - s.credited} fewer than recorded, because of the day rules.
                 </p>
               </div>
             </li>

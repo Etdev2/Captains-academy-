@@ -38,14 +38,7 @@
 .sea-c *::after {
   box-sizing: border-box;
 }
-.sea-c h1,
-.sea-c h2,
-.sea-c h3,
-.sea-c p,
-.sea-c dl,
-.sea-c dd,
-.sea-c ul,
-.sea-c ol {
+:where(.sea-c) :where(h1, h2, h3, p, dl, dd, ul, ol) {
   margin: 0;
 }
 .sea-c button {
