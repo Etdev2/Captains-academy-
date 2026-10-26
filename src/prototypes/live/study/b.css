@@ -111,6 +111,8 @@
 @media (min-width: 900px) {
   .stu-b-layout {
     grid-template-columns: 340px minmax(0, 1fr);
+    /* The sidebar's white runs the full page height, past its sticky box. */
+    background: linear-gradient(to right, #fff 339px, var(--rule) 339px 340px, transparent 340px);
   }
   .stu-b-side {
     display: block;
