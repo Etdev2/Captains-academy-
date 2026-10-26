@@ -307,6 +307,7 @@
 
 /* The table becomes cards on a phone. */
 .a-table {
+  display: block;
   width: 100%;
   border-collapse: collapse;
 }
@@ -326,7 +327,7 @@
 }
 .a-table tr {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 6px 12px;
   padding: 14px 12px;
   margin-bottom: 10px;
@@ -372,6 +373,10 @@
 .a-table td[data-label='Credit'],
 .a-table td[data-label='Source'] {
   margin-top: 4px;
+  grid-column: 1 / -1;
+}
+.a-table td[data-label='Waters'] {
+  grid-column: 1 / -1;
 }
 .tag,
 .src {
@@ -714,7 +719,7 @@
   .a-table th,
   .a-table td {
     display: table-cell;
-    padding: 12px 10px;
+    padding: 12px 8px;
     border-bottom: 1px solid var(--line);
     vertical-align: middle;
   }
@@ -726,15 +731,13 @@
     color: var(--muted);
     font-weight: 600;
   }
-  .a-table td.vs,
-  .a-table td[data-label='Hours'] {
-    grid-column: auto;
+  .a-table td {
+    grid-column: auto !important;
   }
   .a-table .num {
     text-align: right;
   }
   .a-table th[scope='row'],
-  .a-table td[data-label='Waters'],
   .a-table td[data-label='Hours'] {
     white-space: nowrap;
   }

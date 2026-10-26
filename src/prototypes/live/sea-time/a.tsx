@@ -318,7 +318,6 @@ function Overview({ lb, go }: { lb: Logbook; go: (s: Screen) => void }) {
                     <th scope="col">Date</th>
                     <th scope="col">Vessel</th>
                     <th scope="col">Waters</th>
-                    <th scope="col">Role</th>
                     <th scope="col" className="num">
                       Hours
                     </th>
@@ -334,10 +333,11 @@ function Overview({ lb, go }: { lb: Logbook; go: (s: Screen) => void }) {
                       </th>
                       <td data-label="Vessel" className="vs">
                         <i>{r.vesselName}</i>
-                        <small>{r.route}</small>
+                        <small>
+                          {r.route} · {r.role}
+                        </small>
                       </td>
                       <td data-label="Waters">{watersLabel[r.waters]}</td>
-                      <td data-label="Role">{r.role}</td>
                       <td data-label="Hours" className="num">
                         {fmtHours(r.hours)}
                       </td>
