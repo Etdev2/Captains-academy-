@@ -507,3 +507,109 @@ html[data-viewer='open'] :is(#page-header, vercel-live-feedback, #vercel-live-fe
     opacity: 0;
   }
 }
+
+/* --- Category chips: the five product categories (src/prototypes/categories.ts) */
+.category-chips ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.category-chips a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--foreground);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+.category-chips a:hover {
+  border-color: var(--muted-foreground);
+}
+.category-chips a[aria-current='page'] {
+  border-color: var(--foreground);
+  background: var(--foreground);
+  color: var(--background);
+}
+.category-chip-count {
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.75;
+}
+
+/* --- The A/B/C switcher and interactive link in the viewer -------------- */
+.viewer-top {
+  flex-wrap: wrap;
+}
+.viewer-variants {
+  display: flex;
+  flex: 1 1 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0 0.25rem 0.5rem;
+}
+@media (min-width: 900px) {
+  .viewer-variants {
+    flex: 0 1 auto;
+    padding: 0;
+  }
+}
+.viewer-variants [role='group'] {
+  display: inline-flex;
+  gap: 0.25rem;
+}
+.viewer-variant[aria-current='true'] {
+  background: var(--foreground);
+  color: var(--background);
+}
+.viewer-variant b {
+  font-weight: 700;
+}
+.viewer-open {
+  white-space: nowrap;
+}
+@media (orientation: landscape) and (max-height: 32rem) {
+  .viewer-variants {
+    flex: 0 0 auto;
+    flex-direction: column;
+    padding: 0;
+  }
+  .viewer-variants [role='group'] {
+    flex-direction: column;
+  }
+  .viewer-variant .vname,
+  .viewer-open .vtext {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+/* On a phone the chips stay one row that scrolls sideways, so the board starts sooner. */
+@media (max-width: 40rem) {
+  .category-chips {
+    margin-inline: -0.75rem;
+  }
+  .category-chips ul {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 0 0.75rem 0.25rem;
+    scroll-padding-inline: 0.75rem;
+    scroll-snap-type: x proximity;
+  }
+  .category-chips li {
+    flex: none;
+    scroll-snap-align: start;
+  }
+}

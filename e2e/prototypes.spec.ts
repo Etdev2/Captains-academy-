@@ -18,8 +18,11 @@ const inventory = parseInventory(
 );
 const concepts = inventory.items.filter(isReviewable);
 // The desktop captures of the Definitions screen open from their phone twins'
-// viewer instead of having tiles of their own (src/prototypes/sections.ts).
-const tiles = concepts.filter((i) => !i.id.startsWith('app-definitions-desktop-'));
+// viewer instead of having tiles of their own (src/prototypes/sections.ts), as
+// do the iPhone captures of the interactive prototypes from their desktop twins.
+const tiles = concepts.filter(
+  (i) => !i.id.startsWith('app-definitions-desktop-') && !/^cl-live-.+-iphone$/.test(i.id),
+);
 const withImages = inventory.items.filter((i) => i.image !== null);
 const [first, second, third] = concepts;
 if (!first || !second || !third) throw new Error('need three concepts');
@@ -419,13 +422,15 @@ test('the board groups concepts by screen under headers that stick while scrolli
 }) => {
   await open(page);
   const headers = page.locator('#board .section-head');
-  await expect(headers).toHaveCount(7);
+  await expect(headers).toHaveCount(9);
   await expect(page.locator('#board section > h2')).toHaveText([
     /^Home/,
     /^Forms & License Navigator/,
     /^Sea-Time Logbook/,
+    /^Study & Exam Prep/,
     /^Definitions/,
     /^Lights/,
+    /^Arcade & Simulations/,
     /^Night Harbor/,
     /^Docking/,
   ]);

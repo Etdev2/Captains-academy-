@@ -19,7 +19,9 @@ import { BoardProvider, useBoard } from './BoardContext';
 import { BoardView } from './BoardView';
 import { ConceptDialog } from './ConceptDialog';
 import { ReferenceView, ShareView } from './OtherViews';
+import { LIVE_PATH } from './live/shared/routes';
 import { byId, ROUND } from './round';
+import { layout, order } from './sections';
 
 // The decision board at /prototypes (issue #72, ADR 0009): an internal design
 // review. Everyone looks, places five dots, the team discusses the dotted
@@ -99,9 +101,34 @@ function Decision() {
   );
 }
 
+/**
+ * `?concept=<id>` opens the viewer on that concept, so every screen on the
+ * board has a link of its own. The address follows the viewer as it moves.
+ */
+function useConceptLink() {
+  const { opened, open } = useBoard();
+  const first = React.useRef(true);
+  React.useEffect(() => {
+    if (!first.current) return;
+    first.current = false;
+    const id = new URLSearchParams(window.location.search).get('concept');
+    const item = id ? byId.get(id) : undefined;
+    if (item) open(item, order(layout(() => true)));
+  }, [open]);
+  React.useEffect(() => {
+    const url = new URL(window.location.href);
+    const current = url.searchParams.get('concept');
+    if ((opened?.id ?? null) === current) return;
+    if (opened) url.searchParams.set('concept', opened.id);
+    else url.searchParams.delete('concept');
+    window.history.replaceState(null, '', url);
+  }, [opened]);
+}
+
 function Page() {
   const { reviewer, setReviewer, persistent, message } = useBoard();
   const [tab, setTab] = React.useState('board');
+  useConceptLink();
   return (
     <div className="min-h-dvh">
       <header className="border-b" id="page-header">
@@ -128,7 +155,12 @@ function Page() {
       </header>
       <main className="mx-auto flex max-w-[1400px] flex-col gap-4 px-3 py-4 sm:px-8 sm:py-6">
         <div className="flex flex-wrap items-end justify-between gap-3">
-          <h1 className="page-title">Decision board</h1>
+          <div className="flex flex-col gap-1">
+            <h1 className="page-title">Decision board</h1>
+            <a href={LIVE_PATH} className="page-link text-sm underline underline-offset-4">
+              Interactive prototypes: 5 categories, variants A, B and C
+            </a>
+          </div>
           <div className="flex w-full flex-col gap-1.5 sm:w-72">
             <Label htmlFor="reviewer">Your name</Label>
             <Input
