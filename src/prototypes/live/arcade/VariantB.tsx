@@ -161,7 +161,7 @@ function Catalog({ onOpen }: { onOpen: (c: ArcadeChallenge) => void }) {
                         </span>
                       ) : route.type === 'real' ? (
                         <a className="arc-btn" href={route.href}>
-                          Open in the full game <ExternalLink size={16} aria-hidden />
+                          Open full game <ExternalLink size={16} aria-hidden />
                         </a>
                       ) : (
                         <button type="button" className="arc-btn" onClick={() => onOpen(c)}>

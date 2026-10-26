@@ -447,6 +447,9 @@ export interface SheetData {
   readonly listedBackfilled: number;
 }
 
+// The sample's short and under-4-hour days all sit on Kelp Runner.
+const BASE_APART: Record<string, number> = { 'kelp-runner': seaTime.fourToEightDays };
+const BASE_NOT_CREDITED: Record<string, number> = { 'kelp-runner': seaTime.underFourDays };
 const BASE_BACKFILLED: Record<string, number> = { 'kelp-runner': seaTime.backfilledDays };
 
 export function sheetFor(vessel: VesselView, all: readonly Row[]): SheetData {
@@ -463,9 +466,13 @@ export function sheetFor(vessel: VesselView, all: readonly Row[]): SheetData {
     return {
       waters: w,
       days,
-      apart: mine.filter((r) => r.credit === 'four-to-eight').length,
-      notCredited: mine.filter((r) => r.credit === 'under-four' || r.credit === 'short-large')
-        .length,
+      apart:
+        (w === vessel.waters ? (BASE_APART[vessel.id] ?? 0) : 0) +
+        mine.filter((r) => r.session && r.credit === 'four-to-eight').length,
+      notCredited:
+        (w === vessel.waters ? (BASE_NOT_CREDITED[vessel.id] ?? 0) : 0) +
+        mine.filter((r) => r.session && (r.credit === 'under-four' || r.credit === 'short-large'))
+          .length,
     };
   });
   const sessionBackfilled = rows.filter(

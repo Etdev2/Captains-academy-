@@ -41,7 +41,7 @@
 :where(.sea-c) :where(h1, h2, h3, p, dl, dd, ul, ol) {
   margin: 0;
 }
-.sea-c button {
+:where(.sea-c) button {
   font: inherit;
   cursor: pointer;
 }

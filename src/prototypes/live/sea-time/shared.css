@@ -220,7 +220,8 @@
 :is(.sea-a, .sea-b, .sea-c) .sheet table {
   width: 100%;
   border-collapse: collapse;
-  display: block;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet-scroll {
   overflow-x: auto;
 }
 :is(.sea-a, .sea-b, .sea-c) .sheet :is(th, td) {
@@ -316,4 +317,9 @@
   font-weight: 700;
   padding-top: 8px;
   border-top: 1px solid var(--field-line);
+}
+
+:is(.sea-a, .sea-b, .sea-c) .f-field input::placeholder {
+  color: var(--muted);
+  opacity: 0.8;
 }

@@ -304,39 +304,41 @@ export function ExportSheet({ data }: { data: SheetData }) {
       </div>
 
       <h4>Days of service</h4>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Waters</th>
-            <th scope="col" className="num">
-              Days that appear to count
-            </th>
-            <th scope="col" className="num">
-              4 to 8 h, shown apart
-            </th>
-            <th scope="col" className="num">
-              Not credited
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.byWaters.map((w) => (
-            <tr key={w.waters}>
-              <th scope="row">{watersLabel[w.waters]}</th>
-              <td className="num">{w.days}</td>
-              <td className="num">{w.apart}</td>
-              <td className="num">{w.notCredited}</td>
+      <div className="sheet-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Waters</th>
+              <th scope="col" className="num">
+                Days that appear to count
+              </th>
+              <th scope="col" className="num">
+                4 to 8 h, shown apart
+              </th>
+              <th scope="col" className="num">
+                Not credited
+              </th>
             </tr>
-          ))}
-        </tbody>
-        <tfoot>
-          <tr>
-            <th scope="row">Total</th>
-            <td className="num">{credited}</td>
-            <td colSpan={2}>Shown apart days are never added to the total.</td>
-          </tr>
-        </tfoot>
-      </table>
+          </thead>
+          <tbody>
+            {data.byWaters.map((w) => (
+              <tr key={w.waters}>
+                <th scope="row">{watersLabel[w.waters]}</th>
+                <td className="num">{w.days}</td>
+                <td className="num">{w.apart}</td>
+                <td className="num">{w.notCredited}</td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row">Total</th>
+              <td className="num">{credited}</td>
+              <td colSpan={2}>Shown apart days are never added to the total.</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
 
       <p className="sheet-backfill">
         {data.backfilledDays > 0 ? (
@@ -353,38 +355,40 @@ export function ExportSheet({ data }: { data: SheetData }) {
       {listed.length === 0 ? (
         <p>No entries for this vessel yet. Add a trip and it shows up here.</p>
       ) : (
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">Date</th>
-              <th scope="col">Waters</th>
-              <th scope="col">Role</th>
-              <th scope="col" className="num">
-                Hours
-              </th>
-              <th scope="col">Credit</th>
-              <th scope="col">Source</th>
-            </tr>
-          </thead>
-          <tbody>
-            {listed.map((r) => (
-              <tr key={r.id}>
-                <th scope="row">{fmtDate(r.date)}</th>
-                <td>{watersLabel[r.waters]}</td>
-                <td>{r.role}</td>
-                <td className="num">{fmtHours(r.hours)}</td>
-                <td>{creditLabel(r)}</td>
-                <td>
-                  {r.source === 'backfilled' ? (
-                    <span className="sheet-tag">Backfilled</span>
-                  ) : (
-                    sourceLabel[r.source]
-                  )}
-                </td>
+        <div className="sheet-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Waters</th>
+                <th scope="col">Role</th>
+                <th scope="col" className="num">
+                  Hours
+                </th>
+                <th scope="col">Credit</th>
+                <th scope="col">Source</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {listed.map((r) => (
+                <tr key={r.id}>
+                  <th scope="row">{fmtDate(r.date)}</th>
+                  <td>{watersLabel[r.waters]}</td>
+                  <td>{r.role}</td>
+                  <td className="num">{fmtHours(r.hours)}</td>
+                  <td>{creditLabel(r)}</td>
+                  <td>
+                    {r.source === 'backfilled' ? (
+                      <span className="sheet-tag">Backfilled</span>
+                    ) : (
+                      sourceLabel[r.source]
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
       {earlierBackfilled > 0 ? (
         <p className="sheet-note">

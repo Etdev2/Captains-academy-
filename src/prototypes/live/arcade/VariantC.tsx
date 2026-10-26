@@ -150,7 +150,7 @@ function Next({
                         <p className="arc-lock">Locked in this demo.</p>
                       ) : route.type === 'real' ? (
                         <a className="arc-btn" href={route.href}>
-                          Open in the full game
+                          Open full game
                         </a>
                       ) : (
                         <button
