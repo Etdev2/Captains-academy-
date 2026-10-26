@@ -81,7 +81,7 @@ function readUrl() {
 function Frame({ category, variant }: { category: CategoryId; variant: VariantId }) {
   const meta = categoryMeta(category);
   return (
-    <header className="live-frame" aria-label="Prototype controls">
+    <section className="live-frame" aria-label="Prototype controls">
       <div className="live-frame-row">
         <a className="live-back" href={`${DESK_PATH}?concept=${conceptId(category, variant)}`}>
           <span aria-hidden>←</span> Decision Desk
@@ -121,7 +121,7 @@ function Frame({ category, variant }: { category: CategoryId; variant: VariantId
           Rate {variantMeta(variant).letter}
         </a>
       </nav>
-    </header>
+    </section>
   );
 }
 

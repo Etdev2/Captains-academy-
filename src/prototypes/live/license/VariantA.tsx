@@ -869,9 +869,9 @@ export function VariantA() {
   const j = useJourney();
   return (
     <div className="lic-a">
-      <div className="lic-a-banner">
+      <aside className="lic-a-banner" aria-label="Sample data">
         <b>Sample data</b> <span className="lic-a-long">· {DEMO_NOTICE}</span>
-      </div>
+      </aside>
       <header className="lic-a-bar">
         <span className="lic-a-brand">
           CAPTAIN&apos;S ACADEMY<small>LICENSE &amp; FORMS</small>

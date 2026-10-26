@@ -577,39 +577,20 @@ html[data-viewer='open'] :is(#page-header, vercel-live-feedback, #vercel-live-fe
 .viewer-open {
   white-space: nowrap;
 }
-@media (orientation: landscape) and (max-height: 32rem) {
-  .viewer-variants {
-    flex: 0 0 auto;
-    flex-direction: column;
-    padding: 0;
-  }
-  .viewer-variants [role='group'] {
-    flex-direction: column;
-  }
-  .viewer-variant .vname,
-  .viewer-open .vtext {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
+/* A phone held sideways has no room in the rail: A, B, C and the interactive
+   link move into the Notes and details sheet. Elsewhere they sit in the top bar,
+   so the sheet leaves its copy out. */
+.viewer-variants-sheet .viewer-variants {
+  padding: 0;
 }
-/* On a phone the chips stay one row that scrolls sideways, so the board starts sooner. */
-@media (max-width: 40rem) {
-  .category-chips {
-    margin-inline: -0.75rem;
+.viewer-variants-sheet {
+  display: none;
+}
+@media (orientation: landscape) and (max-height: 32rem) {
+  .viewer-top .viewer-variants {
+    display: none;
   }
-  .category-chips ul {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding: 0 0.75rem 0.25rem;
-    scroll-padding-inline: 0.75rem;
-    scroll-snap-type: x proximity;
-  }
-  .category-chips li {
-    flex: none;
-    scroll-snap-align: start;
+  .viewer-variants-sheet {
+    display: block;
   }
 }

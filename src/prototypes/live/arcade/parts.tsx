@@ -78,7 +78,11 @@ export function StatusTag({ c }: { c: ArcadeChallenge }) {
 }
 
 export function SampleMark() {
-  return <span className="arc-sample">Sample data</span>;
+  return (
+    <aside className="arc-sample" aria-label="Sample data">
+      Sample data
+    </aside>
+  );
 }
 
 export function Chips<T extends string>({

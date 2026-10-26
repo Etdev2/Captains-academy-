@@ -313,6 +313,7 @@ function Logbook({
         </p>
       ) : null}
 
+      <h1 className="sr-only">Sea-time logbook</h1>
       <div className="b-funnel-wrap b-hide-detail">
         <Funnel lb={lb} />
       </div>

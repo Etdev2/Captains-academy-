@@ -125,13 +125,13 @@ function Notes({ item }: { item: Item }) {
  * screenshot. Switching keeps the device: a phone capture switches to the
  * other phone captures.
  */
-function VariantSwitcher({ item }: { item: Item }) {
+function VariantSwitcher({ item, link = true }: { item: Item; link?: boolean }) {
   const { open } = useBoard();
   const siblings = siblingsOf(item.id).flatMap(({ shot, id }) => {
     const sibling = byId.get(id);
     return sibling ? [{ shot, sibling }] : [];
   });
-  const href = interactiveHref(item);
+  const href = link ? interactiveHref(item) : undefined;
   if (siblings.length === 0 && !href) return null;
   return (
     <div className="viewer-variants">
@@ -213,6 +213,9 @@ function Details({ item, onClose }: { item: Item; onClose: () => void }) {
       </div>
       <div className="flex flex-col gap-4">
         <Caution item={item} />
+        <div className="viewer-variants-sheet">
+          <VariantSwitcher item={item} link={false} />
+        </div>
         {twin && (
           <Button variant="outline" onClick={() => open(twin)}>
             See it on {twin.device.toLowerCase().startsWith('phone') ? 'a phone' : 'desktop'}

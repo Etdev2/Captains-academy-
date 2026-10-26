@@ -51,9 +51,16 @@ for (const [category, title] of categories) {
     for (const [variant, letter, name] of variants) {
       await page.goto(`/prototypes/live/?category=${category}&variant=${variant}`);
       const root = page.locator(`#variant-root[data-variant="${variant}"]`);
-      await expect(root.locator('> *').first()).toBeVisible();
       await expect(page.locator('.live-loading')).toHaveCount(0);
-      await expect(root.getByText(/sample/i).first()).toBeVisible();
+      await expect
+        .poll(() => root.evaluate((r) => r.getBoundingClientRect().height))
+        .toBeGreaterThan(400);
+      await expect(
+        root
+          .getByText(/sample/i)
+          .filter({ visible: true })
+          .first(),
+      ).toBeVisible();
       const switcher = page.getByRole('navigation', { name: `${title} design variants` });
       await expect(
         switcher.getByRole('link', { name: new RegExp(`${letter}\\s*${name}`) }),
@@ -93,7 +100,7 @@ test('category chips narrow the board, and the choice has its own link', async (
   await page.locator('.category-chips a[data-category="arcade"]').click();
   await expect(page).toHaveURL(/category=arcade/);
   await expect(page.locator('#board section > h2').first()).toHaveText(/^Arcade & Simulations/);
-  await page.locator('.category-chips a[data-category=""]').click();
+  await page.locator('.category-chips a[data-category="all"]').click();
   await expect(page).not.toHaveURL(/category=/);
   await expect(page.locator('#board section > h2')).toHaveCount(9);
 });
@@ -104,8 +111,17 @@ test('a variant screenshot opens with an A/B/C switcher and its interactive prot
   const errors = watchErrors(page);
   await page.goto('/prototypes/?concept=cl-live-console-a-desktop');
   const viewer = page.getByRole('dialog');
-  await expect(viewer.getByRole('heading', { level: 2 }).first()).toBeAttached();
-  const group = viewer.getByRole('group', { name: 'Design variants A, B and C' });
+  await expect(viewer).toBeVisible();
+  // A phone held sideways keeps A, B and C in the Notes and details sheet.
+  const top = viewer.locator('.viewer-top');
+  const sideways = !(await top
+    .getByRole('group', { name: 'Design variants A, B and C' })
+    .isVisible());
+  const notes = viewer.getByRole('button', { name: /^Notes and details/ });
+  if (sideways) await notes.click();
+  const group = viewer
+    .getByRole('group', { name: 'Design variants A, B and C' })
+    .filter({ visible: true });
   await expect(group.getByRole('button')).toHaveCount(3);
   await expect(group.getByRole('button', { name: 'Variant A: Night Bridge' })).toHaveAttribute(
     'aria-current',
@@ -113,13 +129,15 @@ test('a variant screenshot opens with an A/B/C switcher and its interactive prot
   );
   await group.getByRole('button', { name: 'Variant C: Guided Mentor' }).click();
   await expect(page).toHaveURL(/concept=cl-live-console-c-desktop/);
-  await expect(viewer.locator('#viewer-interactive')).toHaveAttribute(
-    'href',
-    '/prototypes/live/?category=console&variant=c',
-  );
-  await viewer.locator('#viewer-interactive').click();
+  if (sideways && !(await viewer.locator('#viewer-sheet').isVisible())) await notes.click();
+  const open = viewer
+    .getByRole('link', { name: 'Open interactive prototype' })
+    .filter({ visible: true })
+    .first();
+  await expect(open).toHaveAttribute('href', '/prototypes/live/?category=console&variant=c');
+  await open.click();
   await expect(page).toHaveURL(/\/prototypes\/live\/\?category=console&variant=c/);
-  await expect(page.locator('#variant-root[data-variant="c"] > *').first()).toBeVisible();
+  await expect(page.locator('#variant-root[data-variant="c"]')).toBeVisible();
   expect(errors).toEqual([]);
 });
 
@@ -131,7 +149,9 @@ test('the prototype index and every primary screen pass axe', async ({ page }) =
     for (const [variant] of variants) {
       await page.goto(`/prototypes/live/?category=${category}&variant=${variant}`);
       await expect(page.locator('.live-loading')).toHaveCount(0);
-      await expect(page.locator('#variant-root > *').first()).toBeVisible();
+      await expect
+        .poll(() => page.locator('#variant-root').evaluate((r) => r.getBoundingClientRect().height))
+        .toBeGreaterThan(400);
       const result = await new AxeBuilder({ page }).analyze();
       expect(
         result.violations.map((v) => `${v.id}: ${v.nodes.length}`),
