@@ -1,20 +1,16 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#72",
-  "sourceDigest": "sha256:4c6c9b0d23f9939fef2df461645d0a5f0be2abf6561341a4f1a6aaa974632764",
-  "capturedAt": "2026-10-25T22:10:31Z",
+  "sourceDigest": "sha256:efc04176e1284de689577aa57269f4abf32114bf429e4ec18019c01d34361125",
+  "capturedAt": "2026-10-26T02:00:17Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "Six Captain's Console mockups (License Navigator, Forms workspace, Sea-Time Logbook; desktop and iPhone) added to docs/prototypes/inventory.json under two new board sections"
+    "fixture": "Interactive prototypes at /prototypes/live: 5 categories x variants A Night Bridge, B Clean & Light, C Guided Mentor, with fictional sample sailor Jordan Sample; 30 screenshots (desktop 1440 and iPhone 390) registered on the Decision Desk"
   },
   "commands": [
     {
       "command": "bash scripts/verify.sh",
-      "exitCode": 0
-    },
-    {
-      "command": "node scripts/check-console-mockups.mjs http://localhost:4173 proof/screenshots",
       "exitCode": 0
     }
   ],
@@ -23,7 +19,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "The board shows both sections; every mockup's preview and full-size image load at the file's size on desktop 1440x900 and iPhone 390x844, and each opens in the viewer with thumbs, notes and zoom"
+      "shows": "verify.sh passes: unit tests cover routes, concept ids, sample-data sums, the screenshot registry and the PR #75 catalog rows; Playwright opens all 15 variants on desktop and phones with no console errors or sideways scroll, switches A/B/C, filters the Desk by category, opens a variant from the viewer and back, and axe finds no violations on any primary screen"
     }
   ]
 }
