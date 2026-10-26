@@ -1,9 +1,7 @@
-import type { CategoryVariants, VariantProps } from '../shared/types';
+import type { CategoryVariants } from '../shared/types';
+import NightBridge from './a';
+import CleanLight from './b';
+import GuidedMentor from './c';
 
-// Placeholder until this category's builder replaces it.
-function Placeholder({ variant }: VariantProps) {
-  return <p style={{ padding: 24 }}>Variant {variant.toUpperCase()} is being built.</p>;
-}
-
-const variants: CategoryVariants = { a: Placeholder, b: Placeholder, c: Placeholder };
+const variants: CategoryVariants = { a: NightBridge, b: CleanLight, c: GuidedMentor };
 export default variants;

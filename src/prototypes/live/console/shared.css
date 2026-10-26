@@ -1,0 +1,450 @@
+/* Shared pieces of the three console variants. Colors come from variables set on each variant root. */
+.con-a,
+.con-b,
+.con-c {
+  min-height: 100dvh;
+  background: var(--c-bg);
+  color: var(--c-ink);
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  font-size: 18px;
+  line-height: 1.45;
+  box-sizing: border-box;
+  --background: var(--c-bg);
+  --foreground: var(--c-ink);
+}
+.con-a *,
+.con-b *,
+.con-c * {
+  box-sizing: border-box;
+}
+.con-a h1,
+.con-a h2,
+.con-a h3,
+.con-a p,
+.con-a ul,
+.con-a ol,
+.con-a dl,
+.con-a dd,
+.con-b h1,
+.con-b h2,
+.con-b h3,
+.con-b p,
+.con-b ul,
+.con-b ol,
+.con-b dl,
+.con-b dd,
+.con-c h1,
+.con-c h2,
+.con-c h3,
+.con-c p,
+.con-c ul,
+.con-c ol,
+.con-c dl,
+.con-c dd {
+  margin: 0;
+  padding: 0;
+}
+.con-a ul,
+.con-a ol,
+.con-b ul,
+.con-b ol,
+.con-c ul,
+.con-c ol {
+  list-style: none;
+}
+.con-a :focus-visible,
+.con-b :focus-visible,
+.con-c :focus-visible {
+  outline: 3px solid var(--c-focus);
+  outline-offset: 2px;
+}
+
+.con-a .cx-sample,
+.con-b .cx-sample,
+.con-c .cx-sample {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+  color: var(--c-muted);
+  border: 1px dashed var(--c-edge);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+.con-a .cx-illus,
+.con-b .cx-illus,
+.con-c .cx-illus {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 0 8px;
+  font-size: 16px;
+  font-style: italic;
+  border: 1px solid var(--c-edge);
+  border-radius: 6px;
+  color: var(--c-muted);
+}
+
+.con-a .cx-chip,
+.con-b .cx-chip,
+.con-c .cx-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--c-edge);
+  white-space: nowrap;
+}
+.con-a .cx-chip-done,
+.con-b .cx-chip-done,
+.con-c .cx-chip-done {
+  background: var(--c-done-wash);
+  color: var(--c-done-ink);
+  border-color: var(--c-done);
+}
+.con-a .cx-chip-attn,
+.con-b .cx-chip-attn,
+.con-c .cx-chip-attn {
+  background: var(--c-attn-wash);
+  color: var(--c-attn-ink2);
+  border-color: var(--c-attn);
+}
+
+.con-a .cx-ring,
+.con-b .cx-ring,
+.con-c .cx-ring {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+}
+.con-a .cx-ring svg,
+.con-b .cx-ring svg,
+.con-c .cx-ring svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.con-a .cx-ring circle,
+.con-b .cx-ring circle,
+.con-c .cx-ring circle {
+  fill: none;
+  stroke-width: 11;
+}
+.con-a .cx-ring-track,
+.con-b .cx-ring-track,
+.con-c .cx-ring-track {
+  stroke: var(--c-track);
+}
+.con-a .cx-ring-done .cx-ring-fill,
+.con-b .cx-ring-done .cx-ring-fill,
+.con-c .cx-ring-done .cx-ring-fill {
+  stroke: var(--c-done);
+  stroke-linecap: round;
+}
+.con-a .cx-ring-attn .cx-ring-fill,
+.con-b .cx-ring-attn .cx-ring-fill,
+.con-c .cx-ring-attn .cx-ring-fill {
+  stroke: var(--c-attn);
+  stroke-linecap: round;
+}
+.con-a .cx-ring-num,
+.con-b .cx-ring-num,
+.con-c .cx-ring-num {
+  position: absolute;
+  display: grid;
+  text-align: center;
+  line-height: 1.1;
+}
+.con-a .cx-ring-num b,
+.con-b .cx-ring-num b,
+.con-c .cx-ring-num b {
+  font-size: 34px;
+  font-weight: 800;
+}
+.con-a .cx-ring-num small,
+.con-b .cx-ring-num small,
+.con-c .cx-ring-num small {
+  font-size: 16px;
+  color: var(--c-muted);
+}
+
+.con-a .cx-btn,
+.con-b .cx-btn,
+.con-c .cx-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 8px 18px;
+  border-radius: 12px;
+  font: inherit;
+  font-weight: 700;
+  color: var(--c-ink);
+  background: transparent;
+  border: 2px solid var(--c-edge);
+  cursor: pointer;
+  text-decoration: none;
+}
+.con-a .cx-btn-primary,
+.con-b .cx-btn-primary,
+.con-c .cx-btn-primary {
+  min-height: 56px;
+  font-size: 19px;
+  padding: 10px 24px;
+  background: var(--c-attn);
+  color: var(--c-attn-ink);
+  border-color: var(--c-attn);
+}
+.con-a .cx-link,
+.con-b .cx-link,
+.con-c .cx-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 48px;
+  font-weight: 700;
+  color: var(--c-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.con-a .cx-filter,
+.con-b .cx-filter,
+.con-c .cx-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.con-a .cx-filter button,
+.con-b .cx-filter button,
+.con-c .cx-filter button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 6px 16px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--c-ink);
+  background: transparent;
+  border: 2px solid var(--c-edge);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.con-a .cx-filter button[aria-pressed='true'],
+.con-b .cx-filter button[aria-pressed='true'],
+.con-c .cx-filter button[aria-pressed='true'] {
+  background: var(--c-done);
+  color: var(--c-done-on);
+  border-color: var(--c-done);
+}
+.con-a .cx-filter-n,
+.con-b .cx-filter-n,
+.con-c .cx-filter-n {
+  font-size: 16px;
+  opacity: 0.85;
+}
+
+.con-a .cx-task-list,
+.con-b .cx-task-list,
+.con-c .cx-task-list {
+  display: grid;
+  gap: 12px;
+}
+.con-a .cx-task,
+.con-b .cx-task,
+.con-c .cx-task {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid var(--c-line);
+  border-radius: 12px;
+  background: var(--c-card2);
+}
+.con-a .cx-task h3,
+.con-b .cx-task h3,
+.con-c .cx-task h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+.con-a .cx-task p,
+.con-b .cx-task p,
+.con-c .cx-task p {
+  color: var(--c-muted);
+  font-size: 16px;
+}
+.con-a .cx-task-meta,
+.con-b .cx-task-meta,
+.con-c .cx-task-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.con-a .cx-empty,
+.con-b .cx-empty,
+.con-c .cx-empty {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  padding: 20px;
+  border: 2px dashed var(--c-edge);
+  border-radius: 12px;
+}
+.con-a .cx-empty h3,
+.con-b .cx-empty h3,
+.con-c .cx-empty h3 {
+  font-size: 22px;
+}
+.con-a .cx-empty p,
+.con-b .cx-empty p,
+.con-c .cx-empty p {
+  color: var(--c-muted);
+}
+
+.con-a .cx-cred-list,
+.con-b .cx-cred-list,
+.con-c .cx-cred-list {
+  display: grid;
+  gap: 12px;
+}
+.con-a .cx-cred,
+.con-b .cx-cred,
+.con-c .cx-cred {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  width: 100%;
+  min-height: 56px;
+  padding: 10px 14px;
+  text-align: left;
+  font: inherit;
+  color: var(--c-ink);
+  background: var(--c-card2);
+  border: 2px solid var(--c-line);
+  border-radius: 12px;
+  cursor: pointer;
+}
+.con-a .cx-cred[aria-pressed='true'],
+.con-b .cx-cred[aria-pressed='true'],
+.con-c .cx-cred[aria-pressed='true'] {
+  border-color: var(--c-done);
+  box-shadow: inset 4px 0 0 var(--c-done);
+}
+.con-a .cx-cred-text,
+.con-b .cx-cred-text,
+.con-c .cx-cred-text {
+  display: grid;
+}
+.con-a .cx-cred-text span,
+.con-b .cx-cred-text span,
+.con-c .cx-cred-text span {
+  font-size: 16px;
+  color: var(--c-muted);
+}
+
+.con-a .cx-detail,
+.con-b .cx-detail,
+.con-c .cx-detail {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  padding: 16px;
+  border: 1px solid var(--c-line);
+  border-radius: 12px;
+  background: var(--c-card2);
+}
+.con-a .cx-detail h3,
+.con-b .cx-detail h3,
+.con-c .cx-detail h3 {
+  font-size: 22px;
+}
+.con-a .cx-detail dl,
+.con-b .cx-detail dl,
+.con-c .cx-detail dl {
+  display: grid;
+  gap: 8px;
+}
+.con-a .cx-detail dt,
+.con-b .cx-detail dt,
+.con-c .cx-detail dt {
+  font-size: 16px;
+  color: var(--c-muted);
+}
+.con-a .cx-note,
+.con-b .cx-note,
+.con-c .cx-note {
+  font-size: 16px;
+  color: var(--c-muted);
+}
+.con-a .cx-mmc,
+.con-b .cx-mmc,
+.con-c .cx-mmc {
+  font-size: 16px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--c-line);
+  background: var(--c-card2);
+}
+
+.con-a .cx-needed,
+.con-b .cx-needed,
+.con-c .cx-needed {
+  display: grid;
+  gap: 12px;
+}
+.con-a .cx-needed h3,
+.con-b .cx-needed h3,
+.con-c .cx-needed h3 {
+  font-size: 20px;
+  margin-top: 8px;
+}
+.con-a .cx-needed ul,
+.con-b .cx-needed ul,
+.con-c .cx-needed ul {
+  display: grid;
+  gap: 10px;
+}
+.con-a .cx-req,
+.con-b .cx-req,
+.con-c .cx-req {
+  display: grid;
+  justify-items: start;
+  gap: 6px;
+  padding: 12px 14px;
+  border: 1px solid var(--c-line);
+  border-radius: 12px;
+  background: var(--c-card2);
+}
+.con-a .cx-req > div,
+.con-b .cx-req > div,
+.con-c .cx-req > div {
+  display: grid;
+}
+.con-a .cx-req > div span,
+.con-b .cx-req > div span,
+.con-c .cx-req > div span {
+  font-size: 16px;
+  color: var(--c-muted);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .con-a .cx-ring-fill,
+  .con-b .cx-ring-fill,
+  .con-c .cx-ring-fill {
+    transition: stroke-dasharray 0.6s ease;
+  }
+}
