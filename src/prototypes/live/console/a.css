@@ -69,6 +69,8 @@
   font-size: 16px;
 }
 .con-a .ca-main {
+  display: flex;
+  flex-direction: column;
   padding: 20px 16px;
   max-width: 1480px;
   margin: 0 auto;
@@ -163,6 +165,10 @@
   display: grid;
   gap: 16px;
   grid-template-columns: 1fr;
+  order: 1;
+}
+.con-a .ca-route {
+  order: 2;
 }
 .con-a .ca-panel {
   border: 1px solid var(--c-line);
@@ -345,6 +351,7 @@
     color: var(--c-attn-ink);
   }
   .con-a .ca-main {
+    display: block;
     padding: 28px 32px 40px;
   }
   .con-a .ca-head {
@@ -364,7 +371,11 @@
     text-align: center;
     gap: 6px;
   }
+  .con-a .ca-route {
+    order: 0;
+  }
   .con-a .ca-grid {
+    order: 0;
     grid-template-columns: 1.1fr 1fr 1fr;
     grid-template-areas: 'sea creds lamp' 'miss creds dead' 'areas areas areas';
   }

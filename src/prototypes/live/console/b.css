@@ -250,6 +250,8 @@
 @media (min-width: 900px) {
   .con-b {
     grid-template-columns: 280px 1fr;
+    /* The sidebar's white runs the full page height, past its sticky box. */
+    background: linear-gradient(to right, #fff 279px, var(--c-line) 279px 280px, var(--c-bg) 280px);
   }
   .con-b .cb-side {
     position: sticky;

@@ -448,3 +448,21 @@
     transition: stroke-dasharray 0.6s ease;
   }
 }
+.con-a h1,
+.con-a h2,
+.con-a h3,
+.con-b h1,
+.con-b h2,
+.con-b h3,
+.con-c h1,
+.con-c h2,
+.con-c h3 {
+  font-weight: 700;
+}
+.con-a .cx-req .cx-illus,
+.con-b .cx-req .cx-illus,
+.con-c .cx-req .cx-illus {
+  justify-self: start;
+  margin-left: 0;
+  margin-top: 4px;
+}
