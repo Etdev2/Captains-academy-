@@ -212,7 +212,7 @@ function Brief({
         </section>
         <section className="arc-panel">
           <h2>Controls</h2>
-          <p>Engine buttons on the left, rudder buttons on the right. {KEYS_HINT}</p>
+          <p>Four engine buttons set your speed. Hold Left or Right to turn. {KEYS_HINT}</p>
         </section>
       </div>
       <Notice />

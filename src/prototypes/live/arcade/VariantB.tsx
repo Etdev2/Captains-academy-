@@ -414,7 +414,7 @@ export function VariantB() {
                 <figcaption>
                   <b>You see:</b> {item.seen}
                   <small>
-                    {ILLUSTRATIVE} Rules: {item.cite}.
+                    {ILLUSTRATIVE} {item.cite}.
                   </small>
                 </figcaption>
               </figure>

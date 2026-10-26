@@ -205,7 +205,7 @@ export function autopilot(s: Sim, wind: Wind): Input {
   const diff = Math.atan2(Math.sin(want - s.h), Math.cos(want - s.h));
   return {
     rudder: clamp(2.2 * diff, -1, 1),
-    speed: clamp((s.y - 13) * 0.18, 0.25, 2.4),
+    speed: s.y > 45 ? 2.4 : clamp((s.y - 13) * 0.06 + 0.25, 0.25, 1.5),
   };
 }
 

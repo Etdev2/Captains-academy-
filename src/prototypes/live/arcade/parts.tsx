@@ -484,7 +484,7 @@ export function useRules() {
     pick: (itemId: string, group: 'she' | 'act', id: string) =>
       setAnswers((a) => ({ ...a, [itemId]: { checked: false, ...a[itemId], [group]: id } })),
     check: (itemId: string) =>
-      setAnswers((a) => ({ ...a, [itemId]: { checked: true, ...a[itemId] } })),
+      setAnswers((a) => ({ ...a, [itemId]: { ...a[itemId], checked: true } })),
     reset: () => setAnswers({}),
   };
 }
