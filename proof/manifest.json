@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#78",
   "sourceDigest": "sha256:ffc88c5d16592be2cefbc80d2851bd5857d7d56dd8b51f424800846016d22872",
-  "capturedAt": "2026-10-27T21:03:48Z",
+  "capturedAt": "2026-10-27T21:16:32Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
@@ -23,7 +23,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.test.sh and verify.sh pass, including the 8 onboarding browser cases in e2e/collaborate.spec.ts, and the built /collaborate/ page is captured at 1440 and 390 pixels wide in proof/collaborator-desktop.png and proof/collaborator-phone.png"
+      "shows": "verify.test.sh and verify.sh pass, including the 8 onboarding browser cases in e2e/collaborate.spec.ts"
     }
   ]
 }
