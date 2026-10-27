@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#58",
-  "sourceDigest": "sha256:2b2549e431d1fd25ff354e65f761367db6503ac5d8a3a0101d21ee94f3f5468e",
-  "capturedAt": "2026-10-23T01:29:55Z",
+  "sourceDigest": "sha256:a4cbbb9f41ad5c4b1ff73b03a0b9e2616448a159a5f47a3b142ea7d8b7c7ae00",
+  "capturedAt": "2026-10-27T03:22:08Z",
   "result": "PASS",
   "verification": {
     "command": "bash .claude/skills/verify-captains-academy/control.sh drive .claude/skills/verify-captains-academy/features/steps/levels.steps.json",
-    "fixture": "Fresh browser with no saved stars, opening /play/ and then /play/?unlock=all on the production build"
+    "fixture": "Fresh browser with no saved stars, opening /play/ and then /play/?unlock=all on the production build of #58 merged with main at d67e262"
   },
   "commands": [
     {
@@ -16,6 +16,10 @@
     {
       "command": "bash scripts/verify.sh",
       "exitCode": 0
+    },
+    {
+      "command": "bash .claude/skills/verify-captains-academy/control.sh drive .claude/skills/verify-captains-academy/features/steps/levels.steps.json",
+      "exitCode": 0
     }
   ],
   "behaviorChanged": true,
@@ -23,7 +27,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "Without the switch LEVEL 3 stays locked and a tap keeps level 1. With ?unlock=all a tap on LEVEL 3 starts the harbor course (level index 2). Driven on the real build with the verify-captains-academy levels recipe, 15 of 15 steps"
+      "shows": "Without the switch LEVEL 3 stays locked and a tap keeps level 1. With ?unlock=all a tap on LEVEL 3 starts the harbor course (level index 2). verify.test.sh and verify.sh pass, and the levels recipe passes on the real build"
     }
   ]
 }
