@@ -34,6 +34,7 @@ import { useBoard, type BoardApi } from './BoardContext';
 import { kindOf } from './BoardView';
 import { DotImage } from './DotImage';
 import { isReviewable, type Item } from './inventory';
+import { interactiveHref, siblingsOf } from './categories';
 import { byId, documentUrl, imageUrl, items } from './round';
 import { twinOf } from './sections';
 
@@ -119,6 +120,52 @@ function Notes({ item }: { item: Item }) {
   );
 }
 
+/**
+ * A, B and C of the same category, and the interactive prototype behind the
+ * screenshot. Switching keeps the device: a phone capture switches to the
+ * other phone captures.
+ */
+function VariantSwitcher({ item, link = true }: { item: Item; link?: boolean }) {
+  const { open } = useBoard();
+  const siblings = siblingsOf(item.id).flatMap(({ shot, id }) => {
+    const sibling = byId.get(id);
+    return sibling ? [{ shot, sibling }] : [];
+  });
+  const href = link ? interactiveHref(item) : undefined;
+  if (siblings.length === 0 && !href) return null;
+  return (
+    <div className="viewer-variants">
+      {siblings.length > 0 && (
+        <div role="group" aria-label="Design variants A, B and C">
+          {siblings.map(({ shot, sibling }) => (
+            <Button
+              key={sibling.id}
+              variant="outline"
+              size="sm"
+              className="viewer-variant"
+              aria-current={sibling.id === item.id}
+              aria-label={`Variant ${shot.letter}: ${shot.name}`}
+              data-variant={shot.variant}
+              onClick={() => open(sibling)}
+            >
+              <b>{shot.letter}</b>
+              <span className="vname">{shot.name}</span>
+            </Button>
+          ))}
+        </div>
+      )}
+      {href && (
+        <Button asChild size="sm" className="viewer-open">
+          <a href={href} id="viewer-interactive">
+            <ExternalLink aria-hidden />
+            <span className="vtext">Open interactive prototype</span>
+          </a>
+        </Button>
+      )}
+    </div>
+  );
+}
+
 function Facts({ item }: { item: Item }) {
   const rows: [string, string][] = [
     ['Creator', item.creator],
@@ -166,6 +213,9 @@ function Details({ item, onClose }: { item: Item; onClose: () => void }) {
       </div>
       <div className="flex flex-col gap-4">
         <Caution item={item} />
+        <div className="viewer-variants-sheet">
+          <VariantSwitcher item={item} link={false} />
+        </div>
         {twin && (
           <Button variant="outline" onClick={() => open(twin)}>
             See it on {twin.device.toLowerCase().startsWith('phone') ? 'a phone' : 'desktop'}
@@ -198,6 +248,11 @@ function Details({ item, onClose }: { item: Item; onClose: () => void }) {
           </div>
         )}
         <div className="flex flex-wrap gap-2">
+          {interactiveHref(item) && (
+            <Button asChild>
+              <a href={interactiveHref(item)}>Open interactive prototype</a>
+            </Button>
+          )}
           {src && (
             <Button asChild variant="outline">
               <a href={src} target="_blank" rel="noopener">
@@ -359,6 +414,7 @@ export function ConceptDialog() {
                   </span>
                 </DialogDescription>
               </div>
+              <VariantSwitcher item={item} />
             </div>
             <div
               className="viewer-stage"

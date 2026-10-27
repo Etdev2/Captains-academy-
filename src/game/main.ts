@@ -11,6 +11,10 @@ import { Sound } from './sound';
 // Levels in play order. A level opens once the one before it has been docked.
 const levels = [firstSlip, crosswind, trafficRun].map((m) => compileLevel(parseMission(m)));
 
+// A testing switch: /play?unlock=all opens every level without stars. It saves
+// nothing, so the next visit without it is locked by stars again (G12).
+const unlockAll = new URLSearchParams(window.location.search).get('unlock') === 'all';
+
 new Phaser.Game({
   type: Phaser.AUTO,
   parent: 'game',
@@ -21,7 +25,7 @@ new Phaser.Game({
     width: VIEW_W,
     height: VIEW_H,
   },
-  scene: new HarborScene(levels, new Sound()),
+  scene: new HarborScene(levels, new Sound(), unlockAll),
 });
 
 void enableOffline();

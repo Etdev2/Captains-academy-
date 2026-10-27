@@ -153,6 +153,8 @@ export class HarborScene extends Phaser.Scene {
   constructor(
     private readonly levels: readonly Level[],
     private readonly audio: Sound,
+    // Testing switch from /play?unlock=all. Players still open levels by stars (G12).
+    private readonly unlockAll = false,
   ) {
     super('harbor');
   }
@@ -247,7 +249,7 @@ export class HarborScene extends Phaser.Scene {
   }
 
   private unlocked(index: number): boolean {
-    if (index === 0) return true;
+    if (this.unlockAll || index === 0) return true;
     const previous = this.levels[index - 1];
     return previous !== undefined && loadStars(previous.mission.id) > 0;
   }

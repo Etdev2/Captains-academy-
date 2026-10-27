@@ -41,6 +41,11 @@ const itemSchema = z
     notes: z.string(),
     extractedFrom: z.string().optional(),
     document: z.string().optional(),
+    /** The interactive prototype this screenshot captures, at its stable URL. */
+    interactive: z
+      .string()
+      .regex(/^\/prototypes\/live\/\?category=[a-z-]+&variant=[abc]$/)
+      .optional(),
   })
   .strict()
   .refine(

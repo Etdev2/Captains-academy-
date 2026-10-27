@@ -25,9 +25,10 @@ import {
 import { useBoard } from './BoardContext';
 import { DotImage } from './DotImage';
 import { Masonry } from './Masonry';
-import { categories, kindLabel, type Item } from './inventory';
+import { categories as valuesOf, kindLabel, type Item } from './inventory';
+import { categories, shotOf, type CategoryId } from './categories';
 import { byId, conceptIds, ROUND, thumbUrl } from './round';
-import { layout, order, shapeOf, tileIds, tileLabel, twinOf } from './sections';
+import { categoryOf, layout, order, shapeOf, tileIds, tileLabel, twinOf } from './sections';
 
 /** The concepts with a tile of their own; desktop twins open from the viewer. */
 const tiles: readonly Item[] = tileIds().flatMap((id) => {
@@ -68,8 +69,10 @@ function Tile({
   const myThumbValue = myThumb(state, reviewer, item.id);
   const label = tileLabel(item);
   const twin = twinOf(item.id);
+  const shot = shotOf(item.id);
   const tags = [
-    item.style !== label && item.kind === 'concept' ? item.style : null,
+    shot ? 'Interactive' : null,
+    item.style !== label && item.kind === 'concept' && !shot ? item.style : null,
     item.device,
     item.extractedFrom ? 'Extracted' : null,
     twin ? `${twin.device} twin` : null,
@@ -453,8 +456,66 @@ function DeciderPanel() {
   );
 }
 
+/** The category in the page's `?category=` parameter, so a category view has its own link. */
+function readCategory(): CategoryId | typeof ALL {
+  const v = new URLSearchParams(window.location.search).get('category');
+  return categories.some((c) => c.id === v) ? (v as CategoryId) : ALL;
+}
+
+function CategoryChips({
+  value,
+  onChange,
+  count,
+}: {
+  value: CategoryId | typeof ALL;
+  onChange: (v: CategoryId | typeof ALL) => void;
+  count: (v: CategoryId | typeof ALL) => number;
+}) {
+  const options: { id: CategoryId | typeof ALL; label: string }[] = [
+    { id: ALL, label: 'All prototypes' },
+    ...categories.map((c) => ({ id: c.id, label: c.title })),
+  ];
+  return (
+    <nav aria-label="Categories" className="category-chips">
+      <ul>
+        {options.map((o) => (
+          <li key={o.id}>
+            <a
+              href={o.id === ALL ? '?' : `?category=${o.id}`}
+              aria-current={value === o.id ? 'page' : undefined}
+              data-category={o.id}
+              onClick={(e) => {
+                e.preventDefault();
+                onChange(o.id);
+              }}
+            >
+              {o.label}
+              <span className="category-chip-count">{count(o.id)}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
 export function BoardView() {
   const { state, reviewer, setDone } = useBoard();
+  const [category, setCategoryState] = React.useState(readCategory);
+  const setCategory = (next: CategoryId | typeof ALL) => {
+    setCategoryState(next);
+    setStyle(ALL);
+    setFeature(ALL);
+    const url = new URL(window.location.href);
+    if (next === ALL) url.searchParams.delete('category');
+    else url.searchParams.set('category', next);
+    window.history.replaceState(null, '', url);
+  };
+  React.useEffect(() => {
+    const onPop = () => setCategoryState(readCategory());
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
   const [style, setStyle] = React.useState(ALL);
   const [feature, setFeature] = React.useState(ALL);
   const [dottedOnly, setDottedOnly] = React.useState(false);
@@ -463,22 +524,30 @@ export function BoardView() {
   const left = dotsLeft(state, reviewer);
   const others = canSeeOthers(state, reviewer);
   const dottedIds = new Set(state.reviewers.flatMap((r) => r.dots.map((d) => d.itemId)));
+  const inCategory = (i: Item, c: CategoryId | typeof ALL) => c === ALL || categoryOf(i.id) === c;
   const keep = (i: Item) =>
+    inCategory(i, category) &&
     (style === ALL || i.style === style) &&
     (feature === ALL || i.feature === feature) &&
     (!dottedOnly || dottedIds.has(i.id));
   const shown = tiles.filter(keep);
+  const pool = tiles.filter((i) => inCategory(i, category));
   const option = (field: 'style' | 'feature', all: string) => [
-    { value: ALL, label: `${all} (${tiles.length})` },
-    ...categories(tiles, field).map((v) => ({
+    { value: ALL, label: `${all} (${pool.length})` },
+    ...valuesOf(pool, field).map((v) => ({
       value: v,
-      label: `${v} (${tiles.filter((i) => i[field] === v).length})`,
+      label: `${v} (${pool.filter((i) => i[field] === v).length})`,
     })),
   ];
 
   return (
     <div className="flex flex-wrap items-start gap-6">
       <section className="flex min-w-0 flex-[999_1_640px] flex-col gap-4" aria-label="Concepts">
+        <CategoryChips
+          value={category}
+          onChange={setCategory}
+          count={(c) => tiles.filter((i) => inCategory(i, c)).length}
+        />
         <div className="flex flex-wrap items-end gap-3">
           <FilterSelect
             id="filter-style"
@@ -523,6 +592,7 @@ export function BoardView() {
         </div>
         <p className="text-sm text-muted-foreground" id="board-count">
           Showing {shown.length} of {tiles.length}.
+          {category !== ALL && pool.length === 0 && ' Nothing in this category yet.'}
           {state.phase === 'vote'
             ? ' Open a screen and tap a spot on it to drop a dot there. Tap your dot to take it back.'
             : state.phase === 'look'

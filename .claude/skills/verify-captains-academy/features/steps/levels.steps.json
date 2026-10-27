@@ -1,16 +1,72 @@
 [
-  { "do": "open", "viewport": "desktop" },
-  { "do": "tap", "x": 60, "y": 206 },
-  { "do": "wait", "ms": 1000 },
-  { "do": "expect", "field": "level", "eq": 0 },
-  { "do": "screenshot", "name": "level-2-locked" },
+  {
+    "do": "open",
+    "viewport": "desktop"
+  },
+  {
+    "do": "tap",
+    "x": 60,
+    "y": 206
+  },
+  {
+    "do": "wait",
+    "ms": 1000
+  },
+  {
+    "do": "expect",
+    "field": "level",
+    "eq": 0
+  },
+  {
+    "do": "screenshot",
+    "name": "level-2-locked"
+  },
   {
     "do": "open",
     "viewport": "desktop",
-    "storage": { "captains-academy:stars:long-beach-docking": "1" }
+    "storage": {
+      "captains-academy:stars:long-beach-docking": "1"
+    }
   },
-  { "do": "tap", "x": 60, "y": 206 },
-  { "do": "wait", "ms": 1500 },
-  { "do": "expect", "field": "level", "eq": 1 },
-  { "do": "screenshot", "name": "level-2" }
+  {
+    "do": "tap",
+    "x": 60,
+    "y": 206
+  },
+  {
+    "do": "wait",
+    "ms": 1500
+  },
+  {
+    "do": "expect",
+    "field": "level",
+    "eq": 1
+  },
+  {
+    "do": "screenshot",
+    "name": "level-2"
+  },
+  {
+    "do": "open",
+    "viewport": "desktop",
+    "query": "?unlock=all"
+  },
+  {
+    "do": "tap",
+    "x": 60,
+    "y": 262
+  },
+  {
+    "do": "wait",
+    "ms": 1500
+  },
+  {
+    "do": "expect",
+    "field": "level",
+    "eq": 2
+  },
+  {
+    "do": "screenshot",
+    "name": "unlock-all-level-3"
+  }
 ]

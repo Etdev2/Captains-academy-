@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#74",
-  "sourceDigest": "sha256:32809be7e7059d71628ef92c364ebdfdd44e3931f7acaf3c84bbc52a0ba1441c",
-  "capturedAt": "2026-10-27T03:57:09Z",
+  "sourceDigest": "sha256:e0d6e154fec16bdb6e5425ecfba0d93fb77ff793db6476ad1a4417c5cff002c6",
+  "capturedAt": "2026-10-27T21:08:00Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "PR #75's Supabase migration source, SQL test and generated types, merged with main at d67e262. Repository checks only: the SQL test was not rerun against the Supabase project from this session, which has no database access"
+    "fixture": "PR #75's Supabase migration source, SQL test and generated types, merged with main at 4b0b76f. Repository checks only: the SQL test was not rerun against the Supabase project from this session, which has no database access"
   },
   "commands": [
     {

@@ -16,9 +16,20 @@ The board follows the "decide" steps of Google Ventures' Design Sprint. Whoever 
 
 ## What is on the board
 
-[`INVENTORY.md`](INVENTORY.md) lists all 76 items. The board holds 55 of them: 41 visual concepts (ChatGPT's directions and Claude's mockups, Harbor Run and Night Harbor Run screens) and 14 screenshots of the app as built.
+[`INVENTORY.md`](INVENTORY.md) lists every item. The board holds the visual concepts (ChatGPT's directions, Claude's mockups, Harbor Run and Night Harbor Run screens), the screenshots of the app as built, and the screenshots of the [interactive prototypes](interactive/README.md): five product categories, each in variants A (Night Bridge), B (Clean & Light) and C (Guided Mentor).
 
-The board groups them by screen: Home, Definitions, Lights, Night Harbor and Docking, each under a header that sticks to the top while you scroll through it. The app's own screenshots sit in an "As built" row at the end of their section. The Definitions screen was captured twice, on a phone and on a desktop, at the same four moments. The board shows each moment once, as the phone capture, and its viewer opens the desktop twin, so 51 tiles cover all 55 concepts. Dots and notes on either capture still count. [`src/prototypes/sections.ts`](../../src/prototypes/sections.ts) holds the grouping, and `tests/prototype-sections.test.ts` checks that every concept appears exactly once and every tile has a label of its own.
+The board groups them by screen, each under a header that sticks to the top while you scroll through it, and every section belongs to one of five **categories**: Captain's Console (Home), License Navigator & Forms, Sea-Time Logbook, Study & Exam Prep (its prototypes, then Definitions and Lights) and Arcade & Simulations (its prototypes, then Night Harbor and Docking). Chips at the top of the board narrow it to one category, and each has its own link, such as `/prototypes/?category=sea-time`. "All prototypes" shows everything. The Style filter shows the visual-style tags, so Night Bridge, Clean & Light and Guided Mentor can be compared across categories.
+
+A section opens with its category's interactive prototypes, A, B and C side by side. Each tile is the desktop capture, and its iPhone capture opens from the viewer as its twin. The app's own screenshots sit in an "As built" row at the end of their section. The Definitions screen was captured twice, on a phone and on a desktop, at the same four moments. The board shows each moment once, as the phone capture, and its viewer opens the desktop twin. Dots and notes on either capture still count. [`src/prototypes/sections.ts`](../../src/prototypes/sections.ts) holds the grouping, and `tests/prototype-sections.test.ts` checks that every concept appears exactly once and every tile has a label of its own.
+
+### Links and the A/B/C switcher
+
+- `/prototypes/?concept=<id>` opens the viewer on that concept, and the address follows the viewer as you step, so any screen can be shared.
+- A variant's screenshot opens with A, B and C buttons that switch to the same category's other variants on the same device, and **Open interactive prototype**, which goes to `/prototypes/live/?category=<category>&variant=<a|b|c>`. That page has its own A/B/C switcher and a link back to the screenshot here.
+
+### Ratings
+
+The board's feedback is the dots, thumbs and notes described above, saved on the device. The 1 to 10 rating gallery was replaced by this board on 25 October. Draft PR #75 adds a Supabase table that stores one 1 to 10 rating and a comment per guest and image, keyed on `prototype_assets.id`. [`src/prototypes/catalog.ts`](../../src/prototypes/catalog.ts) is the integration point: it turns each board item into a `prototype_assets` row with the same id, so ratings, dots and notes all point at one id per screen. `tests/prototype-live.test.ts` checks every row against the migration's limits. Wiring the page to Supabase waits for PR #75 and Et's go.
 
 ## How the page looks and behaves
 
@@ -46,6 +57,10 @@ No database migration or new service was added. A shared database (DECISIONS.md 
 4. Elliott runs the discussion and the decision from the combined board. Export everything on this device writes one file with every reviewer, to move the combined board to another computer.
 
 ## Changing the inventory
+
+The interactive prototypes' screenshots come from a script, not by hand: build, run `npx vite preview`, then `node scripts/prototype-live-screenshots.mjs` captures all 15 variants on desktop and iPhone into `docs/prototypes/interactive/images/` and adds or updates their inventory items. Then run steps 2 and 4 below.
+
+For any other image:
 
 1. Add or change the item in `inventory.json`. Never rename an id: saved and exported boards point at ids.
 2. Run `python3 scripts/prototype-thumbnails.py` to rebuild the previews and record each image's width, height and dominant color.
