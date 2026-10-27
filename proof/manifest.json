@@ -1,25 +1,30 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#72",
-  "sourceDigest": "sha256:9dc2b71e9d4f9f40d3cf0ff9a4768f57a411982a3039cb7fd89da40af1c4e703",
-  "capturedAt": "2026-10-27T12:50:35Z",
+  "ticket": "Etdev2/Captains-academy-#79",
+  "sourceDigest": "sha256:ff5e276408cda324dfaca656f40cd4f92d88175f54c6557b687935250d5bb33f",
+  "capturedAt": "2026-10-27T22:20:10Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.sh",
-    "fixture": "Interactive prototypes at /prototypes/live: 5 categories x variants A Night Bridge, B Clean & Light, C Guided Mentor, with fictional sample sailor Jordan Sample; 30 screenshots registered on the Decision Desk; merged with main at 24d0561"
+    "command": "bash scripts/verify.test.sh",
+    "fixture": "CI workflow config only: verify job timeout-minutes 15 -> 30 on main at 4b0b76f"
   },
   "commands": [
+    {
+      "command": "bash scripts/verify.test.sh",
+      "exitCode": 0
+    },
     {
       "command": "bash scripts/verify.sh",
       "exitCode": 0
     }
   ],
-  "behaviorChanged": true,
+  "behaviorChanged": false,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh passes all nine steps on #80 merged with main"
+      "shows": "verify.test.sh and verify.sh pass with the verify job timeout raised to 30 minutes"
     }
-  ]
+  ],
+  "noBehaviorReason": "CI timeout only; verify runs near the 15-minute limit (#79 timed out twice)"
 }
