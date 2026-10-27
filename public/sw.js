@@ -44,7 +44,7 @@ self.addEventListener('activate', (event) => {
 // online only. Its review images add up to tens of megabytes, so neither the
 // page nor anything it loads goes into the offline cache.
 function isPrototypeReview(request) {
-  const under = (url) => url !== '' && new URL(url).pathname.startsWith('/prototypes/');
+  const under = (url) => Boolean(url) && new URL(url).pathname.startsWith('/prototypes/');
   return under(request.url) || under(request.referrer);
 }
 
