@@ -118,7 +118,11 @@ async function run(step) {
       }
       page = await context.newPage();
       touch = VIEWPORTS[step.viewport ?? 'desktop'].hasTouch ? await context.newCDPSession(page) : null;
-      await page.goto(new URL(step.path ?? '', url).href);
+      // `path` picks the page, such as /rules/?seed=47; `query` adds a search
+      // string, such as "?unlock=all".
+      const target = new URL(step.path ?? '', url);
+      if (step.query) target.search = step.query;
+      await page.goto(target.href);
       if (step.path) {
         await page.locator('#art canvas').waitFor({ state: 'visible' });
       } else if (step.viewport !== 'phone-portrait') {

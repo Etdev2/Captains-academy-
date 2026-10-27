@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#76",
-  "sourceDigest": "sha256:3d352432791b9819c494fe7f493b976bf5a0490f4917eab250df4020f844d00f",
-  "capturedAt": "2026-10-27T00:50:42Z",
+  "ticket": "Etdev2/Captains-academy-#58",
+  "sourceDigest": "sha256:a4cbbb9f41ad5c4b1ff73b03a0b9e2616448a159a5f47a3b142ea7d8b7c7ae00",
+  "capturedAt": "2026-10-27T03:22:08Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.sh",
-    "fixture": "PR #76's Lights prototype pack for the decision board, merged with main at 8223f19 (decision board #73, Chapter 1 Lights at /rules)"
+    "command": "bash .claude/skills/verify-captains-academy/control.sh drive .claude/skills/verify-captains-academy/features/steps/levels.steps.json",
+    "fixture": "Fresh browser with no saved stars, opening /play/ and then /play/?unlock=all on the production build of #58 merged with main at d67e262"
   },
   "commands": [
     {
@@ -16,15 +16,18 @@
     {
       "command": "bash scripts/verify.sh",
       "exitCode": 0
+    },
+    {
+      "command": "bash .claude/skills/verify-captains-academy/control.sh drive .claude/skills/verify-captains-academy/features/steps/levels.steps.json",
+      "exitCode": 0
     }
   ],
-  "behaviorChanged": false,
+  "behaviorChanged": true,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.test.sh and verify.sh pass on the PR head with the prototype pack added"
+      "shows": "Without the switch LEVEL 3 stays locked and a tap keeps level 1. With ?unlock=all a tap on LEVEL 3 starts the harbor course (level index 2). verify.test.sh and verify.sh pass, and the levels recipe passes on the real build"
     }
-  ],
-  "noBehaviorReason": "Adds design stills, an MP3 and an inventory importer under design/prototypes/lights/decision-board/; no app or board code changes"
+  ]
 }
