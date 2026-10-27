@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#72",
-  "sourceDigest": "sha256:4c6c9b0d23f9939fef2df461645d0a5f0be2abf6561341a4f1a6aaa974632764",
-  "capturedAt": "2026-10-25T22:10:31Z",
+  "sourceDigest": "sha256:beddbe315ad22c412398b35bc5aec4befd7d14fbf59a70c8fc13bf36260db32d",
+  "capturedAt": "2026-10-27T00:30:25Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "Six Captain's Console mockups (License Navigator, Forms workspace, Sea-Time Logbook; desktop and iPhone) added to docs/prototypes/inventory.json under two new board sections"
+    "fixture": "PR #73's decision board with the six Captain's Console mockups from #77, merged with main at bcb09a2 (Chapter 1 Lights at /rules, sea-time log, offline fallback for /rules/?level=lights)"
   },
   "commands": [
     {
@@ -23,7 +23,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "The board shows both sections; every mockup's preview and full-size image load at the file's size on desktop 1440x900 and iPhone 390x844, and each opens in the viewer with thumbs, notes and zoom"
+      "shows": "verify.sh passes every step on the merged branch, and the Captain's Console check opens all six mockups at desktop and iPhone size"
     }
   ]
 }
