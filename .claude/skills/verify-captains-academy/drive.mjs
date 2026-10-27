@@ -1,11 +1,13 @@
-// Drives the /play game with Playwright from a JSON list of steps and writes
-// evidence: one screenshot per `screenshot` step and steps.log.json with the
-// game's state after every step. Run it through control.sh drive.
+// Drives the /play game, or the Rules of the Road level at /rules, with
+// Playwright from a JSON list of steps and writes evidence: one screenshot per
+// `screenshot` step and steps.log.json with the game's state after every step.
+// Run it through control.sh drive.
 //
-// The game draws on a canvas, so there are no DOM handles inside it. Steps use
+// /play draws on a canvas, so there are no DOM handles inside it. Its steps use
 // the game's own 1280 x 768 coordinates, scaled to the canvas, and read state
 // from window.__captainsAcademy (frame, outcome, speedMmPerS, level, port,
-// starboard, muted, horn).
+// starboard, muted, horn). /rules is HTML with Phaser drawing only the vessel:
+// its steps press the real answer buttons and read window.__captainsAcademyQuiz.
 import { chromium, devices } from '@playwright/test';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -15,6 +17,8 @@ const steps = JSON.parse(readFileSync(stepsPath, 'utf8'));
 
 const VIEWPORTS = {
   desktop: { viewport: { width: 1280, height: 768 } },
+  'desktop-wide': { viewport: { width: 1440, height: 900 } },
+  'phone-390': { ...devices['iPhone 14'], viewport: { width: 390, height: 844 } },
   'phone-landscape': devices['Pixel 7 landscape'],
   'phone-portrait': devices['Pixel 7'],
 };
@@ -51,10 +55,59 @@ async function touchDrag(x, fromY, toY) {
   }
   await touch.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
 }
-const readState = () => page.evaluate(() => window.__captainsAcademy ?? null);
+const readState = () =>
+  page.evaluate(() => window.__captainsAcademy ?? window.__captainsAcademyQuiz ?? null);
+
+// definitions.answers.json and lights.answers.json map each /rules card id to its
+// right button (1 to 5, and 1 to 7). tests/rapid.test.ts and tests/lights.test.ts
+// keep them in step with the decks. Card ids never repeat across levels.
+const answers = Object.assign(
+  {},
+  ...['definitions', 'lights'].map((level) =>
+    JSON.parse(readFileSync(new URL(`./features/steps/${level}.answers.json`, import.meta.url), 'utf8')),
+  ),
+);
+async function settle() {
+  for (const deadline = Date.now() + 9000; Date.now() < deadline; ) {
+    const s = await readState();
+    if (s?.phase === 'question' || s?.phase === 'done') return s;
+    await page.waitForTimeout(50);
+  }
+  throw new Error('the level never came back to a question');
+}
+async function answerCard(right) {
+  const s = await settle();
+  if (s.phase === 'done') return;
+  const n = answers[s.card];
+  if (!n) throw new Error(`no answer on file for card ${JSON.stringify(s.card)}`);
+  const answerCount = await page.locator('#answers [data-answer]').count();
+  const target = page.locator(`#answers [data-answer="${right ? n : (n % answerCount) + 1}"]`);
+  if (touch) await target.tap();
+  else await target.click();
+  const deadline = Date.now() + 5000;
+  for (;;) {
+    const after = await readState();
+    if (after && after.answered > s.answered) return;
+    if (Date.now() > deadline) throw new Error('the tap did not answer the card');
+    await page.waitForTimeout(50);
+  }
+}
 
 async function run(step) {
   switch (step.do) {
+    case 'answerRight':
+    case 'answerWrong': {
+      const right = step.do === 'answerRight';
+      if (step.until === 'done') {
+        while ((await settle()).phase !== 'done') await answerCard(right);
+      } else {
+        await answerCard(right);
+      }
+      return;
+    }
+    case 'click':
+      await page.getByRole('button', { name: step.name, exact: true }).click();
+      return;
     case 'open': {
       if (context) await context.close();
       context = await browser.newContext(VIEWPORTS[step.viewport ?? 'desktop']);
@@ -65,9 +118,14 @@ async function run(step) {
       }
       page = await context.newPage();
       touch = VIEWPORTS[step.viewport ?? 'desktop'].hasTouch ? await context.newCDPSession(page) : null;
-      // `query` adds a search string to /play/, such as "?unlock=all".
-      await page.goto(step.query ? url + step.query : url);
-      if (step.viewport !== 'phone-portrait') {
+      // `path` picks the page, such as /rules/?seed=47; `query` adds a search
+      // string, such as "?unlock=all".
+      const target = new URL(step.path ?? '', url);
+      if (step.query) target.search = step.query;
+      await page.goto(target.href);
+      if (step.path) {
+        await page.locator('#art canvas').waitFor({ state: 'visible' });
+      } else if (step.viewport !== 'phone-portrait') {
         await page.locator('#game canvas').waitFor({ state: 'visible' });
       }
       return;

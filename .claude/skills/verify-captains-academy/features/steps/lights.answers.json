@@ -1,0 +1,21 @@
+{
+  "rule23:power-head-on": 1,
+  "rule23:power-starboard-bow": 1,
+  "rule23:power-port-beam": 1,
+  "rule23:power-long": 1,
+  "rule24:towing-short": 3,
+  "rule24:towing-long": 3,
+  "rule24:towing-astern": 3,
+  "rule25:sailing-head-on": 2,
+  "rule25:sailing-starboard-beam": 2,
+  "rule25:sailing-red-over-green": 2,
+  "rule26:trawling-head-on": 4,
+  "rule26:trawling-starboard-beam": 4,
+  "rule26:fishing-port-bow": 4,
+  "rule27:nuc-stopped": 5,
+  "rule27:nuc-under-way": 5,
+  "rule27:ram-stopped": 7,
+  "rule27:ram-under-way": 7,
+  "rule30:anchor-small": 6,
+  "rule30:anchor-long": 6
+}

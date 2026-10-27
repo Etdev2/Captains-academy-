@@ -4,8 +4,7 @@ name: Claude Code
 # actor mentions @claude. Each run authenticates with the
 # CLAUDE_CODE_OAUTH_TOKEN repository secret (from `claude setup-token`, uses Et's Claude subscription, not API credit), which Et added on 2026-10-20; this file creates none.
 # A mention is a wake, not authority: Claude builder still starts product work
-# only on a ready-for-agent ticket that Et named it on (Sweet Potato ADR 0006),
-# and this project is at stage 0, so no builder runs yet.
+# only on a ready-for-agent ticket that Et named it on (Sweet Potato ADR 0006).
 
 on:
   issue_comment:
@@ -18,11 +17,6 @@ on:
 # No default token access; the job below asks only for what the action needs.
 permissions: {}
 
-concurrency:
-  # One Claude run per issue or pull request at a time (one active attempt).
-  group: claude-${{ github.event.issue.number || github.event.pull_request.number }}
-  cancel-in-progress: false
-
 jobs:
   claude:
     # Only Et and the coordinator app may wake Claude. The action also refuses
@@ -33,6 +27,14 @@ jobs:
         (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
         (github.event_name == 'issues' && (contains(github.event.issue.body, '@claude') || contains(github.event.issue.title, '@claude')))
       )
+    # One Claude builder at a time across the whole repository: the project is
+    # stage-1-supervised, one ticket at a time (AGENTS.md). The group sits on
+    # the job, not the workflow, so the many comments that skip this job never
+    # take a place in it. GitHub keeps one run waiting behind the running one;
+    # a newer mention replaces a waiting one, so mention again if that happens.
+    concurrency:
+      group: claude-builder-${{ github.repository }}
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -41,14 +43,65 @@ jobs:
       issues: write
       id-token: write
     steps:
+      # Build tools need trusted code and trusted instructions.
+      # Code: npm ci runs lifecycle scripts, and package.json and scripts/ come
+      # from the PR head. Only code someone with write access pushed to this
+      # repository may run with this job's credentials, so a PR from a fork, or
+      # one whose head repository is gone, gets the read-only tools.
+      # Instructions: an `issues` run (opened or assigned) acts on the issue's
+      # own title and body, so its author must be Et or the coordinator. A
+      # trusted assigner does not make a stranger's issue text trusted; a fresh
+      # @claude comment from Et or the coordinator does.
+      - name: Decide whether this run may use shell tools
+        id: trust
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT: ${{ github.event_name }}
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login || '' }}
+          PR_URL: ${{ github.event.issue.pull_request.url || github.event.pull_request.url || '' }}
+        run: |
+          if [ "$EVENT" = "issues" ] && [ "$ISSUE_AUTHOR" != "Etdev2" ] && [ "$ISSUE_AUTHOR" != "sweet-potato-coordinator[bot]" ]; then
+            echo "build=false" >> "$GITHUB_OUTPUT"
+            echo "Issue text is by ${ISSUE_AUTHOR:-an unknown author}, not Et or the coordinator: read-only tools only."
+            exit 0
+          fi
+          if [ -z "$PR_URL" ]; then
+            echo "build=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          head="$(gh api "$PR_URL" --jq '.head.repo.full_name // ""')"
+          if [ "${head,,}" = "${GITHUB_REPOSITORY,,}" ]; then
+            echo "build=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "build=false" >> "$GITHUB_OUTPUT"
+            echo "PR head is ${head:-a deleted repository}, not $GITHUB_REPOSITORY: read-only tools only."
+          fi
       - uses: actions/checkout@v6
         with:
-          fetch-depth: 1
-      - name: Run Claude Code
+          fetch-depth: 0
+          # GITHUB_TOKEN pushes start no workflows; this token's pushes do.
+          token: ${{ secrets.CLAUDE_PUSH_TOKEN }}
+      - uses: actions/setup-node@v4
+        if: steps.trust.outputs.build == 'true'
+        with:
+          node-version: 22
+      - name: Run Claude Code (build tools, trusted head)
+        if: steps.trust.outputs.build == 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.CLAUDE_PUSH_TOKEN }}
+          allowed_bots: sweet-potato-coordinator[bot]
+          # Web lookups plus file edits, git, npm/npx/node and repo scripts so
+          # Claude can build and test on ready-for-agent tickets.
+          claude_args: |
+            --allowedTools "WebFetch,WebSearch,Read,Edit,Write,Glob,Grep,Bash(git:*),Bash(npm:*),Bash(npx:*),Bash(node:*),Bash(bash scripts/*),Bash(scripts/*)"
+      - name: Run Claude Code (read-only tools, untrusted code or text)
+        if: steps.trust.outputs.build != 'true'
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           allowed_bots: sweet-potato-coordinator[bot]
-          # Read-only web lookups so research tickets (e.g. #18) can verify sources.
+          # Read-only web lookups: nothing from a fork runs and untrusted issue text gets no shell.
           claude_args: |
             --allowedTools "WebFetch,WebSearch"

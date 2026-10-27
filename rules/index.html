@@ -1,0 +1,947 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#06121f" />
+    <title>Captain's Academy: Rules of the Road, level 1</title>
+    <!--
+      Chapter 1, level 1: Definitions (issue #47). Built to
+      docs/design/definitions-spec.md. The interface is HTML; Phaser draws only
+      the vessel on the card. Colors are the tokens in src/game/ui/palette.ts,
+      and tests/palette.test.ts checks that both lists match. No red or green
+      (G15).
+    -->
+    <style>
+      :root {
+        color-scheme: dark;
+        --ocean-900: #06121f;
+        --ocean-800: #0b1a2b;
+        --ocean-700: #0f2236;
+        --ink-100: #eaf2fa;
+        --ink-300: #a9bdd1;
+        --ink-400: #8aa3bb;
+        --line-500: #5b82a8;
+        --blue-300: #8fd0ff;
+        --blue-500: #4fc3ff;
+        --gold-500: #f4d06f;
+        --gold-tint: #3a3418;
+        --purple-300: #c9b3ff;
+        --purple-500: #b48cff;
+        --purple-tint: #1e1240;
+
+        --s1: 4px;
+        --s2: 8px;
+        --s3: 12px;
+        --s4: 16px;
+        --s5: 24px;
+        --s6: 32px;
+        --gutter: 16px;
+
+        --ease-out: cubic-bezier(0.2, 0, 0, 1);
+        --t-press: 100ms;
+        --t-flash: 200ms;
+        --t-card-in: 200ms;
+        --t-shake: 240ms;
+
+        /* Type scale in rem, so OS and browser text size scale it. 1rem = 16px. */
+        --fs-display: 2rem;
+        --lh-display: 2.375rem;
+        --fs-answer-line: 1.625rem;
+        --lh-answer-line: 2rem;
+        --fs-title: 1.375rem;
+        --lh-title: 1.75rem;
+        --fs-body-lg: 1.25rem;
+        --lh-body-lg: 1.75rem;
+        --fs-body: 1.125rem;
+        --lh-body: 1.5rem;
+        --fs-small: 1rem;
+        --lh-small: 1.375rem;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      html {
+        background: var(--ocean-900);
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        min-height: 100dvh;
+        background: var(--ocean-900);
+        color: var(--ink-100);
+        font-family: system-ui, sans-serif;
+        font-size: var(--fs-body);
+        line-height: var(--lh-body);
+        -webkit-tap-highlight-color: transparent;
+      }
+      button {
+        font: inherit;
+        color: inherit;
+        cursor: pointer;
+      }
+      button:focus-visible,
+      [tabindex]:focus-visible {
+        outline: 3px solid var(--blue-300);
+        outline-offset: 2px;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
+      svg.icon {
+        width: 1.25em;
+        height: 1.25em;
+        flex: none;
+      }
+
+      /* The level: one column, answers at the bottom where the thumb rests. */
+      .level {
+        display: grid;
+        grid-template-rows: auto auto minmax(160px, 1fr) auto auto auto;
+        grid-template-areas: 'header' 'gap' 'card' 'question' 'answers' 'hint';
+        width: 100%;
+        max-width: 480px;
+        min-height: 100vh;
+        min-height: 100dvh;
+        margin: 0 auto;
+        padding: max(var(--s2), env(safe-area-inset-top)) var(--gutter)
+          max(var(--s4), env(safe-area-inset-bottom));
+      }
+
+      .header {
+        grid-area: header;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--s3);
+      }
+      .row1 {
+        min-height: 48px;
+      }
+      .row2 {
+        min-height: 32px;
+        font-size: var(--fs-small);
+        line-height: var(--lh-small);
+        color: var(--ink-300);
+      }
+      .menu-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--s2);
+        min-width: 48px;
+        min-height: 48px;
+        padding: 0 var(--s3);
+        margin-left: calc(-1 * var(--s3));
+        background: none;
+        border: 0;
+        border-radius: 12px;
+        color: var(--ink-100);
+        font-size: var(--fs-small);
+        font-weight: 600;
+      }
+      h1 {
+        margin: 0;
+        font-size: var(--fs-title);
+        line-height: var(--lh-title);
+        font-weight: 600;
+        text-align: center;
+        flex: 1;
+      }
+      .combo {
+        min-width: 96px;
+        text-align: right;
+        color: var(--gold-500);
+        font-weight: 700;
+        transition: transform var(--t-press) var(--ease-out);
+      }
+      .combo.step {
+        transform: scale(1.1);
+      }
+      .hearts {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--s1);
+      }
+      .heart {
+        width: 28px;
+        height: 20px;
+      }
+      .heart .fill {
+        fill: var(--gold-500);
+      }
+      .heart.lost .fill {
+        fill: none;
+        stroke: var(--ink-400);
+        stroke-width: 2;
+      }
+      .heart.just-lost {
+        animation: heart-lost 600ms var(--ease-out);
+      }
+      @keyframes heart-lost {
+        0%,
+        100% {
+          filter: none;
+        }
+        30% {
+          filter: drop-shadow(0 0 6px var(--ink-100));
+        }
+      }
+      .hearts-label {
+        margin-left: var(--s2);
+      }
+      .bar {
+        height: 6px;
+        margin-top: var(--s1);
+        background: var(--ocean-700);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .bar > div {
+        height: 100%;
+        width: 0;
+        background: var(--blue-500);
+        transition: width var(--t-card-in) var(--ease-out);
+      }
+
+      /* The card */
+      .card {
+        grid-area: card;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 160px;
+        margin-top: var(--s3);
+        padding: var(--s3);
+        background: var(--ocean-700);
+        border-radius: 16px;
+        outline: 0 solid var(--gold-500);
+        overflow: hidden;
+      }
+      .card.flash {
+        animation: flash var(--t-flash) var(--ease-out);
+        box-shadow: 0 0 0 4px var(--gold-500);
+      }
+      @keyframes flash {
+        from {
+          box-shadow: 0 0 0 0 var(--gold-500);
+        }
+        to {
+          box-shadow: 0 0 0 4px var(--gold-500);
+        }
+      }
+      .card.shake {
+        animation: shake var(--t-shake) cubic-bezier(0.3, 0, 1, 1);
+      }
+      @keyframes shake {
+        25% {
+          transform: translateX(-6px);
+        }
+        50% {
+          transform: translateX(6px);
+        }
+        75% {
+          transform: translateX(-3px);
+        }
+      }
+      .card.missed {
+        box-shadow: 0 0 0 4px var(--purple-500);
+      }
+      .card.card-in {
+        animation: card-in var(--t-card-in) var(--ease-out);
+      }
+      @keyframes card-in {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+      }
+      .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: var(--s2);
+      }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        min-height: 32px;
+        padding: 0 var(--s3);
+        border: 2px solid var(--blue-500);
+        border-radius: 999px;
+        color: var(--blue-300);
+        font-size: var(--fs-small);
+        line-height: var(--lh-small);
+        font-weight: 500;
+      }
+      .again {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--s1);
+        min-height: 32px;
+        color: var(--ink-300);
+        font-size: var(--fs-small);
+        font-weight: 500;
+      }
+      .art {
+        position: relative;
+        flex: 1;
+        min-height: 80px;
+      }
+      .art canvas {
+        position: absolute;
+        inset: 0;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain;
+      }
+      .cue {
+        margin: var(--s2) 0 0;
+        text-align: center;
+        font-size: var(--fs-body-lg);
+        line-height: var(--lh-body-lg);
+      }
+      .points {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 40%;
+        text-align: center;
+        color: var(--gold-500);
+        font-size: var(--fs-title);
+        font-weight: 700;
+        pointer-events: none;
+        opacity: 0;
+      }
+      .points.show {
+        animation: rise 380ms var(--ease-out);
+      }
+      @keyframes rise {
+        from {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(-16px);
+        }
+      }
+
+      /* The miss replay's explanation panel, over the card. */
+      .panel {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        gap: var(--s2);
+        padding: var(--s3);
+        background: var(--purple-tint);
+        border: 4px dashed var(--purple-500);
+        border-radius: 16px;
+        text-align: center;
+      }
+      /* The text scrolls on a short screen; Pause and Next stay in reach. */
+      .panel-body {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: var(--s2);
+      }
+      @media (max-height: 900px) {
+        .panel-answer {
+          --fs-answer-line: 1.375rem;
+          --lh-answer-line: 1.75rem;
+        }
+        .panel-title,
+        .panel-cue {
+          font-size: var(--fs-body);
+          line-height: var(--lh-body);
+        }
+      }
+      .panel[hidden] {
+        display: none;
+      }
+      .panel-title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: var(--s2);
+        margin: 0;
+        color: var(--purple-300);
+        font-size: var(--fs-title);
+        line-height: var(--lh-title);
+        font-weight: 600;
+      }
+      .panel-cue {
+        margin: 0;
+        color: var(--ink-300);
+      }
+      .panel-answer {
+        margin: 0;
+        font-size: var(--fs-answer-line);
+        line-height: var(--lh-answer-line);
+        font-weight: 700;
+      }
+      .panel-why {
+        margin: 0;
+        font-size: var(--fs-body-lg);
+        line-height: var(--lh-body-lg);
+      }
+      .citation {
+        display: inline-flex;
+        align-self: center;
+        align-items: center;
+        gap: var(--s2);
+        padding: var(--s1) var(--s3);
+        background: var(--ocean-900);
+        border: 2px solid var(--line-500);
+        border-radius: 999px;
+        color: var(--blue-300);
+        font-size: var(--fs-small);
+        line-height: var(--lh-small);
+        font-weight: 500;
+      }
+      .panel-back {
+        margin: 0;
+        color: var(--purple-300);
+        font-size: var(--fs-small);
+        line-height: var(--lh-small);
+      }
+      .countdown {
+        height: 6px;
+        background: var(--ocean-900);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .countdown > div {
+        height: 100%;
+        width: 100%;
+        background: var(--purple-500);
+      }
+      .countdown-text {
+        margin: 0;
+        color: var(--purple-300);
+        font-size: var(--fs-small);
+      }
+      .panel-actions {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: var(--s3);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--s2);
+        min-height: 56px;
+        padding: 0 var(--s4);
+        border-radius: 12px;
+        font-weight: 700;
+      }
+      .btn-primary {
+        background: var(--gold-500);
+        color: var(--ocean-900);
+        border: 0;
+      }
+      .btn-primary[aria-disabled='true'] {
+        opacity: 0.55;
+        cursor: default;
+      }
+      .btn-secondary {
+        background: var(--ocean-800);
+        color: var(--ink-100);
+        border: 2px solid var(--line-500);
+      }
+      a.btn {
+        text-align: center;
+        text-decoration: none;
+      }
+      /* A level that is still shut says why, in words. */
+      .btn.locked {
+        flex-direction: column;
+        gap: 0;
+        padding-top: var(--s2);
+        padding-bottom: var(--s2);
+        cursor: default;
+      }
+      .lock-note {
+        display: block;
+        color: var(--ink-300);
+        font-size: var(--fs-small);
+        font-weight: 500;
+      }
+      #level-links {
+        display: grid;
+        gap: var(--s3);
+      }
+      #level-links:empty {
+        display: none;
+      }
+      /* The rule a right answer cites (Lights). The line is always there so the card does not jump. */
+      .rule-line {
+        margin: var(--s1) 0 0;
+        text-align: center;
+        color: var(--blue-300);
+        font-size: var(--fs-small);
+        font-weight: 500;
+      }
+      .rule-line:empty {
+        display: none;
+      }
+      .has-rule-line .rule-line:empty {
+        display: block;
+        min-height: 22px;
+      }
+
+      /* Question and answers */
+      .question {
+        grid-area: question;
+        margin: var(--s4) 0 var(--s3);
+        font-size: var(--fs-body);
+        line-height: var(--lh-body);
+        font-weight: 600;
+        text-align: center;
+      }
+      .answers {
+        grid-area: answers;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--s3);
+        position: sticky;
+        bottom: 0;
+        padding-bottom: var(--s1);
+        background: var(--ocean-900);
+      }
+      .answer {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 72px;
+        padding: var(--s2) var(--s2) var(--s2) 36px;
+        background: var(--ocean-800);
+        border: 2px solid var(--line-500);
+        border-radius: 12px;
+        text-align: center;
+        font-weight: 600;
+        transition:
+          transform var(--t-press) var(--ease-out),
+          background var(--t-press) var(--ease-out);
+      }
+      .answer.wide {
+        grid-column: 1 / -1;
+      }
+      .answer .mark {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: inline-flex;
+        color: var(--ink-400);
+        font-size: var(--fs-small);
+        font-weight: 500;
+      }
+      .answer .sub {
+        font-size: var(--fs-small);
+        line-height: var(--lh-small);
+        font-weight: 500;
+      }
+      .answer .sub:empty {
+        display: none;
+      }
+      @media (hover: hover) {
+        .answer[data-state='idle']:hover {
+          border-color: var(--blue-500);
+        }
+      }
+      .answer[data-state='idle']:active {
+        background: var(--ocean-700);
+        border-color: var(--blue-500);
+        transform: scale(0.98);
+      }
+      /* The 4 px state borders take 2 px from the padding, so labels keep their width. */
+      .answer[data-state='correct'],
+      .answer[data-state='answer'],
+      .answer[data-state='wrong'] {
+        padding: 6px 6px 6px 34px;
+      }
+      .answer[data-state='correct'] .mark,
+      .answer[data-state='answer'] .mark,
+      .answer[data-state='wrong'] .mark {
+        left: 8px;
+      }
+      .answer[data-state='correct'],
+      .answer[data-state='answer'] {
+        background: var(--gold-tint);
+        border: 4px solid var(--gold-500);
+      }
+      .answer[data-state='correct'] .mark,
+      .answer[data-state='answer'] .mark,
+      .answer[data-state='correct'] .sub,
+      .answer[data-state='answer'] .sub {
+        color: var(--gold-500);
+      }
+      .answer[data-state='wrong'] {
+        background: var(--purple-tint);
+        border: 4px dashed var(--purple-500);
+      }
+      .answer[data-state='wrong'] .mark,
+      .answer[data-state='wrong'] .sub {
+        color: var(--purple-300);
+      }
+      .answer[data-state='disabled'] {
+        cursor: default;
+      }
+      .keys-hint {
+        grid-area: hint;
+        display: none;
+        margin: var(--s3) 0 0;
+        color: var(--ink-300);
+        font-size: var(--fs-small);
+        line-height: var(--lh-small);
+        text-align: center;
+      }
+      @media (hover: hover) and (pointer: fine) {
+        .keys-hint {
+          display: block;
+        }
+      }
+
+      /* End screens and the menu */
+      .overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 10;
+        overflow-y: auto;
+        background: var(--ocean-900);
+      }
+      .overlay[hidden],
+      .sheet-backdrop[hidden] {
+        display: none;
+      }
+      .overlay-inner {
+        display: flex;
+        flex-direction: column;
+        gap: var(--s4);
+        max-width: 480px;
+        min-height: 100%;
+        margin: 0 auto;
+        padding: max(var(--s6), env(safe-area-inset-top)) var(--gutter)
+          max(var(--s5), env(safe-area-inset-bottom));
+        text-align: center;
+      }
+      .end-title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: var(--s2);
+        margin: 0;
+        font-size: var(--fs-display);
+        line-height: var(--lh-display);
+        font-weight: 700;
+      }
+      .end-title.cleared {
+        color: var(--gold-500);
+      }
+      .end-title.out {
+        color: var(--purple-300);
+      }
+      .stars {
+        display: flex;
+        justify-content: center;
+        gap: var(--s3);
+      }
+      .star {
+        width: 48px;
+        height: 48px;
+      }
+      .star .fill {
+        fill: var(--gold-500);
+      }
+      .star.empty .fill {
+        fill: none;
+        stroke: var(--ink-400);
+        stroke-width: 2;
+      }
+      .stars-text,
+      .next-star,
+      .end-sub {
+        margin: 0;
+      }
+      .next-star,
+      .end-sub {
+        color: var(--ink-300);
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: var(--s2) var(--s4);
+        margin: 0;
+        text-align: left;
+      }
+      .stats dt {
+        color: var(--ink-300);
+      }
+      .stats dd {
+        margin: 0;
+        font-weight: 600;
+        text-align: right;
+      }
+      .review {
+        text-align: left;
+      }
+      .review h3 {
+        margin: 0 0 var(--s2);
+        font-size: var(--fs-body);
+      }
+      .review ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: var(--s2);
+      }
+      .review li {
+        padding: var(--s3);
+        background: var(--ocean-800);
+        border: 2px solid var(--line-500);
+        border-radius: 12px;
+      }
+      .review .r-answer {
+        display: block;
+        color: var(--ink-300);
+        font-size: var(--fs-small);
+      }
+      .end-actions {
+        display: grid;
+        gap: var(--s3);
+        margin-top: auto;
+      }
+      .sheet-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        background: rgba(6, 18, 31, 0.8);
+      }
+      .sheet {
+        width: 100%;
+        max-width: 480px;
+        padding: var(--s4) var(--gutter) max(var(--s4), env(safe-area-inset-bottom));
+        background: var(--ocean-800);
+        border-radius: 16px 16px 0 0;
+        display: grid;
+        gap: var(--s3);
+        max-height: 100%;
+        overflow-y: auto;
+      }
+      .sheet h2 {
+        margin: 0;
+        font-size: var(--fs-title);
+        text-align: center;
+      }
+
+      /* A phone held sideways: card left, answers right, within reach of the right thumb. */
+      @media (orientation: landscape) and (max-height: 520px) {
+        .level {
+          max-width: 900px;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto minmax(160px, 1fr) auto;
+          grid-template-areas: 'header header' 'card question' 'card answers';
+          column-gap: var(--s4);
+        }
+        .question {
+          align-self: end;
+        }
+        .answers {
+          position: static;
+          align-self: start;
+        }
+        .answer {
+          min-height: 64px;
+        }
+        .keys-hint {
+          display: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+        }
+        .points.show {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="level" id="level" data-testid="rules-level" aria-labelledby="level-title">
+      <header class="header">
+        <div class="row row1">
+          <button class="menu-btn" id="menu-btn" type="button" aria-haspopup="dialog">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M4 7h16M4 12h16M4 17h16"
+                stroke="currentColor"
+                stroke-width="2"
+                fill="none"
+              />
+            </svg>
+            Menu
+          </button>
+          <h1 id="level-title">1 · Definitions</h1>
+          <span class="combo" id="combo"></span>
+        </div>
+        <div class="row row2">
+          <span class="hearts" id="hearts" role="img" aria-label="3 of 3 hearts left">
+            <span id="heart-icons" class="hearts" aria-hidden="true"></span>
+            <span class="hearts-label" id="hearts-label" aria-hidden="true">3 left</span>
+          </span>
+          <span id="progress-text">1 of 16</span>
+        </div>
+        <div
+          class="bar"
+          id="progress"
+          role="progressbar"
+          aria-label="Cards"
+          aria-valuemin="0"
+          aria-valuenow="1"
+          aria-valuemax="16"
+        >
+          <div id="progress-fill"></div>
+        </div>
+      </header>
+
+      <section class="card" id="card" aria-labelledby="cue">
+        <div class="card-top">
+          <span class="chip" id="chip" aria-label="Rule set: Inland and International"
+            >Inland + International</span
+          >
+          <span class="again" id="again" hidden>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M20 12a8 8 0 1 1-2.3-5.6M20 4v5h-5"
+                stroke="currentColor"
+                stroke-width="2"
+                fill="none"
+              />
+            </svg>
+            Again
+          </span>
+        </div>
+        <div class="art" id="art" aria-hidden="true"></div>
+        <p class="cue" id="cue"></p>
+        <p class="rule-line" id="rule-line"></p>
+        <div class="points" id="points" aria-hidden="true"></div>
+
+        <div class="panel" id="panel" role="region" aria-labelledby="panel-title" hidden>
+          <div class="panel-body" tabindex="0" aria-label="Explanation">
+            <h2 class="panel-title" id="panel-title" tabindex="-1">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" />
+                <path d="M8 8l8 8M16 8l-8 8" stroke="currentColor" stroke-width="2" />
+              </svg>
+              Not quite
+            </h2>
+            <p class="panel-cue" id="panel-cue"></p>
+            <p class="panel-answer" id="panel-answer"></p>
+            <p class="panel-why" id="panel-why"></p>
+            <span class="citation">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M5 4h9a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M17 20h2V6"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  fill="none"
+                />
+              </svg>
+              <span id="panel-citation"></span>
+            </span>
+            <p class="panel-back" id="panel-back"></p>
+          </div>
+          <div class="countdown" id="countdown" aria-hidden="true">
+            <div id="countdown-fill"></div>
+          </div>
+          <p class="countdown-text" id="countdown-text" hidden></p>
+          <div class="panel-actions">
+            <button class="btn btn-secondary" id="pause-btn" type="button" aria-pressed="false">
+              Pause
+            </button>
+            <button class="btn btn-primary" id="next-btn" type="button" aria-disabled="true">
+              Next
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <h2 class="question" id="question"></h2>
+      <div class="answers" id="answers" role="group" aria-labelledby="question"></div>
+      <p class="keys-hint" id="keys-hint"></p>
+    </main>
+
+    <div
+      class="overlay"
+      id="end"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="end-title"
+      hidden
+    >
+      <div class="overlay-inner">
+        <h2 class="end-title" id="end-title" tabindex="-1"></h2>
+        <div class="stars" id="stars" aria-hidden="true"></div>
+        <p class="stars-text" id="stars-text"></p>
+        <p class="end-sub" id="end-sub"></p>
+        <p class="next-star" id="next-star"></p>
+        <dl class="stats" id="stats"></dl>
+        <section class="review" id="review" aria-labelledby="review-title">
+          <h3 id="review-title">Worth another look</h3>
+          <ul id="review-list"></ul>
+        </section>
+        <div class="end-actions">
+          <button class="btn btn-primary" id="again-btn" type="button">Play again</button>
+          <a class="btn btn-secondary" id="next-level-btn" href="/rules/" hidden>Next level</a>
+          <button class="btn btn-secondary" id="home-btn" type="button">Home</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sheet-backdrop" id="menu" hidden>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="menu-title">
+        <h2 id="menu-title">Menu</h2>
+        <button class="btn btn-secondary" id="sound-btn" type="button" aria-pressed="true">
+          Sound: on
+        </button>
+        <button class="btn btn-secondary" id="restart-btn" type="button">Restart level</button>
+        <div id="level-links"></div>
+        <button class="btn btn-secondary" id="menu-home-btn" type="button">Home</button>
+        <button class="btn btn-primary" id="close-btn" type="button">Close</button>
+      </div>
+    </div>
+
+    <div class="sr-only" id="live-polite" aria-live="polite"></div>
+    <div class="sr-only" id="live-assertive" aria-live="assertive"></div>
+
+    <script type="module" src="/src/game/rapid/main.ts"></script>
+  </body>
+</html>
