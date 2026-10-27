@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#29",
-  "sourceDigest": "sha256:24b6c991d7700ab73d19743c1454d5e8fc91c7dead644f8e2546058cfafe1066",
-  "capturedAt": "2026-10-25T20:26:58Z",
+  "ticket": "Etdev2/Captains-academy-#76",
+  "sourceDigest": "sha256:8a259d49ca0b30ad9e087e5f3d61e58860c697ab8d31605c85dea04025f1c32e",
+  "capturedAt": "2026-10-27T00:35:47Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.test.sh",
-    "fixture": "Seeded Lights deck (19 cards, seed 29), Rule 21 sector-edge golden replays, e2e at /rules/?level=lights on desktop, phone-landscape and phone-portrait; sw offline test: /rules/?level=lights served from cached /rules/ with the network down"
+    "command": "bash scripts/verify.sh",
+    "fixture": "PR #76's Lights prototype pack for the decision board on top of main at 63e4971 (Chapter 1 Lights at /rules)"
   },
   "commands": [
     {
@@ -18,12 +18,13 @@
       "exitCode": 0
     }
   ],
-  "behaviorChanged": true,
+  "behaviorChanged": false,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "Lights at /rules/?level=lights opens after one star on Definitions and plays 19 checked cards from Rules 23 to 30: each shows a night horizon with the lights Rule 21 lets the player see, the chip reads Inland + International, a right answer cites its rule, a miss costs a heart and shows a pausable explanation with the citation, the card returns three cards later, and the run ends cleared with stars or out of hearts. axe, contrast, tap-target and palette checks pass, and Definitions still passes unchanged. Offline: a /rules/?level=lights navigation with no network is served from the cached /rules/ page (ignoreSearch), other pages keep exact matching"
+      "shows": "verify.test.sh and verify.sh pass on the PR head with the prototype pack added"
     }
-  ]
+  ],
+  "noBehaviorReason": "Adds design stills, an MP3 and an inventory importer under design/prototypes/lights/decision-board/; no app or board code changes"
 }
