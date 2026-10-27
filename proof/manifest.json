@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#79",
-  "sourceDigest": "sha256:ff5e276408cda324dfaca656f40cd4f92d88175f54c6557b687935250d5bb33f",
-  "capturedAt": "2026-10-27T22:20:10Z",
+  "ticket": "Etdev2/Captains-academy-#78",
+  "sourceDigest": "sha256:72fb9c1116cb8e717e3ae7b2e9ab332e720ee733ddc1f1db8b8fa4773d3fcda9",
+  "capturedAt": "2026-10-27T23:00:51Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.test.sh",
-    "fixture": "CI workflow config only: verify job timeout-minutes 15 -> 30 on main at 4b0b76f"
+    "command": "bash scripts/verify.sh",
+    "fixture": "The /collaborate/ onboarding page and README prompt from #79, in a complete checkout merged with main at 8c52d05"
   },
   "commands": [
     {
@@ -18,13 +18,12 @@
       "exitCode": 0
     }
   ],
-  "behaviorChanged": false,
+  "behaviorChanged": true,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.test.sh and verify.sh pass with the verify job timeout raised to 30 minutes"
+      "shows": "verify.test.sh and verify.sh pass, including the 8 onboarding browser cases in e2e/collaborate.spec.ts"
     }
-  ],
-  "noBehaviorReason": "CI timeout only; verify runs near the 15-minute limit (#79 timed out twice)"
+  ]
 }
