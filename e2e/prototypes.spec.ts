@@ -617,6 +617,11 @@ test('the offline cache never stores the board or its images', async ({ page }) 
 test('the board and the viewer pass axe with no violations', async ({ page }) => {
   await open(page);
   const scan = async (label: string) => {
+    // The notes sheet fades in; mid-fade, axe measures contrast against a
+    // half-transparent sheet. Scan the settled page.
+    await page.evaluate(() =>
+      Promise.all(document.getAnimations().map((a) => a.finished.catch(() => undefined))),
+    );
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
       .analyze();
