@@ -28,6 +28,7 @@ export default defineConfig({
         '**/entries.spec.ts',
         '**/rules.spec.ts',
         '**/prototypes.spec.ts',
+        '**/lights.spec.ts',
       ],
     },
   ],
