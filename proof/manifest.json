@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#78",
-  "sourceDigest": "sha256:480871462cb64b4329f40ef39150ddb5a74136f5736f68a8009aead4d31ef6c8",
-  "capturedAt": "2026-10-27T20:58:32Z",
+  "sourceDigest": "sha256:ffc88c5d16592be2cefbc80d2851bd5857d7d56dd8b51f424800846016d22872",
+  "capturedAt": "2026-10-27T21:03:48Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "The /collaborate/ onboarding page and README prompt from #79, in a complete checkout merged with main at 24d0561"
+    "fixture": "The /collaborate/ onboarding page and README prompt from #79, in a complete checkout merged with main at 4b0b76f"
   },
   "commands": [
     {

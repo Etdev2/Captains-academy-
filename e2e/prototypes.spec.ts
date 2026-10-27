@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { isReviewable, parseInventory } from '../src/prototypes/inventory';
+import { isReviewable, parseInventory, type Item } from '../src/prototypes/inventory';
 
 // The decision board at /prototypes (issue #72, ADR 0009), on a desktop and on
 // phones: every image loads at its own size in a space reserved for it, tiles
@@ -18,8 +18,11 @@ const inventory = parseInventory(
 );
 const concepts = inventory.items.filter(isReviewable);
 // The desktop captures of the Definitions screen open from their phone twins'
-// viewer instead of having tiles of their own (src/prototypes/sections.ts).
-const tiles = concepts.filter((i) => !i.id.startsWith('app-definitions-desktop-'));
+// viewer instead of having tiles of their own (src/prototypes/sections.ts), as
+// do the iPhone captures of the interactive prototypes from their desktop twins.
+const tiles = concepts.filter(
+  (i) => !i.id.startsWith('app-definitions-desktop-') && !/^cl-live-.+-iphone$/.test(i.id),
+);
 const withImages = inventory.items.filter((i) => i.image !== null);
 const [first, second, third] = concepts;
 if (!first || !second || !third) throw new Error('need three concepts');
@@ -331,8 +334,17 @@ test('the viewer steps through the board with the arrow keys, a swipe and its bu
   page,
 }) => {
   await open(page);
+  // The viewer steps in board order: the board opens with Captain's Console's
+  // interactive variants A, B and C (src/prototypes/sections.ts). The masonry
+  // grid's DOM order differs by screen width, so the ids are named here.
+  const [first, second, third] = ['a', 'b', 'c'].map((v) => {
+    const item = concepts.find((c) => c.id === `cl-live-console-${v}-desktop`);
+    if (!item) throw new Error(`no console variant ${v}`);
+    return item;
+  }) as [Item, Item, Item];
   await openViewer(page, first.id);
-  const heading = (title: string) => viewer(page).getByRole('heading', { name: title });
+  const heading = (title: string) =>
+    viewer(page).getByRole('heading', { name: title, exact: true });
   await expect(heading(first.title)).toBeVisible();
   await page.keyboard.press('ArrowRight');
   await expect(heading(second.title)).toBeVisible();
@@ -419,13 +431,15 @@ test('the board groups concepts by screen under headers that stick while scrolli
 }) => {
   await open(page);
   const headers = page.locator('#board .section-head');
-  await expect(headers).toHaveCount(7);
+  await expect(headers).toHaveCount(9);
   await expect(page.locator('#board section > h2')).toHaveText([
     /^Home/,
     /^Forms & License Navigator/,
     /^Sea-Time Logbook/,
+    /^Study & Exam Prep/,
     /^Definitions/,
     /^Lights/,
+    /^Arcade & Simulations/,
     /^Night Harbor/,
     /^Docking/,
   ]);

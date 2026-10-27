@@ -507,3 +507,90 @@ html[data-viewer='open'] :is(#page-header, vercel-live-feedback, #vercel-live-fe
     opacity: 0;
   }
 }
+
+/* --- Category chips: the five product categories (src/prototypes/categories.ts) */
+.category-chips ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.category-chips a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--foreground);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+.category-chips a:hover {
+  border-color: var(--muted-foreground);
+}
+.category-chips a[aria-current='page'] {
+  border-color: var(--foreground);
+  background: var(--foreground);
+  color: var(--background);
+}
+.category-chip-count {
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.75;
+}
+
+/* --- The A/B/C switcher and interactive link in the viewer -------------- */
+.viewer-top {
+  flex-wrap: wrap;
+}
+.viewer-variants {
+  display: flex;
+  flex: 1 1 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0 0.25rem 0.5rem;
+}
+@media (min-width: 900px) {
+  .viewer-variants {
+    flex: 0 1 auto;
+    padding: 0;
+  }
+}
+.viewer-variants [role='group'] {
+  display: inline-flex;
+  gap: 0.25rem;
+}
+.viewer-variant[aria-current='true'] {
+  background: var(--foreground);
+  color: var(--background);
+}
+.viewer-variant b {
+  font-weight: 700;
+}
+.viewer-open {
+  white-space: nowrap;
+}
+/* A phone held sideways has no room in the rail: A, B, C and the interactive
+   link move into the Notes and details sheet. Elsewhere they sit in the top bar,
+   so the sheet leaves its copy out. */
+.viewer-variants-sheet .viewer-variants {
+  padding: 0;
+}
+.viewer-variants-sheet {
+  display: none;
+}
+@media (orientation: landscape) and (max-height: 32rem) {
+  .viewer-top .viewer-variants {
+    display: none;
+  }
+  .viewer-variants-sheet {
+    display: block;
+  }
+}
