@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>License Navigator · Captain's Console mockup</title>
+<link rel="stylesheet" href="console.css">
+<style>
+  .nav-grid { grid-template-columns: 1.15fr 1fr 0.95fr; align-items: start; }
+  .gauges { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .gauge { display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center; }
+  .ring { width: 132px; height: 132px; flex: none; }
+  .ring text { font-family: Inter; }
+  .verdict { margin-top: 16px; padding: 12px 14px; border-radius: 10px; background: #0a1322; border: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+  .verdict b { color: var(--text); }
+  .req .t { display: flex; gap: 8px; align-items: center; }
+  .req .bar-mini { width: 120px; }
+  .next h2 { font-size: 22px; line-height: 1.25; margin: 4px 0 8px; }
+  .next p { color: var(--muted); font-size: 14px; }
+  .next .actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+  .missing li .t { font-size: 15px; }
+  .missing .num { font: 800 22px Inter; color: var(--amber); width: 34px; text-align: center; }
+  .cred .ic { background: var(--ice-wash); border-color: rgba(127,205,236,.35); color: var(--ice); }
+  .route { display: flex; align-items: center; gap: 0; margin-top: 6px; }
+  .route .stop { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; font-size: 12px; color: var(--muted); text-align: center; }
+  .route .stop i { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--line-2); background: var(--night); }
+  .route .stop.done i { background: var(--ice); border-color: var(--ice); }
+  .route .stop.here i { background: var(--amber); border-color: var(--amber); box-shadow: 0 0 0 5px rgba(243,178,60,.18); }
+  .route .stop.here { color: var(--amber); font-weight: 700; }
+  .route .leg { height: 2px; flex: 1; background: var(--line-2); margin-bottom: 22px; }
+  .route .leg.done { background: var(--ice); }
+  @media (max-width: 600px) {
+    .gauges { grid-template-columns: 1fr; gap: 12px; }
+    .gauge { flex-direction: row; text-align: left; gap: 16px; }
+    .ring { width: 104px; height: 104px; }
+    .req .bar-mini { width: 84px; }
+    .next h2 { font-size: 20px; }
+    .next .actions .btn { flex: 1; }
+  }
+</style>
+</head>
+<body>
+<div class="fiction"><b>Fictional sample data</b><span class="long"> · concept mockup for review · not a real mariner, vessel or record</span><span class="phone-only"> · concept mockup</span></div>
+
+<header class="bar">
+  <div class="brand">
+    <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#7fcdec" stroke-width="1.5"/><path d="M16 4 19 16 16 28 13 16Z" fill="#f3b23c"/><path d="M4 16 16 13 28 16 16 19Z" fill="#7fcdec" opacity=".6"/></svg>
+    <div>CAPTAIN'S ACADEMY<small>CAPTAIN'S CONSOLE</small></div>
+  </div>
+  <nav class="tabs desk-only"><a>Console</a><a class="on">License Navigator</a><a>Forms</a><a>Sea-Time Log</a><a>Study</a></nav>
+  <div class="status">
+    <span class="pill"><span class="dot"></span><span class="desk-only">Works offline · </span>synced 14:02</span>
+    <span class="avatar desk-only">JS</span>
+  </div>
+</header>
+
+<main>
+  <div class="head">
+    <div>
+      <div class="eyebrow">License Navigator</div>
+      <h1>Your route to OUPV</h1>
+      <div class="sub">Jordan Sample · fictional mariner · 2 vessels logged</div>
+    </div>
+    <div class="right">
+      <span class="chip"><span class="k">Goal</span>OUPV · Near coastal</span>
+      <span class="btn ghost desk-only">Change goal</span>
+    </div>
+  </div>
+
+  <section class="panel lamp next phone-only" style="margin-bottom:14px">
+        <div class="ph" style="color:var(--amber)">Next step</div>
+        <h2>Log 29 more days on ocean or near-coastal waters</h2>
+        <p>This is the part furthest behind. At your recent pace of about 3 days a week, that is roughly 10 weeks.</p>
+        <div class="actions"><span class="btn primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>Plan a trip</span><span class="btn">What counts?</span></div>
+      </section>
+  <section class="panel" style="margin-bottom:18px">
+    <div class="ph">Passage plan<span class="count">step 3 of 5</span></div>
+    <div class="route">
+      <div class="stop done"><i></i>Pick license</div><div class="leg done"></div>
+      <div class="stop done"><i></i>Credentials</div><div class="leg done"></div>
+      <div class="stop here"><i></i>Sea time</div><div class="leg"></div>
+      <div class="stop"><i></i>Exam</div><div class="leg"></div>
+      <div class="stop"><i></i>Apply to NMC</div>
+    </div>
+  </section>
+
+  <div class="grid nav-grid">
+    <!-- progress -->
+    <div class="grid" style="gap:18px">
+      <section class="panel">
+        <div class="ph">Sea-service progress</div>
+        <div class="gauges">
+          <div class="gauge">
+            <svg class="ring" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="50" fill="none" stroke="#14233a" stroke-width="12"/>
+              <circle cx="60" cy="60" r="50" fill="none" stroke="#7fcdec" stroke-width="12" stroke-linecap="round" stroke-dasharray="261.8 314.2" transform="rotate(-90 60 60)"/>
+              <text x="60" y="60" text-anchor="middle" fill="#e8eef6" font-size="28" font-weight="800">298</text>
+              <text x="60" y="80" text-anchor="middle" fill="#93a6bf" font-size="12" font-weight="600">of 360 days</text>
+            </svg>
+            <div><div class="label">Any waters</div><div style="font-weight:700;font-size:16px;margin-top:4px">62 days to go</div><div class="muted" style="font-size:13px">12 months · 46 CFR 11.467(c)</div></div>
+          </div>
+          <div class="gauge">
+            <svg class="ring" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="50" fill="none" stroke="#14233a" stroke-width="12"/>
+              <circle cx="60" cy="60" r="50" fill="none" stroke="#f3b23c" stroke-width="12" stroke-linecap="round" stroke-dasharray="212.8 314.2" transform="rotate(-90 60 60)"/>
+              <text x="60" y="60" text-anchor="middle" fill="#e8eef6" font-size="28" font-weight="800">61</text>
+              <text x="60" y="80" text-anchor="middle" fill="#93a6bf" font-size="12" font-weight="600">of 90 days</text>
+            </svg>
+            <div><div class="label">Ocean / near coastal</div><div style="font-weight:700;font-size:16px;margin-top:4px" class="amber">29 days to go</div><div class="muted" style="font-size:13px">3 of the 12 months</div></div>
+          </div>
+        </div>
+        <div class="verdict">Logged sea time <b>appears to meet 0 of 2</b> sea-service parts so far. 42 backfilled days are included and labeled. The National Maritime Center makes the final call.</div>
+      </section>
+
+      <section class="panel cred">
+        <div class="ph">Earned credentials<span class="count">4 on file</span></div>
+        <ul class="rows">
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 12h18"/></svg></span><div><div class="t">First aid &amp; CPR card</div><div class="d">Sample Red Cross course · valid to Mar 2028</div></div><span class="end tag done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg>On file</span></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h4l2-6 4 12 2-6h4"/></svg></span><div><div class="t">Physical exam · CG-719K</div><div class="d">Signed by sample clinic · Aug 2026</div></div><span class="end tag done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg>On file</span></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/></svg></span><div><div class="t">Drug test · CG-719P</div><div class="d">Window closes in 141 days</div></div><span class="end tag done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg>On file</span></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18h18M6 18l2-8h8l2 8M12 10V4"/></svg></span><div><div class="t">State boater card</div><div class="d">Not required for OUPV · kept for reference</div></div><span class="end tag idle">Extra</span></li>
+        </ul>
+      </section>
+    </div>
+
+    <!-- requirements -->
+    <section class="panel req">
+      <div class="ph">Requirements · OUPV near coastal<span class="count">5 of 8 met</span></div>
+      <ul class="rows">
+        <li><div><div class="t">Age 18 or older</div><div class="d">From profile</div></div><span class="end tag done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg>Met</span></li>
+        <li><div style="flex:1"><div class="t">Sea time, any waters <span class="tag need">62 to go</span></div><div class="track bar-mini" style="margin-top:8px;width:100%"><i style="width:71%"></i><i class="back" style="width:11.7%"></i></div><div class="d" style="margin-top:6px">256 GPS-logged + 42 backfilled</div></div></li>
+        <li><div style="flex:1"><div class="t">Ocean / near coastal <span class="tag need">29 to go</span></div><div class="track" style="margin-top:8px"><i class="amber" style="width:67.8%"></i></div><div class="d" style="margin-top:6px">Inside Passage counts as near coastal</div></div></li>
+        <li><div><div class="t">First aid &amp; CPR</div><div class="d">Card on file</div></div><span class="end tag done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg>Met</span></li>
+        <li><div><div class="t">Physical exam</div><div class="d">CG-719K on file</div></div><span class="end tag done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg>Met</span></li>
+        <li><div><div class="t">Drug test</div><div class="d">CG-719P on file</div></div><span class="end tag done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg>Met</span></li>
+        <li><div><div class="t">Exam or approved course</div><div class="d">Not started</div></div><span class="end tag idle">To do</span></li>
+        <li><div><div class="t">Application · CG-719B</div><div class="d">Draft, 3 corrections in Forms</div></div><span class="end tag need">Fix 3</span></li>
+      </ul>
+      <p class="cite" style="margin-top:14px"><b>46 CFR 11.467(c)</b> · a month is 30 days, <b>46 CFR 10.107</b>. Illustrative list for the mockup; it appears in the app only after uscg-regs checks it.</p>
+    </section>
+
+    <!-- next step + missing -->
+    <div class="grid" style="gap:18px">
+      <section class="panel lamp next desk-only">
+        <div class="ph" style="color:var(--amber)">Next step</div>
+        <h2>Log 29 more days on ocean or near-coastal waters</h2>
+        <p>This is the part furthest behind. At your recent pace of about 3 days a week, that is roughly 10 weeks.</p>
+        <div class="actions"><span class="btn primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>Plan a trip</span><span class="btn">What counts?</span></div>
+      </section>
+      <section class="panel missing">
+        <div class="ph">Still missing<span class="count">3 items</span></div>
+        <ul class="rows">
+          <li><span class="num">62</span><div><div class="t">Days of sea time</div><div class="d">29 of them near coastal</div></div></li>
+          <li><span class="num">1</span><div><div class="t">Exam or approved course</div><div class="d">Pick a path in Study</div></div></li>
+          <li><span class="num">3</span><div><div class="t">Corrections on CG-719B</div><div class="d">Open in Forms</div></div></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</main>
+
+<nav class="tabbar">
+  <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="m15 9-2 4-4 2 2-4z"/></svg>Console</a>
+  <a class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19 9 5l6 9 5-7"/></svg>Navigator</a>
+  <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg>Forms</a>
+  <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h12a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2z"/><path d="M9 8h6M9 12h6"/></svg>Log</a>
+</nav>
+</body>
+</html>

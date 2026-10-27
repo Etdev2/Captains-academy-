@@ -1,30 +1,29 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#65",
-  "sourceDigest": "sha256:772966e094310e00fb18850d06e5306eea79bc41f4a8f74f1e6a838819a2fa6c",
-  "capturedAt": "2026-10-25T22:19:53Z",
+  "ticket": "Etdev2/Captains-academy-#72",
+  "sourceDigest": "sha256:beddbe315ad22c412398b35bc5aec4befd7d14fbf59a70c8fc13bf36260db32d",
+  "capturedAt": "2026-10-27T00:30:25Z",
   "result": "PASS",
   "verification": {
-    "command": "grep -c secrets.CLAUDE_PUSH_TOKEN .github/workflows/claude.yml",
-    "fixture": "claude.yml diff: checkout token + github_token from secrets.CLAUDE_PUSH_TOKEN"
+    "command": "bash scripts/verify.sh",
+    "fixture": "PR #73's decision board with the six Captain's Console mockups from #77, merged with main at bcb09a2 (Chapter 1 Lights at /rules, sea-time log, offline fallback for /rules/?level=lights)"
   },
   "commands": [
     {
-      "command": "grep -c secrets.CLAUDE_PUSH_TOKEN .github/workflows/claude.yml",
+      "command": "bash scripts/verify.sh",
       "exitCode": 0
     },
     {
-      "command": "bash scripts/verify.test.sh",
+      "command": "node scripts/check-console-mockups.mjs http://localhost:4173 proof/screenshots",
       "exitCode": 0
     }
   ],
-  "behaviorChanged": false,
+  "behaviorChanged": true,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "the checkout and build-tools Claude step both use CLAUDE_PUSH_TOKEN; app code unchanged"
+      "shows": "verify.sh passes every step on the merged branch, and the Captain's Console check opens all six mockups at desktop and iPhone size"
     }
-  ],
-  "noBehaviorReason": "CI workflow config only; no app code changed"
+  ]
 }
