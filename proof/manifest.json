@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#72",
-  "sourceDigest": "sha256:30441460b0275e34a1d948fe230c722f6669efa2e45b8e5787576652b0369c50",
-  "capturedAt": "2026-10-27T03:36:40Z",
+  "sourceDigest": "sha256:9dc2b71e9d4f9f40d3cf0ff9a4768f57a411982a3039cb7fd89da40af1c4e703",
+  "capturedAt": "2026-10-27T12:50:35Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "Interactive prototypes at /prototypes/live: 5 categories x variants A Night Bridge, B Clean & Light, C Guided Mentor, with fictional sample sailor Jordan Sample; 30 screenshots registered on the Decision Desk; merged with main at d67e262 (the Decision Desk from #73, Lights stills from #76)"
+    "fixture": "Interactive prototypes at /prototypes/live: 5 categories x variants A Night Bridge, B Clean & Light, C Guided Mentor, with fictional sample sailor Jordan Sample; 30 screenshots registered on the Decision Desk; merged with main at 24d0561"
   },
   "commands": [
     {
