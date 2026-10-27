@@ -183,6 +183,12 @@ The game pauses at about 270 m, or earlier when the player taps CALL IT for a bo
 | Start screen with light arcs, controls and the draft note | Called early. What is she? |
 | ![Answer with the rule and the spoken phrase](images/night-harbor-run/04-answer-and-rule.png) | <img src="images/night-harbor-run/05-phone.png" alt="Phone, portrait" width="240"> |
 | Answer with the rule and the spoken phrase | Phone, portrait |
+| ![Crossing from starboard](images/night-harbor-run/06-crossing-from-starboard.png) | ![Sailing vessel](images/night-harbor-run/07-sailing-vessel.png) |
+| Crossing from starboard | Sailing vessel |
+| ![Day leg, shapes](images/night-harbor-run/08-day-leg-shapes.png) | ![Dredge in the channel](images/night-harbor-run/09-channel-dredge.png) |
+| Day leg, shapes | Dredge in the channel |
+| ![Tug and tow from astern](images/night-harbor-run/10-tug-and-tow-from-astern.png) | ![Fog leg](images/night-harbor-run/11-fog-leg.png) |
+| Tug and tow from astern | Fog leg, by sound |
 
 ## 9. Built: level 3 harbor course (#46)
 
@@ -346,6 +352,7 @@ Known limits:
 | Path | What it is |
 | --- | --- |
 | `handoff/rules-of-the-road-handoff-2026-10-22.pdf` | The original 25-page handoff PDF |
+| `handoff/prototype-book-2026-10-25.pdf` | The 16-page prototype book, as supplied to the prototype review (#72) |
 | `playable/night-harbor-run.html` | The Night Harbor Run prototype. Download and open in a browser. SHA-256 `b0f14e5beee0f8d9bd0325c1278c655b1da98194047561394d4f50b267b64d73` |
 | `images/mockups/` | Chapter 1 map and the eleven level mockups |
 | `images/decks/` | Lights deck and day shapes deck |
