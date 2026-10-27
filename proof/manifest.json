@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#76",
-  "sourceDigest": "sha256:8a259d49ca0b30ad9e087e5f3d61e58860c697ab8d31605c85dea04025f1c32e",
-  "capturedAt": "2026-10-27T00:35:47Z",
+  "sourceDigest": "sha256:3d352432791b9819c494fe7f493b976bf5a0490f4917eab250df4020f844d00f",
+  "capturedAt": "2026-10-27T00:50:42Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "PR #76's Lights prototype pack for the decision board on top of main at 63e4971 (Chapter 1 Lights at /rules)"
+    "fixture": "PR #76's Lights prototype pack for the decision board, merged with main at 8223f19 (decision board #73, Chapter 1 Lights at /rules)"
   },
   "commands": [
     {
