@@ -1,3 +1,4 @@
+import { shotOf, variantShots, type CategoryId } from './categories';
 import type { Item } from './inventory';
 import { byId } from './round';
 
@@ -10,13 +11,19 @@ import { byId } from './round';
 // the same four moments. The board shows each moment once, as the phone
 // capture, and the viewer links to its desktop twin. Both ids stay valid, so
 // dots and notes saved on either still count.
+//
+// Each section belongs to one of the five product categories, and opens with
+// that category's interactive prototypes, A, B and C, when their screenshots
+// are in the inventory. Their iPhone captures are the twins of the desktop ones.
 
 export type SectionId =
   | 'home'
   | 'forms-license'
   | 'sea-time-logbook'
+  | 'study'
   | 'definitions'
   | 'lights'
+  | 'arcade'
   | 'night-harbor'
   | 'docking';
 
@@ -24,6 +31,8 @@ export interface Group {
   /** A subheading inside the section, or null when the section has one group. */
   readonly title: string | null;
   readonly ids: readonly string[];
+  /** Captures of a tile's same screen on another device, opened from the viewer. */
+  readonly twins?: Readonly<Record<string, string>>;
 }
 
 export interface AsBuilt {
@@ -35,6 +44,7 @@ export interface AsBuilt {
 export interface Section {
   readonly id: SectionId;
   readonly title: string;
+  readonly category: CategoryId;
   readonly groups: readonly Group[];
   readonly asBuilt: readonly AsBuilt[];
 }
@@ -44,11 +54,28 @@ const defs = (n: number, moment: string): AsBuilt => ({
   twin: `app-definitions-desktop-wide-${n}-${moment}`,
 });
 
+/** The A/B/C interactive-prototype group of a category, with whichever captures exist. */
+export function variantGroup(category: CategoryId): Group[] {
+  const shots = variantShots.filter((s) => s.category === category && byId.has(s.desktop));
+  if (shots.length === 0) return [];
+  return [
+    {
+      title: 'Interactive prototypes · A, B, C',
+      ids: shots.map((s) => s.desktop),
+      twins: Object.fromEntries(
+        shots.filter((s) => byId.has(s.iphone)).map((s) => [s.desktop, s.iphone]),
+      ),
+    },
+  ];
+}
+
 export const sections: readonly Section[] = [
   {
     id: 'home',
     title: 'Home',
+    category: 'console',
     groups: [
+      ...variantGroup('console'),
       {
         title: null,
         ids: [
@@ -68,7 +95,9 @@ export const sections: readonly Section[] = [
   {
     id: 'forms-license',
     title: 'Forms & License Navigator',
+    category: 'license',
     groups: [
+      ...variantGroup('license'),
       {
         title: 'License Navigator',
         ids: ['cl-console-license-navigator-desktop', 'cl-console-license-navigator-iphone'],
@@ -83,7 +112,9 @@ export const sections: readonly Section[] = [
   {
     id: 'sea-time-logbook',
     title: 'Sea-Time Logbook',
+    category: 'sea-time',
     groups: [
+      ...variantGroup('sea-time'),
       {
         title: null,
         ids: ['cl-console-sea-time-logbook-desktop', 'cl-console-sea-time-logbook-iphone'],
@@ -92,8 +123,16 @@ export const sections: readonly Section[] = [
     asBuilt: [],
   },
   {
+    id: 'study',
+    title: 'Study & Exam Prep',
+    category: 'study',
+    groups: variantGroup('study'),
+    asBuilt: [],
+  },
+  {
     id: 'definitions',
     title: 'Definitions',
+    category: 'study',
     groups: [
       {
         title: null,
@@ -115,6 +154,7 @@ export const sections: readonly Section[] = [
   {
     id: 'lights',
     title: 'Lights',
+    category: 'study',
     groups: [
       {
         title: null,
@@ -130,8 +170,16 @@ export const sections: readonly Section[] = [
     asBuilt: [],
   },
   {
+    id: 'arcade',
+    title: 'Arcade & Simulations',
+    category: 'arcade',
+    groups: variantGroup('arcade'),
+    asBuilt: [],
+  },
+  {
     id: 'night-harbor',
     title: 'Night Harbor',
+    category: 'arcade',
     groups: [
       {
         title: 'Chapter 1 levels',
@@ -182,6 +230,7 @@ export const sections: readonly Section[] = [
   {
     id: 'docking',
     title: 'Docking',
+    category: 'arcade',
     groups: [],
     asBuilt: [
       { id: 'app-level-1-docking-desktop' },
@@ -200,14 +249,39 @@ const item = (id: string): Item => {
   return found;
 };
 
-/** The twin of an as-built screenshot, either way round, if it has one. */
+/** The twin of a screenshot, either way round, if it has one. */
 export function twinOf(id: string): Item | undefined {
   for (const s of sections) {
+    for (const g of s.groups) {
+      for (const [a, b] of Object.entries(g.twins ?? {})) {
+        if (a === id) return item(b);
+        if (b === id) return item(a);
+      }
+    }
     for (const a of s.asBuilt) {
       if (a.twin === undefined) continue;
       if (a.id === id) return item(a.twin);
       if (a.twin === id) return item(a.id);
     }
+  }
+  return undefined;
+}
+
+/** Every twin on the board: concepts reached from another tile's viewer. */
+export const twinIds = (): string[] =>
+  sections.flatMap((s) => [
+    ...s.groups.flatMap((g) => Object.values(g.twins ?? {})),
+    ...s.asBuilt.flatMap((a) => (a.twin ? [a.twin] : [])),
+  ]);
+
+/** The category of the section a concept or its twin sits in. */
+export function categoryOf(id: string): CategoryId | undefined {
+  for (const s of sections) {
+    const ids = [
+      ...s.groups.flatMap((g) => [...g.ids, ...Object.values(g.twins ?? {})]),
+      ...s.asBuilt.flatMap((a) => (a.twin ? [a.id, a.twin] : [a.id])),
+    ];
+    if (ids.includes(id)) return s.category;
   }
   return undefined;
 }
@@ -233,6 +307,8 @@ const prefixes = [
 ];
 
 export function tileLabel(item: Item): string {
+  const shot = shotOf(item.id);
+  if (shot) return `${shot.letter} · ${shot.name}`;
   let label = item.title;
   for (const p of prefixes) label = label.replace(p, '');
   // Keep the level number visible on the Chapter 1 mockups.

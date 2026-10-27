@@ -1,0 +1,325 @@
+/* Shared form pieces and the export sheet. Every rule is scoped under a variant
+   root and reads that root's palette variables. */
+
+:is(.sea-a, .sea-b, .sea-c) {
+  --f-radius: 10px;
+}
+
+:is(.sea-a, .sea-b, .sea-c) .f-form {
+  display: grid;
+  gap: 18px;
+}
+:is(.sea-a, .sea-b, .sea-c) .f-field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+:is(.sea-a, .sea-b, .sea-c) .f-field > label,
+:is(.sea-a, .sea-b, .sea-c) .f-choice > legend {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--ink);
+}
+:is(.sea-a, .sea-b, .sea-c) .f-hint {
+  color: var(--muted);
+  font-size: 1rem;
+  margin: 0;
+}
+:is(.sea-a, .sea-b, .sea-c) .f-field input,
+:is(.sea-a, .sea-b, .sea-c) .f-field select {
+  min-height: 52px;
+  width: 100%;
+  padding: 0 14px;
+  font: inherit;
+  font-size: 1.125rem;
+  color: var(--ink);
+  background: var(--field);
+  border: 2px solid var(--field-line);
+  border-radius: var(--f-radius);
+}
+:is(.sea-a, .sea-b, .sea-c) .f-field [aria-invalid='true'] {
+  border-color: var(--attn);
+}
+:is(.sea-a, .sea-b, .sea-c) .f-error {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin: 0;
+  color: var(--attn);
+  font-weight: 600;
+  font-size: 1rem;
+}
+:is(.sea-a, .sea-b, .sea-c) .f-error svg {
+  flex: none;
+  margin-top: 2px;
+}
+:is(.sea-a, .sea-b, .sea-c) .f-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+:is(.sea-a, .sea-b, .sea-c) .f-hours {
+  display: grid;
+  grid-template-columns: 56px 1fr 56px;
+  gap: 12px;
+}
+:is(.sea-a, .sea-b, .sea-c) .f-hours input {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  min-height: 56px;
+}
+:is(.sea-a, .sea-b, .sea-c) .f-hours button {
+  min-height: 56px;
+  display: grid;
+  place-items: center;
+}
+:is(.sea-a, .sea-b, .sea-c) .f-hours button,
+:is(.sea-a, .sea-b, .sea-c) .f-quick button {
+  font: inherit;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--surface-2);
+  border: 2px solid var(--field-line);
+  border-radius: var(--f-radius);
+  cursor: pointer;
+}
+:is(.sea-a, .sea-b, .sea-c) .f-quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+:is(.sea-a, .sea-b, .sea-c) .f-quick button {
+  min-height: 48px;
+  min-width: 56px;
+  padding: 0 14px;
+}
+:is(.sea-a, .sea-b, .sea-c) .f-quick button[aria-pressed='true'] {
+  background: var(--done-bg);
+  border-color: var(--done);
+  color: var(--done);
+}
+:is(.sea-a, .sea-b, .sea-c) .f-choice {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+}
+:is(.sea-a, .sea-b, .sea-c) .f-choice-list {
+  display: grid;
+  gap: 12px;
+}
+:is(.sea-a, .sea-b, .sea-c) .f-opt {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  min-height: 56px;
+  padding: 12px 14px;
+  background: var(--field);
+  border: 2px solid var(--field-line);
+  border-radius: var(--f-radius);
+  cursor: pointer;
+  color: var(--ink);
+}
+:is(.sea-a, .sea-b, .sea-c) .f-opt[data-checked] {
+  border-color: var(--done);
+  background: var(--done-bg);
+}
+:is(.sea-a, .sea-b, .sea-c) .f-opt input {
+  width: 24px;
+  height: 24px;
+  margin: 2px 0 0;
+  flex: none;
+  accent-color: var(--done);
+}
+:is(.sea-a, .sea-b, .sea-c) .f-opt-text {
+  display: grid;
+  gap: 2px;
+}
+:is(.sea-a, .sea-b, .sea-c) .f-opt-label {
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+:is(.sea-a, .sea-b, .sea-c) .f-opt-help {
+  color: var(--muted);
+  font-size: 1rem;
+}
+:is(.sea-a, .sea-b, .sea-c) .f-submit {
+  min-height: 56px;
+  font: inherit;
+  font-weight: 800;
+  font-size: 1.125rem;
+  padding: 0 22px;
+  border-radius: var(--f-radius);
+  border: 2px solid var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+  cursor: pointer;
+}
+:is(.sea-a, .sea-b, .sea-c) :is(input, select, button, a, summary):focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* The sheet is paper on every variant, so a printout reads the same. */
+:is(.sea-a, .sea-b, .sea-c) .sheet {
+  background: #fffdf7;
+  color: #14233a;
+  border: 1px solid #b9c2cf;
+  border-radius: 6px;
+  padding: 20px;
+  font-size: 1rem;
+  line-height: 1.45;
+  box-shadow: 0 8px 30px -12px rgba(0, 0, 0, 0.5);
+  min-width: 0;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet h3 {
+  font-size: 1.25rem;
+  margin: 8px 0 0;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet h4 {
+  font-size: 1rem;
+  margin: 22px 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #36506e;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet-sub {
+  margin: 2px 0 0;
+  color: #44566d;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet-draft {
+  display: inline-block;
+  margin: 0;
+  padding: 4px 10px;
+  border: 2px dashed #8a4b00;
+  color: #6b3a00;
+  font-weight: 700;
+  font-size: 1rem;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet-grid {
+  display: grid;
+  gap: 4px 24px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 14px;
+  margin: 0;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet dt {
+  color: #44566d;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet dd {
+  margin: 0;
+  font-weight: 600;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet table {
+  width: 100%;
+  border-collapse: collapse;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet-scroll {
+  overflow-x: auto;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet :is(th, td) {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid #c9d1db;
+  vertical-align: top;
+  font-weight: 400;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet :is(thead th, tbody th, tfoot th) {
+  font-weight: 700;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet-tag {
+  display: inline-block;
+  padding: 1px 8px;
+  border: 2px dashed #4b3d94;
+  color: #3b2f80;
+  font-weight: 700;
+  border-radius: 999px;
+  font-size: 1rem;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet-backfill,
+:is(.sea-a, .sea-b, .sea-c) .sheet-note {
+  margin: 12px 0 0;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet-sign {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-top: 36px;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet-sign p {
+  margin: 4px 0 0;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet-line {
+  display: block;
+  height: 36px;
+  border-bottom: 2px solid #14233a;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet-status {
+  grid-column: 1 / -1;
+  font-weight: 700;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet-foot {
+  margin-top: 22px;
+  padding-top: 12px;
+  border-top: 2px solid #14233a;
+}
+:is(.sea-a, .sea-b, .sea-c) .sheet-foot p {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(.sea-a, .sea-b, .sea-c) * {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:is(.sea-a, .sea-b, .sea-c) .pv {
+  background: var(--surface-2);
+  border: 2px solid var(--line-strong, var(--field-line));
+  border-radius: 12px;
+  padding: 16px;
+  color: var(--ink);
+}
+:is(.sea-a, .sea-b, .sea-c) .pv h3 {
+  margin: 0 0 8px;
+  font-size: 1.125rem;
+}
+:is(.sea-a, .sea-b, .sea-c) .pv p {
+  margin: 6px 0 0;
+}
+:is(.sea-a, .sea-b, .sea-c) .pv-head {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--done);
+}
+:is(.sea-a, .sea-b, .sea-c) .pv-head[data-credit='four-to-eight'],
+:is(.sea-a, .sea-b, .sea-c) .pv-head[data-credit='under-four'],
+:is(.sea-a, .sea-b, .sea-c) .pv-head[data-credit='short-large'] {
+  color: var(--attn);
+}
+:is(.sea-a, .sea-b, .sea-c) .pv-total {
+  font-weight: 700;
+  padding-top: 8px;
+  border-top: 1px solid var(--field-line);
+}
+
+:is(.sea-a, .sea-b, .sea-c) .f-field input::placeholder {
+  color: var(--muted);
+  opacity: 0.8;
+}

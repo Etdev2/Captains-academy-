@@ -1,0 +1,310 @@
+.con-b {
+  --c-bg: #eaf0f5;
+  --c-ink: #10243c;
+  --c-muted: #3f5167;
+  --c-edge: #62768d;
+  --c-line: #c3cfdb;
+  --c-card2: #ffffff;
+  --c-track: #d5dee8;
+  --c-focus: #0b4f86;
+  --c-link: #0b4f86;
+  --c-done: #0f5c99;
+  --c-done-wash: #dcebf8;
+  --c-done-ink: #0b3f6b;
+  --c-done-on: #ffffff;
+  --c-attn: #f3b23c;
+  --c-attn-wash: #fff0cc;
+  --c-attn-ink: #1c1203;
+  --c-attn-ink2: #6a3a00;
+  color-scheme: light;
+  font-size: 18px;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: start;
+}
+.con-b .cb-side {
+  padding: 12px 16px;
+  background: #fff;
+  border-bottom: 1px solid var(--c-line);
+  display: grid;
+  gap: 12px;
+}
+.con-b .cb-brand {
+  font-weight: 800;
+  font-size: 20px;
+}
+.con-b .cb-seg {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.con-b .cb-seg button {
+  min-height: 48px;
+  font: inherit;
+  font-weight: 700;
+  color: var(--c-ink);
+  background: #fff;
+  border: 2px solid var(--c-edge);
+  border-radius: 12px;
+  cursor: pointer;
+}
+.con-b .cb-seg button[aria-current='page'] {
+  background: var(--c-done);
+  color: #fff;
+  border-color: var(--c-done);
+}
+.con-b .cb-areas p {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--c-muted);
+  margin-bottom: 8px;
+}
+.con-b .cb-areas ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.con-b .cb-areas a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 4px 12px;
+  border: 2px solid var(--c-edge);
+  border-radius: 12px;
+  color: var(--c-ink);
+  text-decoration: none;
+  font-weight: 700;
+  background: #fff;
+}
+.con-b .cb-main {
+  padding: 20px 16px 48px;
+  display: grid;
+  gap: 20px;
+  max-width: 960px;
+  align-content: start;
+}
+.con-b h1 {
+  font-size: 30px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+.con-b h2 {
+  font-size: 24px;
+}
+.con-b h3 {
+  font-size: 18px;
+}
+.con-b .cb-kicker {
+  color: var(--c-muted);
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.con-b .cb-lede {
+  font-size: 20px;
+  color: var(--c-muted);
+  margin-top: 8px;
+}
+.con-b .cb-numbers {
+  display: grid;
+  gap: 12px;
+}
+.con-b .cb-numbers > div {
+  display: grid;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid var(--c-line);
+  border-radius: 14px;
+}
+.con-b .cb-numbers b {
+  font-size: 48px;
+  line-height: 1;
+  font-weight: 800;
+  color: var(--c-done);
+}
+.con-b .cb-numbers > div:nth-child(2) b {
+  color: #8a4b00;
+}
+.con-b .cb-numbers span {
+  font-weight: 700;
+  margin-top: 4px;
+}
+.con-b .cb-numbers small {
+  font-size: 16px;
+  color: var(--c-muted);
+}
+.con-b .cb-note {
+  font-size: 16px;
+  color: var(--c-muted);
+}
+.con-b .cb-next {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  padding: 20px;
+  background: var(--c-attn-wash);
+  border: 2px solid var(--c-attn);
+  border-radius: 16px;
+}
+.con-b .cb-label {
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--c-attn-ink2);
+}
+.con-b .cb-block {
+  display: grid;
+  gap: 12px;
+}
+.con-b .cb-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.con-b .cb-linkbtn {
+  background: none;
+  border: 0;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0 4px;
+}
+.con-b .cb-timeline {
+  display: grid;
+  gap: 0;
+  border-left: 3px solid var(--c-edge);
+  margin-left: 8px;
+}
+.con-b .cb-timeline li {
+  display: grid;
+  gap: 4px;
+  padding: 10px 0 14px 16px;
+  position: relative;
+}
+.con-b .cb-timeline li::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 16px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--c-done);
+}
+.con-b .cb-timeline time {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+.con-b .cb-timeline time span,
+.con-b .cb-timeline p {
+  color: var(--c-muted);
+  font-size: 16px;
+}
+.con-b .cb-cards {
+  display: grid;
+  gap: 12px;
+}
+.con-b .cb-cards li {
+  display: grid;
+  justify-items: start;
+  gap: 6px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid var(--c-line);
+  border-radius: 14px;
+}
+.con-b .cb-cards p {
+  font-size: 16px;
+  color: var(--c-muted);
+}
+.con-b .cb-page {
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+  align-content: start;
+}
+.con-b .cb-page > * {
+  max-width: 100%;
+}
+.con-b .cb-page .cx-tasks,
+.con-b .cb-page .cx-needed,
+.con-b .cb-split {
+  width: 100%;
+}
+.con-b .cb-fixes {
+  display: grid;
+  gap: 10px;
+  list-style: decimal;
+  padding-left: 26px;
+}
+.con-b .cb-split {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 900px) {
+  .con-b {
+    grid-template-columns: 280px 1fr;
+    /* The sidebar's white runs the full page height, past its sticky box. */
+    background: linear-gradient(to right, #fff 279px, var(--c-line) 279px 280px, var(--c-bg) 280px);
+  }
+  .con-b .cb-side {
+    position: sticky;
+    top: var(--live-frame-h);
+    align-self: start;
+    height: calc(100dvh - var(--live-frame-h));
+    border-bottom: 0;
+    border-right: 1px solid var(--c-line);
+    padding: 24px 20px;
+    align-content: start;
+    gap: 24px;
+  }
+  .con-b .cb-seg {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .con-b .cb-seg button {
+    text-align: left;
+    padding: 0 16px;
+    border-color: transparent;
+    background: transparent;
+  }
+  .con-b .cb-seg button[aria-current='page'] {
+    background: var(--c-done-wash);
+    color: var(--c-done-ink);
+    border-color: var(--c-done);
+  }
+  .con-b .cb-areas ul {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .con-b .cb-areas a {
+    padding: 0 16px;
+    gap: 10px;
+  }
+  .con-b .cb-main {
+    padding: 36px 48px 64px;
+    gap: 28px;
+  }
+  .con-b h1 {
+    font-size: 40px;
+  }
+  .con-b .cb-numbers {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .con-b .cb-numbers b {
+    font-size: 64px;
+  }
+  .con-b .cb-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+  .con-b .cb-split {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}

@@ -1,0 +1,260 @@
+/*
+ * The frame around the interactive prototypes (lead-owned). Variants style
+ * themselves inside #variant-root and never rely on these rules.
+ *
+ * The frame is neutral slate on purpose, so reviewers read it as review
+ * chrome, not as part of any design direction. Its height is fixed and
+ * published as --live-frame-h: a variant with a sticky header uses
+ * `top: var(--live-frame-h)`; one with a fixed bottom bar needs nothing.
+ */
+:root {
+  --live-frame-h: 0px;
+}
+.live-page[data-frame='on'] {
+  --live-frame-h: 104px;
+}
+@media (min-width: 900px) {
+  .live-page[data-frame='on'] {
+    --live-frame-h: 56px;
+  }
+}
+
+.live-frame {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  height: var(--live-frame-h);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #1f2730;
+  color: #f2f5f8;
+  border-bottom: 1px solid #3a4652;
+  font:
+    500 14px/1.2 system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+  color-scheme: dark;
+}
+@media (min-width: 900px) {
+  .live-frame {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+}
+.live-frame-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.live-frame a,
+.live-frame select {
+  color: inherit;
+}
+.live-frame a:focus-visible,
+.live-frame select:focus-visible {
+  outline: 3px solid #8fd3ff;
+  outline-offset: 2px;
+}
+.live-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 4px;
+  white-space: nowrap;
+  text-decoration: none;
+  font-weight: 600;
+}
+.live-cat {
+  min-width: 0;
+}
+.live-cat select {
+  min-height: 40px;
+  max-width: 100%;
+  padding: 0 8px;
+  border: 1px solid #4b5866;
+  border-radius: 8px;
+  background: #2a3440;
+  font: inherit;
+}
+.live-demo {
+  margin-left: auto;
+  padding: 4px 8px;
+  border: 1px dashed #c9a24a;
+  border-radius: 6px;
+  color: #f1d58f;
+  font-size: 12px;
+  white-space: nowrap;
+}
+@media (min-width: 900px) {
+  .live-demo {
+    margin-left: 4px;
+  }
+}
+
+.live-switch {
+  display: flex;
+  gap: 6px;
+  align-items: stretch;
+}
+.live-switch a {
+  flex: 1 1 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 10px;
+  border: 1px solid #4b5866;
+  border-radius: 8px;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 13px;
+}
+.live-switch a b {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #3a4652;
+  font-size: 12px;
+}
+.live-switch a[aria-current='page'] {
+  background: #f2f5f8;
+  color: #1f2730;
+  border-color: #f2f5f8;
+  font-weight: 700;
+}
+.live-switch a[aria-current='page'] b {
+  background: #1f2730;
+  color: #f2f5f8;
+}
+.live-switch .live-rate {
+  flex: 0 0 auto;
+  border-style: dashed;
+}
+@media (max-width: 420px) {
+  .live-switch a {
+    padding: 0 6px;
+    font-size: 12px;
+  }
+  .live-switch .live-rate {
+    display: none;
+  }
+}
+@media (min-width: 900px) {
+  .live-switch a {
+    flex: 0 0 auto;
+  }
+}
+
+.live-loading,
+.live-error {
+  padding: 32px 16px;
+  font:
+    16px/1.5 system-ui,
+    sans-serif;
+}
+.live-error h1 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+/* The category index at /prototypes/live/ with no category. */
+.live-index {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+  font:
+    16px/1.5 system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+}
+.live-index h1 {
+  font-size: 30px;
+  font-weight: 800;
+  margin: 4px 0 8px;
+}
+.live-eyebrow {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+.live-lede {
+  max-width: 68ch;
+}
+.live-desk-link,
+.live-variant-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid currentColor;
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 600;
+}
+.live-cards {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+.live-cards > li {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--card);
+}
+.live-cards h2 {
+  font-size: 19px;
+  font-weight: 700;
+}
+.live-cards p {
+  margin: 4px 0 12px;
+  color: var(--muted-foreground);
+}
+.live-variant-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media (max-width: 600px) {
+  .live-demo-long {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .live-switch a {
+    min-width: 0;
+    flex-direction: column;
+    gap: 1px;
+    padding: 2px 4px;
+    font-size: 11px;
+    line-height: 1.1;
+  }
+  .live-switch a b {
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+  }
+}

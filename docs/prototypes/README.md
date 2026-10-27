@@ -7,6 +7,7 @@ Nothing here is a decision. Settled decisions live in [`docs/product/DECISIONS.m
 | Folder | What it holds | Session |
 | --- | --- | --- |
 | [`rules-of-the-road/`](rules-of-the-road/README.md) | Chapter 1 game map, eleven level mockups, the lights and day shapes decks, the Harbor Run course design, the playable Night Harbor Run prototype, screenshots of levels built on branches for #46 and #47, wireframes with layout numbers, and the open questions | 21 to 22 October 2026 |
+| [`interactive/`](interactive/README.md) | Interactive prototypes at `/prototypes/live/`: five categories (Console, License & Forms, Sea Time, Study, Arcade), each in variants A Night Bridge, B Clean & Light and C Guided Mentor. `images/` holds screenshots of the implementation, not reference images | 26 October 2026 |
 | [`frontend-directions/`](frontend-directions/README.md) | ChatGPT's frontend directions: the seven page images from its PDF, the comparison-board rows cut out as extracted details, and the three named directions that were not supplied | 25 October 2026 |
 
 ## Decision board

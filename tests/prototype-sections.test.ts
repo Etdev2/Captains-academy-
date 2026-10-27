@@ -8,6 +8,7 @@ import {
   shapeOf,
   tileIds,
   tileLabel,
+  twinIds,
   twinOf,
 } from '../src/prototypes/sections';
 
@@ -18,8 +19,7 @@ import {
 describe('the decision board sections', () => {
   it('places every concept once: as a tile, or as the twin of one', () => {
     const tiles = tileIds();
-    const twins = sections.flatMap((s) => s.asBuilt.flatMap((a) => (a.twin ? [a.twin] : [])));
-    const placed = [...tiles, ...twins];
+    const placed = [...tiles, ...twinIds()];
     expect(new Set(placed).size).toBe(placed.length);
     expect([...placed].sort()).toEqual(concepts.map((c) => c.id).sort());
   });
@@ -29,10 +29,23 @@ describe('the decision board sections', () => {
       'Home',
       'Forms & License Navigator',
       'Sea-Time Logbook',
+      'Study & Exam Prep',
       'Definitions',
       'Lights',
+      'Arcade & Simulations',
       'Night Harbor',
       'Docking',
+    ]);
+    expect(sections.map((s) => s.category)).toEqual([
+      'console',
+      'license',
+      'sea-time',
+      'study',
+      'study',
+      'study',
+      'arcade',
+      'arcade',
+      'arcade',
     ]);
   });
 

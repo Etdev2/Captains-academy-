@@ -15,8 +15,9 @@ export default defineConfig({
   projects: [
     { name: 'desktop', use: { ...devices['Desktop Chrome'] } },
     { name: 'phone-landscape', use: { ...devices['Pixel 7 landscape'] } },
-    // The sea-time log, the front page, the Rules of the Road level at /rules
-    // and the prototype review gallery are used upright with one thumb. The docking game at /play asks to be
+    // The sea-time log, the front page, the Rules of the Road level at /rules,
+    // the prototype review gallery and its interactive prototypes are used
+    // upright with one thumb. The docking game at /play asks to be
     // turned sideways in portrait, so its tests don't run here.
     {
       name: 'phone-portrait',
@@ -28,6 +29,7 @@ export default defineConfig({
         '**/entries.spec.ts',
         '**/rules.spec.ts',
         '**/prototypes.spec.ts',
+        '**/prototypes-live.spec.ts',
         '**/lights.spec.ts',
       ],
     },
