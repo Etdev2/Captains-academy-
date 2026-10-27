@@ -37,7 +37,7 @@ VERIFY_RUN=levers-check .claude/skills/verify-captains-academy/control.sh drive 
 
 | Step | Does |
 | --- | --- |
-| `{"do":"open","viewport":"desktop"}` | New browser context and page at `/play/`, or at `"path"` such as `/rules/?seed=47`. Viewports: `desktop` (1280 x 768), `desktop-wide` (1440 x 900), `phone-landscape` and `phone-portrait` (Pixel 7), `phone-390` (390 x 844). `"storage": {"key": "value"}` seeds the device's saved progress first |
+| `{"do":"open","viewport":"desktop"}` | New browser context and page at `/play/`, or at `"path"` such as `/rules/?seed=47`. Viewports: `desktop` (1280 x 768), `desktop-wide` (1440 x 900), `phone-landscape` and `phone-portrait` (Pixel 7), `phone-390` (390 x 844). `"storage": {"key": "value"}` seeds the device's saved progress first. `"query": "?unlock=all"` adds that search string, so `/play/?unlock=all` opens with every level unlocked |
 | `{"do":"lever","side":"port","to":80}` | Drags a lever from stop to a setting from -100 (full astern) to 100 (full ahead). `side` is `port` (left thumb, x 96) or `starboard` (right thumb, x 1184) |
 | `{"do":"key","key":"ArrowUp","ms":800}` | Holds a key |
 | `{"do":"answerRight"}`, `{"do":"answerWrong"}` | At `/rules/`, presses the right or a wrong answer button for the card on screen, using `features/steps/definitions.answers.json` and `features/steps/lights.answers.json`. `"until":"done"` keeps answering to the end of the run |

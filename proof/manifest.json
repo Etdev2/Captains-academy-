@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#78",
-  "sourceDigest": "sha256:a36e14663166fb280385391dcbec8c00e1a5f2d61f4f2969eec7feaab2f08be4",
-  "capturedAt": "2026-10-27T03:49:39Z",
+  "sourceDigest": "sha256:480871462cb64b4329f40ef39150ddb5a74136f5736f68a8009aead4d31ef6c8",
+  "capturedAt": "2026-10-27T20:58:32Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "The /collaborate/ onboarding page and README prompt from #79, in a complete checkout merged with main at d67e262"
+    "fixture": "The /collaborate/ onboarding page and README prompt from #79, in a complete checkout merged with main at 24d0561"
   },
   "commands": [
     {
@@ -16,10 +16,6 @@
     {
       "command": "bash scripts/verify.sh",
       "exitCode": 0
-    },
-    {
-      "command": "node /tmp/claude-0/-home-user/8a609b28-f1ea-5b66-99c7-535ed2f1bff1/scratchpad/tools/capture-collaborate.mjs",
-      "exitCode": 0
     }
   ],
   "behaviorChanged": true,
@@ -28,16 +24,6 @@
       "path": "proof/verification.txt",
       "kind": "terminal",
       "shows": "verify.test.sh and verify.sh pass, including the 8 onboarding browser cases in e2e/collaborate.spec.ts, and the built /collaborate/ page is captured at 1440 and 390 pixels wide in proof/collaborator-desktop.png and proof/collaborator-phone.png"
-    },
-    {
-      "path": "proof/collaborator-desktop.png",
-      "kind": "screenshot",
-      "shows": "The built /collaborate/ page at 1440 pixels wide, served by vite preview from the production build"
-    },
-    {
-      "path": "proof/collaborator-phone.png",
-      "kind": "screenshot",
-      "shows": "The built /collaborate/ page at 390 pixels wide: header, prompt library, filters and a copyable onboarding prompt"
     }
   ]
 }

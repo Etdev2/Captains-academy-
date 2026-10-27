@@ -102,3 +102,26 @@ test('level 3 opens after level 2, runs five gates and counts the first one', as
   await page.keyboard.up('ArrowUp');
   await expect.poll(async () => (await debug())?.gate ?? 0, { timeout: 90_000 }).toBe(1);
 });
+
+test('?unlock=all opens level 3 with no stars, and plain /play stays locked', async ({ page }) => {
+  const tapLevel3 = async () => {
+    const canvas = page.locator('#game canvas');
+    await expect(canvas).toBeVisible();
+    const box = await canvas.boundingBox();
+    if (!box) throw new Error('no canvas');
+    // LEVEL 3 sits at about (60, 262) in the 1280 x 768 game.
+    await page.mouse.click(box.x + (60 / 1280) * box.width, box.y + (262 / 768) * box.height);
+  };
+  const debug = () => page.evaluate(() => window.__captainsAcademy);
+
+  await page.goto('/play/');
+  await expect.poll(async () => (await debug())?.frame ?? 0).toBeGreaterThan(30);
+  await tapLevel3();
+  await page.waitForTimeout(1000);
+  expect((await debug())?.level).toBe(0);
+
+  await page.goto('/play/?unlock=all');
+  await expect.poll(async () => (await debug())?.frame ?? 0).toBeGreaterThan(30);
+  await tapLevel3();
+  await expect.poll(async () => (await debug())?.level).toBe(2);
+});
