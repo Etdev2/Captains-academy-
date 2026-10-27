@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#78",
-  "sourceDigest": "sha256:72fb9c1116cb8e717e3ae7b2e9ab332e720ee733ddc1f1db8b8fa4773d3fcda9",
-  "capturedAt": "2026-10-27T23:00:51Z",
+  "ticket": "Etdev2/Captains-academy-#87",
+  "sourceDigest": "sha256:b4cba0c3311dcbc4d691d5995c0828bd574c86d8b1e953ae8d6308fc2ddf619e",
+  "capturedAt": "2026-10-27T23:45:39Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.sh",
-    "fixture": "The /collaborate/ onboarding page and README prompt from #79, in a complete checkout merged with main at 8c52d05"
+    "command": "bash scripts/verify.test.sh",
+    "fixture": "The /account/ screen and front page Account link from #87, in a complete checkout of main at fc15d4d plus this branch, with the Auth API mocked by e2e/auth-mock.ts, on Node 22.23.4"
   },
   "commands": [
     {
@@ -23,7 +23,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.test.sh and verify.sh pass, including the 8 onboarding browser cases in e2e/collaborate.spec.ts"
+      "shows": "verify.test.sh and verify.sh pass, including e2e/account.spec.ts (no Supabase settings) and e2e/account-set-up.spec.ts (link, code, signed in, sign out, offline, axe) and the auth unit tests"
     }
   ]
 }
