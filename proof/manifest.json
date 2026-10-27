@@ -1,29 +1,30 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#72",
-  "sourceDigest": "sha256:beddbe315ad22c412398b35bc5aec4befd7d14fbf59a70c8fc13bf36260db32d",
-  "capturedAt": "2026-10-27T00:30:25Z",
+  "ticket": "Etdev2/Captains-academy-#76",
+  "sourceDigest": "sha256:3d352432791b9819c494fe7f493b976bf5a0490f4917eab250df4020f844d00f",
+  "capturedAt": "2026-10-27T00:50:42Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "PR #73's decision board with the six Captain's Console mockups from #77, merged with main at bcb09a2 (Chapter 1 Lights at /rules, sea-time log, offline fallback for /rules/?level=lights)"
+    "fixture": "PR #76's Lights prototype pack for the decision board, merged with main at 8223f19 (decision board #73, Chapter 1 Lights at /rules)"
   },
   "commands": [
     {
-      "command": "bash scripts/verify.sh",
+      "command": "bash scripts/verify.test.sh",
       "exitCode": 0
     },
     {
-      "command": "node scripts/check-console-mockups.mjs http://localhost:4173 proof/screenshots",
+      "command": "bash scripts/verify.sh",
       "exitCode": 0
     }
   ],
-  "behaviorChanged": true,
+  "behaviorChanged": false,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh passes every step on the merged branch, and the Captain's Console check opens all six mockups at desktop and iPhone size"
+      "shows": "verify.test.sh and verify.sh pass on the PR head with the prototype pack added"
     }
-  ]
+  ],
+  "noBehaviorReason": "Adds design stills, an MP3 and an inventory importer under design/prototypes/lights/decision-board/; no app or board code changes"
 }
