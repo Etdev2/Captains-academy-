@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#76",
-  "sourceDigest": "sha256:3d352432791b9819c494fe7f493b976bf5a0490f4917eab250df4020f844d00f",
-  "capturedAt": "2026-10-27T00:50:42Z",
+  "ticket": "Etdev2/Captains-academy-#74",
+  "sourceDigest": "sha256:32809be7e7059d71628ef92c364ebdfdd44e3931f7acaf3c84bbc52a0ba1441c",
+  "capturedAt": "2026-10-27T03:57:09Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "PR #76's Lights prototype pack for the decision board, merged with main at 8223f19 (decision board #73, Chapter 1 Lights at /rules)"
+    "fixture": "PR #75's Supabase migration source, SQL test and generated types, merged with main at d67e262. Repository checks only: the SQL test was not rerun against the Supabase project from this session, which has no database access"
   },
   "commands": [
     {
@@ -18,13 +18,12 @@
       "exitCode": 0
     }
   ],
-  "behaviorChanged": false,
+  "behaviorChanged": true,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.test.sh and verify.sh pass on the PR head with the prototype pack added"
+      "shows": "verify.test.sh and verify.sh pass with the supabase/ files added; no app code imports them yet"
     }
-  ],
-  "noBehaviorReason": "Adds design stills, an MP3 and an inventory importer under design/prototypes/lights/decision-board/; no app or board code changes"
+  ]
 }
