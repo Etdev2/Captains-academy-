@@ -1,16 +1,4 @@
 import {
-  CATEGORIES,
-  DEFINITIONS,
-  LEVEL_ID,
-  LEVEL_RULE_SET,
-  PAR_MS,
-  QUESTION,
-  cardById,
-  categoryLabel,
-  type DefinitionCard,
-  type RuleSet,
-} from '../../sim/chapter1/definitions';
-import {
   HEARTS,
   RETURN_AFTER,
   answer,
@@ -23,10 +11,11 @@ import {
 } from '../../sim/rapid';
 import type { Sound } from '../sound';
 import { loadStars, recordAnswer, saveStars } from '../storage';
-import type { VesselView } from './VesselView';
+import type { ArtView, LevelLink, LevelSpec, RapidCard, RuleSet } from './spec';
 
-// The Definitions level's page controller (docs/design/definitions-spec.md).
-// It only reads run state from src/sim/rapid.ts; scoring, combo, hearts and
+// The page controller shared by the rapid-fire levels at /rules: Definitions
+// (docs/design/definitions-spec.md) and Lights (docs/design/lights-spec.md).
+// A level hands it a LevelSpec and a view; this file never names a level. It only reads run state from src/sim/rapid.ts; scoring, combo, hearts and
 // stars are decided there. This file owns timing, the DOM and the sound.
 
 /** A right answer stays on screen this long before the next card (spec, motion). */
@@ -74,6 +63,7 @@ const CROSS =
 
 const RULE_SET_TEXT: Record<RuleSet, { text: string; name: string }> = {
   both: { text: 'Inland + International', name: 'Rule set: Inland and International' },
+  inland: { text: 'Inland only', name: 'Rule set: Inland only' },
   international: { text: 'International only', name: 'Rule set: International only' },
 };
 
@@ -95,16 +85,21 @@ function icon(path: string, cls: string, viewBox: string): SVGSVGElement {
   return svg;
 }
 
-export interface LevelOptions {
+export interface LevelOptions<A> {
+  readonly spec: LevelSpec<A>;
   readonly seed: number;
   readonly sound: Sound;
-  readonly vessel: VesselView;
+  readonly vessel: ArtView<A>;
+  /** The other levels, read each time the menu opens, so a star earned just now unlocks one. */
+  readonly levelLinks: () => readonly LevelLink[];
+  /** The level after this one when it is open, read when the level ends. */
+  readonly nextLevel: () => LevelLink | null;
   readonly reducedMotion: () => boolean;
   readonly now: () => number;
   readonly home: () => void;
 }
 
-export class DefinitionsLevel {
+export class RapidLevel<A> {
   private run: RapidRun;
   private seed: number;
   private phase: Phase = 'question';
@@ -119,9 +114,12 @@ export class DefinitionsLevel {
   private paused = false;
   private menuOpen = false;
   private readonly buttons: HTMLButtonElement[] = [];
-  private readonly deckIds = DEFINITIONS.map((c) => c.id);
+  private readonly deckIds: string[];
+  private readonly spec: LevelSpec<A>;
 
-  constructor(private readonly opts: LevelOptions) {
+  constructor(private readonly opts: LevelOptions<A>) {
+    this.spec = opts.spec;
+    this.deckIds = this.spec.cards.map((c) => c.id);
     this.seed = opts.seed >>> 0;
     this.run = startRun(this.deckIds, this.seed);
     this.build();
@@ -132,12 +130,15 @@ export class DefinitionsLevel {
   // ---- setup
 
   private build(): void {
-    $('question').textContent = QUESTION;
-    const n = CATEGORIES.length;
+    $('question').textContent = this.spec.question;
+    $('level-title').textContent = this.spec.title;
+    $('card').classList.toggle('has-rule-line', this.spec.citeOnRight);
+    document.title = `Captain's Academy: Rules of the Road, level ${this.spec.title.replace(' · ', ', ')}`;
+    const n = this.spec.categories.length;
     $('keys-hint').textContent =
       `Keys 1 to ${n} answer. Enter goes to the next card. Esc opens the menu.`;
     const grid = $('answers');
-    CATEGORIES.forEach((cat, i) => {
+    this.spec.categories.forEach((cat, i) => {
       const b = document.createElement('button');
       b.type = 'button';
       b.className = 'answer';
@@ -204,7 +205,7 @@ export class DefinitionsLevel {
       return;
     }
     const digit = Number(e.key);
-    if (Number.isInteger(digit) && digit >= 1 && digit <= CATEGORIES.length) {
+    if (Number.isInteger(digit) && digit >= 1 && digit <= this.spec.categories.length) {
       e.preventDefault();
       this.choose(digit - 1);
       return;
@@ -219,9 +220,17 @@ export class DefinitionsLevel {
 
   // ---- the card on screen
 
-  private card(): DefinitionCard {
+  private cardOf(id: string): RapidCard<A> | undefined {
+    return this.spec.cards.find((c) => c.id === id);
+  }
+
+  private labelOf(id: string): string {
+    return this.spec.categories.find((c) => c.id === id)?.label ?? id;
+  }
+
+  private card(): RapidCard<A> {
     const id = currentCard(this.run);
-    const card = id === undefined ? undefined : cardById(id);
+    const card = id === undefined ? undefined : this.cardOf(id);
     if (!card) throw new Error(`no card for ${String(id)}`);
     return card;
   }
@@ -232,7 +241,8 @@ export class DefinitionsLevel {
     this.opts.vessel.show(card.art);
     $('cue').textContent = card.cue;
     $('again').hidden = !this.run.missed.includes(card.id);
-    const chip = RULE_SET_TEXT[LEVEL_RULE_SET];
+    const chip = RULE_SET_TEXT[card.ruleSet];
+    $('rule-line').textContent = '';
     $('chip').textContent = chip.text;
     $('chip').setAttribute('aria-label', chip.name);
     for (const b of this.buttons) this.setButton(b, 'idle');
@@ -296,7 +306,7 @@ export class DefinitionsLevel {
   private choose(index: number): void {
     if (this.phase !== 'question' || this.menuOpen) return;
     const picked = this.buttons[index];
-    const category = CATEGORIES[index];
+    const category = this.spec.categories[index];
     if (!picked || !category) return;
     this.stopQuestionClock();
     const card = this.card();
@@ -305,12 +315,13 @@ export class DefinitionsLevel {
     const before = this.run;
     const result = answer(this.run, correct);
     this.run = result.run;
-    if (correct) this.onRight(picked, result.points);
+    if (correct) this.onRight(picked, result.points, card);
     else this.onWrong(picked, card, before.hearts);
   }
 
-  private onRight(picked: HTMLButtonElement, points: number): void {
+  private onRight(picked: HTMLButtonElement, points: number, card: RapidCard<A>): void {
     this.phase = 'right';
+    if (this.spec.citeOnRight) $('rule-line').textContent = card.citation;
     this.setButton(picked, 'correct');
     for (const b of this.buttons) if (b !== picked) this.setButton(b, 'disabled');
     const cardEl = $('card');
@@ -328,7 +339,12 @@ export class DefinitionsLevel {
     this.renderStatus();
     this.opts.sound.rightAnswer(this.run.combo);
     const label = (picked.querySelector('.label') as HTMLElement).textContent ?? '';
-    this.say('polite', `Right. ${label}. Plus ${points}.`);
+    this.say(
+      'polite',
+      this.spec.citeOnRight
+        ? `Right. ${label}. ${card.citation}. Plus ${points}.`
+        : `Right. ${label}. Plus ${points}.`,
+    );
     this.publish();
     this.later(() => {
       pts.classList.remove('show');
@@ -336,7 +352,7 @@ export class DefinitionsLevel {
     }, RIGHT_HOLD_MS);
   }
 
-  private onWrong(picked: HTMLButtonElement, card: DefinitionCard, heartsBefore: number): void {
+  private onWrong(picked: HTMLButtonElement, card: RapidCard<A>, heartsBefore: number): void {
     this.phase = 'highlight';
     const reduced = this.opts.reducedMotion();
     for (const b of this.buttons) {
@@ -360,7 +376,7 @@ export class DefinitionsLevel {
     this.opts.sound.bump(false);
     this.opts.vessel.highlight(card.art, reduced);
 
-    const answerLine = `She is ${categoryLabel(card.answer).toLowerCase()}.`;
+    const answerLine = this.spec.answerLine(card, this.labelOf(card.answer));
     const back =
       this.run.outcome === 'out-of-hearts'
         ? 'That was your last heart.'
@@ -472,9 +488,9 @@ export class DefinitionsLevel {
   private end(): void {
     this.phase = 'done';
     const cleared = this.run.outcome === 'cleared';
-    this.stars = runStars(this.run, this.elapsedMs, PAR_MS);
+    this.stars = runStars(this.run, this.elapsedMs, this.spec.parMs);
     if (cleared) {
-      saveStars(LEVEL_ID, this.stars);
+      saveStars(this.spec.id, this.stars);
       this.opts.sound.chime();
     }
     const title = $('end-title');
@@ -503,7 +519,7 @@ export class DefinitionsLevel {
       !cleared || this.stars === 3
         ? ''
         : this.stars === 2
-          ? `No misses inside ${PAR_MS / 1000} seconds earns 3 stars.`
+          ? `No misses inside ${this.spec.parMs / 1000} seconds earns 3 stars.`
           : 'One miss or fewer earns 2 stars.';
     nextStar.hidden = nextLine === '';
     nextStar.textContent = nextLine;
@@ -514,7 +530,7 @@ export class DefinitionsLevel {
       ['Misses', String(this.run.misses)],
       ['Time', `${Math.round(this.elapsedMs / 1000)} s`],
     ];
-    if (cleared) stats.push(['Best on this device', `${loadStars(LEVEL_ID)} of 3 stars`]);
+    if (cleared) stats.push(['Best on this device', `${loadStars(this.spec.id)} of 3 stars`]);
     $('stats').replaceChildren(
       ...stats.flatMap(([k, v]) => {
         const dt = document.createElement('dt');
@@ -528,18 +544,25 @@ export class DefinitionsLevel {
     const list = $('review-list');
     list.replaceChildren(
       ...this.run.missed.map((id) => {
-        const c = cardById(id);
+        const c = this.cardOf(id);
         const li = document.createElement('li');
         li.textContent = c?.cue ?? id;
         const a = document.createElement('span');
         a.className = 'r-answer';
-        a.textContent = c ? `${categoryLabel(c.answer)} · ${c.citation}` : '';
+        a.textContent = c ? `${this.labelOf(c.answer)} · ${c.citation}` : '';
         li.append(a);
         return li;
       }),
     );
     $('review').hidden = this.run.missed.length === 0;
     $('again-btn').textContent = cleared ? 'Play again' : 'Try again';
+    const next = cleared ? this.opts.nextLevel() : null;
+    const nextBtn = $<HTMLAnchorElement>('next-level-btn');
+    nextBtn.hidden = next === null || next.href === null;
+    if (next?.href) {
+      nextBtn.textContent = `Next: ${next.label}`;
+      nextBtn.href = next.href;
+    }
 
     $('level').setAttribute('aria-hidden', 'true');
     $('level').inert = true;
@@ -578,6 +601,7 @@ export class DefinitionsLevel {
     this.stopQuestionClock();
     this.holdCountdown();
     if (this.phase === 'replay') this.paused = true;
+    this.renderLevelLinks();
     $('menu').hidden = false;
     $('level').inert = true;
     $('sound-btn').focus();
@@ -597,6 +621,30 @@ export class DefinitionsLevel {
       this.resumeCountdown();
     }
     this.publish();
+  }
+
+  private renderLevelLinks(): void {
+    $('level-links').replaceChildren(
+      ...this.opts.levelLinks().map((link) => {
+        if (link.href) {
+          const a = document.createElement('a');
+          a.className = 'btn btn-secondary';
+          a.href = link.href;
+          a.textContent = link.label;
+          return a;
+        }
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'btn btn-secondary locked';
+        b.setAttribute('aria-disabled', 'true');
+        b.textContent = `${link.label}: locked`;
+        const note = document.createElement('span');
+        note.className = 'lock-note';
+        note.textContent = link.note;
+        b.append(note);
+        return b;
+      }),
+    );
   }
 
   private renderSoundButton(): void {
@@ -633,7 +681,7 @@ export class DefinitionsLevel {
 
   private publish(): void {
     window.__captainsAcademyQuiz = {
-      level: LEVEL_ID,
+      level: this.spec.id,
       phase: this.phase,
       card: this.phase === 'done' ? null : (currentCard(this.run) ?? null),
       hearts: this.run.hearts,

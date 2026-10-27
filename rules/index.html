@@ -465,6 +465,46 @@
         color: var(--ink-100);
         border: 2px solid var(--line-500);
       }
+      a.btn {
+        text-align: center;
+        text-decoration: none;
+      }
+      /* A level that is still shut says why, in words. */
+      .btn.locked {
+        flex-direction: column;
+        gap: 0;
+        padding-top: var(--s2);
+        padding-bottom: var(--s2);
+        cursor: default;
+      }
+      .lock-note {
+        display: block;
+        color: var(--ink-300);
+        font-size: var(--fs-small);
+        font-weight: 500;
+      }
+      #level-links {
+        display: grid;
+        gap: var(--s3);
+      }
+      #level-links:empty {
+        display: none;
+      }
+      /* The rule a right answer cites (Lights). The line is always there so the card does not jump. */
+      .rule-line {
+        margin: var(--s1) 0 0;
+        text-align: center;
+        color: var(--blue-300);
+        font-size: var(--fs-small);
+        font-weight: 500;
+      }
+      .rule-line:empty {
+        display: none;
+      }
+      .has-rule-line .rule-line:empty {
+        display: block;
+        min-height: 22px;
+      }
 
       /* Question and answers */
       .question {
@@ -708,6 +748,8 @@
         border-radius: 16px 16px 0 0;
         display: grid;
         gap: var(--s3);
+        max-height: 100%;
+        overflow-y: auto;
       }
       .sheet h2 {
         margin: 0;
@@ -809,6 +851,7 @@
         </div>
         <div class="art" id="art" aria-hidden="true"></div>
         <p class="cue" id="cue"></p>
+        <p class="rule-line" id="rule-line"></p>
         <div class="points" id="points" aria-hidden="true"></div>
 
         <div class="panel" id="panel" role="region" aria-labelledby="panel-title" hidden>
@@ -877,6 +920,7 @@
         </section>
         <div class="end-actions">
           <button class="btn btn-primary" id="again-btn" type="button">Play again</button>
+          <a class="btn btn-secondary" id="next-level-btn" href="/rules/" hidden>Next level</a>
           <button class="btn btn-secondary" id="home-btn" type="button">Home</button>
         </div>
       </div>
@@ -889,6 +933,7 @@
           Sound: on
         </button>
         <button class="btn btn-secondary" id="restart-btn" type="button">Restart level</button>
+        <div id="level-links"></div>
         <button class="btn btn-secondary" id="menu-home-btn" type="button">Home</button>
         <button class="btn btn-primary" id="close-btn" type="button">Close</button>
       </div>

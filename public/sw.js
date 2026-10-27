@@ -44,8 +44,20 @@ self.addEventListener('activate', (event) => {
 // online only. Its review images add up to tens of megabytes, so neither the
 // page nor anything it loads goes into the offline cache.
 function isPrototypeReview(request) {
-  const under = (url) => url !== '' && new URL(url).pathname.startsWith('/prototypes/');
+  const under = (url) => Boolean(url) && new URL(url).pathname.startsWith('/prototypes/');
   return under(request.url) || under(request.referrer);
+}
+
+// Offline navigation fallback. Exact match first; /rules/ also ignores the
+// query string so /rules/?level=lights is served from the cached /rules/.
+async function offlinePage(request) {
+  const exact = await caches.match(request);
+  if (exact) return exact;
+  if (new URL(request.url).pathname === '/rules/') {
+    const page = await caches.match(request, { ignoreSearch: true });
+    if (page) return page;
+  }
+  return Response.error();
 }
 
 self.addEventListener('fetch', (event) => {
@@ -61,7 +73,7 @@ self.addEventListener('fetch', (event) => {
           caches.open(CACHE).then((cache) => cache.put(request, copy));
           return response;
         })
-        .catch(() => caches.match(request).then((hit) => hit ?? Response.error())),
+        .catch(() => offlinePage(request)),
     );
     return;
   }
