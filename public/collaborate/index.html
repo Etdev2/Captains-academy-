@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#071321" />
+    <meta
+      name="description"
+      content="Prompts and a shared working process for Captain's Academy collaborators and their agents."
+    />
+    <title>Collaborator start | Captain's Academy</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#prompts">Skip to prompts</a>
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="Captain's Academy home">
+        <svg viewBox="0 0 40 40" aria-hidden="true">
+          <circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" />
+          <path d="m20 7 4 13-4 13-4-13Z" fill="#f1b64b" />
+          <path d="m7 20 13-4 13 4-13 4Z" fill="currentColor" opacity=".55" />
+        </svg>
+        <span>CAPTAIN'S ACADEMY<small>COLLABORATOR START</small></span>
+      </a>
+      <nav aria-label="Project links">
+        <a href="https://github.com/Etdev2/Captains-academy-/pull/73"
+          >Decision Desk preview <span aria-hidden="true">↗</span></a
+        >
+        <a href="https://github.com/Etdev2/Captains-academy-"
+          >Repository <span aria-hidden="true">↗</span></a
+        >
+      </nav>
+    </header>
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow"><span class="signal" aria-hidden="true"></span> WORKING TOGETHER</p>
+          <h1 id="page-title">Get up to speed.<br /><span>Then pick your workstream.</span></h1>
+          <p class="lede">
+            A shared starting point for friends and their agents. Read the project, agree on a task,
+            and bring your prototypes back for review.
+          </p>
+          <div class="intro-links">
+            <a class="primary-link" href="#prompts"
+              >Choose a prompt <span aria-hidden="true">↓</span></a
+            ><a href="#agreements-title"
+              >Read the working agreements <span aria-hidden="true">↓</span></a
+            >
+          </div>
+        </div>
+        <div class="phase" aria-label="Current collaboration phase">
+          <span class="phase-label">CURRENT PHASE</span>
+          <h2>Prototype review</h2>
+          <p>
+            Explore the assigned screen. Compare it in the Decision Desk. Elliott selects the
+            direction before feature implementation starts.
+          </p>
+          <div class="phase-footer">
+            <span class="small-mark" aria-hidden="true">01</span
+            ><span>Design input is not<br />implementation approval.</span>
+          </div>
+        </div>
+      </section>
+      <section class="workflow" aria-label="How we work">
+        <div>
+          <span>01</span>
+          <p>Read &amp; onboard<small>Know the rules and the current work.</small></p>
+        </div>
+        <div>
+          <span>02</span>
+          <p>Claim a workstream<small>One owner, branch, and file assignment.</small></p>
+        </div>
+        <div>
+          <span>03</span>
+          <p>Bring a prototype<small>Show the flow on phone and desktop.</small></p>
+        </div>
+        <div>
+          <span>04</span>
+          <p>Review together<small>Record a decision and the next task.</small></p>
+        </div>
+      </section>
+      <section id="prompts" class="prompt-section" aria-labelledby="prompt-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">THE PROMPT LIBRARY</p>
+            <h2 id="prompt-heading">Give your agent a clear start.</h2>
+          </div>
+          <p>Copy a prompt into your agent's chat.<br />Nothing runs automatically.</p>
+        </div>
+        <form class="personalize" aria-label="Optional prompt details" onsubmit="return false;">
+          <div>
+            <label for="collaborator">Your name <span>optional</span></label
+            ><input
+              id="collaborator"
+              autocomplete="off"
+              maxlength="120"
+              placeholder="e.g. Elliott"
+            />
+          </div>
+          <div>
+            <label for="task">Task or issue <span>optional</span></label
+            ><input
+              id="task"
+              autocomplete="off"
+              maxlength="200"
+              placeholder="e.g. Forms workspace, issue #…"
+            />
+          </div>
+          <p>These details stay in this tab and fill the prompt you copy.</p>
+        </form>
+        <div class="library">
+          <div class="chooser" aria-label="Choose a prompt">
+            <label class="search-label" for="search">Find a prompt</label
+            ><input id="search" type="search" placeholder="Search by task or keyword" />
+            <div class="filters" role="group" aria-label="Prompt category">
+              <button type="button" data-category="All" aria-pressed="true">All</button
+              ><button type="button" data-category="Start" aria-pressed="false">Start</button
+              ><button type="button" data-category="Design" aria-pressed="false">Design</button
+              ><button type="button" data-category="Review" aria-pressed="false">Review</button
+              ><button type="button" data-category="Handoff" aria-pressed="false">Handoff</button>
+            </div>
+            <p id="result-count" class="result-count" aria-live="polite">Loading prompts…</p>
+            <div id="prompt-list" class="prompt-list"></div>
+            <p id="empty" class="empty" hidden>No prompts match. Try another word or choose All.</p>
+          </div>
+          <article class="reader" aria-labelledby="selected-title">
+            <div class="reader-head">
+              <div>
+                <p id="selected-category" class="eyebrow">START HERE</p>
+                <h3 id="selected-title">Onboard your agent</h3>
+                <p id="selected-description">Read the project and agree on your assignment.</p>
+              </div>
+              <button id="copy" class="copy" type="button" disabled>
+                Copy prompt <span aria-hidden="true">↗</span>
+              </button>
+            </div>
+            <label class="sr-only" for="prompt-text">Selected prompt, ready to copy</label
+            ><textarea
+              id="prompt-text"
+              readonly
+              spellcheck="false"
+              aria-describedby="copy-status"
+              placeholder="The prompt will appear here."
+            ></textarea>
+            <div class="reader-foot">
+              <span>READABLE · EDITABLE AFTER PASTING</span>
+              <p id="copy-status" role="status" aria-live="polite">
+                Read the prompt, then copy it to your agent.
+              </p>
+            </div>
+          </article>
+        </div>
+        <p id="load-error" class="load-error" role="alert" hidden>
+          Prompts could not load. Reload this page, or copy the onboarding prompt from
+          <a href="https://github.com/Etdev2/Captains-academy-#collaborating-with-friends"
+            >the repository README</a
+          >.
+        </p>
+      </section>
+      <section class="agreements" aria-labelledby="agreements-title">
+        <div>
+          <p class="eyebrow">BEFORE YOU WRITE</p>
+          <h2 id="agreements-title">Keep each other's work safe.</h2>
+          <p>A new collaborator does not create a new builder slot or change project authority.</p>
+        </div>
+        <ul>
+          <li>
+            <span>01</span>
+            <div>
+              Own a bounded task.<small
+                >Confirm your issue, branch, working copy, and allowed files.</small
+              >
+            </div>
+          </li>
+          <li>
+            <span>02</span>
+            <div>
+              Coordinate shared changes.<small
+                >One owner at a time for navigation, styles, configuration, and migrations.</small
+              >
+            </div>
+          </li>
+          <li>
+            <span>03</span>
+            <div>
+              Show what you checked.<small
+                >Separate local tests, CI, missing evidence, and design concepts.</small
+              >
+            </div>
+          </li>
+          <li>
+            <span>04</span>
+            <div>
+              Wait for independent review.<small
+                >Follow current repository rules for proof, review, and merge.</small
+              >
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer>
+      <span>CAPTAIN'S ACADEMY <span aria-hidden="true">/</span> BUILT TOGETHER</span
+      ><a href="https://github.com/Etdev2/Captains-academy-/blob/main/AGENTS.md">Project rules ↗</a
+      ><a href="https://github.com/Etdev2/Captains-academy-/issues">Issues &amp; assignments ↗</a>
+      <p>Game time is practice. It never counts as sea time.</p>
+    </footer>
+    <noscript
+      ><p class="load-error">
+        JavaScript is needed to choose and copy prompts. Read the onboarding prompt in
+        <a href="https://github.com/Etdev2/Captains-academy-#collaborating-with-friends"
+          >the repository README</a
+        >.
+      </p></noscript
+    >
+    <script type="module" src="./page.js"></script>
+  </body>
+</html>

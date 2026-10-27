@@ -1,59 +1,39 @@
-# Contributing to Captain's Academy
+# Collaborating on Captain's Academy
 
-This file is for human contributors with Write access. Agents follow `AGENTS.md`, and so do you where it applies.
+Elliott and the collaborators review prototypes before implementation starts. Give your agent the prompt in [README.md](README.md), or use the [Collaborator start page source](public/collaborate/index.html) at `/collaborate/` on the web app.
 
-## Who merges
+## Get access and run the app
 
-Only Et merges into `main` by default. Contributors may open pull requests and review each other's pull requests, but may not merge, including their own.
+Use your own GitHub account. Ask Elliott for repository access if needed. Do not share passwords, tokens, or production environment files.
 
-A bot may merge only after Et approves or asks for it, and only when all of these hold on the pull request's current head commit:
+Clone the repository into your own working copy. Use the Node version in `.nvmrc`, then run `npm ci` and `npm run dev -- --host 127.0.0.1`. Open the local URL Vite prints. These public app pages do not need a production database to explore the UI. Never invent environment values to bypass a missing service.
 
-- Codex reviewed that exact head SHA and left no unresolved P0 or P1 finding.
-- A Verifier reported PASS on that same head SHA.
-- Every check is green.
+Read [AGENTS.md](AGENTS.md), the [house rules](docs/team/HOUSE-RULES.md), the [operating system](docs/team/AI-OPERATING-SYSTEM.md), [product decisions](docs/product/DECISIONS.md), and the applicable ADRs before editing. Agent sessions follow [the time-card instructions](agent-resources/README.md).
 
-A new commit resets all three.
+## Agree on the assignment
 
-## Review gates
+Check open issues, PRs, and existing assignment records with Sweet Potato. Every workstream has an issue, owner, branch, worktree, allowed files, dependencies, acceptance criteria, and reviewer. Use the compact assignment record in the operating system. Do not assume that a topic is independent merely because it has a different name.
 
-Your pull requests go through the same gates as bot pull requests: a Codex review and a Verifier PASS on the same head commit, plus the `verify`, `proof` and Vercel checks. `.github/CODEOWNERS` names Et as the owner of every path.
+Keep your branch in your own checkout or worktree. Never switch branches inside another agent's working copy. Shared navigation, styles, dependencies, migrations and configuration need one owner at a time. Request a sequence or ownership transfer when work overlaps. Existing builder limits still apply.
 
-## Branches and pull requests
+## Prepare and review prototypes
 
-- Branch from current `main` in this repository, not a fork. Name the branch by kind, for example `feat/harbor-lights`, `fix/sea-time-rounding` or `docs/glossary`.
-- One ticket per pull request. Link the issue with `Etdev2/Captains-academy-#N` in the body.
-- Open the pull request ready for review, not as a draft, once the checks pass locally.
-- Never force-push a branch someone has reviewed. Add commits instead.
+Use the assigned visual direction. Label alternatives and fictional data. Provide mobile and desktop screens, source files, and a short explanation of the task, tradeoffs, and static versus interactive behavior.
 
-## Run the checks locally
+The Decision Desk workstream currently lives on [PR #73](https://github.com/Etdev2/Captains-academy-/pull/73). Use the preview linked in that PR. Follow its current asset inventory, IDs, dimensions, thumbnails and sections. If another agent owns those files, hand them the assets and integration steps. Do not create a second gallery or change the feedback model.
 
-Use Node 22 (see `.nvmrc`).
+Leave a design PR as a draft while Elliott and collaborators compare concepts. Elliott records the selected concept and reason. Votes inform the decision. They do not approve implementation or a merge. Implementation follows as a separately approved task.
 
-```bash
-npm ci
-npx playwright install chromium
-bash scripts/verify.test.sh
-bash scripts/verify.sh
-```
+## Verify and hand off
 
-`npm install` fails with npm 10 on this tree. If you must regenerate the lockfile, use `npx npm@11.21.0 install`.
+Run `bash scripts/verify.test.sh` and `bash scripts/verify.sh`. The latter must run every required stage without skipping. Install the pinned Playwright browser when your environment needs it. Use the project's verification skill for changed behavior and capture the actual result.
 
-## Proof bundle
+Clock out before regenerating proof. Run `scripts/write-proof.sh --ticket Etdev2/Captains-academy-#<issue>` with the required fixture, shows and real verification commands, then `bash scripts/check-proof.sh`. See the script's usage for all arguments. Commit proof last. A later code or time-card edit requires another proof rewrite.
 
-Every pull request commits a proof bundle in `proof/`, and the `proof` check runs `scripts/check-proof.sh` on it. Write it after your last code change, then commit it:
+Open a draft PR with the issue, base/head SHAs, changes, screenshots, preview, commands and results, and missing evidence. Distinguish your local tests from CI and another builder's transcript. Never claim PASS for an unexecuted check.
 
-```bash
-scripts/write-proof.sh --ticket Etdev2/Captains-academy-#N \
-  --fixture "what the commands ran against" \
-  --shows "what the output proves" \
-  --verification "bash scripts/verify.sh" \
-  -- "bash scripts/verify.sh"
-git commit -m "proof: ..."
-bash scripts/check-proof.sh .
-```
+An independent model family reviews the builder's work. Follow the current merge rule in AGENTS.md and Elliott's direct instructions. Sweet Potato can merge only the reviewed current head with no unresolved P0/P1, required checks green, and a mergeable, non-draft PR. Collaborators and their agents do not gain merge or production authority by onboarding.
 
-For a change with no behavior change, such as docs, add `--no-behavior-change "reason"`. Any later code change makes the bundle stale, so write it again.
+## Maintain the prompt page
 
-## Product rules
-
-Read the project rules in `AGENTS.md`. In particular, game and simulator time never counts as sea time, and the app never tells a user "you qualify."
+The canonical page prompts are in `public/collaborate/prompts.json`. Keep the README onboarding prompt equal to its first entry. The page is static and ships through Vite's public directory at `/collaborate/`. It does not store collaborator details or send prompts to an agent. Copying a prompt does not execute it.
