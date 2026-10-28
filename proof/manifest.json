@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#87",
-  "sourceDigest": "sha256:b4cba0c3311dcbc4d691d5995c0828bd574c86d8b1e953ae8d6308fc2ddf619e",
-  "capturedAt": "2026-10-27T23:45:39Z",
+  "ticket": "Etdev2/Captains-academy-#90",
+  "sourceDigest": "sha256:090803c46128664dc8743d7c91f986459efad7f719d02a3d2180da752a7eca12",
+  "capturedAt": "2026-10-28T19:37:06Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.test.sh",
-    "fixture": "The /account/ screen and front page Account link from #87, in a complete checkout of main at fc15d4d plus this branch, with the Auth API mocked by e2e/auth-mock.ts, on Node 22.23.4"
+    "command": "bash scripts/verify.sh",
+    "fixture": "Docs-only change on main ba090b1"
   },
   "commands": [
     {
@@ -18,12 +18,13 @@
       "exitCode": 0
     }
   ],
-  "behaviorChanged": true,
+  "behaviorChanged": false,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.test.sh and verify.sh pass, including e2e/account.spec.ts (no Supabase settings) and e2e/account-set-up.spec.ts (link, code, signed in, sign out, offline, axe) and the auth unit tests"
+      "shows": "verify.sh and its tests pass with the Prototype Studio plan and time card"
     }
-  ]
+  ],
+  "noBehaviorReason": "Adds a product plan and a time card only; no app code or workflow changes"
 }
