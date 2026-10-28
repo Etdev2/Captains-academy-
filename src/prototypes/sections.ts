@@ -231,14 +231,22 @@ export const sections: readonly Section[] = [
     id: 'docking',
     title: 'Docking',
     category: 'arcade',
-    groups: [],
+    // The arcade game's handoff to Nick (docs/prototypes/arcade-handoff.md).
+    // Every tile here opens something playable: the Helm View Options page or
+    // the game itself. The 22 October build screenshots are reference now.
+    groups: [
+      {
+        title: 'Helm view options · playable',
+        ids: ['cl-helm-view-options-desktop'],
+        twins: { 'cl-helm-view-options-desktop': 'cl-helm-view-options-iphone' },
+      },
+    ],
     asBuilt: [
-      { id: 'app-level-1-docking-desktop' },
-      { id: 'app-level-1-docking-phone-landscape' },
-      { id: 'app-level-2-crosswind-slip' },
-      { id: 'app-level-3-course-start' },
-      { id: 'app-level-3-container-ship' },
-      { id: 'app-level-3-hit-by-ship' },
+      { id: 'app-arcade-level-1-desktop' },
+      { id: 'app-arcade-level-1-phone-landscape' },
+      { id: 'app-arcade-level-2-crosswind' },
+      { id: 'app-arcade-level-3-start' },
+      { id: 'app-arcade-level-3-traffic' },
     ],
   },
 ];
@@ -303,6 +311,7 @@ const prefixes = [
   /^Mockup:\s*(Level \d+:\s*)?/,
   /^Night Harbor Run:\s*/,
   /^Prototype book:\s*/,
+  /^Helm view options:\s*/,
   /^Definitions as built:\s*/,
 ];
 

@@ -1,20 +1,24 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#87",
-  "sourceDigest": "sha256:b4cba0c3311dcbc4d691d5995c0828bd574c86d8b1e953ae8d6308fc2ddf619e",
-  "capturedAt": "2026-10-27T23:45:39Z",
+  "ticket": "Etdev2/Captains-academy-#89",
+  "sourceDigest": "sha256:681aee5e94d1349ae8d7ed4879e991f1722fdcd9252e913ded65c1c12408a924",
+  "capturedAt": "2026-10-28T01:01:09Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.test.sh",
-    "fixture": "The /account/ screen and front page Account link from #87, in a complete checkout of main at fc15d4d plus this branch, with the Auth API mocked by e2e/auth-mock.ts, on Node 22.23.4"
+    "command": "bun test --preload /tmp/bunshim/preload.ts tests/prototype-inventory.test.ts tests/prototype-sections.test.ts tests/decision-board.test.ts",
+    "fixture": "This branch on main ba090b1, in a cloud session without npm registry access. Prototype unit tests ran under bun 1.4.4 with /tmp/bunshim/preload.ts standing in for Vite's import.meta.glob, and react linked from the global install; tests/prototype-live.test.ts ran only its Decision Desk and arcade groups because lucide-react could not be installed. The /play build came from bun build with Phaser 4.2.1 dist and zod 4.6.7 source checked out from GitHub, served on 127.0.0.1:4173, and driven by drive.mjs. bash scripts/verify.sh did not run; CI's verify job is the full run."
   },
   "commands": [
     {
-      "command": "bash scripts/verify.test.sh",
+      "command": "bun test --preload /tmp/bunshim/preload.ts tests/prototype-inventory.test.ts tests/prototype-sections.test.ts tests/decision-board.test.ts",
       "exitCode": 0
     },
     {
-      "command": "bash scripts/verify.sh",
+      "command": "bun test --preload /tmp/bunshim/preload.ts tests/prototype-live.test.ts -t 'arcade levels|Decision Desk'",
+      "exitCode": 0
+    },
+    {
+      "command": "node .claude/skills/verify-captains-academy/drive.mjs http://127.0.0.1:4173/play/ /tmp/cap/shots.steps.json /tmp/cap/proofrun",
       "exitCode": 0
     }
   ],
@@ -23,7 +27,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.test.sh and verify.sh pass, including e2e/account.spec.ts (no Supabase settings) and e2e/account-set-up.spec.ts (link, code, signed in, sign out, offline, axe) and the auth unit tests"
+      "shows": "The board's inventory, sections and Docking links pass their unit tests, and the current /play build drives through levels 1, 2 and 3 on desktop and phone landscape, the frames used for the new board images."
     }
   ]
 }

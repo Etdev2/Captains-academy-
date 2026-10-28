@@ -12,3 +12,4 @@ playwright-report/
 test-results/
 package-lock.json
 tests/replays/
+public/prototypes/play/
