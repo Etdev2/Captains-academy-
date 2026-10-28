@@ -42,13 +42,16 @@ const itemSchema = z
     extractedFrom: z.string().optional(),
     document: z.string().optional(),
     /**
-     * The interactive prototype this screenshot captures, at its stable URL, or
-     * the playable game for a screenshot of the arcade as built. /play opens
-     * every level with ?unlock=all, so a reviewer can play the one on the tile.
+     * The interactive prototype this screenshot captures, at its stable URL: a
+     * variant at /prototypes/live, a playable prototype page in
+     * public/prototypes/play, or the game itself for a screenshot of the arcade
+     * as built. /play opens every level with ?unlock=all.
      */
     interactive: z
       .string()
-      .regex(/^\/prototypes\/live\/\?category=[a-z-]+&variant=[abc]$|^\/play\/\?unlock=all$/)
+      .regex(
+        /^\/prototypes\/live\/\?category=[a-z-]+&variant=[abc]$|^\/prototypes\/play\/[a-z0-9-]+\.html$|^\/play\/\?unlock=all$/,
+      )
       .optional(),
   })
   .strict()

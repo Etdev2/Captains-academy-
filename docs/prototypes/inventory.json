@@ -639,7 +639,8 @@
       "height": 760,
       "color": "#050c17",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them.",
-      "availability": "available"
+      "availability": "available",
+      "interactive": "/prototypes/play/night-harbor-run.html"
     },
     {
       "id": "cl-nhr-head-on-lights",
@@ -655,7 +656,8 @@
       "height": 760,
       "color": "#081220",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them.",
-      "availability": "available"
+      "availability": "available",
+      "interactive": "/prototypes/play/night-harbor-run.html"
     },
     {
       "id": "cl-nhr-call-it-question",
@@ -671,7 +673,8 @@
       "height": 760,
       "color": "#0a1626",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them.",
-      "availability": "available"
+      "availability": "available",
+      "interactive": "/prototypes/play/night-harbor-run.html"
     },
     {
       "id": "cl-nhr-answer-and-rule",
@@ -687,7 +690,8 @@
       "height": 760,
       "color": "#0f1e2f",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them.",
-      "availability": "available"
+      "availability": "available",
+      "interactive": "/prototypes/play/night-harbor-run.html"
     },
     {
       "id": "cl-nhr-phone",
@@ -703,7 +707,8 @@
       "height": 1720,
       "color": "#081422",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them.",
-      "availability": "available"
+      "availability": "available",
+      "interactive": "/prototypes/play/night-harbor-run.html"
     },
     {
       "id": "cl-nhr-crossing-from-starboard",
@@ -719,7 +724,8 @@
       "height": 1520,
       "color": "#050d17",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them. Captured 2026-10-25 with the #gate start link.",
-      "availability": "available"
+      "availability": "available",
+      "interactive": "/prototypes/play/night-harbor-run.html"
     },
     {
       "id": "cl-nhr-sailing-vessel",
@@ -735,7 +741,8 @@
       "height": 1520,
       "color": "#050d17",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them. Captured 2026-10-25 with the #gate start link.",
-      "availability": "available"
+      "availability": "available",
+      "interactive": "/prototypes/play/night-harbor-run.html"
     },
     {
       "id": "cl-nhr-day-leg-shapes",
@@ -751,7 +758,8 @@
       "height": 1520,
       "color": "#2a4b67",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them. Captured 2026-10-25 with the #gate start link.",
-      "availability": "available"
+      "availability": "available",
+      "interactive": "/prototypes/play/night-harbor-run.html"
     },
     {
       "id": "cl-nhr-channel-dredge",
@@ -767,7 +775,8 @@
       "height": 1520,
       "color": "#050d17",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them. Captured 2026-10-25 with the #gate start link.",
-      "availability": "available"
+      "availability": "available",
+      "interactive": "/prototypes/play/night-harbor-run.html"
     },
     {
       "id": "cl-nhr-tug-and-tow-from-astern",
@@ -783,7 +792,8 @@
       "height": 1520,
       "color": "#050d17",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them. Captured 2026-10-25 with the #gate start link.",
-      "availability": "available"
+      "availability": "available",
+      "interactive": "/prototypes/play/night-harbor-run.html"
     },
     {
       "id": "cl-nhr-fog-leg",
@@ -799,109 +809,104 @@
       "height": 1520,
       "color": "#606b73",
       "notes": "Screen from the playable prototype. Light rules are a draft until uscg-regs checks them. Captured 2026-10-25 with the #gate start link.",
-      "availability": "available"
+      "availability": "available",
+      "interactive": "/prototypes/play/night-harbor-run.html"
     },
     {
       "id": "app-level-1-docking-desktop",
       "title": "Docking level 1",
       "creator": "Claude",
       "source": "docs/prototypes/rules-of-the-road/images/built/01-level-1-docking-desktop.png",
-      "style": "Current app",
+      "style": "Night harbor (Claude)",
       "feature": "Arcade",
-      "kind": "app-screenshot",
+      "kind": "reference",
       "device": "Desktop",
       "image": "docs/prototypes/rules-of-the-road/images/built/01-level-1-docking-desktop.png",
       "width": 1280,
       "height": 768,
       "color": "#06121f",
-      "notes": "Screenshot of built code. On main and playable at /play/?unlock=all.",
-      "availability": "available",
-      "interactive": "/play/?unlock=all"
+      "notes": "Superseded build screenshot, kept for comparison, not ranked. The 27 October 2026 capture `app-arcade-level-1-desktop` shows the current game.",
+      "availability": "available"
     },
     {
       "id": "app-level-1-docking-phone-landscape",
       "title": "Docking level 1 on a phone",
       "creator": "Claude",
       "source": "docs/prototypes/rules-of-the-road/images/built/02-level-1-docking-phone-landscape.png",
-      "style": "Current app",
+      "style": "Night harbor (Claude)",
       "feature": "Arcade",
-      "kind": "app-screenshot",
+      "kind": "reference",
       "device": "Phone landscape",
       "image": "docs/prototypes/rules-of-the-road/images/built/02-level-1-docking-phone-landscape.png",
       "width": 2265,
       "height": 945,
       "color": "#06121f",
-      "notes": "Screenshot of built code. On main and playable at /play/?unlock=all.",
-      "availability": "available",
-      "interactive": "/play/?unlock=all"
+      "notes": "Superseded build screenshot, kept for comparison, not ranked. The 27 October 2026 capture `app-arcade-level-1-phone-landscape` shows the current game.",
+      "availability": "available"
     },
     {
       "id": "app-level-2-crosswind-slip",
       "title": "Docking level 2: crosswind slip",
       "creator": "Claude",
       "source": "docs/prototypes/rules-of-the-road/images/built/03-level-2-crosswind-slip.png",
-      "style": "Current app",
+      "style": "Night harbor (Claude)",
       "feature": "Arcade",
-      "kind": "app-screenshot",
+      "kind": "reference",
       "device": "Desktop",
       "image": "docs/prototypes/rules-of-the-road/images/built/03-level-2-crosswind-slip.png",
       "width": 1280,
       "height": 768,
       "color": "#06121f",
-      "notes": "Screenshot of built code. On main and playable at /play/?unlock=all.",
-      "availability": "available",
-      "interactive": "/play/?unlock=all"
+      "notes": "Superseded build screenshot, kept for comparison, not ranked. The 27 October 2026 capture `app-arcade-level-2-crosswind` shows the current game.",
+      "availability": "available"
     },
     {
       "id": "app-level-3-course-start",
       "title": "Level 3 harbor course: start",
       "creator": "Claude",
       "source": "docs/prototypes/rules-of-the-road/images/built/04-level-3-course-start.png",
-      "style": "Current app",
+      "style": "Night harbor (Claude)",
       "feature": "Arcade",
-      "kind": "app-screenshot",
+      "kind": "reference",
       "device": "Desktop",
       "image": "docs/prototypes/rules-of-the-road/images/built/04-level-3-course-start.png",
       "width": 1280,
       "height": 768,
       "color": "#06121f",
-      "notes": "Screenshot of built code, taken on the #46 branch. Level 3 is now on main and playable at /play/?unlock=all.",
-      "availability": "available",
-      "interactive": "/play/?unlock=all"
+      "notes": "Superseded build screenshot, kept for comparison, not ranked. The 27 October 2026 capture `app-arcade-level-3-start` shows the current game.",
+      "availability": "available"
     },
     {
       "id": "app-level-3-container-ship",
       "title": "Level 3: the container ship",
       "creator": "Claude",
       "source": "docs/prototypes/rules-of-the-road/images/built/05-level-3-container-ship.png",
-      "style": "Current app",
+      "style": "Night harbor (Claude)",
       "feature": "Arcade",
-      "kind": "app-screenshot",
+      "kind": "reference",
       "device": "Desktop",
       "image": "docs/prototypes/rules-of-the-road/images/built/05-level-3-container-ship.png",
       "width": 1280,
       "height": 768,
       "color": "#06121f",
-      "notes": "Screenshot of built code, taken on the #46 branch. Level 3 is now on main and playable at /play/?unlock=all.",
-      "availability": "available",
-      "interactive": "/play/?unlock=all"
+      "notes": "Superseded build screenshot, kept for comparison, not ranked. The 27 October 2026 capture `app-arcade-level-3-traffic` shows the current game.",
+      "availability": "available"
     },
     {
       "id": "app-level-3-hit-by-ship",
       "title": "Level 3: hit by the ship",
       "creator": "Claude",
       "source": "docs/prototypes/rules-of-the-road/images/built/06-level-3-hit-by-ship.png",
-      "style": "Current app",
+      "style": "Night harbor (Claude)",
       "feature": "Arcade",
-      "kind": "app-screenshot",
+      "kind": "reference",
       "device": "Desktop",
       "image": "docs/prototypes/rules-of-the-road/images/built/06-level-3-hit-by-ship.png",
       "width": 1280,
       "height": 768,
       "color": "#06121f",
-      "notes": "Screenshot of built code, taken on the #46 branch. Level 3 is now on main and playable at /play/?unlock=all.",
-      "availability": "available",
-      "interactive": "/play/?unlock=all"
+      "notes": "Superseded build screenshot, kept for comparison, not ranked. The 27 October 2026 capture `app-arcade-level-3-traffic` shows the current game.",
+      "availability": "available"
     },
     {
       "id": "app-definitions-desktop-wide-1-first-card",
@@ -1840,6 +1845,125 @@
       "availability": "available",
       "notes": "Primary screen of the Guided Mentor direction for Arcade & Simulations. Open the interactive prototype to try the journey. Fictional sample data; licensing figures other than OUPV near-coastal sea service are illustrative.",
       "interactive": "/prototypes/live/?category=arcade&variant=c"
+    },
+    {
+      "id": "app-arcade-level-1-desktop",
+      "title": "Level 1: the open slip at Long Beach",
+      "creator": "Claude",
+      "source": "Captured from the /play build of main at ba090b1 with the verify-captains-academy driver, 2026-10-27. docs/prototypes/arcade/images/level-1-desktop.png",
+      "style": "Current app",
+      "feature": "Arcade",
+      "kind": "app-screenshot",
+      "device": "Desktop",
+      "image": "docs/prototypes/arcade/images/level-1-desktop.png",
+      "width": 1280,
+      "height": 768,
+      "color": "#06121f",
+      "availability": "available",
+      "notes": "Approaching the pier with the engine levers split. On main and playable at /play/?unlock=all.",
+      "interactive": "/play/?unlock=all"
+    },
+    {
+      "id": "app-arcade-level-1-phone-landscape",
+      "title": "Level 1 on a phone",
+      "creator": "Claude",
+      "source": "Captured from the /play build of main at ba090b1 with the verify-captains-academy driver, 2026-10-27. docs/prototypes/arcade/images/level-1-phone-landscape.png",
+      "style": "Current app",
+      "feature": "Arcade",
+      "kind": "app-screenshot",
+      "device": "Phone landscape",
+      "image": "docs/prototypes/arcade/images/level-1-phone-landscape.png",
+      "width": 2265,
+      "height": 945,
+      "color": "#06121f",
+      "availability": "available",
+      "notes": "The same approach on a Pixel 7 held sideways. On main and playable at /play/?unlock=all.",
+      "interactive": "/play/?unlock=all"
+    },
+    {
+      "id": "app-arcade-level-2-crosswind",
+      "title": "Level 2: the end slip in a crosswind",
+      "creator": "Claude",
+      "source": "Captured from the /play build of main at ba090b1 with the verify-captains-academy driver, 2026-10-27. docs/prototypes/arcade/images/level-2-crosswind.png",
+      "style": "Current app",
+      "feature": "Arcade",
+      "kind": "app-screenshot",
+      "device": "Desktop",
+      "image": "docs/prototypes/arcade/images/level-2-crosswind.png",
+      "width": 1280,
+      "height": 768,
+      "color": "#06121f",
+      "availability": "available",
+      "notes": "Closing on the end slip with gusts and current setting the boat. On main and playable at /play/?unlock=all.",
+      "interactive": "/play/?unlock=all"
+    },
+    {
+      "id": "app-arcade-level-3-start",
+      "title": "Level 3: the harbor course start",
+      "creator": "Claude",
+      "source": "Captured from the /play build of main at ba090b1 with the verify-captains-academy driver, 2026-10-27. docs/prototypes/arcade/images/level-3-start.png",
+      "style": "Current app",
+      "feature": "Arcade",
+      "kind": "app-screenshot",
+      "device": "Desktop",
+      "image": "docs/prototypes/arcade/images/level-3-start.png",
+      "width": 1280,
+      "height": 768,
+      "color": "#06121f",
+      "availability": "available",
+      "notes": "The channel and the first gold gate. On main and playable at /play/?unlock=all.",
+      "interactive": "/play/?unlock=all"
+    },
+    {
+      "id": "app-arcade-level-3-traffic",
+      "title": "Level 3: traffic in the channel",
+      "creator": "Claude",
+      "source": "Captured from the /play build of main at ba090b1 with the verify-captains-academy driver, 2026-10-27. docs/prototypes/arcade/images/level-3-traffic.png",
+      "style": "Current app",
+      "feature": "Arcade",
+      "kind": "app-screenshot",
+      "device": "Desktop",
+      "image": "docs/prototypes/arcade/images/level-3-traffic.png",
+      "width": 1280,
+      "height": 768,
+      "color": "#06121f",
+      "availability": "available",
+      "notes": "A ship crosses the channel after gate 1. Elliott rates level 3 the weakest of the three. On main and playable at /play/?unlock=all.",
+      "interactive": "/play/?unlock=all"
+    },
+    {
+      "id": "cl-helm-view-options-desktop",
+      "title": "Helm view options: one boat drawn three ways",
+      "creator": "Claude",
+      "source": "Elliott's Claude page Helm View Options (20 October 2026), posted at /prototypes/play/helm-view-options.html. Screenshot docs/prototypes/arcade/images/helm-view-options-desktop.png",
+      "style": "Night harbor (Claude)",
+      "feature": "Arcade",
+      "kind": "concept",
+      "device": "Desktop (1440 wide)",
+      "image": "docs/prototypes/arcade/images/helm-view-options-desktop.png",
+      "width": 1440,
+      "height": 900,
+      "color": "#0a131b",
+      "availability": "available",
+      "notes": "Playable prototype. Fake 3-D in Phaser, a Three.js helm view, and a Three.js stand-in for Unity-level detail, all steering one boat. Its physics is a stand-in, not src/sim. A 3-D view would need an ADR 0001 change (DECISIONS.md G2 keeps the game 2D first).",
+      "interactive": "/prototypes/play/helm-view-options.html"
+    },
+    {
+      "id": "cl-helm-view-options-iphone",
+      "title": "Helm view options: one boat drawn three ways",
+      "creator": "Claude",
+      "source": "Elliott's Claude page Helm View Options (20 October 2026), posted at /prototypes/play/helm-view-options.html. Screenshot docs/prototypes/arcade/images/helm-view-options-iphone.png",
+      "style": "Night harbor (Claude)",
+      "feature": "Arcade",
+      "kind": "concept",
+      "device": "iPhone (390 wide)",
+      "image": "docs/prototypes/arcade/images/helm-view-options-iphone.png",
+      "width": 780,
+      "height": 1688,
+      "color": "#0a131b",
+      "availability": "available",
+      "notes": "Playable prototype. Fake 3-D in Phaser, a Three.js helm view, and a Three.js stand-in for Unity-level detail, all steering one boat. Its physics is a stand-in, not src/sim. A 3-D view would need an ADR 0001 change (DECISIONS.md G2 keeps the game 2D first).",
+      "interactive": "/prototypes/play/helm-view-options.html"
     }
   ]
 }

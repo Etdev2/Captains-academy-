@@ -5,7 +5,7 @@ Elliott is handing the arcade game to Nick as a collaboration project, starting 
 ## Where to look first
 
 1. Play the game at `/play/?unlock=all`. The `unlock=all` switch opens all three levels without earning stars first. It saves nothing, so a later visit without it is locked again.
-2. Open the decision board at `/prototypes/?category=arcade`. It shows every arcade prototype and screenshot. Each docking and level 3 screenshot has a Play this level button that opens the game.
+2. Open the decision board at `/prototypes/?category=arcade`. The Docking section holds fresh screenshots of all three levels, taken on 27 October from the current build, and each opens the game with **Play this level**. The Helm View Options and Night Harbor Run tiles open their playable prototypes with **Play the prototype**.
 3. Read [`rules-of-the-road/README.md`](rules-of-the-road/README.md) for the full Chapter 1 design: the game map, mockups, Harbor Run, Night Harbor Run and the open questions.
 4. Read [`docs/adr/0001-arcade-game-stack.md`](../adr/0001-arcade-game-stack.md) before touching code. The game is strict TypeScript, Phaser 4.2.1 and Vite. `src/sim` holds the physics and rules with no Phaser in it, and `src/game` draws it.
 
@@ -17,17 +17,28 @@ Elliott is handing the arcade game to Nick as a collaboration project, starting 
 | 2. Crosswind slip | `missions/long-beach-crosswind.json` | Dock in the end slip with a stronger crosswind and current | Good |
 | 3. Harbor course with traffic | `missions/long-beach-traffic.json` | Run a harbor course past moving traffic, including a container ship | Weak. The level needs rework before it ships |
 
-All three are on `main`. The board's "As built" row under Docking holds their screenshots. The level 3 screenshots were taken on the #46 branch before it merged, so the current build may differ in detail.
+All three are on `main`. The board's "As built" row under Docking holds their screenshots from 27 October. The 22 October build screenshots moved to the board's Reference tab.
 
 ## Prototypes on the board
 
 The Arcade & Simulations category groups these sections:
 
 - **Arcade & Simulations.** Interactive prototypes A (Night Bridge), B (Clean & Light) and C (Guided Mentor) of the arcade hub screen. Each opens at `/prototypes/live/?category=arcade&variant=a`, `b` or `c`.
-- **Night Harbor.** The Chapter 1 map and level mockups, the Harbor Run course design and the Night Harbor Run screens.
-- **Docking.** Screenshots of levels 1 to 3 as built, each linked to the playable game.
+- **Night Harbor.** The Chapter 1 map and level mockups, the Harbor Run course design and the Night Harbor Run screens. Every Night Harbor Run tile opens the playable prototype at `/prototypes/play/night-harbor-run.html`.
+- **Docking.** Helm View Options at `/prototypes/play/helm-view-options.html`, which draws one boat three ways (fake 3-D in Phaser, a Three.js helm view, and a Three.js stand-in for Unity-level detail). Then the screenshots of levels 1 to 3, each linked to the game.
 
-Two prototypes live outside the board. The playable Night Harbor Run is [`rules-of-the-road/playable/night-harbor-run.html`](rules-of-the-road/playable/night-harbor-run.html), a single file that opens in a browser. Elliott's Helm View Options page draws one boat three ways (fake 3-D in Phaser, a Three.js helm view, and a stand-in for Unity-level detail). It is a private Claude page, so ask Elliott to share it.
+The two playable prototypes are single HTML files in `public/prototypes/play/`. Neither uses `src/sim`, so their physics differs from the game's.
+
+## What Nick can explore
+
+Elliott wants Nick to take the game somewhere new. These are starting points, not specs. Nick decides what to try, puts a mockup or playable prototype on the board, and Elliott dots and decides before anything is built.
+
+- **Upgrades.** The boat's handling lives in each mission's `boat` block: top speed ahead and astern, acceleration, turn rate, twin-engine pivot rate and the speed the hull survives a bump at. An upgrade could change those numbers, such as a bow thruster that adds pivot, a stronger hull that forgives a harder bump, or a bigger engine. G13 allows skill-based rewards only, so upgrades are earned by play (stars, streaks, XP ranks under G12), never sold with random contents.
+- **New courses.** A course is a JSON file in `missions/`, checked by the schema in `src/sim/mission.ts`. It sets the harbor size, start, current, wind gusts, obstacles (shore, breakwater, dock, moored boat), channels, gold gates, traffic and the slip. Add the file to the `levels` list in `src/game/main.ts` and it plays at `/play/?unlock=all`. Other harbors, a night run, a fuel dock, a narrow marina fairway or a timed gate slalom are all a JSON file away.
+- **Hard mode, dodging traffic.** Traffic already moves on set paths: ships, ferries, powerboats and kayaks, each starting after a chosen gate. A dodge mode could add more traffic, faster crossings and tighter channels, and score the player for keeping clear. Level 3 is the base for this, and it is the level Elliott likes least, so it is the one most open to change.
+- **Camera and look.** Helm View Options shows what a 3-D helm view could feel like. G2 keeps the game top-down 2D for now, so a 3-D view needs an ADR 0001 change that Elliott approves.
+
+Whatever Nick builds keeps the product rules: game time never counts as sea time, the game never says a player qualifies, and red and green stay reserved for port and starboard (G15). Every new course or upgrade needs a golden replay in `tests/replays/`, because the sim is deterministic (ADR 0001).
 
 ## Decisions to know
 

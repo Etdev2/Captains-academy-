@@ -445,7 +445,7 @@ test('the board groups concepts by screen under headers that stick while scrolli
   ]);
   // The app's own screenshots sit in an as-built row at the end of their section.
   await expect(page.locator('#section-definitions .as-built-row li')).toHaveCount(4);
-  await expect(page.locator('#section-docking .as-built-row li')).toHaveCount(6);
+  await expect(page.locator('#section-docking .as-built-row li')).toHaveCount(5);
   // Jump to a section: its header stays at the top as you scroll through it.
   await page.getByRole('link', { name: /^Night Harbor/ }).click();
   await page.mouse.wheel(0, 900);

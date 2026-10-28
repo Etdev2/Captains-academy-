@@ -53,9 +53,13 @@ export function siblingsOf(id: string): { shot: VariantShot; id: string }[] {
 export const interactiveHref = (item: Item): string | undefined =>
   item.interactive ?? shotOf(item.id)?.href;
 
-/** The label of the link to a concept's interactive prototype: the game is played. */
+/** The label of the link to a concept's interactive prototype. Games are played. */
 export const interactiveLabel = (href: string): string =>
-  href.startsWith('/play/') ? 'Play this level' : 'Open interactive prototype';
+  href.startsWith('/play/')
+    ? 'Play this level'
+    : href.startsWith('/prototypes/play/')
+      ? 'Play the prototype'
+      : 'Open interactive prototype';
 
 export const categoryTitle = (id: CategoryId): string =>
   (categories.find((c) => c.id === id) as CategoryMeta).title;
