@@ -40,6 +40,7 @@ export default tseslint.config(
   {
     ignores: [
       'dist/',
+      'dist-auth/',
       'node_modules/',
       '.claude/',
       '.codex/',
@@ -61,6 +62,8 @@ export default tseslint.config(
       'src/store/**',
       'src/offline/**',
       'src/prototypes/**',
+      'src/account/**',
+      'src/auth/**',
       'src/components/**',
       'src/lib/**',
       'e2e/**',
@@ -94,7 +97,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ['src/prototypes/**/*.tsx', 'src/components/**/*.tsx'],
+    files: ['src/prototypes/**/*.tsx', 'src/account/**/*.tsx', 'src/components/**/*.tsx'],
     ...reactHooks.configs.flat['recommended-latest'],
   },
   {

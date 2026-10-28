@@ -1,5 +1,9 @@
 node_modules/
 dist/
+dist-auth/
 playwright-report/
 test-results/
 verify-artifacts/
+# Local settings such as Supabase keys (see .env.example). Never committed.
+.env.local
+.env.*.local
