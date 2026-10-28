@@ -814,8 +814,9 @@
       "width": 1280,
       "height": 768,
       "color": "#06121f",
-      "notes": "Screenshot of built code. On main.",
-      "availability": "available"
+      "notes": "Screenshot of built code. On main and playable at /play/?unlock=all.",
+      "availability": "available",
+      "interactive": "/play/?unlock=all"
     },
     {
       "id": "app-level-1-docking-phone-landscape",
@@ -830,8 +831,9 @@
       "width": 2265,
       "height": 945,
       "color": "#06121f",
-      "notes": "Screenshot of built code. On main.",
-      "availability": "available"
+      "notes": "Screenshot of built code. On main and playable at /play/?unlock=all.",
+      "availability": "available",
+      "interactive": "/play/?unlock=all"
     },
     {
       "id": "app-level-2-crosswind-slip",
@@ -846,8 +848,9 @@
       "width": 1280,
       "height": 768,
       "color": "#06121f",
-      "notes": "Screenshot of built code. On main.",
-      "availability": "available"
+      "notes": "Screenshot of built code. On main and playable at /play/?unlock=all.",
+      "availability": "available",
+      "interactive": "/play/?unlock=all"
     },
     {
       "id": "app-level-3-course-start",
@@ -862,8 +865,9 @@
       "width": 1280,
       "height": 768,
       "color": "#06121f",
-      "notes": "Screenshot of built code. Branch only, parked (#46).",
-      "availability": "available"
+      "notes": "Screenshot of built code, taken on the #46 branch. Level 3 is now on main and playable at /play/?unlock=all.",
+      "availability": "available",
+      "interactive": "/play/?unlock=all"
     },
     {
       "id": "app-level-3-container-ship",
@@ -878,8 +882,9 @@
       "width": 1280,
       "height": 768,
       "color": "#06121f",
-      "notes": "Screenshot of built code. Branch only, parked (#46).",
-      "availability": "available"
+      "notes": "Screenshot of built code, taken on the #46 branch. Level 3 is now on main and playable at /play/?unlock=all.",
+      "availability": "available",
+      "interactive": "/play/?unlock=all"
     },
     {
       "id": "app-level-3-hit-by-ship",
@@ -894,8 +899,9 @@
       "width": 1280,
       "height": 768,
       "color": "#06121f",
-      "notes": "Screenshot of built code. Branch only, parked (#46).",
-      "availability": "available"
+      "notes": "Screenshot of built code, taken on the #46 branch. Level 3 is now on main and playable at /play/?unlock=all.",
+      "availability": "available",
+      "interactive": "/play/?unlock=all"
     },
     {
       "id": "app-definitions-desktop-wide-1-first-card",

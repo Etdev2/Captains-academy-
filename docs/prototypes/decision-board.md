@@ -25,6 +25,7 @@ A section opens with its category's interactive prototypes, A, B and C side by s
 ### Links and the A/B/C switcher
 
 - `/prototypes/?concept=<id>` opens the viewer on that concept, and the address follows the viewer as you step, so any screen can be shared.
+- The Docking section's screenshots of arcade levels 1 to 3 open with **Play this level**, which goes to `/play/?unlock=all`, the game with every level open. [`arcade-handoff.md`](arcade-handoff.md) is the arcade game's handoff to Nick.
 - A variant's screenshot opens with A, B and C buttons that switch to the same category's other variants on the same device, and **Open interactive prototype**, which goes to `/prototypes/live/?category=<category>&variant=<a|b|c>`. That page has its own A/B/C switcher and a link back to the screenshot here.
 
 ### Ratings

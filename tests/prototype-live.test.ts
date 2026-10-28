@@ -1,7 +1,13 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { ASSET_ID, assetRow } from '../src/prototypes/catalog';
-import { shotOf, siblingsOf, variantShots } from '../src/prototypes/categories';
+import {
+  interactiveHref,
+  interactiveLabel,
+  shotOf,
+  siblingsOf,
+  variantShots,
+} from '../src/prototypes/categories';
 import {
   categories,
   conceptId,
@@ -12,7 +18,7 @@ import {
 import * as sample from '../src/prototypes/live/shared/sample';
 import { categoryIds, variantIds } from '../src/prototypes/live/shared/types';
 import { byId, concepts } from '../src/prototypes/round';
-import { categoryOf } from '../src/prototypes/sections';
+import { categoryOf, sections } from '../src/prototypes/sections';
 
 // The interactive prototypes at /prototypes/live and their place on the
 // Decision Desk. Their URLs and concept ids are shared links and saved
@@ -144,5 +150,28 @@ describe('the sample sailor', () => {
       /qualif|you are eligible|you are approved|application approved|approved to/i,
     );
     expect(sample.NMC_NOTICE).toContain('appears to meet');
+  });
+});
+
+describe('arcade levels as built', () => {
+  // The arcade handoff (docs/prototypes/arcade-handoff.md) sends reviewers from
+  // each docking and level 3 screenshot to the playable game.
+  const docking = sections.find((s) => s.id === 'docking');
+
+  it('links every screenshot in the Docking section to the playable game', () => {
+    expect(docking?.asBuilt.length).toBeGreaterThan(0);
+    for (const { id } of docking?.asBuilt ?? []) {
+      const item = byId.get(id);
+      expect(item, id).toBeDefined();
+      if (!item) continue;
+      expect(interactiveHref(item), id).toBe('/play/?unlock=all');
+      expect(interactiveLabel('/play/?unlock=all')).toBe('Play this level');
+    }
+  });
+
+  it('keeps the interactive prototypes labeled as prototypes', () => {
+    for (const s of variantShots) {
+      expect(interactiveLabel(s.href), s.desktop).toBe('Open interactive prototype');
+    }
   });
 });

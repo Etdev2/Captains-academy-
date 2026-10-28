@@ -34,7 +34,7 @@ import { useBoard, type BoardApi } from './BoardContext';
 import { kindOf } from './BoardView';
 import { DotImage } from './DotImage';
 import { isReviewable, type Item } from './inventory';
-import { interactiveHref, siblingsOf } from './categories';
+import { interactiveHref, interactiveLabel, siblingsOf } from './categories';
 import { byId, documentUrl, imageUrl, items } from './round';
 import { twinOf } from './sections';
 
@@ -158,7 +158,7 @@ function VariantSwitcher({ item, link = true }: { item: Item; link?: boolean }) 
         <Button asChild size="sm" className="viewer-open">
           <a href={href} id="viewer-interactive">
             <ExternalLink aria-hidden />
-            <span className="vtext">Open interactive prototype</span>
+            <span className="vtext">{interactiveLabel(href)}</span>
           </a>
         </Button>
       )}
@@ -196,6 +196,7 @@ function Details({ item, onClose }: { item: Item; onClose: () => void }) {
   const parts = items.filter((i) => i.extractedFrom === item.id);
   const twin = twinOf(item.id);
   const src = imageUrl(item);
+  const href = interactiveHref(item);
   const doc = documentUrl(item);
   const heading = React.useRef<HTMLHeadingElement>(null);
   React.useEffect(() => heading.current?.focus(), []);
@@ -248,9 +249,9 @@ function Details({ item, onClose }: { item: Item; onClose: () => void }) {
           </div>
         )}
         <div className="flex flex-wrap gap-2">
-          {interactiveHref(item) && (
+          {href && (
             <Button asChild>
-              <a href={interactiveHref(item)}>Open interactive prototype</a>
+              <a href={href}>{interactiveLabel(href)}</a>
             </Button>
           )}
           {src && (
