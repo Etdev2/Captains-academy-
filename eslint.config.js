@@ -46,6 +46,9 @@ export default tseslint.config(
       '.codex/',
       'playwright-report/',
       'test-results/',
+      // Playable prototypes copied as single files for the decision board,
+      // with vendored Three.js r128. Design input, not app code.
+      'public/prototypes/play/',
     ],
   },
   js.configs.recommended,
