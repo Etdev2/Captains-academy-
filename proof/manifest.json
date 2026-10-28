@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#87",
-  "sourceDigest": "sha256:b4cba0c3311dcbc4d691d5995c0828bd574c86d8b1e953ae8d6308fc2ddf619e",
-  "capturedAt": "2026-10-27T23:45:39Z",
+  "ticket": "Etdev2/Captains-academy-#74",
+  "sourceDigest": "sha256:4cafface153614522480e1a93c355fdf375f07f867de29329ce1976170e2f397",
+  "capturedAt": "2026-10-28T00:11:51Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.test.sh",
-    "fixture": "The /account/ screen and front page Account link from #87, in a complete checkout of main at fc15d4d plus this branch, with the Auth API mocked by e2e/auth-mock.ts, on Node 22.23.4"
+    "command": "bash scripts/verify.sh",
+    "fixture": "PR #75's Supabase migration source, SQL test and generated types, merged with main at ba090b1. Repository checks only: the SQL test was not rerun against the Supabase project from this session, which has no database access"
   },
   "commands": [
     {
@@ -23,7 +23,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.test.sh and verify.sh pass, including e2e/account.spec.ts (no Supabase settings) and e2e/account-set-up.spec.ts (link, code, signed in, sign out, offline, axe) and the auth unit tests"
+      "shows": "verify.test.sh and verify.sh pass with the supabase/ files added; no app code imports them yet"
     }
   ]
 }
