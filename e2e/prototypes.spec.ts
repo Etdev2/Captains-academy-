@@ -19,9 +19,12 @@ const inventory = parseInventory(
 const concepts = inventory.items.filter(isReviewable);
 // The desktop captures of the Definitions screen open from their phone twins'
 // viewer instead of having tiles of their own (src/prototypes/sections.ts), as
-// do the iPhone captures of the interactive prototypes from their desktop twins.
+// do the iPhone captures of the interactive prototypes and of Helm View Options
+// from their desktop twins.
 const tiles = concepts.filter(
-  (i) => !i.id.startsWith('app-definitions-desktop-') && !/^cl-live-.+-iphone$/.test(i.id),
+  (i) =>
+    !i.id.startsWith('app-definitions-desktop-') &&
+    !/^cl-(live-.+|helm-view-options)-iphone$/.test(i.id),
 );
 const withImages = inventory.items.filter((i) => i.image !== null);
 const [first, second, third] = concepts;

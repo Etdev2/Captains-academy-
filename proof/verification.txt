@@ -4,7 +4,7 @@ bun test v1.4.4 (38afee6c8)
  38 pass
  0 fail
  759 expect() calls
-Ran 38 tests across 3 files. [322.00ms]
+Ran 38 tests across 3 files. [245.00ms]
 [exit 0]
 
 $ bun test --preload /tmp/bunshim/preload.ts tests/prototype-live.test.ts -t 'arcade levels|Decision Desk'
@@ -14,7 +14,7 @@ bun test v1.4.4 (38afee6c8)
  8 filtered out
  0 fail
  705 expect() calls
-Ran 5 tests across 1 file. [92.00ms]
+Ran 5 tests across 1 file. [82.00ms]
 [exit 0]
 
 $ node .claude/skills/verify-captains-academy/drive.mjs http://127.0.0.1:4173/play/ /tmp/cap/shots.steps.json /tmp/cap/proofrun

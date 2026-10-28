@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#89",
-  "sourceDigest": "sha256:5dd12c0fc5d90c13bfa3efbd7625d7a1634ac1699e38993aaf0c43208b68b5b4",
-  "capturedAt": "2026-10-28T00:50:00Z",
+  "sourceDigest": "sha256:681aee5e94d1349ae8d7ed4879e991f1722fdcd9252e913ded65c1c12408a924",
+  "capturedAt": "2026-10-28T01:01:09Z",
   "result": "PASS",
   "verification": {
     "command": "bun test --preload /tmp/bunshim/preload.ts tests/prototype-inventory.test.ts tests/prototype-sections.test.ts tests/decision-board.test.ts",
