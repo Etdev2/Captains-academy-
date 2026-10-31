@@ -72,12 +72,12 @@ The 15 A/B/C variants as of 31 October 2026, against a local production preview:
 
 | Category | A | B | C |
 | --- | --- | --- | --- |
-| console | 1 tap, 0.52 s | 1 tap, 0.53 s | 1 tap, 0.49 s |
+| console | 1 tap, 0.53 s | 1 tap, 0.53 s | 1 tap, 0.50 s |
 | license | gate fails | gate fails | gate fails |
-| sea-time | 1 tap, 0.52 s | 1 tap, 0.56 s | 1 tap, 0.64 s |
-| study | 2 taps, 0.59 s | 4 taps, 0.73 s | 2 taps, 0.56 s |
-| arcade | 2 taps, 43.2 s | 3 taps, 43.2 s | 5 taps, 43.3 s |
+| sea-time | 1 tap, 0.56 s | 1 tap, 0.53 s | 1 tap, 0.50 s |
+| study | 2 taps, 0.59 s | 4 taps, 0.78 s | 2 taps, 0.56 s |
+| arcade | 2 taps, 43.1 s | 3 taps, 43.1 s | 5 taps, 43.3 s |
 
-All three license variants fail the gate on the same controls: the glossary term buttons "MMC", "OUPV" and "Six-pack" in the license summary are 23 to 28 pixels tall. Their paths are 4 taps (A and B) and 3 taps (C). Fixing those buttons is outside the Hill climb ticket.
+All three license variants fail the gate on the same controls: the glossary term buttons "MMC", "OUPV" and "Six-pack" in the license summary are 23 to 28 pixels tall. Their paths still reach the end state, in 4 taps (A and B) and 3 taps (C). Fixing those buttons is outside the Hill climb ticket.
 
 Seconds vary with the machine. Compare them only between runs on the same machine.

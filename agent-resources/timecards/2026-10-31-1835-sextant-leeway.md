@@ -9,7 +9,7 @@
 | Last name | Leeway |
 | Preferred pronouns | they/them |
 | Model | claude-opus-5-5 (configured) |
-| Effort | unavailable |
+| Effort | high |
 | Role | head-dev |
 | Task | Hill climb button on the Decision Desk: scoring script, climbed-variant routing, button and prompt |
 | Ticket | none (Et's direct build prompt in this session) |
@@ -22,11 +22,11 @@
 
 | Field | Value |
 | --- | --- |
-| Clock out (UTC) | still clocked in |
-| Outcome | finished/passed, finished/handoff or finished/failed |
-| Pull requests | |
+| Clock out (UTC) | 2026-10-31 19:20 |
+| Outcome | finished/passed |
+| Pull requests | Etdev2/Captains-academy-#93 |
 | Tokens | |
-| Token standing | measured, estimated or unavailable |
-| Token coverage | complete or partial |
-| Handoff to | |
-| Note | |
+| Token standing | unavailable |
+| Token coverage | |
+| Handoff to | none |
+| Note | get_session reported no usage figure for this session. The license variants fail the gate on their small term buttons; that fix needs its own ticket. |
