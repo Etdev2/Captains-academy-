@@ -22,8 +22,8 @@ $ npx --no-install vitest run
 
  Test Files  24 passed (24)
       Tests  521 passed (521)
-   Start at  11:18:36
-   Duration  1.38s (transform 2.06s, setup 0ms, import 3.17s, tests 1.49s, environment 1ms)
+   Start at  11:22:04
+   Duration  1.43s (transform 2.20s, setup 0ms, import 3.26s, tests 1.52s, environment 1ms)
 
 [exit 0]
 
@@ -336,7 +336,7 @@ dist/assets/client-BRDhxz4C.js                                               222
 dist/assets/client-Dca4HnbD.js                                               223.36 kB │ gzip:  58.49 kB
 dist/assets/prototypes-Bj_Osnv4.js                                           261.42 kB │ gzip:  66.36 kB
 dist/assets/sound-Mf7sijfN.js                                              1,393.12 kB │ gzip: 373.88 kB
-✓ built in 4.28s
+✓ built in 4.25s
 [exit 0]
 
 $ npx --no-install playwright test e2e/prototypes.spec.ts --workers=2 --retries=1
@@ -355,54 +355,54 @@ $ npx --no-install playwright test e2e/prototypes.spec.ts --workers=2 --retries=
 
 Running 48 tests using 2 workers
 
-  ✓   2 [desktop] › e2e/prototypes.spec.ts:126:1 › every listed image and preview loads, at the size of the file in the repo (964ms)
-  ✓   1 [phone-landscape] › e2e/prototypes.spec.ts:126:1 › every listed image and preview loads, at the size of the file in the repo (968ms)
+  ✓   1 [desktop] › e2e/prototypes.spec.ts:126:1 › every listed image and preview loads, at the size of the file in the repo (958ms)
+  ✓   2 [phone-landscape] › e2e/prototypes.spec.ts:126:1 › every listed image and preview loads, at the size of the file in the repo (961ms)
   ✓   3 [desktop] › e2e/prototypes.spec.ts:163:1 › a dot lands where you tap in the viewer, five at most, and you can take one back (5.1s)
   ✓   4 [phone-landscape] › e2e/prototypes.spec.ts:163:1 › a dot lands where you tap in the viewer, five at most, and you can take one back (5.1s)
-  ✓   5 [desktop] › e2e/prototypes.spec.ts:218:1 › others' dots stay hidden until you finish voting, then the heat ranks concepts with ties (2.7s)
-  ✓   6 [phone-landscape] › e2e/prototypes.spec.ts:218:1 › others' dots stay hidden until you finish voting, then the heat ranks concepts with ties (2.7s)
-  ✓   8 [phone-landscape] › e2e/prototypes.spec.ts:258:1 › only the decider makes the call, with a reason (1.7s)
+  ✓   5 [desktop] › e2e/prototypes.spec.ts:218:1 › others' dots stay hidden until you finish voting, then the heat ranks concepts with ties (2.6s)
+  ✓   6 [phone-landscape] › e2e/prototypes.spec.ts:218:1 › others' dots stay hidden until you finish voting, then the heat ranks concepts with ties (2.6s)
   ✓   7 [desktop] › e2e/prototypes.spec.ts:258:1 › only the decider makes the call, with a reason (1.7s)
-  ✓   9 [phone-landscape] › e2e/prototypes.spec.ts:274:1 › the viewer fills the screen, keeps proportions, closes with Escape, links an extracted detail to its board, and shows notes as text (1.0s)
-  ✓  10 [desktop] › e2e/prototypes.spec.ts:274:1 › the viewer fills the screen, keeps proportions, closes with Escape, links an extracted detail to its board, and shows notes as text (1.1s)
-  ✓  11 [phone-landscape] › e2e/prototypes.spec.ts:333:1 › the viewer steps through the board with the arrow keys, a swipe and its buttons (367ms)
-  ✓  12 [desktop] › e2e/prototypes.spec.ts:333:1 › the viewer steps through the board with the arrow keys, a swipe and its buttons (439ms)
-  ✓  13 [phone-landscape] › e2e/prototypes.spec.ts:386:1 › images keep their space, show their color until they load, and the first screen loads at once (1.5s)
+  ✓   8 [phone-landscape] › e2e/prototypes.spec.ts:258:1 › only the decider makes the call, with a reason (1.7s)
+  ✓  10 [phone-landscape] › e2e/prototypes.spec.ts:274:1 › the viewer fills the screen, keeps proportions, closes with Escape, links an extracted detail to its board, and shows notes as text (1.0s)
+  ✓  11 [phone-landscape] › e2e/prototypes.spec.ts:333:1 › the viewer steps through the board with the arrow keys, a swipe and its buttons (360ms)
+  ✓   9 [desktop] › e2e/prototypes.spec.ts:274:1 › the viewer fills the screen, keeps proportions, closes with Escape, links an extracted detail to its board, and shows notes as text (1.7s)
+  ✓  13 [desktop] › e2e/prototypes.spec.ts:333:1 › the viewer steps through the board with the arrow keys, a swipe and its buttons (405ms)
+  ✓  12 [phone-landscape] › e2e/prototypes.spec.ts:386:1 › images keep their space, show their color until they load, and the first screen loads at once (1.4s)
+  ✓  15 [phone-landscape] › e2e/prototypes.spec.ts:429:1 › the board groups concepts by screen under headers that stick while scrolling (254ms)
   ✓  14 [desktop] › e2e/prototypes.spec.ts:386:1 › images keep their space, show their color until they load, and the first screen loads at once (1.5s)
-  ✓  15 [phone-landscape] › e2e/prototypes.spec.ts:429:1 › the board groups concepts by screen under headers that stick while scrolling (388ms)
-  ✓  16 [desktop] › e2e/prototypes.spec.ts:429:1 › the board groups concepts by screen under headers that stick while scrolling (286ms)
-  ✓  17 [phone-landscape] › e2e/prototypes.spec.ts:461:1 › every control on the board and in the viewer is at least 44px each way (1.4s)
+  ✓  17 [desktop] › e2e/prototypes.spec.ts:429:1 › the board groups concepts by screen under headers that stick while scrolling (266ms)
+  ✓  16 [phone-landscape] › e2e/prototypes.spec.ts:461:1 › every control on the board and in the viewer is at least 44px each way (1.4s)
   ✓  18 [desktop] › e2e/prototypes.spec.ts:461:1 › every control on the board and in the viewer is at least 44px each way (1.4s)
-  ✓  19 [phone-landscape] › e2e/prototypes.spec.ts:487:1 › a thumbs up or down from the viewer shows on the tile and in the heat, and closes for the call (2.2s)
+  ✓  19 [phone-landscape] › e2e/prototypes.spec.ts:487:1 › a thumbs up or down from the viewer shows on the tile and in the heat, and closes for the call (2.1s)
   ✓  20 [desktop] › e2e/prototypes.spec.ts:487:1 › a thumbs up or down from the viewer shows on the tile and in the heat, and closes for the call (2.2s)
   ✓  21 [phone-landscape] › e2e/prototypes.spec.ts:521:1 › filters narrow the board to one style and one feature (1.5s)
   ✓  22 [desktop] › e2e/prototypes.spec.ts:521:1 › filters narrow the board to one style and one feature (1.5s)
-  ✓  23 [phone-landscape] › e2e/prototypes.spec.ts:533:1 › export writes your dots to a file, and import refuses a file that is not a board (1.6s)
-  ✓  24 [desktop] › e2e/prototypes.spec.ts:533:1 › export writes your dots to a file, and import refuses a file that is not a board (1.5s)
-  ✓  25 [phone-landscape] › e2e/prototypes.spec.ts:566:1 › with storage blocked, the page says the board is not saved (169ms)
-  ✓  26 [desktop] › e2e/prototypes.spec.ts:566:1 › with storage blocked, the page says the board is not saved (164ms)
-  ✓  27 [phone-landscape] › e2e/prototypes.spec.ts:579:1 › reference keeps the boards, the playable example and the missing styles off the board (268ms)
-  ✓  28 [desktop] › e2e/prototypes.spec.ts:579:1 › reference keeps the boards, the playable example and the missing styles off the board (248ms)
-  ✓  30 [desktop] › e2e/prototypes.spec.ts:600:1 › the offline cache never stores the board or its images (292ms)
-  ✓  29 [phone-landscape] › e2e/prototypes.spec.ts:600:1 › the offline cache never stores the board or its images (402ms)
-  ✓  32 [phone-landscape] › e2e/prototypes.spec.ts:631:1 › the board and the viewer pass axe with no violations (3.7s)
-  ✓  31 [desktop] › e2e/prototypes.spec.ts:631:1 › the board and the viewer pass axe with no violations (3.8s)
-  ✓  33 [phone-portrait] › e2e/prototypes.spec.ts:126:1 › every listed image and preview loads, at the size of the file in the repo (720ms)
+  ✓  23 [phone-landscape] › e2e/prototypes.spec.ts:533:1 › export writes your dots to a file, and import refuses a file that is not a board (1.5s)
+  ✓  25 [phone-landscape] › e2e/prototypes.spec.ts:566:1 › with storage blocked, the page says the board is not saved (153ms)
+  ✓  26 [phone-landscape] › e2e/prototypes.spec.ts:579:1 › reference keeps the boards, the playable example and the missing styles off the board (263ms)
+  ✓  27 [phone-landscape] › e2e/prototypes.spec.ts:600:1 › the offline cache never stores the board or its images (390ms)
+  ✓  24 [desktop] › e2e/prototypes.spec.ts:533:1 › export writes your dots to a file, and import refuses a file that is not a board (1.6s)
+  ✓  29 [desktop] › e2e/prototypes.spec.ts:566:1 › with storage blocked, the page says the board is not saved (161ms)
+  ✓  30 [desktop] › e2e/prototypes.spec.ts:579:1 › reference keeps the boards, the playable example and the missing styles off the board (246ms)
+  ✓  31 [desktop] › e2e/prototypes.spec.ts:600:1 › the offline cache never stores the board or its images (308ms)
+  ✓  28 [phone-landscape] › e2e/prototypes.spec.ts:631:1 › the board and the viewer pass axe with no violations (3.8s)
+  ✓  32 [desktop] › e2e/prototypes.spec.ts:631:1 › the board and the viewer pass axe with no violations (3.8s)
+  ✓  33 [phone-portrait] › e2e/prototypes.spec.ts:126:1 › every listed image and preview loads, at the size of the file in the repo (1.4s)
   ✓  34 [phone-portrait] › e2e/prototypes.spec.ts:163:1 › a dot lands where you tap in the viewer, five at most, and you can take one back (5.1s)
   ✓  35 [phone-portrait] › e2e/prototypes.spec.ts:218:1 › others' dots stay hidden until you finish voting, then the heat ranks concepts with ties (2.6s)
   ✓  36 [phone-portrait] › e2e/prototypes.spec.ts:258:1 › only the decider makes the call, with a reason (1.7s)
   ✓  37 [phone-portrait] › e2e/prototypes.spec.ts:274:1 › the viewer fills the screen, keeps proportions, closes with Escape, links an extracted detail to its board, and shows notes as text (1.7s)
-  ✓  38 [phone-portrait] › e2e/prototypes.spec.ts:333:1 › the viewer steps through the board with the arrow keys, a swipe and its buttons (387ms)
-  ✓  39 [phone-portrait] › e2e/prototypes.spec.ts:386:1 › images keep their space, show their color until they load, and the first screen loads at once (1.7s)
-  ✓  40 [phone-portrait] › e2e/prototypes.spec.ts:429:1 › the board groups concepts by screen under headers that stick while scrolling (242ms)
+  ✓  38 [phone-portrait] › e2e/prototypes.spec.ts:333:1 › the viewer steps through the board with the arrow keys, a swipe and its buttons (413ms)
+  ✓  39 [phone-portrait] › e2e/prototypes.spec.ts:386:1 › images keep their space, show their color until they load, and the first screen loads at once (1.8s)
+  ✓  40 [phone-portrait] › e2e/prototypes.spec.ts:429:1 › the board groups concepts by screen under headers that stick while scrolling (244ms)
   ✓  41 [phone-portrait] › e2e/prototypes.spec.ts:461:1 › every control on the board and in the viewer is at least 44px each way (1.4s)
   ✓  42 [phone-portrait] › e2e/prototypes.spec.ts:487:1 › a thumbs up or down from the viewer shows on the tile and in the heat, and closes for the call (2.2s)
   ✓  43 [phone-portrait] › e2e/prototypes.spec.ts:521:1 › filters narrow the board to one style and one feature (1.5s)
-  ✓  44 [phone-portrait] › e2e/prototypes.spec.ts:533:1 › export writes your dots to a file, and import refuses a file that is not a board (1.6s)
-  ✓  45 [phone-portrait] › e2e/prototypes.spec.ts:566:1 › with storage blocked, the page says the board is not saved (152ms)
-  ✓  46 [phone-portrait] › e2e/prototypes.spec.ts:579:1 › reference keeps the boards, the playable example and the missing styles off the board (233ms)
-  ✓  47 [phone-portrait] › e2e/prototypes.spec.ts:600:1 › the offline cache never stores the board or its images (380ms)
-  ✓  48 [phone-portrait] › e2e/prototypes.spec.ts:631:1 › the board and the viewer pass axe with no violations (3.6s)
+  ✓  44 [phone-portrait] › e2e/prototypes.spec.ts:533:1 › export writes your dots to a file, and import refuses a file that is not a board (1.5s)
+  ✓  45 [phone-portrait] › e2e/prototypes.spec.ts:566:1 › with storage blocked, the page says the board is not saved (155ms)
+  ✓  46 [phone-portrait] › e2e/prototypes.spec.ts:579:1 › reference keeps the boards, the playable example and the missing styles off the board (232ms)
+  ✓  47 [phone-portrait] › e2e/prototypes.spec.ts:600:1 › the offline cache never stores the board or its images (372ms)
+  ✓  48 [phone-portrait] › e2e/prototypes.spec.ts:631:1 › the board and the viewer pass axe with no violations (3.7s)
 
   48 passed (1.0m)
 [exit 0]

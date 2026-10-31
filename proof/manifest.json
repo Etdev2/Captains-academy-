@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#91",
-  "sourceDigest": "sha256:7c02b8b0e8e4c8eb09d8b3fdcd2eee9eee4a562e38963391efb5d61f4bd5e61f",
-  "capturedAt": "2026-10-31T18:19:45Z",
+  "sourceDigest": "sha256:16505044f426c3e925067f063ced656df248545d19391bdff51a4e7bafc9fb34",
+  "capturedAt": "2026-10-31T18:23:13Z",
   "result": "PASS",
   "verification": {
     "command": "npx --no-install tsc --noEmit",
-    "fixture": "prototype/infrastructure on main fc15d4d: docs/prototypes/infrastructure/ (page, PDFs, CSV, prompts, build scripts), four Reference items in docs/prototypes/inventory.json with INVENTORY.md and one thumbnail, two README rows and a count in decision-board.md"
+    "fixture": "prototype/infrastructure on main fc15d4d: docs/prototypes/infrastructure/ (page, PDFs, CSV, prompts, build scripts), four Reference items in docs/prototypes/inventory.json with INVENTORY.md and one thumbnail, two README rows and a count in decision-board.md, and the verify job pinned to ubuntu-24.04"
   },
   "commands": [
     {
@@ -50,5 +50,5 @@
       "shows": "Type check, lint, Prettier, mission validation, every unit test, the production build and the decision board browser tests all pass with the new inventory items, and npm audit finds nothing. The infrastructure folder is docs; no app code changed"
     }
   ],
-  "noBehaviorReason": "Docs and inventory only. The decision board gains four Reference items that nobody dots; no screen, rule, mission or replay changed"
+  "noBehaviorReason": "Docs, inventory and the CI runner image only. The decision board gains four Reference items that nobody dots; no screen, rule, mission or replay changed"
 }
