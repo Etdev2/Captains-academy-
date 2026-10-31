@@ -3,6 +3,7 @@ import {
   ChevronRight,
   CirclePlus,
   ExternalLink,
+  Mountain,
   StickyNote,
   ThumbsDown,
   ThumbsUp,
@@ -34,7 +35,8 @@ import { useBoard, type BoardApi } from './BoardContext';
 import { kindOf } from './BoardView';
 import { DotImage } from './DotImage';
 import { isReviewable, type Item } from './inventory';
-import { interactiveHref, siblingsOf } from './categories';
+import { climbShotOf, interactiveHref, siblingsOf } from './categories';
+import { fillHillClimb, hillClimbFill, loadHillClimbBody, showsHillClimb } from './hillClimb';
 import { byId, documentUrl, imageUrl, items } from './round';
 import { twinOf } from './sections';
 
@@ -176,6 +178,8 @@ function Facts({ item }: { item: Item }) {
     ['Source', item.source],
     ['Id', item.id],
   ];
+  const climb = climbShotOf(item.id);
+  if (climb) rows.splice(1, 0, ['Climb', `Climb ${climb.climb}, ${climb.climbedFrom}`]);
   if (item.notes !== '') rows.push(['Notes', item.notes]);
   return (
     <dl className="grid grid-cols-[max-content_1fr] gap-x-3 gap-y-1 text-sm">
@@ -277,6 +281,41 @@ function Details({ item, onClose }: { item: Item; onClose: () => void }) {
         <Facts item={item} />
       </div>
     </section>
+  );
+}
+
+/**
+ * Copies the Hill climb prompt for a live variant, filled in for it. It starts
+ * nothing itself: a person pastes the prompt into a coding agent. The prompt
+ * loads as soon as the button shows, so the copy happens straight from the tap.
+ */
+function HillClimbButton({ item }: { item: Item }) {
+  const { say } = useBoard();
+  const [body] = React.useState(() => {
+    const load = loadHillClimbBody();
+    load.catch(() => undefined);
+    return load;
+  });
+  const fill = hillClimbFill(item.id);
+  if (!fill) return null;
+  async function copy() {
+    if (!fill) return;
+    try {
+      const text = fillHillClimb(await body, fill);
+      await navigator.clipboard.writeText(text);
+      say('Hill climb prompt copied. Paste it into a coding agent.');
+    } catch {
+      say(
+        'Could not copy the Hill climb prompt. Copy it from the Hill climb entry on the collaboration page instead.',
+        'error',
+      );
+    }
+  }
+  return (
+    <Button variant="ghost" onClick={() => void copy()} id="viewer-hill-climb">
+      <Mountain aria-hidden />
+      <span className="bar-text">Hill climb</span>
+    </Button>
   );
 }
 
@@ -454,6 +493,7 @@ export function ConceptDialog() {
               )}
               <p
                 role="status"
+                aria-live="polite"
                 id="viewer-status"
                 className="viewer-status"
                 data-tone={message?.tone}
@@ -530,6 +570,7 @@ export function ConceptDialog() {
                   <span className="bar-count">{left}</span>
                 </Button>
               )}
+              {showsHillClimb(state.phase, item.id) && <HillClimbButton item={item} />}
               <Button
                 variant="ghost"
                 onClick={() => go(next)}

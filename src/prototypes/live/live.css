@@ -156,6 +156,12 @@
   }
 }
 
+.live-climb {
+  margin: 6px 0 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
 .live-loading,
 .live-error {
   padding: 32px 16px;

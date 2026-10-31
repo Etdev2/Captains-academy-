@@ -27,6 +27,10 @@ A section opens with its category's interactive prototypes, A, B and C side by s
 - `/prototypes/?concept=<id>` opens the viewer on that concept, and the address follows the viewer as you step, so any screen can be shared.
 - A variant's screenshot opens with A, B and C buttons that switch to the same category's other variants on the same device, and **Open interactive prototype**, which goes to `/prototypes/live/?category=<category>&variant=<a|b|c>`. That page has its own A/B/C switcher and a link back to the screenshot here.
 
+### Hill climb
+
+In the discuss and decide steps, the viewer of a live-variant screenshot has a Hill climb button. It copies a prompt that asks a coding agent to lower that variant's tap count for its category's main task, step by step, with a script deciding each step. The button starts nothing itself. The results come back as climbed variants, labelled "climbed from A", "B" or "C", which the team dot-votes on next to the originals. [`hill-climb.md`](hill-climb.md) describes the gate, the climb score and the folders.
+
 ### Ratings
 
 The board's feedback is the dots, thumbs and notes described above, saved on the device. The 1 to 10 rating gallery was replaced by this board on 25 October. Draft PR #75 adds a Supabase table that stores one 1 to 10 rating and a comment per guest and image, keyed on `prototype_assets.id`. [`src/prototypes/catalog.ts`](../../src/prototypes/catalog.ts) is the integration point: it turns each board item into a `prototype_assets` row with the same id, so ratings, dots and notes all point at one id per screen. `tests/prototype-live.test.ts` checks every row against the migration's limits. Wiring the page to Supabase waits for PR #75 and Et's go.
@@ -59,6 +63,8 @@ No database migration or new service was added. A shared database (DECISIONS.md 
 ## Changing the inventory
 
 The interactive prototypes' screenshots come from a script, not by hand: build, run `npx vite preview`, then `node scripts/prototype-live-screenshots.mjs` captures all 15 variants on desktop and iPhone into `docs/prototypes/interactive/images/` and adds or updates their inventory items. Then run steps 2 and 4 below.
+
+A climbed variant's screenshots are added by hand, with the same capture sizes as the script uses (1440 wide desktop, full page up to 3000 px tall; 390 by 844 iPhone at 2x, first screen, both with `frame=0`). Save them as `docs/prototypes/interactive/climbs/<category>-<variant>-<n>-desktop.png` and `-iphone.png`, and give each item the id `cl-climb-<category>-<variant>-<n>-desktop` or `-iphone`, `"kind": "concept"`, `"climbedFrom"` set to `"A"`, `"B"` or `"C"`, and `interactive` set to `/prototypes/live/?category=<category>&variant=<variant>&climb=<n>`. The board places climbed variants after A, B and C on its own, so skip step 3. Then run steps 2, 4 and 5 below.
 
 For any other image:
 

@@ -1,0 +1,18 @@
+{
+  "category": "arcade",
+  "variant": "b",
+  "taps": [
+    {
+      "role": "button",
+      "name": "Start a docking run"
+    },
+    {
+      "role": "button",
+      "name": "Start docking"
+    },
+    {
+      "role": "button",
+      "name": "Show me (autopilot)"
+    }
+  ]
+}

@@ -44,10 +44,15 @@ const itemSchema = z
     /** The interactive prototype this screenshot captures, at its stable URL. */
     interactive: z
       .string()
-      .regex(/^\/prototypes\/live\/\?category=[a-z-]+&variant=[abc]$/)
+      .regex(/^\/prototypes\/live\/\?category=[a-z-]+&variant=[abc](&climb=[1-9][0-9]?)?$/)
       .optional(),
+    /** On a climbed variant only: the A, B or C variant its Hill climb started from. */
+    climbedFrom: z.enum(['A', 'B', 'C']).optional(),
   })
   .strict()
+  .refine((i) => (i.climbedFrom !== undefined) === i.id.startsWith('cl-climb-'), {
+    message: 'a climbed variant (id cl-climb-...) records climbedFrom, and only it',
+  })
   .refine(
     (i) =>
       (i.image !== null) ===

@@ -1,0 +1,18 @@
+{
+  "category": "license",
+  "variant": "c",
+  "taps": [
+    {
+      "role": "radio",
+      "name": "OUPV · Near coastal Operator of Uninspected Passenger Vessels (\"six-pack\"), up to 100 miles offshore. 46 CFR 11.467(c) · 46 CFR 10.107"
+    },
+    {
+      "role": "button",
+      "name": "Continue with OUPV NC"
+    },
+    {
+      "role": "button",
+      "name": "Show me what is missing"
+    }
+  ]
+}

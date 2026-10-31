@@ -1,0 +1,10 @@
+{
+  "category": "console",
+  "variant": "b",
+  "taps": [
+    {
+      "role": "button",
+      "name": "See what to fix"
+    }
+  ]
+}

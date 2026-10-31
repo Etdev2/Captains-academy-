@@ -1,0 +1,26 @@
+{
+  "category": "arcade",
+  "variant": "c",
+  "taps": [
+    {
+      "role": "button",
+      "name": "See other challenges"
+    },
+    {
+      "role": "button",
+      "name": "Play again : Long Beach: dock the boat"
+    },
+    {
+      "role": "button",
+      "name": "Next"
+    },
+    {
+      "role": "button",
+      "name": "Next"
+    },
+    {
+      "role": "button",
+      "name": "Watch it first (autopilot)"
+    }
+  ]
+}

@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#87",
-  "sourceDigest": "sha256:b4cba0c3311dcbc4d691d5995c0828bd574c86d8b1e953ae8d6308fc2ddf619e",
-  "capturedAt": "2026-10-27T23:45:39Z",
+  "ticket": "Etdev2/Captains-academy-#93",
+  "sourceDigest": "sha256:93f3dcbff09ccb7c5228fd05b07b370f43b459b76d789d787cd53e0c81bee9d3",
+  "capturedAt": "2026-10-31T19:28:22Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.test.sh",
-    "fixture": "The /account/ screen and front page Account link from #87, in a complete checkout of main at fc15d4d plus this branch, with the Auth API mocked by e2e/auth-mock.ts, on Node 22.23.4"
+    "fixture": "The Decision Desk at /prototypes/ and the live prototypes at /prototypes/live/ on a production build of head-dev/hill-climb-button (main at ba090b1 plus this branch), with the hill-climb scoring fixtures in tests/fixtures/hill-climb, on Node 22.23.4"
   },
   "commands": [
     {
@@ -23,7 +23,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.test.sh and verify.sh pass, including e2e/account.spec.ts (no Supabase settings) and e2e/account-set-up.spec.ts (link, code, signed in, sign out, offline, axe) and the auth unit tests"
+      "shows": "verify.test.sh and verify.sh pass, including tests/hill-climb.test.ts (climb routes, concept ids, unchanged A/B/C URLs and ids, inventory climbedFrom, button rule and fill, task paths) and e2e/hill-climb.spec.ts (button hidden in look and vote, shown in discuss and decide, copy with no placeholders and the plain-language section; scoring script exit codes on a passing page, a 30px button, a low-contrast label and a page that never reaches its end state)"
     }
   ]
 }

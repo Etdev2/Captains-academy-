@@ -1,0 +1,14 @@
+{
+  "category": "study",
+  "variant": "a",
+  "taps": [
+    {
+      "role": "button",
+      "name": "Practice"
+    },
+    {
+      "role": "button",
+      "name": "Power-driven"
+    }
+  ]
+}
