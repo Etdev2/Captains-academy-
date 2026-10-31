@@ -1,0 +1,10 @@
+{
+  "category": "sea-time",
+  "variant": "b",
+  "taps": [
+    {
+      "role": "button",
+      "name": "Check in · start trip"
+    }
+  ]
+}

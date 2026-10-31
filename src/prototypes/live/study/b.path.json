@@ -1,0 +1,22 @@
+{
+  "category": "study",
+  "variant": "b",
+  "taps": [
+    {
+      "role": "button",
+      "name": "Continue lesson 14"
+    },
+    {
+      "role": "button",
+      "name": "Start practice questions"
+    },
+    {
+      "role": "radio",
+      "name": "Power-driven"
+    },
+    {
+      "role": "button",
+      "name": "Check answer"
+    }
+  ]
+}

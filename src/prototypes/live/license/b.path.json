@@ -1,0 +1,22 @@
+{
+  "category": "license",
+  "variant": "b",
+  "taps": [
+    {
+      "role": "button",
+      "name": "2 License"
+    },
+    {
+      "role": "radio",
+      "name": "OUPV · Near coastal Operator of Uninspected Passenger Vessels (\"six-pack\"), up to 100 miles offshore. First license · figures checked"
+    },
+    {
+      "role": "button",
+      "name": "See what it needs"
+    },
+    {
+      "role": "checkbox",
+      "name": "Show only what is still missing"
+    }
+  ]
+}

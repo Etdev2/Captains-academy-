@@ -88,10 +88,9 @@ describe('interactive prototypes on the Decision Desk', () => {
 
   it('keeps reference images apart from screenshots of the new implementation', () => {
     for (const c of concepts) {
-      const isLive = c.id.startsWith('cl-live-');
-      expect(c.image?.startsWith('docs/prototypes/interactive/images/') ?? false, c.id).toBe(
-        isLive,
-      );
+      // Climbed variants (cl-climb-...) are screenshots of new code too.
+      const isLive = /^cl-(live|climb)-/.test(c.id);
+      expect(c.image?.startsWith('docs/prototypes/interactive/') ?? false, c.id).toBe(isLive);
     }
   });
 

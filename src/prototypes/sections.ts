@@ -1,6 +1,7 @@
-import { shotOf, variantShots, type CategoryId } from './categories';
+import { climbShotOf, shotOf, variantShots, type CategoryId } from './categories';
 import type { Item } from './inventory';
-import { byId } from './round';
+import { conceptId } from './live/shared/routes';
+import { byId, items } from './round';
 
 // How the decision board lays out its concepts: one section per screen, each
 // with a sticky header, and the current app's screenshots folded into an
@@ -54,16 +55,28 @@ const defs = (n: number, moment: string): AsBuilt => ({
   twin: `app-definitions-desktop-wide-${n}-${moment}`,
 });
 
-/** The A/B/C interactive-prototype group of a category, with whichever captures exist. */
+/**
+ * The A/B/C interactive-prototype group of a category, with whichever captures
+ * exist, followed by its climbed variants (the results of Hill climbs), if any.
+ */
 export function variantGroup(category: CategoryId): Group[] {
   const shots = variantShots.filter((s) => s.category === category && byId.has(s.desktop));
-  if (shots.length === 0) return [];
+  const climbs = items.flatMap((i) => {
+    const c = climbShotOf(i.id);
+    if (!c || c.category !== category || !i.id.endsWith('-desktop')) return [];
+    return [{ desktop: i.id, iphone: conceptId(c.category, c.variant, 'iphone', c.climb) }];
+  });
+  const all = [...shots, ...climbs];
+  if (all.length === 0) return [];
   return [
     {
-      title: 'Interactive prototypes · A, B, C',
-      ids: shots.map((s) => s.desktop),
+      title:
+        climbs.length > 0
+          ? 'Interactive prototypes · A, B, C and climbs'
+          : 'Interactive prototypes · A, B, C',
+      ids: all.map((s) => s.desktop),
       twins: Object.fromEntries(
-        shots.filter((s) => byId.has(s.iphone)).map((s) => [s.desktop, s.iphone]),
+        all.filter((s) => byId.has(s.iphone)).map((s) => [s.desktop, s.iphone]),
       ),
     },
   ];
@@ -309,6 +322,8 @@ const prefixes = [
 export function tileLabel(item: Item): string {
   const shot = shotOf(item.id);
   if (shot) return `${shot.letter} · ${shot.name}`;
+  const climb = climbShotOf(item.id);
+  if (climb) return `Climb ${climb.climb} · ${climb.climbedFrom}`;
   let label = item.title;
   for (const p of prefixes) label = label.replace(p, '');
   // Keep the level number visible on the Chapter 1 mockups.

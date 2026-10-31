@@ -1,0 +1,14 @@
+{
+  "category": "study",
+  "variant": "c",
+  "taps": [
+    {
+      "role": "button",
+      "name": "Start step 1"
+    },
+    {
+      "role": "button",
+      "name": "Power-driven"
+    }
+  ]
+}

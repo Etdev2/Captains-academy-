@@ -53,6 +53,7 @@ export default defineConfig({
         '**/rules.spec.ts',
         '**/prototypes.spec.ts',
         '**/prototypes-live.spec.ts',
+        '**/hill-climb.spec.ts',
         '**/lights.spec.ts',
         '**/account.spec.ts',
       ],

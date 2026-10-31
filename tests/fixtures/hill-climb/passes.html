@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hill climb fixture: passes</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 16px;
+        background: #ffffff;
+        color: #111111;
+        font: 16px/1.4 sans-serif;
+      }
+      button {
+        min-width: 48px;
+        min-height: 48px;
+        padding: 0 16px;
+        border: 1px solid #111111;
+        background: #ffffff;
+        color: #111111;
+        font: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Passes the gate</h1>
+      <button type="button" id="go">Check in</button>
+    </main>
+    <script>
+      document.getElementById('go').addEventListener('click', () => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = 'Check out';
+        document.querySelector('main').replaceChildren(b);
+      });
+    </script>
+  </body>
+</html>

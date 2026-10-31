@@ -1,0 +1,10 @@
+{
+  "category": "console",
+  "variant": "a",
+  "taps": [
+    {
+      "role": "button",
+      "name": "Open this step"
+    }
+  ]
+}

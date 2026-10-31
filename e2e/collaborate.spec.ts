@@ -16,7 +16,7 @@ test('collaborators can select, personalize, and copy each prompt exactly', asyn
   page.on('pageerror', (error) => errors.push(error.message));
   const response = await page.goto('/collaborate/');
   expect(response?.status()).toBe(200);
-  await expect(page.locator('[data-prompt]')).toHaveCount(5);
+  await expect(page.locator('[data-prompt]')).toHaveCount(6);
   await page.getByLabel('Your name').fill('Riley $& <friend>');
   await page.getByLabel('Task or issue').fill('Forms workspace, #78');
   for (const id of ['onboard', 'claim', 'prototype', 'review', 'handoff']) {
@@ -35,13 +35,14 @@ test('collaborators can select, personalize, and copy each prompt exactly', asyn
     await expect(page.getByRole('status')).toContainText('Prompt copied');
   }
   await page.getByRole('button', { name: 'Design', exact: true }).click();
-  await expect(page.locator('[data-prompt]')).toHaveCount(1);
+  // Prepare a prototype, and Hill climb a live prototype from the Decision Desk.
+  await expect(page.locator('[data-prompt]')).toHaveCount(2);
   await expect(page.locator('#selected-title')).toHaveText('Prepare a prototype');
   await page.getByLabel('Find a prompt').fill('no-match-zz');
   await expect(page.locator('#empty')).toBeVisible();
   await page.getByLabel('Find a prompt').fill('');
   await page.getByRole('button', { name: 'All', exact: true }).click();
-  await expect(page.locator('[data-prompt]')).toHaveCount(5);
+  await expect(page.locator('[data-prompt]')).toHaveCount(6);
   expect(await page.evaluate(() => localStorage.length)).toBe(0);
   expect(errors).toEqual([]);
 });
@@ -84,7 +85,7 @@ test.describe('phone layout', () => {
   test.use({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
   test('fits the phone, keeps controls usable, and passes axe', async ({ page }, testInfo) => {
     await page.goto('/collaborate/');
-    await expect(page.locator('[data-prompt]')).toHaveCount(5);
+    await expect(page.locator('[data-prompt]')).toHaveCount(6);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
       390,
     );

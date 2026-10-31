@@ -1,0 +1,14 @@
+{
+  "category": "arcade",
+  "variant": "a",
+  "taps": [
+    {
+      "role": "button",
+      "name": "Play again : Long Beach: dock the boat"
+    },
+    {
+      "role": "button",
+      "name": "Show me (autopilot)"
+    }
+  ]
+}

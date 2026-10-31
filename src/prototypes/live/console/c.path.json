@@ -1,0 +1,10 @@
+{
+  "category": "console",
+  "variant": "c",
+  "taps": [
+    {
+      "role": "button",
+      "name": "Show me how"
+    }
+  ]
+}
