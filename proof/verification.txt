@@ -1,59 +1,33 @@
-$ bash scripts/verify.test.sh
-ok   empty project skips all nine steps
-ok   app code without package.json fails
-ok   package.json without a Node pin fails
-ok   wrong Node major fails
-ok   missing lockfile fails
-ok   phaser with a caret range fails
-ok   app code without tsconfig fails
-ok   tsconfig without the tsc binary fails
-ok   mission JSON without validate:missions fails
-ok   a failing mission validation fails
-
-verify.test.sh: 10 passed, 0 failed.
+$ npx --no-install tsc --noEmit
 [exit 0]
 
-$ bash scripts/verify.sh
+$ npx --no-install eslint . --max-warnings=0
+[exit 0]
 
-==> Node version and npm ci
-
-added 301 packages, and audited 302 packages in 5s
-
-55 packages are looking for funding
-  run `npm fund` for details
-
-3 vulnerabilities (2 moderate, 1 high)
-
-To address all issues, run:
-  npm audit fix --force
-
-Run `npm audit` for details.
-
-==> tsc --noEmit
-
-==> eslint --max-warnings=0
-
-==> prettier --check
+$ npx --no-install prettier --check .
 Checking formatting...
 All matched files use Prettier code style!
+[exit 0]
 
-==> mission JSON validation
+$ npm run --silent validate:missions
 ok   long-beach-crosswind.json
 ok   long-beach-docking.json
 ok   long-beach-traffic.json
+[exit 0]
 
-==> vitest (unit, adversarial, golden replay)
+$ npx --no-install vitest run
 
- RUN  v4.1.11 /Users/et/ca-87
+ RUN  v4.1.11 /Users/et/Captains-academy-ai-studio
 
 
  Test Files  24 passed (24)
       Tests  521 passed (521)
-   Start at  16:42:34
-   Duration  1.46s (transform 2.18s, setup 0ms, import 3.39s, tests 1.35s, environment 1ms)
+   Start at  11:18:36
+   Duration  1.38s (transform 2.06s, setup 0ms, import 3.17s, tests 1.49s, environment 1ms)
 
+[exit 0]
 
-==> vite build
+$ npx --no-install vite build
 vite v7.3.6 building client environment for production...
 transforming...
 node_modules/zod/v4/core/regexes.js (74:0): A comment
@@ -68,7 +42,7 @@ node_modules/zod/v4/core/util.js (400:0): A comment
 "// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
 
 in "node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
-✓ 2547 modules transformed.
+✓ 2554 modules transformed.
 rendering chunks...
 computing gzip size...
 dist/account/index.html                                                        1.27 kB │ gzip:   0.56 kB
@@ -198,6 +172,7 @@ dist/assets/desktop-wide-3-wrong-explanation-W0eEV6Ew.png                     91
 dist/assets/gpt-book-dark-cleanup-BKUWONh-.jpg                                91.49 kB
 dist/assets/cl-live-sea-time-a-desktop-DYvP7SxR.jpg                           91.72 kB
 dist/assets/gpt-board-home-b-q6kehR9v.jpg                                     91.84 kB
+dist/assets/infra-map-DPtLRVUy.jpg                                            92.02 kB
 dist/assets/cl-live-license-b-desktop-BJHPvYij.jpg                            92.15 kB
 dist/assets/desktop-wide-3-wrong-explanation-DwHPfH_5.png                     94.67 kB
 dist/assets/gpt-book-light-alternate-CFsa9NPq.jpg                             95.82 kB
@@ -212,6 +187,7 @@ dist/assets/06-level-3-hit-by-ship-BH3kA3TR.png                              114
 dist/assets/04-answer-and-rule-DLKFDA9n.png                                  115.07 kB
 dist/assets/cl-live-license-a-iphone-R3x3v7tl.jpg                            115.67 kB
 dist/assets/cl-live-study-c-iphone-C2T9G8Zw.jpg                              118.52 kB
+dist/assets/03-gpt-review-handoff-CQCC1yt-.pdf                               120.06 kB
 dist/assets/cl-live-sea-time-a-iphone-Ciks8pNt.jpg                           121.66 kB
 dist/assets/cl-live-sea-time-b-iphone-2wJNNH6l.jpg                           125.14 kB
 dist/assets/cl-live-study-b-iphone-vDQ9KuYO.jpg                              125.69 kB
@@ -253,24 +229,29 @@ dist/assets/phone-390-4-cleared-ChAScvOM.png                                 174
 dist/assets/lights-deck-kKDUIIiw.jpg                                         174.86 kB
 dist/assets/license-c-iphone-BtLzMm2c.png                                    177.67 kB
 dist/assets/console-a-iphone-DATxJW0N.png                                    179.47 kB
+dist/assets/04-gpt-review-uxYEkNL8.pdf                                       180.44 kB
 dist/assets/phone-390-2-correct-CxVDqyem.png                                 184.67 kB
 dist/assets/07-rules-level-1-definitions-card-B7NJ8QDF.png                   193.81 kB
 dist/assets/arcade-b-desktop-C7cqb_e6.png                                    196.54 kB
 dist/assets/sea-time-a-iphone-C2DVvNrR.png                                   197.28 kB
 dist/assets/console-c-desktop-DiKoWQsK.png                                   207.89 kB
+dist/assets/infrastructure-map-DlIlJm-a.png                                  214.10 kB
 dist/assets/study-a-iphone-BlAlsjq2.png                                      214.41 kB
 dist/assets/arcade-a-desktop-e1N49R1g.png                                    222.12 kB
 dist/assets/console-c-iphone-CG6-JrcH.png                                    225.63 kB
 dist/assets/console-b-desktop-B1fctpeu.png                                   228.27 kB
 dist/assets/license-a-iphone-CCMXM9W-.png                                    232.45 kB
 dist/assets/phone-390-3-wrong-explanation-CzHEDij2.png                       233.08 kB
+dist/assets/02-financials-DOORM87L.pdf                                       246.84 kB
 dist/assets/phone-390-3-wrong-explanation-CUBee5zr.png                       247.27 kB
 dist/assets/study-a-desktop-CwEQuZhs.png                                     249.83 kB
+dist/assets/infrastructure-prototype-koQSnGmU.png                            253.65 kB
 dist/assets/08-rules-level-1-miss-replay-DZ9c7D3J.png                        286.90 kB
 dist/assets/console-a-desktop-BRO6gqTo.png                                   319.86 kB
 dist/assets/license-b-desktop-CaXwux5z.png                                   330.94 kB
 dist/assets/sea-time-c-iphone-Birie1Uh.png                                   333.08 kB
 dist/assets/sea-time-b-desktop-D7vNEBcr.png                                  338.89 kB
+dist/assets/01-infrastructure-design-B-Z3OBRy.pdf                            345.77 kB
 dist/assets/sea-time-c-desktop-DuQ5iu-U.png                                  351.10 kB
 dist/assets/sea-time-a-desktop-CJ7YOSsK.png                                  411.42 kB
 dist/assets/01-start-screen-nmdsk7ZF.png                                     425.50 kB
@@ -353,16 +334,12 @@ dist/assets/index-CrA0wKQl.js                                                 74
 dist/assets/schemas-Fa3Yurrv.js                                               95.22 kB │ gzip:  27.04 kB
 dist/assets/client-BRDhxz4C.js                                               222.24 kB │ gzip:  69.18 kB
 dist/assets/client-Dca4HnbD.js                                               223.36 kB │ gzip:  58.49 kB
-dist/assets/prototypes-DpG3dWcz.js                                           258.65 kB │ gzip:  65.71 kB
+dist/assets/prototypes-Bj_Osnv4.js                                           261.42 kB │ gzip:  66.36 kB
 dist/assets/sound-Mf7sijfN.js                                              1,393.12 kB │ gzip: 373.88 kB
-✓ built in 4.52s
+✓ built in 4.28s
+[exit 0]
 
-==> playwright smoke test
-[WebServer] [33mnode_modules/zod/v4/core/util.js (400:0): A comment
-[WebServer] 
-[WebServer] "// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
-[WebServer] 
-[WebServer] in "node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.[39m
+$ npx --no-install playwright test e2e/prototypes.spec.ts --workers=2 --retries=1
 [WebServer] [33mnode_modules/zod/v4/core/regexes.js (74:0): A comment
 [WebServer] 
 [WebServer] "/** Anchors a pattern source. The interpolation lives here rather than at the call site because
@@ -370,283 +347,66 @@ dist/assets/sound-Mf7sijfN.js                                              1,393
 [WebServer]  * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
 [WebServer] 
 [WebServer] in "node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.[39m
+[WebServer] [33mnode_modules/zod/v4/core/util.js (400:0): A comment
+[WebServer] 
+[WebServer] "// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+[WebServer] 
+[WebServer] in "node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.[39m
 
-Running 269 tests using 5 workers
+Running 48 tests using 2 workers
 
-  ✓    1 [desktop] › e2e/home.spec.ts:14:1 › the root links to the game, the Rules of the Road chapter, the sea-time log and the prototypes (425ms)
-  ✓    3 [desktop] › e2e/account.spec.ts:7:1 › without Supabase settings the account screen says sign-in is not set up (718ms)
-  ✓    7 [desktop] › e2e/account.spec.ts:23:1 › without Supabase settings the front page has no Account link (123ms)
-  ✓    5 [desktop] › e2e/lights.spec.ts:61:1 › the first card shows the rule set, the progress, the hearts and seven answers (883ms)
-  ✓    8 [desktop] › e2e/log.spec.ts:53:1 › the log opens with no account and talks to no other server (166ms)
-  ✓    2 [desktop] › e2e/entries.spec.ts:71:1 › check in and out from the home screen, kept across reloads online and offline (1.1s)
-  ✓   10 [desktop] › e2e/log.spec.ts:72:1 › the check-in button is big and sits where a thumb reaches (162ms)
-  ✓   11 [desktop] › e2e/entries.spec.ts:138:1 › a second open trip on this device is refused (330ms)
-  ✓   12 [desktop] › e2e/log.spec.ts:86:1 › the log opens offline after one online visit (210ms)
-  ✓    9 [desktop] › e2e/lights.spec.ts:79:1 › a locked Lights level opens Definitions instead (709ms)
-  ✓   14 [desktop] › e2e/log.spec.ts:97:1 › a saved entry survives a reload, online and offline (197ms)
-  ✓   16 [desktop] › e2e/log.spec.ts:124:1 › the store refuses bad entries, soft-deletes and leaves the outbox empty (155ms)
-  ✓   17 [desktop] › e2e/log.spec.ts:221:1 › version 3 of the database keeps the entries and outbox stores as version 1 made them (116ms)
-  ✓    6 [desktop] › e2e/home.spec.ts:37:1 › the game link opens the game (1.6s)
-  ✓   18 [desktop] › e2e/log.spec.ts:265:1 › a newer database from another tab is never opened by older code (150ms)
-  ✓   13 [desktop] › e2e/entries.spec.ts:189:1 › a repeat check-in is one tap: the sheet remembers the last choices (715ms)
-  ✓   20 [desktop] › e2e/log.spec.ts:287:1 › a new cache name keeps what the old cache held, so earlier offline pages still open (150ms)
-  ✓   19 [desktop] › e2e/home.spec.ts:52:1 › the sea-time log link opens the log (198ms)
-  ✓   21 [desktop] › e2e/entries.spec.ts:213:1 › the check-in sheet says what is missing and saves nothing until it is right (278ms)
-  ✓   24 [desktop] › e2e/entries.spec.ts:232:1 › backfilling saves nothing without consent (324ms)
-  ✓   22 [desktop] › e2e/home.spec.ts:81:1 › the front page opens offline after one online visit (522ms)
-  ✓   26 [desktop] › e2e/home.spec.ts:99:1 › the front page opens offline even if only the log was visited online (256ms)
-  ✓   27 [desktop] › e2e/home.spec.ts:119:3 › at iPhone width › both links are big, on screen, and nothing scrolls sideways (314ms)
-  ✓   25 [desktop] › e2e/entries.spec.ts:283:1 › with consent, backfilled days save, record the consent and say "backfilled" (757ms)
-  ✓   28 [desktop] › e2e/prototypes-live.spec.ts:35:1 › the index lists every category in all three variants (145ms)
-  ✓   29 [desktop] › e2e/entries.spec.ts:350:1 › every entry under 4 hours is flagged and stays; the day notes cite the CFR (250ms)
-  ✓   31 [desktop] › e2e/entries.spec.ts:426:1 › entries carry their vessel, role and confirmed waters; a GPS suggestion stays apart (153ms)
-  ✓   32 [desktop] › e2e/entries.spec.ts:504:1 › entries are edited and soft-deleted, and a backfilled day stays backfilled (592ms)
-  ✓   33 [desktop] › e2e/entries.spec.ts:569:1 › version 2 upgrades to version 3 and keeps its vessels and entries (344ms)
-  ✓   30 [desktop] › e2e/prototypes-live.spec.ts:49:3 › Captain's Console: A, B and C open, fit the screen and switch (1.4s)
-  ✓   23 [desktop] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (3.0s)
-  ✓   34 [desktop] › e2e/entries.spec.ts:671:1 › the new screens never say qualify or eligible for (403ms)
-  ✓   37 [desktop] › e2e/entries.spec.ts:694:1 › the entry screens fit one thumb (381ms)
-  ✓   35 [desktop] › e2e/prototypes-live.spec.ts:49:3 › License Navigator & Forms: A, B and C open, fit the screen and switch (1.4s)
-  ✓   38 [desktop] › e2e/prototypes.spec.ts:126:1 › every listed image and preview loads, at the size of the file in the repo (1.3s)
-  ✓   36 [desktop] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (2.2s)
-  ✓   39 [desktop] › e2e/prototypes-live.spec.ts:49:3 › Sea-Time Logbook: A, B and C open, fit the screen and switch (1.4s)
-  ✓    4 [desktop] › e2e/collaborate.spec.ts:4:1 › collaborators can select, personalize, and copy each prompt exactly (8.6s)
-  ✓   43 [desktop] › e2e/collaborate.spec.ts:49:1 › copy failure selects the prompt for manual copying (243ms)
-  ✓   44 [desktop] › e2e/collaborate.spec.ts:70:1 › a failed prompt request offers a readable recovery path (125ms)
-  ✓   42 [desktop] › e2e/prototypes-live.spec.ts:49:3 › Study & Exam Prep: A, B and C open, fit the screen and switch (1.4s)
-  ✓   45 [desktop] › e2e/collaborate.spec.ts:85:3 › phone layout › fits the phone, keeps controls usable, and passes axe (809ms)
-  ✓   47 [desktop] › e2e/rules.spec.ts:58:1 › the first card shows the rule set, the progress, the hearts and five answers (414ms)
-  ✓   46 [desktop] › e2e/prototypes-live.spec.ts:49:3 › Arcade & Simulations: A, B and C open, fit the screen and switch (1.4s)
-  ✓   41 [desktop] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (3.4s)
-  ✓   49 [desktop] › e2e/prototypes-live.spec.ts:82:1 › a variant links back to its screenshot on the Decision Desk (317ms)
-  ✓   51 [desktop] › e2e/prototypes-live.spec.ts:89:1 › category chips narrow the board, and the choice has its own link (357ms)
-  ✓   52 [desktop] › e2e/prototypes-live.spec.ts:108:1 › a variant screenshot opens with an A/B/C switcher and its interactive prototype (378ms)
-  ✓   40 [desktop] › e2e/prototypes.spec.ts:163:1 › a dot lands where you tap in the viewer, five at most, and you can take one back (5.3s)
-  ✓   50 [desktop] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (2.1s)
-  ✓   54 [desktop] › e2e/prototypes.spec.ts:218:1 › others' dots stay hidden until you finish voting, then the heat ranks concepts with ties (2.8s)
-  ✓   56 [desktop] › e2e/prototypes.spec.ts:258:1 › only the decider makes the call, with a reason (1.7s)
-  ✓   15 [desktop] › e2e/lights.spec.ts:85:1 › a clean run names every vessel, cites each rule and clears with three stars (16.3s)
-  ✓   57 [desktop] › e2e/prototypes.spec.ts:274:1 › the viewer fills the screen, keeps proportions, closes with Escape, links an extracted detail to its board, and shows notes as text (1.2s)
-  ✓   59 [desktop] › e2e/prototypes.spec.ts:333:1 › the viewer steps through the board with the arrow keys, a swipe and its buttons (598ms)
-  ✓   60 [desktop] › e2e/prototypes.spec.ts:386:1 › images keep their space, show their color until they load, and the first screen loads at once (1.7s)
-  ✓   61 [desktop] › e2e/prototypes.spec.ts:429:1 › the board groups concepts by screen under headers that stick while scrolling (319ms)
-  ✓   48 [desktop] › e2e/rules.spec.ts:81:1 › a clean run names every vessel and clears with three stars (11.7s)
-  ✓   62 [desktop] › e2e/prototypes.spec.ts:461:1 › every control on the board and in the viewer is at least 44px each way (1.4s)
-  ✓   53 [desktop] › e2e/prototypes-live.spec.ts:144:1 › the prototype index and every primary screen pass axe (12.6s)
-  ✓   64 [desktop] › e2e/prototypes.spec.ts:487:1 › a thumbs up or down from the viewer shows on the tile and in the heat, and closes for the call (2.3s)
-  ✓   65 [desktop] › e2e/vessels.spec.ts:41:1 › a vessel is added, filled in later, and survives reloads online and offline (1.4s)
-  ✓   66 [desktop] › e2e/prototypes.spec.ts:521:1 › filters narrow the board to one style and one feature (1.5s)
-  ✓   67 [desktop] › e2e/vessels.spec.ts:134:1 › a vessel is soft-deleted with two taps and stays gone after a reload (887ms)
-  ✓   68 [desktop] › e2e/prototypes.spec.ts:533:1 › export writes your dots to a file, and import refuses a file that is not a board (1.6s)
-  ✓   70 [desktop] › e2e/prototypes.spec.ts:566:1 › with storage blocked, the page says the board is not saved (190ms)
-  ✓   71 [desktop] › e2e/prototypes.spec.ts:579:1 › reference keeps the boards, the playable example and the missing styles off the board (299ms)
-  ✓   69 [desktop] › e2e/vessels.spec.ts:197:1 › a photo still being prepared is never saved late, or onto another vessel (1.8s)
-  ✓   72 [desktop] › e2e/prototypes.spec.ts:600:1 › the offline cache never stores the board or its images (479ms)
-  ✓   73 [desktop] › e2e/vessels.spec.ts:278:1 › two quick taps on Save add a new vessel once (493ms)
-  ✓   75 [desktop] › e2e/vessels.spec.ts:300:1 › the form says what to fix and saves nothing until it is right (325ms)
-  ✓   76 [desktop] › e2e/vessels.spec.ts:316:1 › only official tonnage can be entered, with no estimate anywhere (122ms)
-  ✓   77 [desktop] › e2e/vessels.spec.ts:342:1 › roles are a seeded deck and engine list, and a vessel keeps a default role (265ms)
-  ✓   78 [desktop] › e2e/vessels.spec.ts:405:1 › version 1 upgrades to the current version and keeps its entries (146ms)
-  ✓   79 [desktop] › e2e/vessels.spec.ts:481:1 › vessel screens fit one thumb: big controls, save within reach (455ms)
-  ✓   55 [desktop] › e2e/play.spec.ts:82:1 › level 3 opens after level 2, runs five gates and counts the first one (17.4s)
-  ✓   81 [phone-landscape] › e2e/account.spec.ts:7:1 › without Supabase settings the account screen says sign-in is not set up (868ms)
-  ✓   82 [phone-landscape] › e2e/account.spec.ts:23:1 › without Supabase settings the front page has no Account link (126ms)
-  ✓   74 [desktop] › e2e/prototypes.spec.ts:631:1 › the board and the viewer pass axe with no violations (4.3s)
-  ✓   58 [desktop] › e2e/lights.spec.ts:113:1 › a wrong answer costs a heart, explains the rule, and the card comes back (16.6s)
-  ✓   84 [phone-landscape] › e2e/entries.spec.ts:71:1 › check in and out from the home screen, kept across reloads online and offline (1.2s)
-  ✓   86 [phone-landscape] › e2e/entries.spec.ts:138:1 › a second open trip on this device is refused (337ms)
-  ✓   87 [phone-landscape] › e2e/entries.spec.ts:189:1 › a repeat check-in is one tap: the sheet remembers the last choices (671ms)
-  ✓   88 [phone-landscape] › e2e/entries.spec.ts:213:1 › the check-in sheet says what is missing and saves nothing until it is right (221ms)
-  ✓   80 [desktop] › e2e/play.spec.ts:106:1 › ?unlock=all opens level 3 with no stars, and plain /play stays locked (5.8s)
-  ✓   89 [phone-landscape] › e2e/entries.spec.ts:232:1 › backfilling saves nothing without consent (282ms)
-  ✓   63 [desktop] › e2e/rules.spec.ts:116:1 › a wrong answer costs a heart, explains the rule, and the card comes back (15.0s)
-  ✓   90 [phone-landscape] › e2e/entries.spec.ts:283:1 › with consent, backfilled days save, record the consent and say "backfilled" (802ms)
-  ✓   91 [phone-landscape] › e2e/home.spec.ts:14:1 › the root links to the game, the Rules of the Road chapter, the sea-time log and the prototypes (515ms)
-  ✓   83 [phone-landscape] › e2e/collaborate.spec.ts:4:1 › collaborators can select, personalize, and copy each prompt exactly (5.1s)
-  ✓   93 [phone-landscape] › e2e/entries.spec.ts:350:1 › every entry under 4 hours is flagged and stays; the day notes cite the CFR (264ms)
-  ✓   96 [phone-landscape] › e2e/entries.spec.ts:426:1 › entries carry their vessel, role and confirmed waters; a GPS suggestion stays apart (133ms)
-  ✓   95 [phone-landscape] › e2e/collaborate.spec.ts:49:1 › copy failure selects the prompt for manual copying (202ms)
-  ✓   98 [phone-landscape] › e2e/collaborate.spec.ts:70:1 › a failed prompt request offers a readable recovery path (134ms)
-  ✓   97 [phone-landscape] › e2e/entries.spec.ts:504:1 › entries are edited and soft-deleted, and a backfilled day stays backfilled (601ms)
-  ✓   94 [phone-landscape] › e2e/home.spec.ts:37:1 › the game link opens the game (1.1s)
-  ✓  100 [phone-landscape] › e2e/entries.spec.ts:569:1 › version 2 upgrades to version 3 and keeps its vessels and entries (336ms)
-  ✓  101 [phone-landscape] › e2e/home.spec.ts:52:1 › the sea-time log link opens the log (297ms)
-  ✓   99 [phone-landscape] › e2e/collaborate.spec.ts:85:3 › phone layout › fits the phone, keeps controls usable, and passes axe (1.1s)
-  ✓  102 [phone-landscape] › e2e/entries.spec.ts:671:1 › the new screens never say qualify or eligible for (457ms)
-  ✓  103 [phone-landscape] › e2e/home.spec.ts:81:1 › the front page opens offline after one online visit (394ms)
-  ✓  106 [phone-landscape] › e2e/home.spec.ts:99:1 › the front page opens offline even if only the log was visited online (145ms)
-  ✓  105 [phone-landscape] › e2e/entries.spec.ts:694:1 › the entry screens fit one thumb (311ms)
-  ✓  108 [phone-landscape] › e2e/log.spec.ts:53:1 › the log opens with no account and talks to no other server (130ms)
-  ✓  104 [phone-landscape] › e2e/lights.spec.ts:61:1 › the first card shows the rule set, the progress, the hearts and seven answers (563ms)
-  ✓  107 [phone-landscape] › e2e/home.spec.ts:119:3 › at iPhone width › both links are big, on screen, and nothing scrolls sideways (300ms)
-  ✓  109 [phone-landscape] › e2e/log.spec.ts:72:1 › the check-in button is big and sits where a thumb reaches (126ms)
-  ✓  112 [phone-landscape] › e2e/log.spec.ts:86:1 › the log opens offline after one online visit (152ms)
-  ✓  113 [phone-landscape] › e2e/log.spec.ts:97:1 › a saved entry survives a reload, online and offline (205ms)
-  ✓  114 [phone-landscape] › e2e/log.spec.ts:124:1 › the store refuses bad entries, soft-deletes and leaves the outbox empty (196ms)
-  ✓  110 [phone-landscape] › e2e/lights.spec.ts:79:1 › a locked Lights level opens Definitions instead (662ms)
-  ✓  115 [phone-landscape] › e2e/log.spec.ts:221:1 › version 3 of the database keeps the entries and outbox stores as version 1 made them (121ms)
-  ✓  117 [phone-landscape] › e2e/log.spec.ts:265:1 › a newer database from another tab is never opened by older code (142ms)
-  ✓  118 [phone-landscape] › e2e/log.spec.ts:287:1 › a new cache name keeps what the old cache held, so earlier offline pages still open (138ms)
-  ✓  119 [phone-landscape] › e2e/prototypes-live.spec.ts:35:1 › the index lists every category in all three variants (147ms)
-  ✓  120 [phone-landscape] › e2e/prototypes-live.spec.ts:49:3 › Captain's Console: A, B and C open, fit the screen and switch (1.4s)
-  ✓  111 [phone-landscape] › e2e/play.spec.ts:5:1 › the docking level loads and the boat gets under way (2.7s)
-  ✓  121 [phone-landscape] › e2e/prototypes-live.spec.ts:49:3 › License Navigator & Forms: A, B and C open, fit the screen and switch (1.3s)
-  ✓  122 [phone-landscape] › e2e/play.spec.ts:23:1 › the level stays paused behind the rotate prompt in portrait (1.9s)
-  ✓   92 [desktop] › e2e/rules.spec.ts:158:1 › Pause keeps the explanation on screen until the player presses Next (7.5s)
-  ✓  123 [phone-landscape] › e2e/prototypes-live.spec.ts:49:3 › Sea-Time Logbook: A, B and C open, fit the screen and switch (1.3s)
-  ✓   85 [desktop] › e2e/lights.spec.ts:148:1 › a muted run plays through with the keys, the same as a loud one (11.3s)
-  ✓  126 [phone-landscape] › e2e/prototypes-live.spec.ts:49:3 › Study & Exam Prep: A, B and C open, fit the screen and switch (1.3s)
-  ✓  124 [phone-landscape] › e2e/play.spec.ts:37:1 › the level plays offline after one online visit (2.7s)
-  ✓  128 [phone-landscape] › e2e/prototypes-live.spec.ts:49:3 › Arcade & Simulations: A, B and C open, fit the screen and switch (1.3s)
-  ✓  130 [phone-landscape] › e2e/prototypes-live.spec.ts:82:1 › a variant links back to its screenshot on the Decision Desk (315ms)
-  ✓  131 [phone-landscape] › e2e/prototypes-live.spec.ts:89:1 › category chips narrow the board, and the choice has its own link (348ms)
-  ✓  129 [phone-landscape] › e2e/play.spec.ts:55:1 › the engine levers stay where they are left, and the boat answers (1.6s)
-  ✓  132 [phone-landscape] › e2e/prototypes-live.spec.ts:108:1 › a variant screenshot opens with an A/B/C switcher and its interactive prototype (1.3s)
-  ✓  125 [desktop] › e2e/rules.spec.ts:177:1 › running out of hearts ends the run with no stars (10.1s)
-  ✓  127 [desktop] › e2e/lights.spec.ts:168:1 › running out of hearts ends the run with no stars (10.2s)
-  ✓  116 [phone-landscape] › e2e/lights.spec.ts:85:1 › a clean run names every vessel, cites each rule and clears with three stars (17.0s)
-  ✓  135 [desktop] › e2e/rules.spec.ts:197:1 › keys answer, Enter skips the replay and Esc opens the menu (3.0s)
-  ✓  134 [phone-landscape] › e2e/prototypes-live.spec.ts:144:1 › the prototype index and every primary screen pass axe (12.5s)
-  ✓  139 [phone-landscape] › e2e/prototypes.spec.ts:126:1 › every listed image and preview loads, at the size of the file in the repo (991ms)
-  ✓  133 [phone-landscape] › e2e/play.spec.ts:82:1 › level 3 opens after level 2, runs five gates and counts the first one (16.8s)
-  ✓  136 [desktop] › e2e/lights.spec.ts:183:1 › the page passes axe with no violations on the question, the replay and the end (11.2s)
-  ✓  138 [desktop] › e2e/rules.spec.ts:219:1 › the page passes axe with no violations on the question, the replay and the end (9.7s)
-  ✓  143 [desktop] › e2e/rules.spec.ts:239:1 › every visible text meets its contrast token pair (431ms)
-  ✓  142 [desktop] › e2e/lights.spec.ts:203:1 › every visible text meets its contrast token pair (468ms)
-  ✓  140 [phone-landscape] › e2e/prototypes.spec.ts:163:1 › a dot lands where you tap in the viewer, five at most, and you can take one back (5.3s)
-  ✓  141 [phone-landscape] › e2e/play.spec.ts:106:1 › ?unlock=all opens level 3 with no stars, and plain /play stays locked (4.1s)
-  ✓  147 [phone-landscape] › e2e/rules.spec.ts:58:1 › the first card shows the rule set, the progress, the hearts and five answers (389ms)
-  ✓  144 [desktop] › e2e/rules.spec.ts:286:1 › every control is a big enough tap target (3.3s)
-  ✓  145 [desktop] › e2e/lights.spec.ts:247:1 › every control is a big enough tap target (3.4s)
-  ✓  146 [phone-landscape] › e2e/prototypes.spec.ts:218:1 › others' dots stay hidden until you finish voting, then the heat ranks concepts with ties (2.7s)
-  ✓  149 [desktop] › e2e/rules.spec.ts:317:1 › reduced motion keeps every state, with no shake and a countdown in words (1.9s)
-  ✓  150 [phone-landscape] › e2e/prototypes.spec.ts:258:1 › only the decider makes the call, with a reason (1.8s)
-  ✓  137 [phone-landscape] › e2e/lights.spec.ts:113:1 › a wrong answer costs a heart, explains the rule, and the card comes back (16.4s)
-  ✓  152 [phone-landscape] › e2e/prototypes.spec.ts:274:1 › the viewer fills the screen, keeps proportions, closes with Escape, links an extracted detail to its board, and shows notes as text (1.1s)
-  ✓  151 [phone-landscape] › e2e/vessels.spec.ts:41:1 › a vessel is added, filled in later, and survives reloads online and offline (2.1s)
-  ✓  155 [phone-landscape] › e2e/prototypes.spec.ts:333:1 › the viewer steps through the board with the arrow keys, a swipe and its buttons (465ms)
-  ✓  154 [phone-portrait] › e2e/account.spec.ts:7:1 › without Supabase settings the account screen says sign-in is not set up (864ms)
-  ✓  158 [phone-portrait] › e2e/account.spec.ts:23:1 › without Supabase settings the front page has no Account link (110ms)
-  ✓  156 [phone-landscape] › e2e/vessels.spec.ts:134:1 › a vessel is soft-deleted with two taps and stays gone after a reload (1.0s)
-  ✓  159 [phone-portrait] › e2e/entries.spec.ts:71:1 › check in and out from the home screen, kept across reloads online and offline (954ms)
-  ✓  161 [phone-portrait] › e2e/entries.spec.ts:138:1 › a second open trip on this device is refused (288ms)
-  ✓  157 [phone-landscape] › e2e/prototypes.spec.ts:386:1 › images keep their space, show their color until they load, and the first screen loads at once (1.6s)
-  ✓  163 [phone-landscape] › e2e/prototypes.spec.ts:429:1 › the board groups concepts by screen under headers that stick while scrolling (311ms)
-  ✓  162 [phone-portrait] › e2e/entries.spec.ts:189:1 › a repeat check-in is one tap: the sheet remembers the last choices (675ms)
-  ✓  165 [phone-portrait] › e2e/entries.spec.ts:213:1 › the check-in sheet says what is missing and saves nothing until it is right (219ms)
-  ✓  166 [phone-portrait] › e2e/entries.spec.ts:232:1 › backfilling saves nothing without consent (385ms)
-  ✓  160 [phone-landscape] › e2e/vessels.spec.ts:197:1 › a photo still being prepared is never saved late, or onto another vessel (2.2s)
-  ✓  168 [phone-landscape] › e2e/vessels.spec.ts:278:1 › two quick taps on Save add a new vessel once (456ms)
-  ✓  164 [phone-landscape] › e2e/prototypes.spec.ts:461:1 › every control on the board and in the viewer is at least 44px each way (1.5s)
-  ✓  167 [phone-portrait] › e2e/entries.spec.ts:283:1 › with consent, backfilled days save, record the consent and say "backfilled" (894ms)
-  ✓  169 [phone-landscape] › e2e/vessels.spec.ts:300:1 › the form says what to fix and saves nothing until it is right (389ms)
-  ✓  172 [phone-landscape] › e2e/vessels.spec.ts:316:1 › only official tonnage can be entered, with no estimate anywhere (144ms)
-  ✓  171 [phone-portrait] › e2e/entries.spec.ts:350:1 › every entry under 4 hours is flagged and stays; the day notes cite the CFR (347ms)
-  ✓  174 [phone-portrait] › e2e/entries.spec.ts:426:1 › entries carry their vessel, role and confirmed waters; a GPS suggestion stays apart (132ms)
-  ✓  173 [phone-landscape] › e2e/vessels.spec.ts:342:1 › roles are a seeded deck and engine list, and a vessel keeps a default role (331ms)
-  ✓  176 [phone-landscape] › e2e/vessels.spec.ts:405:1 › version 1 upgrades to the current version and keeps its entries (131ms)
-  ✓  175 [phone-portrait] › e2e/entries.spec.ts:504:1 › entries are edited and soft-deleted, and a backfilled day stays backfilled (569ms)
-  ✓  177 [phone-landscape] › e2e/vessels.spec.ts:481:1 › vessel screens fit one thumb: big controls, save within reach (506ms)
-  ✓  178 [phone-portrait] › e2e/entries.spec.ts:569:1 › version 2 upgrades to version 3 and keeps its vessels and entries (315ms)
-  ✓  179 [phone-portrait] › e2e/entries.spec.ts:671:1 › the new screens never say qualify or eligible for (324ms)
-  ✓  170 [phone-landscape] › e2e/prototypes.spec.ts:487:1 › a thumbs up or down from the viewer shows on the tile and in the heat, and closes for the call (2.3s)
-  ✓  181 [phone-portrait] › e2e/entries.spec.ts:694:1 › the entry screens fit one thumb (318ms)
-  ✓  180 [phone-portrait] › e2e/home.spec.ts:14:1 › the root links to the game, the Rules of the Road chapter, the sea-time log and the prototypes (521ms)
-  ✓  184 [phone-portrait] › e2e/home.spec.ts:37:1 › the game link opens the game (171ms)
-  ✓  183 [phone-portrait] › e2e/lights.spec.ts:61:1 › the first card shows the rule set, the progress, the hearts and seven answers (485ms)
-  ✓  185 [phone-portrait] › e2e/home.spec.ts:52:1 › the sea-time log link opens the log (194ms)
-  ✓  186 [phone-portrait] › e2e/lights.spec.ts:79:1 › a locked Lights level opens Definitions instead (562ms)
-  ✓  187 [phone-portrait] › e2e/home.spec.ts:81:1 › the front page opens offline after one online visit (500ms)
-  ✓  189 [phone-portrait] › e2e/home.spec.ts:99:1 › the front page opens offline even if only the log was visited online (243ms)
-  ✓  182 [phone-landscape] › e2e/prototypes.spec.ts:521:1 › filters narrow the board to one style and one feature (1.5s)
-  ✓  190 [phone-portrait] › e2e/home.spec.ts:119:3 › at iPhone width › both links are big, on screen, and nothing scrolls sideways (316ms)
-  ✓  148 [phone-landscape] › e2e/rules.spec.ts:81:1 › a clean run names every vessel and clears with three stars (12.3s)
-  ✓  192 [phone-portrait] › e2e/log.spec.ts:53:1 › the log opens with no account and talks to no other server (138ms)
-  ✓  194 [phone-portrait] › e2e/log.spec.ts:72:1 › the check-in button is big and sits where a thumb reaches (128ms)
-  ✓  195 [phone-portrait] › e2e/log.spec.ts:86:1 › the log opens offline after one online visit (154ms)
-  ✓  196 [phone-portrait] › e2e/log.spec.ts:97:1 › a saved entry survives a reload, online and offline (218ms)
-  ✓  197 [phone-portrait] › e2e/log.spec.ts:124:1 › the store refuses bad entries, soft-deletes and leaves the outbox empty (175ms)
-  ✓  198 [phone-portrait] › e2e/log.spec.ts:221:1 › version 3 of the database keeps the entries and outbox stores as version 1 made them (125ms)
-  ✓  199 [phone-portrait] › e2e/log.spec.ts:265:1 › a newer database from another tab is never opened by older code (155ms)
-  ✓  191 [phone-landscape] › e2e/prototypes.spec.ts:533:1 › export writes your dots to a file, and import refuses a file that is not a board (1.5s)
-  ✓  200 [phone-portrait] › e2e/log.spec.ts:287:1 › a new cache name keeps what the old cache held, so earlier offline pages still open (131ms)
-  ✓  201 [phone-landscape] › e2e/prototypes.spec.ts:566:1 › with storage blocked, the page says the board is not saved (211ms)
-  ✓  202 [phone-portrait] › e2e/prototypes-live.spec.ts:35:1 › the index lists every category in all three variants (178ms)
-  ✓  203 [phone-landscape] › e2e/prototypes.spec.ts:579:1 › reference keeps the boards, the playable example and the missing styles off the board (304ms)
-  ✓  153 [phone-landscape] › e2e/lights.spec.ts:148:1 › a muted run plays through with the keys, the same as a loud one (10.6s)
-  ✓  205 [phone-landscape] › e2e/prototypes.spec.ts:600:1 › the offline cache never stores the board or its images (413ms)
-  ✓  204 [phone-portrait] › e2e/prototypes-live.spec.ts:49:3 › Captain's Console: A, B and C open, fit the screen and switch (1.4s)
-  ✓  208 [phone-portrait] › e2e/prototypes-live.spec.ts:49:3 › License Navigator & Forms: A, B and C open, fit the screen and switch (1.4s)
-  ✓  209 [phone-portrait] › e2e/prototypes-live.spec.ts:49:3 › Sea-Time Logbook: A, B and C open, fit the screen and switch (1.4s)
-  ✓  207 [phone-landscape] › e2e/prototypes.spec.ts:631:1 › the board and the viewer pass axe with no violations (4.0s)
-  ✓  210 [phone-portrait] › e2e/prototypes-live.spec.ts:49:3 › Study & Exam Prep: A, B and C open, fit the screen and switch (1.3s)
-  ✓  211 [phone-portrait] › e2e/prototypes.spec.ts:126:1 › every listed image and preview loads, at the size of the file in the repo (1.3s)
-  ✓  212 [phone-portrait] › e2e/prototypes-live.spec.ts:49:3 › Arcade & Simulations: A, B and C open, fit the screen and switch (1.3s)
-  ✓  214 [phone-portrait] › e2e/prototypes-live.spec.ts:82:1 › a variant links back to its screenshot on the Decision Desk (307ms)
-  ✓  215 [phone-portrait] › e2e/prototypes-live.spec.ts:89:1 › category chips narrow the board, and the choice has its own link (300ms)
-  ✓  216 [phone-portrait] › e2e/prototypes-live.spec.ts:108:1 › a variant screenshot opens with an A/B/C switcher and its interactive prototype (356ms)
-  ✓  206 [phone-landscape] › e2e/lights.spec.ts:168:1 › running out of hearts ends the run with no stars (10.1s)
-  ✓  213 [phone-portrait] › e2e/prototypes.spec.ts:163:1 › a dot lands where you tap in the viewer, five at most, and you can take one back (5.4s)
-  ✓  188 [phone-portrait] › e2e/lights.spec.ts:85:1 › a clean run names every vessel, cites each rule and clears with three stars (14.4s)
-  ✓  193 [phone-landscape] › e2e/rules.spec.ts:116:1 › a wrong answer costs a heart, explains the rule, and the card comes back (14.8s)
-  ✓  219 [phone-portrait] › e2e/prototypes.spec.ts:218:1 › others' dots stay hidden until you finish voting, then the heat ranks concepts with ties (2.7s)
-  ✓  222 [phone-portrait] › e2e/prototypes.spec.ts:258:1 › only the decider makes the call, with a reason (1.7s)
-  ✓  223 [phone-portrait] › e2e/prototypes.spec.ts:274:1 › the viewer fills the screen, keeps proportions, closes with Escape, links an extracted detail to its board, and shows notes as text (1.0s)
-  ✓  224 [phone-portrait] › e2e/prototypes.spec.ts:333:1 › the viewer steps through the board with the arrow keys, a swipe and its buttons (452ms)
-  ✓  225 [phone-portrait] › e2e/prototypes.spec.ts:386:1 › images keep their space, show their color until they load, and the first screen loads at once (1.8s)
-  ✓  217 [phone-portrait] › e2e/prototypes-live.spec.ts:144:1 › the prototype index and every primary screen pass axe (12.1s)
-  ✓  226 [phone-portrait] › e2e/prototypes.spec.ts:429:1 › the board groups concepts by screen under headers that stick while scrolling (296ms)
-  ✓  227 [phone-portrait] › e2e/rules.spec.ts:58:1 › the first card shows the rule set, the progress, the hearts and five answers (431ms)
-  ✓  221 [phone-landscape] › e2e/rules.spec.ts:158:1 › Pause keeps the explanation on screen until the player presses Next (7.4s)
-  ✓  218 [phone-landscape] › e2e/lights.spec.ts:183:1 › the page passes axe with no violations on the question, the replay and the end (10.9s)
-  ✓  228 [phone-portrait] › e2e/prototypes.spec.ts:461:1 › every control on the board and in the viewer is at least 44px each way (1.5s)
-  ✓  231 [phone-landscape] › e2e/lights.spec.ts:203:1 › every visible text meets its contrast token pair (345ms)
-  ✓  232 [phone-portrait] › e2e/prototypes.spec.ts:487:1 › a thumbs up or down from the viewer shows on the tile and in the heat, and closes for the call (2.3s)
-  ✓  233 [phone-landscape] › e2e/lights.spec.ts:247:1 › every control is a big enough tap target (3.2s)
-  ✓  234 [phone-portrait] › e2e/prototypes.spec.ts:521:1 › filters narrow the board to one style and one feature (1.5s)
-  ✓  235 [phone-portrait] › e2e/prototypes.spec.ts:533:1 › export writes your dots to a file, and import refuses a file that is not a board (1.6s)
-  ✓  237 [phone-portrait] › e2e/prototypes.spec.ts:566:1 › with storage blocked, the page says the board is not saved (189ms)
-  ✓  238 [phone-portrait] › e2e/prototypes.spec.ts:579:1 › reference keeps the boards, the playable example and the missing styles off the board (273ms)
-  ✓  236 [phone-portrait] › e2e/vessels.spec.ts:41:1 › a vessel is added, filled in later, and survives reloads online and offline (1.4s)
-  ✓  239 [phone-portrait] › e2e/prototypes.spec.ts:600:1 › the offline cache never stores the board or its images (408ms)
-  ✓  240 [phone-portrait] › e2e/vessels.spec.ts:134:1 › a vessel is soft-deleted with two taps and stays gone after a reload (934ms)
-  ✓  220 [phone-portrait] › e2e/lights.spec.ts:113:1 › a wrong answer costs a heart, explains the rule, and the card comes back (16.2s)
-  ✓  242 [phone-portrait] › e2e/vessels.spec.ts:197:1 › a photo still being prepared is never saved late, or onto another vessel (1.9s)
-  ✓  230 [phone-landscape] › e2e/rules.spec.ts:177:1 › running out of hearts ends the run with no stars (10.0s)
-  ✓  244 [phone-portrait] › e2e/vessels.spec.ts:278:1 › two quick taps on Save add a new vessel once (457ms)
-  ✓  246 [phone-portrait] › e2e/vessels.spec.ts:300:1 › the form says what to fix and saves nothing until it is right (393ms)
-  ✓  247 [phone-portrait] › e2e/vessels.spec.ts:316:1 › only official tonnage can be entered, with no estimate anywhere (116ms)
-  ✓  248 [phone-portrait] › e2e/vessels.spec.ts:342:1 › roles are a seeded deck and engine list, and a vessel keeps a default role (274ms)
-  ✓  249 [phone-portrait] › e2e/vessels.spec.ts:405:1 › version 1 upgrades to the current version and keeps its entries (118ms)
-  ✓  241 [phone-portrait] › e2e/prototypes.spec.ts:631:1 › the board and the viewer pass axe with no violations (4.0s)
-  ✓  250 [phone-portrait] › e2e/vessels.spec.ts:481:1 › vessel screens fit one thumb: big controls, save within reach (506ms)
-  ✓  245 [phone-landscape] › e2e/rules.spec.ts:197:1 › keys answer, Enter skips the replay and Esc opens the menu (3.0s)
-  ✓  251 [account-set-up] › e2e/account-set-up.spec.ts:23:1 › send a link, enter the code, see the signed-in state, then sign out (2.0s)
-  ✓  229 [phone-portrait] › e2e/rules.spec.ts:81:1 › a clean run names every vessel and clears with three stars (14.2s)
-  ✓  253 [account-set-up] › e2e/account-set-up.spec.ts:74:1 › a wrong or expired code says so and stays signed out (422ms)
-  ✓  255 [account-set-up] › e2e/account-set-up.spec.ts:86:1 › offline, the screen says sign-in needs a connection (416ms)
-  ✓  243 [phone-portrait] › e2e/lights.spec.ts:148:1 › a muted run plays through with the keys, the same as a loud one (10.5s)
-  ✓  252 [phone-landscape] › e2e/rules.spec.ts:219:1 › the page passes axe with no violations on the question, the replay and the end (9.8s)
-  ✓  257 [phone-landscape] › e2e/rules.spec.ts:239:1 › every visible text meets its contrast token pair (286ms)
-  ✓  258 [phone-landscape] › e2e/rules.spec.ts:286:1 › every control is a big enough tap target (3.0s)
-  ✓  259 [phone-landscape] › e2e/rules.spec.ts:317:1 › reduced motion keeps every state, with no shake and a countdown in words (1.5s)
-  ✓  256 [phone-portrait] › e2e/lights.spec.ts:168:1 › running out of hearts ends the run with no stars (9.8s)
-  ✓  254 [phone-portrait] › e2e/rules.spec.ts:116:1 › a wrong answer costs a heart, explains the rule, and the card comes back (14.6s)
-  ✓  261 [phone-portrait] › e2e/rules.spec.ts:158:1 › Pause keeps the explanation on screen until the player presses Next (7.3s)
-  ✓  260 [phone-portrait] › e2e/lights.spec.ts:183:1 › the page passes axe with no violations on the question, the replay and the end (11.1s)
-  ✓  263 [phone-portrait] › e2e/lights.spec.ts:203:1 › every visible text meets its contrast token pair (276ms)
-  ✓  264 [phone-portrait] › e2e/lights.spec.ts:247:1 › every control is a big enough tap target (3.1s)
-  ✓  262 [phone-portrait] › e2e/rules.spec.ts:177:1 › running out of hearts ends the run with no stars (9.8s)
-  ✓  265 [phone-portrait] › e2e/rules.spec.ts:197:1 › keys answer, Enter skips the replay and Esc opens the menu (2.9s)
-  ✓  266 [phone-portrait] › e2e/rules.spec.ts:219:1 › the page passes axe with no violations on the question, the replay and the end (9.7s)
-  ✓  267 [phone-portrait] › e2e/rules.spec.ts:239:1 › every visible text meets its contrast token pair (249ms)
-  ✓  268 [phone-portrait] › e2e/rules.spec.ts:286:1 › every control is a big enough tap target (3.0s)
-  ✓  269 [phone-portrait] › e2e/rules.spec.ts:317:1 › reduced motion keeps every state, with no shake and a countdown in words (1.4s)
+  ✓   2 [desktop] › e2e/prototypes.spec.ts:126:1 › every listed image and preview loads, at the size of the file in the repo (964ms)
+  ✓   1 [phone-landscape] › e2e/prototypes.spec.ts:126:1 › every listed image and preview loads, at the size of the file in the repo (968ms)
+  ✓   3 [desktop] › e2e/prototypes.spec.ts:163:1 › a dot lands where you tap in the viewer, five at most, and you can take one back (5.1s)
+  ✓   4 [phone-landscape] › e2e/prototypes.spec.ts:163:1 › a dot lands where you tap in the viewer, five at most, and you can take one back (5.1s)
+  ✓   5 [desktop] › e2e/prototypes.spec.ts:218:1 › others' dots stay hidden until you finish voting, then the heat ranks concepts with ties (2.7s)
+  ✓   6 [phone-landscape] › e2e/prototypes.spec.ts:218:1 › others' dots stay hidden until you finish voting, then the heat ranks concepts with ties (2.7s)
+  ✓   8 [phone-landscape] › e2e/prototypes.spec.ts:258:1 › only the decider makes the call, with a reason (1.7s)
+  ✓   7 [desktop] › e2e/prototypes.spec.ts:258:1 › only the decider makes the call, with a reason (1.7s)
+  ✓   9 [phone-landscape] › e2e/prototypes.spec.ts:274:1 › the viewer fills the screen, keeps proportions, closes with Escape, links an extracted detail to its board, and shows notes as text (1.0s)
+  ✓  10 [desktop] › e2e/prototypes.spec.ts:274:1 › the viewer fills the screen, keeps proportions, closes with Escape, links an extracted detail to its board, and shows notes as text (1.1s)
+  ✓  11 [phone-landscape] › e2e/prototypes.spec.ts:333:1 › the viewer steps through the board with the arrow keys, a swipe and its buttons (367ms)
+  ✓  12 [desktop] › e2e/prototypes.spec.ts:333:1 › the viewer steps through the board with the arrow keys, a swipe and its buttons (439ms)
+  ✓  13 [phone-landscape] › e2e/prototypes.spec.ts:386:1 › images keep their space, show their color until they load, and the first screen loads at once (1.5s)
+  ✓  14 [desktop] › e2e/prototypes.spec.ts:386:1 › images keep their space, show their color until they load, and the first screen loads at once (1.5s)
+  ✓  15 [phone-landscape] › e2e/prototypes.spec.ts:429:1 › the board groups concepts by screen under headers that stick while scrolling (388ms)
+  ✓  16 [desktop] › e2e/prototypes.spec.ts:429:1 › the board groups concepts by screen under headers that stick while scrolling (286ms)
+  ✓  17 [phone-landscape] › e2e/prototypes.spec.ts:461:1 › every control on the board and in the viewer is at least 44px each way (1.4s)
+  ✓  18 [desktop] › e2e/prototypes.spec.ts:461:1 › every control on the board and in the viewer is at least 44px each way (1.4s)
+  ✓  19 [phone-landscape] › e2e/prototypes.spec.ts:487:1 › a thumbs up or down from the viewer shows on the tile and in the heat, and closes for the call (2.2s)
+  ✓  20 [desktop] › e2e/prototypes.spec.ts:487:1 › a thumbs up or down from the viewer shows on the tile and in the heat, and closes for the call (2.2s)
+  ✓  21 [phone-landscape] › e2e/prototypes.spec.ts:521:1 › filters narrow the board to one style and one feature (1.5s)
+  ✓  22 [desktop] › e2e/prototypes.spec.ts:521:1 › filters narrow the board to one style and one feature (1.5s)
+  ✓  23 [phone-landscape] › e2e/prototypes.spec.ts:533:1 › export writes your dots to a file, and import refuses a file that is not a board (1.6s)
+  ✓  24 [desktop] › e2e/prototypes.spec.ts:533:1 › export writes your dots to a file, and import refuses a file that is not a board (1.5s)
+  ✓  25 [phone-landscape] › e2e/prototypes.spec.ts:566:1 › with storage blocked, the page says the board is not saved (169ms)
+  ✓  26 [desktop] › e2e/prototypes.spec.ts:566:1 › with storage blocked, the page says the board is not saved (164ms)
+  ✓  27 [phone-landscape] › e2e/prototypes.spec.ts:579:1 › reference keeps the boards, the playable example and the missing styles off the board (268ms)
+  ✓  28 [desktop] › e2e/prototypes.spec.ts:579:1 › reference keeps the boards, the playable example and the missing styles off the board (248ms)
+  ✓  30 [desktop] › e2e/prototypes.spec.ts:600:1 › the offline cache never stores the board or its images (292ms)
+  ✓  29 [phone-landscape] › e2e/prototypes.spec.ts:600:1 › the offline cache never stores the board or its images (402ms)
+  ✓  32 [phone-landscape] › e2e/prototypes.spec.ts:631:1 › the board and the viewer pass axe with no violations (3.7s)
+  ✓  31 [desktop] › e2e/prototypes.spec.ts:631:1 › the board and the viewer pass axe with no violations (3.8s)
+  ✓  33 [phone-portrait] › e2e/prototypes.spec.ts:126:1 › every listed image and preview loads, at the size of the file in the repo (720ms)
+  ✓  34 [phone-portrait] › e2e/prototypes.spec.ts:163:1 › a dot lands where you tap in the viewer, five at most, and you can take one back (5.1s)
+  ✓  35 [phone-portrait] › e2e/prototypes.spec.ts:218:1 › others' dots stay hidden until you finish voting, then the heat ranks concepts with ties (2.6s)
+  ✓  36 [phone-portrait] › e2e/prototypes.spec.ts:258:1 › only the decider makes the call, with a reason (1.7s)
+  ✓  37 [phone-portrait] › e2e/prototypes.spec.ts:274:1 › the viewer fills the screen, keeps proportions, closes with Escape, links an extracted detail to its board, and shows notes as text (1.7s)
+  ✓  38 [phone-portrait] › e2e/prototypes.spec.ts:333:1 › the viewer steps through the board with the arrow keys, a swipe and its buttons (387ms)
+  ✓  39 [phone-portrait] › e2e/prototypes.spec.ts:386:1 › images keep their space, show their color until they load, and the first screen loads at once (1.7s)
+  ✓  40 [phone-portrait] › e2e/prototypes.spec.ts:429:1 › the board groups concepts by screen under headers that stick while scrolling (242ms)
+  ✓  41 [phone-portrait] › e2e/prototypes.spec.ts:461:1 › every control on the board and in the viewer is at least 44px each way (1.4s)
+  ✓  42 [phone-portrait] › e2e/prototypes.spec.ts:487:1 › a thumbs up or down from the viewer shows on the tile and in the heat, and closes for the call (2.2s)
+  ✓  43 [phone-portrait] › e2e/prototypes.spec.ts:521:1 › filters narrow the board to one style and one feature (1.5s)
+  ✓  44 [phone-portrait] › e2e/prototypes.spec.ts:533:1 › export writes your dots to a file, and import refuses a file that is not a board (1.6s)
+  ✓  45 [phone-portrait] › e2e/prototypes.spec.ts:566:1 › with storage blocked, the page says the board is not saved (152ms)
+  ✓  46 [phone-portrait] › e2e/prototypes.spec.ts:579:1 › reference keeps the boards, the playable example and the missing styles off the board (233ms)
+  ✓  47 [phone-portrait] › e2e/prototypes.spec.ts:600:1 › the offline cache never stores the board or its images (380ms)
+  ✓  48 [phone-portrait] › e2e/prototypes.spec.ts:631:1 › the board and the viewer pass axe with no violations (3.6s)
 
-  269 passed (2.9m)
+  48 passed (1.0m)
+[exit 0]
 
-==> npm audit --omit=dev
+$ npm audit --omit=dev
 found 0 vulnerabilities
-
-verify.sh passed: 9 step(s) ran, 0 skipped.
 [exit 0]

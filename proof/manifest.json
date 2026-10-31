@@ -1,29 +1,54 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#87",
-  "sourceDigest": "sha256:b4cba0c3311dcbc4d691d5995c0828bd574c86d8b1e953ae8d6308fc2ddf619e",
-  "capturedAt": "2026-10-27T23:45:39Z",
+  "ticket": "Etdev2/Captains-academy-#91",
+  "sourceDigest": "sha256:7c02b8b0e8e4c8eb09d8b3fdcd2eee9eee4a562e38963391efb5d61f4bd5e61f",
+  "capturedAt": "2026-10-31T18:19:45Z",
   "result": "PASS",
   "verification": {
-    "command": "bash scripts/verify.test.sh",
-    "fixture": "The /account/ screen and front page Account link from #87, in a complete checkout of main at fc15d4d plus this branch, with the Auth API mocked by e2e/auth-mock.ts, on Node 22.23.4"
+    "command": "npx --no-install tsc --noEmit",
+    "fixture": "prototype/infrastructure on main fc15d4d: docs/prototypes/infrastructure/ (page, PDFs, CSV, prompts, build scripts), four Reference items in docs/prototypes/inventory.json with INVENTORY.md and one thumbnail, two README rows and a count in decision-board.md"
   },
   "commands": [
     {
-      "command": "bash scripts/verify.test.sh",
+      "command": "npx --no-install tsc --noEmit",
       "exitCode": 0
     },
     {
-      "command": "bash scripts/verify.sh",
+      "command": "npx --no-install eslint . --max-warnings=0",
+      "exitCode": 0
+    },
+    {
+      "command": "npx --no-install prettier --check .",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run --silent validate:missions",
+      "exitCode": 0
+    },
+    {
+      "command": "npx --no-install vitest run",
+      "exitCode": 0
+    },
+    {
+      "command": "npx --no-install vite build",
+      "exitCode": 0
+    },
+    {
+      "command": "npx --no-install playwright test e2e/prototypes.spec.ts --workers=2 --retries=1",
+      "exitCode": 0
+    },
+    {
+      "command": "npm audit --omit=dev",
       "exitCode": 0
     }
   ],
-  "behaviorChanged": true,
+  "behaviorChanged": false,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.test.sh and verify.sh pass, including e2e/account.spec.ts (no Supabase settings) and e2e/account-set-up.spec.ts (link, code, signed in, sign out, offline, axe) and the auth unit tests"
+      "shows": "Type check, lint, Prettier, mission validation, every unit test, the production build and the decision board browser tests all pass with the new inventory items, and npm audit finds nothing. The infrastructure folder is docs; no app code changed"
     }
-  ]
+  ],
+  "noBehaviorReason": "Docs and inventory only. The decision board gains four Reference items that nobody dots; no screen, rule, mission or replay changed"
 }
