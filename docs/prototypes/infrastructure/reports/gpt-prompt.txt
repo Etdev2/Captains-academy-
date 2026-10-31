@@ -1,0 +1,18 @@
+You are reviewing an infrastructure plan written by Claude. Your job is to find what is wrong, missing or risky. Do not rewrite the plan.
+
+Files in /Users/et/ai-studio-plan/:
+- 01-infrastructure-design.pdf and .html
+- 02-financials.pdf and .html, financials.csv
+- src/build.py, the single source of every number
+
+The plan: six people, each with a personal Claude Max 20x account and a Claude Team premium seat (twelve accounts). One studio hub (Et's MacBook Pro now, a Mac Studio M5 Max later) runs T3 Code for each person in a separate macOS user, plus a shared eval runner, git worktrees and a results ledger. The goal is hill-climbing loops: generate K code variants in parallel, score them with the same tests, keep the winner only if it beats the best by a noise margin, have GPT review the winner, merge, repeat.
+
+Check these, using current primary sources (vendor pricing pages, terms of service, official docs). Cite the URL for every claim you make.
+1. Prices: Max 20x $200/mo with $200/mo API credit; Team premium $125 monthly or $100 annual per seat; Team minimum seats. Apple base prices for Mac Studio M5 Max ($2,499), Mac mini M5 Pro ($1,699), Mac mini M6 ($899).
+2. Terms: may personal Max accounts do company work? May subscription logins drive scheduled or unattended loops, or must those use API keys? May one person's included API credit pay for company work?
+3. T3 Code: can one Mac run six macOS users with T3 Code reachable through T3 Connect at the same time? Does T3 support two Claude provider entries per user, one per account? What does T3 Connect cost?
+4. Hill-climb design: is the keep rule sound? Is the noise margin method enough? What stops a variant from gaming the metric?
+5. Arithmetic: recompute every total in the financials from build.py.
+6. Anything that would make this setup fail in its first week.
+
+Do not edit the plan files. Write your findings to /Users/et/ai-studio-plan/gpt-review.md with three sections: Errors (wrong facts or math, with the fix), Risks (ranked, with what to do), Confirmed (what you checked and found correct). Mark each finding as verified, with a source, or as a judgment call.
