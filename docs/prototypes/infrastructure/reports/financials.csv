@@ -1,0 +1,31 @@
+section,item,quantity,unit_price,billing,monthly_total,annual_total,paid_by,status
+subscriptions,"Claude Ultra, personal (formerly Max 20x)",6,200,monthly,1200,14400,each person,verified
+subscriptions,Claude Team premium seat,6,125,monthly,750,9000,company,verified
+subscriptions,Claude Team premium seat,6,100,annual,600,7200,company,verified
+subscriptions,"ChatGPT Pro 200, personal",6,200,monthly,1200,14400,each person,check
+subscriptions,ChatGPT Business premium seat,6,125,monthly,750,9000,company,check
+subscriptions,ChatGPT Business premium seat,6,100,annual,600,7200,company,check
+hardware:recommended,"AMD Ryzen 9 9950X, 16 cores",1,549,one-time,,549,company,check
+hardware:recommended,64 GB DDR5 (two 32 GB sticks),1,880,one-time,,880,company,check
+hardware:recommended,AM5 motherboard with 2.5 Gb Ethernet,1,230,one-time,,230,company,estimate
+hardware:recommended,2 TB NVMe SSD,1,200,one-time,,200,company,estimate
+hardware:recommended,"Case, 850 W power supply and air cooler",1,250,one-time,,250,company,estimate
+hardware:recommended,"UPS, 1500 VA line-interactive",1,250,one-time,,250,company,estimate
+hardware:recommended,"Backup drive, 8 TB",1,180,one-time,,180,company,estimate
+hardware:recommended,Gigabit switch and Ethernet cables,1,60,one-time,,60,company,estimate
+hardware:middle,"Framework Desktop DIY edition, 128 GB",1,3449,one-time,,3449,company,check
+hardware:middle,2 TB NVMe SSD,1,200,one-time,,200,company,estimate
+hardware:middle,"UPS, 1500 VA line-interactive",1,250,one-time,,250,company,estimate
+hardware:middle,"Backup drive, 8 TB",1,180,one-time,,180,company,estimate
+hardware:middle,Gigabit switch and Ethernet cables,1,60,one-time,,60,company,estimate
+hardware:minimum,"Framework Desktop DIY edition, 32 GB",1,1139,one-time,,1139,company,check
+hardware:minimum,1 TB NVMe SSD,1,120,one-time,,120,company,estimate
+hardware:minimum,"UPS, 1500 VA line-interactive",1,250,one-time,,250,company,estimate
+hardware:minimum,"Backup drive, 8 TB",1,180,one-time,,180,company,estimate
+hardware:minimum,Gigabit switch and Ethernet cables,1,60,one-time,,60,company,estimate
+backup,Offsite cloud backup,1,99,annual,,99,company,estimate
+summary,Individual accounts (Ultra + ChatGPT Pro),,,,2400,28800,each person,
+summary,"Team seats, annual (Claude Team + ChatGPT Business)",,,,1200,14400,company,
+summary,"Combined subscriptions, team seats annual",,,,3600,43200,,
+summary,"Year 1 total, recommended hub",,,,,45898,,
+summary,All-in year 1 (adds API reserve and Tailscale),,,,,48874,,
