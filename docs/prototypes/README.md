@@ -10,6 +10,7 @@ Nothing here is a decision. Settled decisions live in [`docs/product/DECISIONS.m
 | [`interactive/`](interactive/README.md) | Interactive prototypes at `/prototypes/live/`: five categories (Console, License & Forms, Sea Time, Study, Arcade), each in variants A Night Bridge, B Clean & Light and C Guided Mentor. `images/` holds screenshots of the implementation, not reference images | 26 October 2026 |
 | [`arcade-handoff.md`](arcade-handoff.md) | Handoff of the arcade game to Nick: levels 1 to 3 as built and Elliott's view of each, the arcade prototypes on the board, decisions and open issues | 27 October 2026 |
 | [`frontend-directions/`](frontend-directions/README.md) | ChatGPT's frontend directions: the seven page images from its PDF, the comparison-board rows cut out as extracted details, and the three named directions that were not supplied | 25 October 2026 |
+| [`infrastructure/`](infrastructure/README.md) | Team tooling, not the game: the infrastructure prototype page for the six-person AI coding setup, its infrastructure map, hill-climbing loop, financials, GPT review and prototype prompts | 31 October 2026 |
 
 ## Decision board
 

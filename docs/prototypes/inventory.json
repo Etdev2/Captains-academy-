@@ -1964,6 +1964,64 @@
       "availability": "available",
       "notes": "Playable prototype. Fake 3-D in Phaser, a Three.js helm view, and a Three.js stand-in for Unity-level detail, all steering one boat. Its physics is a stand-in, not src/sim. A 3-D view would need an ADR 0001 change (DECISIONS.md G2 keeps the game 2D first).",
       "interactive": "/prototypes/play/helm-view-options.html"
+    },
+    {
+      "id": "infra-map",
+      "title": "Infrastructure map: six people, 24 accounts, one Linux hub",
+      "source": "docs/prototypes/infrastructure/src/build.py, architecture_svg(), rendered 2026-10-31",
+      "device": "Diagram",
+      "image": "docs/prototypes/infrastructure/images/infrastructure-map.png",
+      "width": 1480,
+      "height": 1240,
+      "color": "#ffffff",
+      "notes": "Team tooling, not the game. The interactive page with the decisions and cost calculator is docs/prototypes/infrastructure/playable/infrastructure-prototype.html. Open it from a checkout.",
+      "creator": "Claude",
+      "style": "Plan (Claude)",
+      "feature": "Infrastructure",
+      "kind": "reference",
+      "availability": "available"
+    },
+    {
+      "id": "infra-doc-design",
+      "title": "Infrastructure design (PDF)",
+      "source": "docs/prototypes/infrastructure/reports/01-infrastructure-design.pdf",
+      "device": "Document",
+      "image": null,
+      "document": "docs/prototypes/infrastructure/reports/01-infrastructure-design.pdf",
+      "notes": "Map, hill-climbing loop, account roles, Linux hub hardware and software, rollout.",
+      "creator": "Claude",
+      "style": "Plan (Claude)",
+      "feature": "Infrastructure",
+      "kind": "reference",
+      "availability": "available"
+    },
+    {
+      "id": "infra-doc-financials",
+      "title": "Infrastructure financials (PDF)",
+      "source": "docs/prototypes/infrastructure/reports/02-financials.pdf",
+      "device": "Document",
+      "image": null,
+      "document": "docs/prototypes/infrastructure/reports/02-financials.pdf",
+      "notes": "Individual and team totals for 24 accounts, scenarios, year 1 by hub choice.",
+      "creator": "Claude",
+      "style": "Plan (Claude)",
+      "feature": "Infrastructure",
+      "kind": "reference",
+      "availability": "available"
+    },
+    {
+      "id": "infra-doc-gpt-review",
+      "title": "GPT review of the infrastructure plan (PDF)",
+      "source": "docs/prototypes/infrastructure/reports/04-gpt-review.pdf",
+      "device": "Document",
+      "image": null,
+      "document": "docs/prototypes/infrastructure/reports/04-gpt-review.pdf",
+      "notes": "GPT-6.1-Sol's round 1 findings, on the earlier 12-account Claude-only plan.",
+      "creator": "Claude",
+      "style": "Plan (Claude)",
+      "feature": "Infrastructure",
+      "kind": "reference",
+      "availability": "available"
     }
   ]
 }

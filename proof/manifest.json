@@ -1,24 +1,20 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#89",
-  "sourceDigest": "sha256:681aee5e94d1349ae8d7ed4879e991f1722fdcd9252e913ded65c1c12408a924",
-  "capturedAt": "2026-10-28T01:01:09Z",
+  "sourceDigest": "sha256:b4e547811d2cfea9cfbce74599c1e1e3616e83a3872a21877b1390eafbcf202f",
+  "capturedAt": "2026-11-01T22:00:20Z",
   "result": "PASS",
   "verification": {
-    "command": "bun test --preload /tmp/bunshim/preload.ts tests/prototype-inventory.test.ts tests/prototype-sections.test.ts tests/decision-board.test.ts",
-    "fixture": "This branch on main ba090b1, in a cloud session without npm registry access. Prototype unit tests ran under bun 1.4.4 with /tmp/bunshim/preload.ts standing in for Vite's import.meta.glob, and react linked from the global install; tests/prototype-live.test.ts ran only its Decision Desk and arcade groups because lucide-react could not be installed. The /play build came from bun build with Phaser 4.2.1 dist and zod 4.6.7 source checked out from GitHub, served on 127.0.0.1:4173, and driven by drive.mjs. bash scripts/verify.sh did not run; CI's verify job is the full run."
+    "command": "bash scripts/verify.sh",
+    "fixture": "PR #89's arcade handoff board entries merged with main at e4e9f99 (inventory unioned, INVENTORY.md regenerated with scripts/prototype-inventory.ts, decision-board.md per Et's Nov 1 ruling). Full repository checks under Node 22; the earlier /play drive run was not repeated"
   },
   "commands": [
     {
-      "command": "bun test --preload /tmp/bunshim/preload.ts tests/prototype-inventory.test.ts tests/prototype-sections.test.ts tests/decision-board.test.ts",
+      "command": "bash scripts/verify.test.sh",
       "exitCode": 0
     },
     {
-      "command": "bun test --preload /tmp/bunshim/preload.ts tests/prototype-live.test.ts -t 'arcade levels|Decision Desk'",
-      "exitCode": 0
-    },
-    {
-      "command": "node .claude/skills/verify-captains-academy/drive.mjs http://127.0.0.1:4173/play/ /tmp/cap/shots.steps.json /tmp/cap/proofrun",
+      "command": "bash scripts/verify.sh",
       "exitCode": 0
     }
   ],
@@ -27,7 +23,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "The board's inventory, sections and Docking links pass their unit tests, and the current /play build drives through levels 1, 2 and 3 on desktop and phone landscape, the frames used for the new board images."
+      "shows": "verify.test.sh and verify.sh (tsc, eslint, prettier, vitest incl. prototype inventory and decision board tests, vite build, playwright smoke) pass on the merged tree"
     }
   ]
 }
