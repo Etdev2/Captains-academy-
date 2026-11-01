@@ -1,0 +1,910 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>Night Harbor Run</title>
+<!-- Playable prototype from 21 to 22 October 2026, copied from docs/prototypes/rules-of-the-road/playable/ for the decision board. Design input, not a decision. -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+/* Layout: full-screen bridge view (canvas), HUD strip on top, radar minimap top-right, helm controls along the bottom, quiz sheet rises from the bottom. Single dark look: it is a night bridge. */
+:root{
+  --bg:#050C17; --panel:#0F2236; --panel2:#07111F; --line:#2C4A68; --ink:#EAF2FA; --mute:#9DB2C8;
+  --gold:#F5C542; --blue:#4DB3FF; --blue2:#8FD0FF; --miss:#B48CFF; --miss2:#C9B3FF;
+  --display:'Barlow Condensed','Roboto Condensed','Arial Narrow','Helvetica Neue',system-ui,sans-serif; --body:Barlow,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  color-scheme:dark;
+}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none}
+#app{position:fixed;inset:0;overflow:hidden}
+#view{position:absolute;inset:0;width:100%;height:100%;display:block}
+button{font-family:var(--body);color:var(--ink);cursor:pointer}
+button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.chip{font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid var(--blue);color:var(--blue2);white-space:nowrap}
+
+#hud{position:absolute;left:0;right:0;top:0;padding-top:calc(8px + env(safe-area-inset-top,0px));padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));display:flex;gap:10px;align-items:center;flex-wrap:wrap;pointer-events:none}
+.stat{background:rgba(7,17,31,.78);border:1px solid var(--line);border-radius:10px;padding:4px 10px;display:flex;flex-direction:column;line-height:1.1}
+.stat b{font-family:var(--display);font-size:20px;font-variant-numeric:tabular-nums}
+.stat span{font-size:10px;letter-spacing:1px;color:var(--mute);text-transform:uppercase}
+#legname{flex:1;min-width:0;font-size:13px;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#mini{position:absolute;right:max(12px,env(safe-area-inset-right,0px));top:calc(64px + env(safe-area-inset-top,0px));width:170px;height:150px;border-radius:12px;border:1px solid var(--line);background:rgba(7,17,31,.82)}
+#minilabel{position:absolute;right:calc(max(12px,env(safe-area-inset-right,0px)) + 8px);top:calc(68px + env(safe-area-inset-top,0px));font-size:10px;letter-spacing:1px;color:var(--mute);pointer-events:none}
+
+#toast{position:absolute;left:50%;top:calc(70px + env(safe-area-inset-top,0px));transform:translateX(-50%);background:var(--panel2);border:1px solid var(--gold);color:var(--ink);padding:8px 14px;border-radius:10px;font-weight:600;font-size:14px;max-width:min(80vw,460px);text-align:center;pointer-events:none}
+#toast.bad{border-color:var(--miss);color:var(--miss2)}
+#signal{position:absolute;left:50%;top:calc(116px + env(safe-area-inset-top,0px));transform:translateX(-50%);background:rgba(7,17,31,.9);border:1px solid var(--blue);border-radius:12px;padding:8px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;pointer-events:none}
+#signal .lbl{font-size:12px;color:var(--blue2);letter-spacing:.5px}
+#blasts{display:flex;gap:8px;align-items:center}
+#blasts i{display:block;height:12px;border-radius:3px;background:var(--line)}
+#blasts i.on{background:var(--blue);box-shadow:0 0 12px var(--blue)}
+
+#controls{position:absolute;left:0;right:0;bottom:0;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));display:flex;align-items:flex-end;justify-content:space-between;gap:10px;pointer-events:none}
+#controls > *{pointer-events:auto}
+.grp{display:flex;gap:8px;align-items:flex-end}
+.big{width:72px;height:72px;border-radius:18px;border:1px solid var(--line);background:rgba(15,34,54,.88);font-size:26px;display:flex;align-items:center;justify-content:center;touch-action:none}
+.big:active,.big.held{background:var(--blue);color:var(--panel2)}
+#call{min-width:120px;height:56px;border-radius:16px;border:none;background:var(--gold);color:var(--panel2);font-family:var(--display);font-size:22px;font-weight:700;letter-spacing:.5px}
+#call:disabled{background:var(--panel);color:var(--mute);border:1px solid var(--line)}
+.thr{display:flex;flex-direction:column;align-items:center;gap:6px}
+.thr .small{width:56px;height:44px;border-radius:12px;border:1px solid var(--line);background:rgba(15,34,54,.88);font-size:22px}
+#thrv{font-family:var(--display);font-size:16px;color:var(--ink);background:rgba(7,17,31,.8);padding:2px 8px;border-radius:8px;font-variant-numeric:tabular-nums}
+.toggles{display:flex;flex-direction:column;gap:6px}
+.tg{min-height:36px;padding:0 10px;border-radius:10px;border:1px solid var(--line);background:rgba(7,17,31,.85);font-size:12px}
+.tg[aria-pressed="true"]{border-color:var(--blue);color:var(--blue2)}
+
+.sheet{position:absolute;left:50%;transform:translateX(-50%);bottom:0;width:min(600px,100%);max-height:64%;overflow:auto;background:var(--panel);border:1px solid var(--line);border-bottom:none;border-radius:20px 20px 0 0;padding:16px max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));box-sizing:border-box;display:flex;flex-direction:column;gap:12px;box-shadow:0 -20px 60px rgba(0,0,0,.6)}
+.qhead{display:flex;justify-content:space-between;gap:10px;font-size:12px;letter-spacing:1px;color:var(--mute);text-transform:uppercase;font-weight:600}
+.sheet h2{margin:0;font-family:var(--display);font-size:24px;line-height:1.15;text-wrap:balance}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.opt{min-height:56px;text-align:left;padding:8px 12px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);font-size:15px;font-weight:500;line-height:1.25}
+.opt:hover:not(:disabled){border-color:var(--blue)}
+.opt.right{border:2px solid var(--gold);background:var(--gold);color:var(--panel2);font-weight:700}
+.opt.wrong{border:2px solid var(--miss);color:var(--miss2);text-decoration:line-through}
+.opt:disabled{cursor:default}
+#qfb{display:flex;flex-direction:column;gap:8px;border-radius:14px;background:var(--panel2);padding:12px}
+#qverdict{font-family:var(--display);font-size:20px;font-weight:700}
+#qsay{font-family:var(--display);font-size:24px;font-weight:700;color:var(--ink);display:flex;gap:8px;align-items:flex-start}
+#qsay svg{flex:none;margin-top:5px}
+#qwhy{margin:0;font-size:15px;line-height:1.45;color:var(--ink)}
+#qrule{font-size:12px;font-weight:700;letter-spacing:1px;color:var(--gold);text-transform:uppercase}
+.primary{min-height:52px;border-radius:12px;border:none;background:var(--gold);color:var(--panel2);font-weight:700;font-size:16px}
+
+.screen{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 35%,rgba(15,34,54,.9),rgba(5,12,23,.97) 70%);display:flex;align-items:center;justify-content:center;overflow:auto;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));box-sizing:border-box}
+.card{width:min(640px,100%);display:flex;flex-direction:column;gap:14px;margin:auto}
+.eyebrow{font-size:12px;letter-spacing:2px;color:var(--mute);font-weight:600;text-transform:uppercase}
+.card h1{margin:0;font-family:var(--display);font-size:clamp(40px,9vw,64px);line-height:.95;text-wrap:balance}
+.card h1 em{font-style:normal;color:var(--gold)}
+.card p{margin:0;font-size:16px;line-height:1.5;color:var(--ink);max-width:62ch}
+.keys{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;font-size:14px;color:var(--mute)}
+.keys b{color:var(--ink);font-weight:600}
+.note{font-size:13px;color:var(--mute);line-height:1.45;border-left:0;border-top:1px solid var(--line);padding-top:10px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.lights-key{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--mute)}
+.lights-key span{display:flex;align-items:center;gap:6px}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.results{display:flex;flex-direction:column;gap:6px;max-height:40vh;overflow:auto;border-top:1px solid var(--line);padding-top:10px}
+.res{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:8px;align-items:center;font-size:14px}
+.res .n{color:var(--mute);font-variant-numeric:tabular-nums}
+.res .marks{display:flex;gap:4px}
+.mk{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.mk.ok{background:var(--gold);color:var(--panel2)}
+.mk.no{border:1px solid var(--miss);color:var(--miss2)}
+.big-num{font-family:var(--display);font-size:56px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums}
+.stars{font-size:30px;color:var(--gold);letter-spacing:4px}
+.stars .off{color:var(--line)}
+
+@media (max-width:560px){
+  .opts{grid-template-columns:1fr}
+  .big{width:62px;height:62px}
+  #call{min-width:96px;font-size:19px}
+  #mini{width:120px;height:110px}
+  .stat b{font-size:17px}
+  #legname{display:none}
+  #controls > .grp:last-child{flex-direction:column;align-items:flex-end}
+  .toggles{flex-direction:row}
+}
+@media (prefers-reduced-motion:reduce){ #blasts i.on{box-shadow:none} }
+</style>
+
+<div id="app">
+  <canvas id="view" aria-label="Bridge view at night. Other vessels appear only as their navigation lights."></canvas>
+
+  <div id="hud">
+    <div class="stat"><span>Lap</span><b id="hTime">0:00.0</b></div>
+    <div class="stat"><span>Gate</span><b id="hGate">1/15</b></div>
+    <div class="stat"><span>Score</span><b id="hScore">0</b></div>
+    <div class="stat"><span>Speed</span><b id="hSpd">0.0 kn</b></div>
+    <div class="stat"><span>Head</span><b id="hHdg">000°</b></div>
+    <div id="legname"></div>
+    <div class="chip">International rules (COLREGS)</div>
+  </div>
+  <canvas id="mini" aria-label="Radar minimap: course, gates, your boat and radar contacts"></canvas>
+  <div id="minilabel">RADAR</div>
+
+  <div id="toast" hidden></div>
+  <div id="signal" hidden><div class="lbl" id="sigLbl">Horn</div><div id="blasts"></div></div>
+
+  <div id="controls">
+    <div class="grp">
+      <button class="big" id="bL" aria-label="Steer to port">◀</button>
+      <button class="big" id="bR" aria-label="Steer to starboard">▶</button>
+    </div>
+    <button id="call" disabled>CALL IT</button>
+    <div class="grp">
+      <div class="toggles">
+        <button class="tg" id="tAssist" aria-pressed="false">Auto-helm</button>
+        <button class="tg" id="tVoice" aria-pressed="true">Voice</button>
+      </div>
+      <div class="thr">
+        <button class="small" id="tUp" aria-label="More throttle">+</button>
+        <div id="thrv">50%</div>
+        <button class="small" id="tDn" aria-label="Less throttle">−</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet" id="quiz" hidden role="dialog" aria-modal="true" aria-labelledby="qtext">
+    <div class="qhead"><span id="qcp"></span><span id="qstep"></span></div>
+    <h2 id="qtext"></h2>
+    <div class="opts" id="qopts"></div>
+    <div id="qfb" hidden>
+      <div id="qverdict"></div>
+      <div id="qsay"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 10v4h4l6 5V5L7 10z"/><path d="M16 9a4 4 0 0 1 0 6"/></svg><span id="qsayt"></span></div>
+      <p id="qwhy"></p>
+      <div id="qrule"></div>
+      <button class="primary" id="qnext">Continue</button>
+    </div>
+  </div>
+
+  <div class="screen" id="start">
+    <div class="card">
+      <div class="eyebrow">Rules of the Road · Lights and Shapes · Rules 20–31</div>
+      <h1>Night <em>Harbor Run</em></h1>
+      <p>One lap, 15 gates, one encounter at each. Every other vessel shows only her navigation lights, and you only see the lights whose arcs face you. Call what she is, then say what you do. One leg runs by day with shapes, and one runs in fog with nothing but sound.</p>
+      <div class="lights-key">
+        <span><i class="dot" style="background:#fff4dc"></i>White: masthead 225°, stern 135°, all-round 360°</span>
+        <span><i class="dot" style="background:#ff3b30"></i>Red port 112.5°</span>
+        <span><i class="dot" style="background:#2fe07a"></i>Green starboard 112.5°</span>
+        <span><i class="dot" style="background:#ffcf1a"></i>Yellow towing light</span>
+      </div>
+      <div class="keys">
+        <div><b>← →</b> or <b>A D</b>: steer</div>
+        <div><b>↑ ↓</b> or <b>W S</b>: throttle</div>
+        <div><b>Space</b>: call it early (bonus)</div>
+        <div><b>H</b>: auto-helm toward the next gate</div>
+      </div>
+      <div class="row"><button class="primary" id="go" style="padding:0 28px">Start the run</button><span style="font-size:13px;color:var(--mute)">Sound on: horns and spoken answers</span></div>
+      <div class="note">Training prototype. The rule wording here is a draft and has not been checked against the official Navigation Rules text. Distances, light ranges (Rule 22) and fog-signal intervals are compressed so the lap fits in a few minutes. Vertical spacing of lights is exaggerated so it can be read on a phone.</div>
+    </div>
+  </div>
+
+  <div class="screen" id="end" hidden>
+    <div class="card">
+      <div class="eyebrow">Lap complete · back at the start line</div>
+      <div class="row" style="gap:24px;align-items:flex-end">
+        <div><div class="big-num" id="eTime">0:00</div><div style="color:var(--mute);font-size:13px">lap time</div></div>
+        <div><div class="big-num" id="eAcc">0%</div><div style="color:var(--mute);font-size:13px">calls right</div></div>
+        <div><div class="stars" id="eStars"></div><div style="color:var(--mute);font-size:13px" id="eScore"></div></div>
+      </div>
+      <p id="eNote"></p>
+      <div class="results" id="eList"></div>
+      <div class="row"><button class="primary" id="again" style="padding:0 28px">Run it again</button></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+'use strict';
+const D2R = Math.PI / 180;
+const wrap180 = a => ((((a + 180) % 360) + 360) % 360) - 180;
+const norm360 = a => ((a % 360) + 360) % 360;
+const fwd = h => ({ x: Math.sin(h * D2R), y: -Math.cos(h * D2R) });
+const stbd = h => ({ x: Math.cos(h * D2R), y: Math.sin(h * D2R) });
+const brg = (dx, dy) => norm360(Math.atan2(dx, -dy) / D2R);
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+const $ = id => document.getElementById(id);
+const shuffle = arr => { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+/* ---------- Colors ---------- */
+const NAV = { W: [255, 244, 220], R: [255, 59, 48], G: [47, 224, 122], Y: [255, 207, 26] };
+const hex = h => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
+const mix = (a, b, t) => a.map((v, i) => v + (b[i] - v) * t);
+const css = (c, al = 1) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${al})`;
+
+/* ---------- Lights (Rule 21 arcs) ---------- */
+// a = metres forward of midships, b = metres to starboard, h = height above water
+const Lt = (arc, c, a, b, h) => ({ arc, c, a, b, h });
+const mast = (a, h) => Lt('mast', 'W', a, 0, h);
+const sides = (a, b, h) => [Lt('stbd', 'G', a, b, h), Lt('port', 'R', a, -b, h)];
+const stern = (a, h) => Lt('stern', 'W', a, 0, h);
+const allr = (c, a, h, b = 0) => Lt('all', c, a, b, h);
+const towL = (a, h) => Lt('stern', 'Y', a, 0, h);
+
+function arcVisible(arc, aspect) {
+  // aspect: bearing of the observer from the vessel, relative to her heading (+ = her starboard side)
+  switch (arc) {
+    case 'all': return true;
+    case 'mast': return Math.abs(aspect) <= 112.5;           // 225° total, to 22.5° abaft each beam
+    case 'stbd': return aspect >= -1.5 && aspect <= 112.5;   // 112.5°, ahead to 22.5° abaft starboard beam
+    case 'port': return aspect <= 1.5 && aspect >= -112.5;
+    case 'stern': return Math.abs(aspect) >= 112.5;          // 135° over the stern (also the towing light)
+  }
+  return false;
+}
+
+/* ---------- Vessel types ---------- */
+const TYPES = {
+  powerSmall: () => ({ L: 30, B: 7, deck: 2.5, cab: [2, 10, 4], lights: [mast(5, 9), ...sides(2, 3.5, 4), stern(-14, 3)] }),
+  powerLarge: () => ({ L: 110, B: 18, deck: 6, cab: [-30, 22, 10], lights: [mast(35, 16), mast(-15, 24), ...sides(5, 9, 11), stern(-54, 7)] }),
+  sailing: () => ({ L: 12, B: 4, deck: 1.2, cab: [0, 4, 1.5], mastH: 14, lights: [...sides(4, 2, 1.5), stern(-6, 1.2), allr('R', 0, 13.5), allr('G', 0, 11.5)] }),
+  oars: () => ({ L: 4, B: 1.5, deck: 0.6, torch: 380, lights: [allr('W', 0, 1.4)] }),
+  trawler: () => ({ L: 35, B: 8, deck: 2.5, cab: [6, 9, 4], lights: [allr('G', 6, 10.5), allr('W', 6, 8.5), ...sides(8, 4, 4), stern(-17, 3)] }),
+  gillnet: () => ({ L: 20, B: 6, deck: 2, cab: [3, 6, 3], lights: [allr('R', 3, 8.5), allr('W', 3, 6.5), allr('W', 3, 4, -7)] }), // gear light to port
+  pilot: () => ({ L: 18, B: 5, deck: 2, cab: [1, 6, 3], lights: [allr('W', 2, 8.5), allr('R', 2, 6.5), ...sides(3, 2.5, 3), stern(-9, 2.5)] }),
+  seaplane: () => ({ L: 12, B: 16, deck: 1, cab: [1, 7, 2], lights: [mast(3, 3.4), ...sides(0, 8, 2.6), stern(-6, 3)] }),
+  nuc: () => ({ L: 60, B: 12, deck: 4, cab: [-18, 12, 7], lights: [allr('R', 10, 14), allr('R', 10, 12), ...sides(5, 6, 6), stern(-29, 5)] }),
+  pushing: () => ({ L: 70, B: 14, deck: 2, cab: [-27, 10, 9], lights: [mast(-24, 12.5), mast(-24, 10.5), ...sides(-24, 4.5, 5), stern(-34, 3.5), ...sides(34, 7, 2.2)] }),
+  ramDay: () => ({ L: 55, B: 12, deck: 3.5, cab: [-14, 14, 6], mastA: 6, mastH: 18.5, lights: [allr('R', 6, 16), allr('W', 6, 14), allr('R', 6, 12)],
+                   shapes: [{ k: 'ball', a: 6, h: 17.5 }, { k: 'diamond', a: 6, h: 15 }, { k: 'ball', a: 6, h: 12.5 }] }),
+  anchoredDecor: () => ({ L: 25, B: 6, deck: 2, cab: [-4, 8, 3], mastA: 10, mastH: 8.5, lights: [allr('W', 10, 6)], shapes: [{ k: 'ball', a: 10, h: 7.5 }] }),
+  aground: () => ({ L: 80, B: 14, deck: 5, cab: [-25, 16, 8], lights: [allr('W', 36, 10), allr('W', -36, 6), allr('R', 0, 16), allr('R', 0, 13.5)] }),
+  dredge: () => ({ L: 50, B: 14, deck: 3, cab: [-12, 12, 6], lights: [allr('R', 0, 17), allr('W', 0, 15), allr('R', 0, 13), allr('R', 0, 9, 9), allr('R', 0, 7, 9), allr('G', 0, 9, -9), allr('G', 0, 7, -9)] }),
+  cbd: () => ({ L: 160, B: 26, deck: 8, cab: [-55, 26, 12], lights: [mast(50, 18), mast(-20, 25), ...sides(10, 13, 12), stern(-78, 8), allr('R', -20, 31.5), allr('R', -20, 29.5), allr('R', -20, 27.5)] }),
+  tug: () => ({ L: 30, B: 9, deck: 2.5, cab: [3, 9, 5], lights: [mast(6, 13), mast(6, 11), mast(6, 9), ...sides(4, 4.5, 4), stern(-14, 3), towL(-14, 5)] }),
+  barge: () => ({ L: 60, B: 16, deck: 2.5, lights: [...sides(29, 8, 3), stern(-29, 2.5)] }),
+};
+
+/* ---------- Course ---------- */
+const G = [[0, 0], [0, -450], [0, -900], [100, -1350], [400, -1650], [850, -1720], [1300, -1720], [1750, -1650], [2100, -1400],
+           [2200, -950], [2200, -500], [2080, 20], [1600, 10], [1150, 10], [700, 95], [300, 0]].map(([x, y]) => ({ x, y }));
+const START = { x: 0, y: 150, hdg: 0 };
+const CHANNEL = { x0: 650, x1: 2000, yN: -50, yS: 150 };
+const DAY_LEG = 10, FOG_LEG = 15;
+const LEG_NAMES = ['', 'Open water', 'Open water', 'Open water', 'Rounding the point', 'Outer anchorage', 'Outer anchorage',
+  'Fishing grounds', 'Harbor approach', 'Harbor approach', 'Daylight leg', 'The shoals', 'Narrow channel', 'Narrow channel', 'Narrow channel', 'Fog bank'];
+
+/* ---------- Encounter content (draft: needs checking against the rule text) ---------- */
+const S = (q, right, wrong, why, rule, say, horn) => ({ q, opts: [right, ...wrong], why, rule, say, horn });
+const QZ = {
+  headon: { title: 'Power-driven vessel, head-on', steps: [
+    S('What is she?', 'Power-driven vessel under 50 m, head-on', ['Power-driven vessel seen from astern', 'Sailing vessel, head-on', 'Vessel at anchor'],
+      'One white masthead light above both sidelights. You see red and green together only when she points straight at you.', 'Rules 21, 23(a)', 'White over red and green: a power vessel, head on.'),
+    S('What do you do?', 'Alter course to starboard', ['Alter course to port', 'Hold course and speed', 'Stop and wait for her'],
+      'In a head-on situation both vessels alter course to starboard and pass port to port.', 'Rule 14(a)', 'Head on. Both turn to starboard.'),
+    S('Which signal goes with your turn?', 'One short blast', ['Two short blasts', 'Three short blasts', 'One prolonged blast'],
+      'One short blast means: I am altering my course to starboard.', 'Rule 34(a)', 'One short blast. I am altering my course to starboard.', 'S')] },
+  crossStbd: { title: 'Large power-driven vessel crossing from starboard', steps: [
+    S('What is she?', 'Power-driven vessel 50 m or more, crossing from your starboard', ['Two small vessels in line', 'Power-driven vessel under 50 m, head-on', 'Vessel towing, tow under 200 m'],
+      'Two white masthead lights, the after one higher, and her red sidelight. Red means you are looking at her port side, so she is crossing from your right. The offset masthead lights show which way she heads.', 'Rules 21, 23(a)(ii)', 'Two masthead lights and red: a big ship crossing from your right.'),
+    S('What do you do?', 'Give way: turn to starboard and pass astern of her', ['Stand on: hold course and speed', 'Turn to port and cross ahead of her', 'Speed up to cross ahead'],
+      'She has you on her port side, so you are the give-way vessel. Act early and avoid crossing ahead of her.', 'Rules 15, 16', 'If to starboard red appear, it is your duty to keep clear.'),
+    S('You turn to starboard. Which signal?', 'One short blast', ['Two short blasts', 'Five short blasts', 'No signal in sight of her'],
+      'Altering course to starboard in sight of another vessel: one short blast.', 'Rule 34(a)', 'One short blast.', 'S')] },
+  crossPort: { title: 'Power-driven vessel crossing from port', steps: [
+    S('What is she?', 'Power-driven vessel under 50 m, crossing from your port', ['Sailing vessel crossing from your port', 'Pilot vessel', 'Vessel at anchor'],
+      'A white masthead light and her green sidelight. Green means you see her starboard side, so she is crossing from your left.', 'Rules 21, 23(a)', 'Masthead and green: crossing from your left.'),
+    S('What do you do?', 'Stand on: hold course and speed', ['Give way: turn hard to starboard', 'Turn to port toward her', 'Stop engines'],
+      'She has you on her starboard side, so she gives way. You keep your course and speed and watch her closely.', 'Rules 15, 17(a)', 'Green on your left: she keeps clear. You stand on.'),
+    S('She still has not turned and she is getting close. What do you sound?', 'Five or more short, rapid blasts', ['One prolonged blast', 'Two short blasts', 'Three short blasts'],
+      'Five short blasts says you doubt she is taking enough action. If she still does nothing, you must act to avoid collision yourself.', 'Rules 34(d), 17(b)', 'Five short blasts. I doubt your intentions.', 'SSSSS')] },
+  overtake: { title: 'Overtaking a power-driven vessel', steps: [
+    S('Only one white light shows ahead, and you are closing on it slowly. What is it?', 'A vessel seen from astern: her sternlight', ['A small vessel at anchor', 'A vessel under oars', 'A power-driven vessel head-on'],
+      'A sternlight shows over 135° astern. Seeing it alone, with no masthead light or sidelights, puts you more than 22.5° abaft her beam.', 'Rules 21(c), 13(b)', 'Only her sternlight: you are overtaking.'),
+    S('What do you do?', 'Keep out of her way until you are past and clear', ['She gives way, since you are faster', 'Hold course: she is the give-way vessel', 'Pass close and sound five short'],
+      'The overtaking vessel keeps out of the way of the vessel being overtaken, whatever kind either one is.', 'Rule 13(a)', 'Overtaking? You keep clear.')] },
+  sailing: { title: 'Sailing vessel', steps: [
+    S('What is she?', 'Sailing vessel, crossing from your starboard', ['Fishing vessel, not trawling', 'Not under command', 'Pilot vessel'],
+      'Red over green all-round at the masthead is a sailing vessel\'s optional signal, and she shows no white masthead light.', 'Rules 25(a), 25(c)', 'Red over green, sailing machine.'),
+    S('What do you do?', 'Keep out of her way: you are power-driven, she is sailing', ['Stand on: sailing vessels keep clear of power', 'Hold course: she must give way', 'Turn to port across her bow'],
+      'A power-driven vessel under way keeps out of the way of a sailing vessel.', 'Rule 18(a)(iv)', 'Power gives way to sail.')] },
+  oars: { title: 'Vessel under oars', steps: [
+    S('A white light flicks on, low on the water, close ahead. What is it?', 'A small boat under oars showing a torch', ['Sailing vessel seen from astern', 'Vessel aground', 'Pilot vessel'],
+      'A vessel under oars may show a hand torch or lantern, shown in time to prevent collision, instead of sidelights.', 'Rule 25(d)', 'A lone low white light: a small boat under oars.'),
+    S('What do you do?', 'Slow down and pass well clear of her', ['Hold course and speed: she must keep clear', 'Pass close to see what she is', 'Sound three short blasts'],
+      'A rowing boat cannot get out of your way quickly. Take early, obvious action and slow down.', 'Rules 6, 8', 'Slow down. Give the rowboat room.')] },
+  trawler: { title: 'Vessel trawling', steps: [
+    S('What is she?', 'Vessel trawling, making way', ['Fishing vessel, not trawling', 'Pilot vessel', 'Restricted in ability to maneuver'],
+      'Green over white all-round lights means trawling. Her sidelight shows she is making way.', 'Rule 26(b)', 'Green over white, trawling tonight.'),
+    S('What do you do?', 'Keep out of her way and clear of her gear', ['Stand on: fishing vessels keep clear of power', 'Pass close astern over her net', 'Cross ahead and sound two short'],
+      'A power-driven vessel keeps out of the way of a vessel engaged in fishing, and keeps well clear of the trawl astern.', 'Rule 18(a)(iii)', 'Fishing boats stand on. Keep clear of the net.')] },
+  gillnet: { title: 'Fishing vessel with gear out', steps: [
+    S('What is she?', 'Fishing, not trawling, gear out over 150 m, not making way', ['Vessel trawling', 'Pilot vessel at anchor', 'Vessel aground'],
+      'Red over white means fishing other than trawling. The lower white light set off to one side points toward her gear. No sidelights: she is not making way.', 'Rule 26(c)', 'Red over white, fishing tonight.'),
+    S('Which side do you pass?', 'The side away from the extra white light', ['Between her and the extra white light', 'Either side, close aboard', 'Hold course: she must move'],
+      'The extra all-round white light shows the direction of gear reaching out more than 150 m. Stay off that side.', 'Rule 26(c)(ii)', 'Stay off the side of the gear light.')] },
+  pilot: { title: 'Pilot vessel on duty', steps: [
+    S('What is she?', 'Pilot vessel on duty, under way', ['Fishing vessel, not trawling', 'Vessel aground', 'Restricted in ability to maneuver'],
+      'White over red at the masthead means a pilot vessel on duty. Her green sidelight shows she is crossing from your port side.', 'Rule 29(a)', 'White over red, pilot ahead.'),
+    S('What do you do?', 'Stand on: she is crossing from your port side', ['Give way: pilot vessels have right of way', 'Turn to port to let her pass', 'Stop and wait'],
+      'A pilot vessel gets no special place in Rule 18. The crossing rule applies, so she keeps clear of you. Expect her to maneuver to board a ship.', 'Rules 15, 17, 29', 'A pilot boat has no special right of way.')] },
+  seaplane: { title: 'Seaplane on the water', steps: [
+    S('Sidelights very far apart, low on the water. What is it?', 'A seaplane taxiing on the water', ['Power-driven vessel under 50 m', 'Two small boats side by side', 'Vessel towing alongside'],
+      'A seaplane shows lights as close as it can to a vessel\'s. Here the sidelights are on the wingtips, far wider apart than on a hull this low.', 'Rule 31', 'Lights too wide for a hull: a seaplane.'),
+    S('What do you do?', 'Hold course, expect her to keep well clear, and be ready to act', ['Give way: aircraft always have right of way', 'Speed up to race her', 'Sound three short blasts'],
+      'A seaplane on the water keeps well clear of all vessels. If risk of collision develops, the steering rules apply to her too.', 'Rule 18(e)', 'Seaplanes keep clear of vessels.')] },
+  nuc: { title: 'Not under command', steps: [
+    S('What is she?', 'Not under command, making way', ['Restricted in ability to maneuver', 'Constrained by draft', 'Vessel aground'],
+      'Two all-round red lights in a vertical line means not under command. Her sidelight shows she is still making way through the water.', 'Rule 27(a)', 'Red over red, the captain is dead.'),
+    S('What do you do?', 'Keep out of her way', ['Hold course: she must give way', 'Cross close ahead of her', 'Sound one prolonged and continue'],
+      'She cannot maneuver as the rules require, so power-driven and sailing vessels keep out of her way.', 'Rule 18(a)(i)', 'Not under command: everyone keeps clear.')] },
+  pushing: { title: 'Vessel pushing ahead', steps: [
+    S('What is she?', 'A towboat pushing a barge ahead, head-on', ['Vessel towing astern, tow under 200 m', 'Two vessels side by side', 'Power-driven vessel 50 m or more'],
+      'Two masthead lights in a vertical line, with a second pair of sidelights low and well ahead of them at the barge\'s bow. The pushed barge carries sidelights at its forward end.', 'Rules 24(c), 24(f)', 'Two masthead lights and sidelights far out front: pushing ahead.'),
+    S('What do you do?', 'Alter course to starboard, early and wide', ['Alter course to port', 'Hold course: tows always give way', 'Pass close across the barge\'s bow'],
+      'Head-on with a power-driven vessel pushing ahead: both alter to starboard. Leave extra room, because the barge is far ahead of her lights.', 'Rule 14(a)', 'Head on with a tow. Turn to starboard, wide.')] },
+  ramDay: { title: 'Restricted in ability to maneuver (by day)', steps: [
+    S('Daylight. What is the buoy tender showing?', 'Restricted in ability to maneuver: ball, diamond, ball', ['Not under command: two balls', 'Aground: three balls', 'At anchor: one ball'],
+      'By day, shapes replace lights. Ball, diamond, ball means restricted in ability to maneuver. The small boat nearby with one ball is at anchor.', 'Rules 20, 27(b)', 'Ball, diamond, ball: restricted in ability to maneuver.'),
+    S('What do you do?', 'Keep out of her way', ['Pass close to watch her work', 'Hold course: she must keep clear', 'Sound five short to move her'],
+      'Her work limits how she can maneuver, so a power-driven vessel keeps out of her way.', 'Rule 18(a)(ii)', 'Restricted? Keep clear.')] },
+  aground: { title: 'Vessel aground', steps: [
+    S('What is she?', 'Vessel aground, 50 m or more', ['Vessel at anchor, 50 m or more', 'Not under command, not making way', 'Two small vessels at anchor'],
+      'Two white anchor lights, the forward one higher, plus two all-round reds in a vertical line: aground.', 'Rule 30(a), 30(d)', 'Anchor lights and red over red: she is aground.'),
+    S('What do you do?', 'Slow down and stay well clear: the water near her is shallow', ['Pass close alongside: she cannot move', 'Hold course: she is just anchored', 'Steer toward her to read her name'],
+      'A vessel aground marks shoal water. Give her a wide berth and check your chart.', 'Rules 30(d), 2', 'If she is aground, the shoal is right there.')] },
+  dredge: { title: 'Dredge in a narrow channel', steps: [
+    S('What is she?', 'Dredge at work: restricted, with an obstruction on one side', ['Vessel aground', 'Not under command', 'Fishing vessel with gear out'],
+      'Red, white, red means restricted in ability to maneuver. Two reds on one side mark the obstruction. Two greens on the other side mark where you can pass.', 'Rules 27(b), 27(d)', 'Two greens, pass this side. Two reds, blocked.'),
+    S('Which side do you pass?', 'The side with the two green lights, even if it is not your usual side', ['Your starboard side of the channel, past the reds', 'Stop in the channel until she finishes', 'Whichever side is shorter'],
+      'In a narrow channel you normally keep to starboard, but the dredge\'s lights show the only safe side: pass by the two greens.', 'Rules 9(a), 27(d)', 'Pass on the greens.')] },
+  cbd: { title: 'Constrained by her draft', steps: [
+    S('What is she?', 'Constrained by draft, inbound (International rules)', ['Not under command, making way', 'Restricted in ability to maneuver', 'Vessel towing, tow over 200 m'],
+      'Power-driven lights plus three all-round reds in a vertical line: constrained by her draft. This signal exists only under the International rules.', 'Rule 28', 'Three reds in a line: constrained by draft.'),
+    S('What do you do?', 'Keep to your starboard side of the channel and don\'t impede her', ['Hold the middle: she must give way', 'Cross the channel ahead of her', 'Move over to her side of the channel'],
+      'Vessels other than one not under command or restricted in ability to maneuver avoid impeding a vessel constrained by her draft. In a channel, keep to your starboard side.', 'Rules 9(b), 9(d), 18(d)', 'Do not impede a deep-draft ship.')] },
+  tow: { title: 'Tug and tow, seen from astern', steps: [
+    S('Two white lights ahead, one with yellow above it. What is it?', 'A tug towing astern, seen from astern, with her tow behind her', ['Two small vessels at anchor', 'Two power-driven vessels seen from astern', 'A pilot vessel and a fishing boat'],
+      'A yellow towing light above a white sternlight marks the towing vessel. The white light nearer to you is her tow\'s sternlight. Her masthead lights don\'t show from astern.', 'Rules 21(c), 21(d), 24(a)', 'Yellow over white: a tug, with her tow behind.'),
+    S('What do you do?', 'Stay clear, and never pass between the tug and her tow', ['Pass between the two lights: they are two boats', 'Hold course: the tug gives way', 'Overtake close along her side'],
+      'You are overtaking, so you keep clear. A towline joins those two lights, often low in the water.', 'Rules 13, 24', 'Never cut between a tug and her tow.'),
+    S('In this narrow channel you want to overtake on her port side. What do you sound?', 'Two prolonged blasts, then two short', ['Two prolonged blasts, then one short', 'Two short blasts', 'Prolonged, short, prolonged, short'],
+      'In a narrow channel, two prolonged and two short means: I intend to overtake you on your port side. She answers prolonged, short, prolonged, short if she agrees.', 'Rules 9(e), 34(c)', 'Two long, two short: I will overtake you on your port side.', 'PPSS')] },
+  fog: { title: 'Fog signal, vessel unseen', steps: [
+    S('You hear one prolonged blast and two short, somewhere ahead. What could she be?', 'Not under command, restricted, constrained by draft, sailing, fishing, or towing', ['A power-driven vessel making way', 'A vessel at anchor', 'A vessel being towed'],
+      'In restricted visibility, one prolonged and two short is the signal for all of those. The sound alone can\'t tell you which.', 'Rule 35(c)', 'One long, two short: she is limited somehow.'),
+    S('What do you do?', 'Slow to bare steerage way, and don\'t turn to port for her', ['Keep full speed to get past quickly', 'Turn hard to port, away from the sound', 'Stop and sound five short'],
+      'When you hear a fog signal forward of the beam, slow to the least speed you can steer at. Avoid turning to port for a vessel forward of the beam.', 'Rules 19(d), 19(e)', 'Fog signal ahead: slow down, don\'t turn to port.'),
+    S('What is your own fog signal while you are making way?', 'One prolonged blast at least every 2 minutes', ['Two prolonged blasts every 2 minutes', 'One prolonged and two short', 'Rapid ringing of the bell'],
+      'A power-driven vessel making way through the water sounds one prolonged blast at intervals of not more than 2 minutes.', 'Rule 35(a)', 'One prolonged blast, every two minutes.', 'P')] },
+};
+
+/* Spawn specs: r = range from you, rb = bearing off the leg, asp = which side of her you see (+ = her starboard).
+   Lights follow from geometry, so the first look is the intended one, and they change as you maneuver. */
+const ENC = {
+  1: [{ t: 'powerSmall', r: 540, rb: 0, asp: 0, spd: 5, q: 'headon', after: { turn: 35 } }],
+  2: [{ t: 'powerLarge', r: 560, rb: 30, asp: -55, spd: 6, q: 'crossStbd' }],
+  3: [{ t: 'powerSmall', r: 500, rb: -30, asp: 55, spd: 5, q: 'crossPort', after: { turn: 75 } }],
+  4: [{ t: 'powerSmall', r: 300, rb: 0, asp: 180, spd: 2.5, q: 'overtake', trig: 150 }],
+  5: [{ t: 'sailing', r: 480, rb: 28, asp: -40, spd: 3, q: 'sailing' }],
+  6: [{ t: 'oars', r: 420, rb: 6, asp: -80, spd: 1, q: 'oars', trig: 220 }],
+  7: [{ t: 'trawler', r: 470, rb: 22, asp: 35, spd: 2, q: 'trawler' }, { t: 'gillnet', r: 760, rb: -12, asp: 60, spd: 0, q: 'gillnet' }],
+  8: [{ t: 'pilot', r: 460, rb: -30, asp: 60, spd: 4, q: 'pilot' }, { t: 'seaplane', r: 760, rb: -14, asp: 40, spd: 3, q: 'seaplane' }],
+  9: [{ t: 'nuc', r: 470, rb: 25, asp: -50, spd: 1.5, q: 'nuc' }, { t: 'pushing', r: 780, rb: -3, asp: 0, spd: 4, q: 'pushing', after: { turn: 35 } }],
+  10: [{ t: 'ramDay', r: 450, rb: 6, asp: 90, spd: 0, q: 'ramDay' }, { t: 'anchoredDecor', r: 300, rb: -25, asp: 120, spd: 0 }],
+  11: [{ t: 'aground', r: 300, rb: -6, asp: 70, spd: 0, q: 'aground', shoal: 90 }],
+  12: [{ t: 'dredge', at: { x: 1800, y: 30, hdg: 270 }, spd: 0, q: 'dredge', trig: 200, pipe: { x: 1800, y: CHANNEL.yN } }],
+  13: [{ t: 'cbd', at: { x: 850, y: 100, hdg: 90 }, spd: 4, q: 'cbd', trig: 320 }],
+  14: [{ t: 'tug', at: { x: 580, y: 15, hdg: 270 }, spd: 3, id: 'tug' }, { t: 'barge', follow: 'tug', back: 220, spd: 3, q: 'tow', trig: 200 }],
+  15: [{ t: 'sailing', r: 380, rb: -6, asp: 20, spd: 1.2, q: 'fog', fogSignal: 'PSS' }],
+};
+
+/* ---------- State ---------- */
+const cv = $('view'), ctx = cv.getContext('2d');
+const mini = $('mini'), mctx = mini.getContext('2d');
+let DPR = 1, W = 0, H = 0;
+const P = { x: 0, y: 0, hdg: 0, spd: 0, thr: 0.5 };
+const st = {};
+const input = { l: false, r: false, kl: false, kr: false };
+let assist = false, voice = true;
+const MAXS = 13;               // m/s
+const EYE = 3;                 // m above water
+
+function reset() {
+  Object.assign(P, { x: START.x, y: START.y, hdg: START.hdg, spd: 0, thr: 0.5 });
+  Object.assign(st, { running: false, paused: false, time: 0, gate: 1, score: 0, vessels: [], queue: [], quiz: null, results: [],
+    day: 0, fog: 0, hitCool: 0, shallowCool: 0, right: 0, total: 0, collisions: 0, fogClock: 0, done: false });
+  spawn(1);
+  updateThr();
+}
+
+function legHeading(k) { const a = G[k - 1], b = G[k]; return brg(b.x - a.x, b.y - a.y); }
+
+function spawn(k) {
+  const specs = ENC[k]; if (!specs) return;
+  const th = legHeading(k);
+  const made = {};
+  for (const s of specs) {
+    const spec = TYPES[s.t]();
+    let x, y, hdg;
+    if (s.at) { x = s.at.x; y = s.at.y; hdg = s.at.hdg; }
+    else if (s.follow) { const t = made[s.follow]; const f = fwd(t.hdg); x = t.x - f.x * s.back; y = t.y - f.y * s.back; hdg = t.hdg; }
+    else {
+      const d = fwd(th + s.rb); x = P.x + d.x * s.r; y = P.y + d.y * s.r;
+      hdg = norm360(brg(P.x - x, P.y - y) - s.asp);
+    }
+    const v = { enc: k, t: s.t, spec, x, y, hdg, tHdg: hdg, spd: s.spd, q: s.q || null, trig: s.trig || 270, quizzed: false, queued: false,
+      after: s.after, follow: s.follow ? made[s.follow] : null, back: s.back, fogSignal: s.fogSignal, heard: 0,
+      shoal: s.shoal ? { x, y, r: s.shoal } : null, pipe: s.pipe || null };
+    if (s.id) made[s.id] = v;
+    st.vessels.push(v);
+  }
+}
+
+/* ---------- Audio ---------- */
+let AC = null;
+function audio() {
+  if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { AC = null; } }
+  if (AC && AC.state === 'suspended') AC.resume();
+  return AC;
+}
+let sigTimers = [];
+function horn(pattern, pan = 0, label = 'Horn') {
+  const durs = pattern.split('').map(c => (c === 'P' ? 4 : 1));
+  // visual pulse, so the game works muted
+  sigTimers.forEach(clearTimeout); sigTimers = [];
+  const box = $('blasts'); box.innerHTML = '';
+  durs.forEach(d => { const i = document.createElement('i'); i.style.width = (d === 4 ? 56 : 14) + 'px'; box.appendChild(i); });
+  $('sigLbl').textContent = label + ': ' + pattern.split('').map(c => (c === 'P' ? 'prolonged' : 'short')).join(', ');
+  $('signal').hidden = false;
+  let t = 0;
+  durs.forEach((d, idx) => {
+    sigTimers.push(setTimeout(() => box.children[idx] && box.children[idx].classList.add('on'), t * 1000));
+    sigTimers.push(setTimeout(() => box.children[idx] && box.children[idx].classList.remove('on'), (t + d) * 1000));
+    t += d + 1;
+  });
+  sigTimers.push(setTimeout(() => { $('signal').hidden = true; }, (t + 0.5) * 1000));
+  const ac = audio(); if (!ac) return;
+  const out = ac.createGain(); out.gain.value = 0.22;
+  if (ac.createStereoPanner) { const p = ac.createStereoPanner(); p.pan.value = clamp(pan, -1, 1); out.connect(p); p.connect(ac.destination); }
+  else out.connect(ac.destination);
+  let tt = ac.currentTime + 0.05;
+  for (const d of durs) {
+    const g = ac.createGain();
+    g.gain.setValueAtTime(0, tt); g.gain.linearRampToValueAtTime(1, tt + 0.06);
+    g.gain.setValueAtTime(1, tt + d - 0.1); g.gain.linearRampToValueAtTime(0, tt + d);
+    const f = ac.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 850;
+    [110, 165, 221].forEach((fr, i) => { const o = ac.createOscillator(); o.type = i ? 'square' : 'sawtooth'; o.frequency.value = fr; const og = ac.createGain(); og.gain.value = i ? 0.25 : 0.6; o.connect(og); og.connect(f); o.start(tt); o.stop(tt + d + 0.05); });
+    f.connect(g); g.connect(out);
+    tt += d + 1;
+  }
+}
+function chime(ok) {
+  const ac = audio(); if (!ac) return;
+  const t = ac.currentTime + 0.02; const g = ac.createGain(); g.connect(ac.destination);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.18, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.5);
+  (ok ? [660, 990] : [330, 247]).forEach((fr, i) => { const o = ac.createOscillator(); o.type = 'triangle'; o.frequency.setValueAtTime(fr, t + i * 0.09); o.connect(g); o.start(t + i * 0.09); o.stop(t + 0.55); });
+}
+function speak(text) {
+  if (!voice || !('speechSynthesis' in window)) return;
+  try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.rate = 1.0; speechSynthesis.speak(u); } catch (e) { /* no voice */ }
+}
+
+/* ---------- Toast ---------- */
+let toastT = null;
+function toast(msg, bad = false) {
+  const t = $('toast'); t.textContent = msg; t.classList.toggle('bad', bad); t.hidden = false;
+  clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, 2400);
+}
+
+/* ---------- Quiz ---------- */
+function enqueue(v, front = false) { if (v.quizzed || v.queued) return; v.queued = true; front ? st.queue.unshift(v) : st.queue.push(v); }
+function openQuiz(v) {
+  const qz = QZ[v.q];
+  st.paused = true;
+  st.quiz = { v, qz, step: 0, marks: [], callDist: dist(P, v), early: !!v.early };
+  input.l = input.r = false; $('bL').classList.remove('held'); $('bR').classList.remove('held');
+  $('quiz').hidden = false;
+  renderStep();
+}
+function renderStep() {
+  const { v, qz, step } = st.quiz;
+  const s = qz.steps[step];
+  const labels = ['Identify', 'Act', 'Sound'];
+  $('qcp').textContent = `Gate ${v.enc} · contact at ${Math.round(st.quiz.callDist)} m`;
+  $('qstep').textContent = `${step + 1} of ${qz.steps.length} · ${labels[step] || 'Act'}`;
+  $('qtext').textContent = s.q;
+  const box = $('qopts'); box.innerHTML = '';
+  shuffle(s.opts.map((o, i) => ({ o, i }))).forEach(({ o, i }) => {
+    const b = document.createElement('button'); b.className = 'opt'; b.textContent = o; b.dataset.i = i;
+    b.addEventListener('click', () => answer(i, b));
+    box.appendChild(b);
+  });
+  $('qfb').hidden = true;
+  const first = box.querySelector('button'); if (first) first.focus({ preventScroll: true });
+}
+function answer(i, btn) {
+  const q = st.quiz; const s = q.qz.steps[q.step];
+  const ok = i === 0;
+  [...$('qopts').children].forEach(b => { b.disabled = true; if (+b.dataset.i === 0) b.classList.add('right'); });
+  if (!ok) btn.classList.add('wrong');
+  q.marks.push(ok);
+  st.total++;
+  let pts = 0;
+  if (ok) { st.right++; pts = 100; if (q.step === 0 && q.early) pts += 50; st.score += pts; }
+  chime(ok);
+  $('qverdict').textContent = ok ? (pts > 100 ? `Right · +${pts} (early call)` : `Right · +${pts}`) : 'Not quite';
+  $('qverdict').style.color = ok ? 'var(--gold)' : 'var(--miss2)';
+  $('qsayt').textContent = '“' + s.say + '”';
+  $('qwhy').textContent = (ok ? '' : 'Answer: ' + s.opts[0] + '. ') + s.why;
+  $('qrule').textContent = s.rule;
+  $('qfb').hidden = false;
+  $('qnext').textContent = q.step + 1 < q.qz.steps.length ? 'Next question' : 'Back to the helm';
+  $('qnext').focus({ preventScroll: true });
+  if (s.horn) { horn(s.horn, 0, 'Correct signal'); setTimeout(() => speak(s.say), s.horn.length * 1500 + 600); }
+  else speak(s.say);
+}
+function nextStep() {
+  const q = st.quiz; if (!q) return;
+  q.step++;
+  if (q.step < q.qz.steps.length) { renderStep(); return; }
+  const v = q.v;
+  v.quizzed = true;
+  if (v.after && v.after.turn) v.tHdg = norm360(v.hdg + v.after.turn);
+  st.results.push({ enc: v.enc, title: q.qz.title, marks: q.marks });
+  st.quiz = null; $('quiz').hidden = true; st.paused = false;
+  cv.focus && cv.focus();
+}
+
+/* ---------- Gates ---------- */
+function target() { return st.gate <= 15 ? G[st.gate] : G[0]; }
+function passGate() {
+  const g = st.gate;
+  if (g === 16) { finish(); return; }
+  toast(g === 15 ? 'Gate 15 · head for the finish line' : `Gate ${g} · ${LEG_NAMES[g + 1] || ''}`);
+  for (const v of st.vessels) if (v.enc === g && v.q && !v.quizzed) enqueue(v);
+  st.vessels = st.vessels.filter(v => v.enc >= g || (v.q && !v.quizzed));
+  if (g + 1 <= 15) spawn(g + 1);
+  st.gate = g + 1;
+}
+function finish() {
+  st.running = false; st.done = true;
+  const acc = st.total ? Math.round(100 * st.right / st.total) : 0;
+  $('eTime').textContent = fmtTime(st.time, false);
+  $('eAcc').textContent = acc + '%';
+  const stars = acc >= 90 && st.collisions === 0 ? 3 : acc >= 70 ? 2 : 1;
+  $('eStars').innerHTML = '★'.repeat(stars) + '<span class="off">' + '★'.repeat(3 - stars) + '</span>';
+  $('eScore').textContent = `${st.score} points · ${st.collisions} hazard hit${st.collisions === 1 ? '' : 's'}`;
+  $('eNote').textContent = acc >= 90 ? 'Clean run. The real exam passes Rules of the Road at 90%.' : 'Missed calls come back first on your next lap. The real exam passes Rules of the Road at 90%.';
+  const list = $('eList'); list.innerHTML = '';
+  st.results.forEach(r => {
+    const row = document.createElement('div'); row.className = 'res';
+    row.innerHTML = `<div class="n">${r.enc}</div><div></div><div class="marks"></div>`;
+    row.children[1].textContent = r.title;
+    r.marks.forEach(m => { const s = document.createElement('span'); s.className = 'mk ' + (m ? 'ok' : 'no'); s.textContent = m ? '✓' : '✕'; s.setAttribute('aria-label', m ? 'right' : 'wrong'); row.children[2].appendChild(s); });
+    list.appendChild(row);
+  });
+  $('end').hidden = false;
+  $('again').focus({ preventScroll: true });
+  speak(acc >= 90 ? 'Lap complete. Clean run.' : 'Lap complete.');
+}
+
+/* ---------- Hazards ---------- */
+function toLocal(v, p) { const dx = p.x - v.x, dy = p.y - v.y, f = fwd(v.hdg), s = stbd(v.hdg); return { a: dx * f.x + dy * f.y, b: dx * s.x + dy * s.y }; }
+function segDist(p, a, b) { const vx = b.x - a.x, vy = b.y - a.y; const t = clamp(((p.x - a.x) * vx + (p.y - a.y) * vy) / (vx * vx + vy * vy || 1), 0, 1); return Math.hypot(p.x - a.x - t * vx, p.y - a.y - t * vy); }
+function hit(msg, push) {
+  if (st.hitCool > 0) return;
+  st.hitCool = 2.5; st.score -= 200; st.collisions++;
+  toast(msg + ' · −200', true); chime(false);
+  P.spd = 0;
+  if (push) { P.x += push.x; P.y += push.y; } else { const f = fwd(P.hdg); P.x -= f.x * 20; P.y -= f.y * 20; }
+}
+
+/* ---------- Update ---------- */
+function update(dt) {
+  if (!st.running || st.paused) return;
+  st.time += dt; st.hitCool = Math.max(0, st.hitCool - dt); st.shallowCool = Math.max(0, st.shallowCool - dt);
+
+  let steer = (input.l || input.kl ? -1 : 0) + (input.r || input.kr ? 1 : 0);
+  const T = target();
+  if (steer === 0 && assist) steer = clamp(wrap180(brg(T.x - P.x, T.y - P.y) - P.hdg) / 20, -1, 1);
+  const inChannelX = P.x > CHANNEL.x0 && P.x < CHANNEL.x1;
+  const shallow = inChannelX && (P.y < CHANNEL.yN || P.y > CHANNEL.yS);
+  if (shallow && st.shallowCool === 0) { toast('Outside the channel: shoal water. Speed limited.', true); st.shallowCool = 4; }
+  const tgt = P.thr * MAXS * (shallow ? 0.25 : 1) * (st.fog > 0.5 ? 0.85 : 1);
+  P.spd += (tgt - P.spd) * Math.min(1, dt * 0.6);
+  P.hdg = norm360(P.hdg + steer * 32 * clamp(0.3 + P.spd / 7, 0.3, 1) * dt);
+  const f = fwd(P.hdg); P.x += f.x * P.spd * dt; P.y += f.y * P.spd * dt;
+
+  for (const v of st.vessels) {
+    if (v.follow) { const t = v.follow, tf = fwd(t.hdg); v.hdg = t.hdg; v.x = t.x - tf.x * v.back; v.y = t.y - tf.y * v.back; continue; }
+    const e = wrap180(v.tHdg - v.hdg); v.hdg = norm360(v.hdg + clamp(e, -9 * dt, 9 * dt));
+    const vf = fwd(v.hdg); v.x += vf.x * v.spd * dt; v.y += vf.y * v.spd * dt;
+  }
+
+  st.day += ((st.gate === DAY_LEG ? 1 : 0) - st.day) * Math.min(1, dt * 0.5);
+  st.fog += ((st.gate === FOG_LEG ? 1 : 0) - st.fog) * Math.min(1, dt * 0.5);
+
+  // fog signals (Rule 35 intervals compressed from 2 minutes to about 11 seconds)
+  for (const v of st.vessels) {
+    if (!v.fogSignal) continue;
+    v.sigClock = (v.sigClock || 6) - dt;
+    if (v.sigClock <= 0) {
+      v.sigClock = 11; v.heard++;
+      const rel = wrap180(brg(v.x - P.x, v.y - P.y) - P.hdg);
+      horn(v.fogSignal, Math.sin(rel * D2R), rel > 20 ? 'Heard, to starboard' : rel < -20 ? 'Heard, to port' : 'Heard, ahead');
+      if (v.heard >= 2 && v.q && !v.quizzed) enqueue(v);
+    }
+  }
+
+  // hazards
+  for (const v of st.vessels) {
+    const l = toLocal(v, P);
+    if (Math.abs(l.a) < v.spec.L / 2 + 5 && Math.abs(l.b) < v.spec.B / 2 + 5) { const away = fwd(brg(P.x - v.x, P.y - v.y)); hit('Collision', { x: away.x * 25, y: away.y * 25 }); }
+    if (v.follow) { const t = v.follow, tf = fwd(t.hdg); const a = { x: t.x - tf.x * 15, y: t.y - tf.y * 15 }, b = { x: v.x + tf.x * 30, y: v.y + tf.y * 30 };
+      if (segDist(P, a, b) < 8) hit('You crossed the towline between tug and tow'); }
+    if (v.pipe && segDist(P, v, v.pipe) < 9) hit('You ran over the dredge pipeline');
+    if (v.shoal && dist(P, v.shoal) < v.shoal.r) { const away = fwd(brg(P.x - v.shoal.x, P.y - v.shoal.y)); hit('You ran aground on her shoal', { x: away.x * 30, y: away.y * 30 }); }
+  }
+
+  // encounter triggers
+  for (const v of st.vessels) {
+    if (!v.q || v.quizzed || v.queued || v.fogSignal) continue;
+    if (dist(P, v) < v.trig) enqueue(v);
+  }
+  if (dist(P, T) < 75) passGate();
+  if (st.queue.length && !st.paused && st.running) openQuiz(st.queue.shift());
+}
+
+function callable() {
+  let best = null, bd = 1e9;
+  for (const v of st.vessels) {
+    if (!v.q || v.quizzed || v.queued) continue;
+    const d = dist(P, v);
+    if (v.fogSignal ? v.heard >= 1 : d < 1500) { if (d < bd) { bd = d; best = v; } }
+  }
+  return best;
+}
+function callIt() {
+  if (!st.running || st.paused) return;
+  const v = callable(); if (!v) return;
+  v.early = dist(P, v) > 420;
+  enqueue(v, true);
+}
+
+/* ---------- Render ---------- */
+const STARS = Array.from({ length: 160 }, (_, i) => ({ az: (i * 137.508) % 360, el: 2 + ((i * 53) % 40) * 0.9, m: 0.4 + ((i * 29) % 10) / 14 }));
+const SKY = {
+  night: { top: hex('#01040a'), hor: hex('#0b1a2c'), sea1: hex('#06111e'), sea2: hex('#02060c') },
+  day: { top: hex('#6f9cc3'), hor: hex('#cfe0ec'), sea1: hex('#466f92'), sea2: hex('#1f3d58') },
+  fog: { top: hex('#58626c'), hor: hex('#7d868f'), sea1: hex('#5f6870'), sea2: hex('#3b434b') },
+};
+function env3(key) { return mix(mix(SKY.night[key], SKY.day[key], st.day), SKY.fog[key], st.fog); }
+
+function resize() {
+  DPR = Math.min(window.devicePixelRatio || 1, 2);
+  W = cv.clientWidth; H = cv.clientHeight;
+  cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+  const r = mini.getBoundingClientRect();
+  mini.width = Math.round(r.width * DPR); mini.height = Math.round(r.height * DPR);
+}
+
+function render() {
+  const w = cv.width, h = cv.height;
+  const portrait = h > w;
+  const FOV = portrait ? 62 : clamp(w / h * 52, 70, 100);
+  const pxDeg = w / FOV, f = pxDeg / D2R;
+  const cx = w / 2, hy = h * (portrait ? 0.36 : 0.42);
+
+  // sky and sea
+  let g = ctx.createLinearGradient(0, 0, 0, hy);
+  g.addColorStop(0, css(env3('top'))); g.addColorStop(1, css(env3('hor')));
+  ctx.fillStyle = g; ctx.fillRect(0, 0, w, hy + 1);
+  g = ctx.createLinearGradient(0, hy, 0, h);
+  g.addColorStop(0, css(env3('sea1'))); g.addColorStop(1, css(env3('sea2')));
+  ctx.fillStyle = g; ctx.fillRect(0, hy, w, h - hy);
+  const nightF = (1 - st.day) * (1 - st.fog);
+  if (nightF > 0.05) {
+    for (const s of STARS) {
+      const rel = wrap180(s.az - P.hdg); if (Math.abs(rel) > FOV / 2) continue;
+      ctx.fillStyle = css([200, 215, 235], 0.55 * s.m * nightF);
+      ctx.fillRect(cx + rel * pxDeg, hy - s.el * pxDeg * 0.9, 1.2 * DPR, 1.2 * DPR);
+    }
+  }
+  ctx.strokeStyle = css(mix(env3('hor'), [255, 255, 255], 0.08), 0.6); ctx.lineWidth = DPR;
+  ctx.beginPath(); ctx.moveTo(0, hy); ctx.lineTo(w, hy); ctx.stroke();
+
+  const visRange = 5000 * (1 - st.fog) + 70 * st.fog;
+
+  // gate posts (game markers, drawn in UI blue so they never read as navigation lights)
+  const T = target();
+  {
+    const prev = st.gate <= 15 ? G[st.gate - 1] : G[15];
+    const lh = brg(T.x - prev.x, T.y - prev.y), pp = stbd(lh);
+    const posts = [{ x: T.x + pp.x * 55, y: T.y + pp.y * 55 }, { x: T.x - pp.x * 55, y: T.y - pp.y * 55 }];
+    const dC = dist(P, T), relC = wrap180(brg(T.x - P.x, T.y - P.y) - P.hdg);
+    if (Math.abs(relC) < FOV / 2) {
+      let xs = [];
+      for (const p of posts) {
+        const d = Math.max(dist(P, p), 20), rel = wrap180(brg(p.x - P.x, p.y - P.y) - P.hdg);
+        const x = cx + rel * pxDeg, yW = hy + Math.min(EYE * f / d, h * 0.3), ph = Math.max(9 * f / d, 14 * DPR);
+        ctx.strokeStyle = css(hex('#4DB3FF'), 0.85 * Math.max(0.35, Math.exp(-d / (visRange * 1.5)))); ctx.lineWidth = Math.max(2 * DPR, 1.2 * f / d);
+        ctx.beginPath(); ctx.moveTo(x, yW); ctx.lineTo(x, yW - ph); ctx.stroke();
+        xs.push({ x, y: yW - ph });
+      }
+      ctx.fillStyle = css(hex('#8FD0FF'), 0.95); ctx.font = `600 ${12 * DPR}px Barlow, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif`; ctx.textAlign = 'center';
+      ctx.fillText(st.gate <= 15 ? `GATE ${st.gate} · ${Math.round(dC)} m` : `FINISH · ${Math.round(dC)} m`, (xs[0].x + xs[1].x) / 2, Math.min(xs[0].y, xs[1].y) - 8 * DPR);
+    } else {
+      const left = relC < 0, ex = left ? 28 * DPR : w - 28 * DPR, ey = hy - 26 * DPR;
+      ctx.fillStyle = css(hex('#4DB3FF'), 0.9);
+      ctx.beginPath();
+      if (left) { ctx.moveTo(ex - 10 * DPR, ey); ctx.lineTo(ex + 6 * DPR, ey - 10 * DPR); ctx.lineTo(ex + 6 * DPR, ey + 10 * DPR); }
+      else { ctx.moveTo(ex + 10 * DPR, ey); ctx.lineTo(ex - 6 * DPR, ey - 10 * DPR); ctx.lineTo(ex - 6 * DPR, ey + 10 * DPR); }
+      ctx.fill();
+      ctx.font = `600 ${11 * DPR}px Barlow, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif`; ctx.textAlign = left ? 'left' : 'right';
+      ctx.fillText(st.gate <= 15 ? `GATE ${st.gate}` : 'FINISH', left ? ex - 8 * DPR : ex + 8 * DPR, ey + 24 * DPR);
+    }
+  }
+
+  // vessels, far to near
+  const vs = st.vessels.map(v => ({ v, d: dist(P, v) })).filter(o => o.d < 4000).sort((a, b) => b.d - a.d);
+  for (const { v, d } of vs) drawVessel(v, Math.max(d, 15), { w, h, cx, hy, pxDeg, f, FOV, visRange });
+
+  // own bow
+  ctx.fillStyle = '#060c15'; ctx.strokeStyle = css(hex('#2C4A68'), 0.9); ctx.lineWidth = 2 * DPR;
+  ctx.beginPath(); ctx.moveTo(cx - w * 0.22, h); ctx.quadraticCurveTo(cx - w * 0.05, h - h * 0.1, cx, h - h * 0.14);
+  ctx.quadraticCurveTo(cx + w * 0.05, h - h * 0.1, cx + w * 0.22, h); ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.strokeStyle = css(hex('#2C4A68'), 0.7); ctx.beginPath(); ctx.moveTo(cx, h - h * 0.14); ctx.lineTo(cx, h - h * 0.2); ctx.stroke();
+
+  if (st.fog > 0.02) { ctx.fillStyle = css(SKY.fog.hor, 0.25 * st.fog); ctx.fillRect(0, 0, w, h); }
+  renderMini();
+}
+
+function drawVessel(v, d, V) {
+  const { cx, hy, pxDeg, f, FOV, visRange } = V;
+  const beta = brg(v.x - P.x, v.y - P.y);
+  const rel = wrap180(beta - P.hdg);
+  if (Math.abs(rel) > FOV / 2 + 12) return;
+  const atten = Math.exp(-d / visRange);
+  const sH = Math.max(f / d, 1.5 * DPR), sV = Math.max(f / d, 4.6 * DPR);
+  const r = stbd(beta);
+  const fv = fwd(v.hdg), sv = stbd(v.hdg);
+  const x0 = cx + rel * pxDeg, yW = hy + Math.min(EYE * f / d, (V.h) * 0.3);
+  const X = (a, b) => x0 + ((a * fv.x + b * sv.x) * r.x + (a * fv.y + b * sv.y) * r.y) * sH;
+  const Y = hgt => yW - hgt * sV;
+  const spec = v.spec;
+  const dayF = st.day;
+
+  // hull silhouette: barely there at night, plain grey by day
+  const corners = [[spec.L / 2, 0], [spec.L / 4, spec.B / 2], [-spec.L / 2, spec.B / 2], [-spec.L / 2, -spec.B / 2], [spec.L / 4, -spec.B / 2]].map(([a, b]) => X(a, b));
+  const minX = Math.min(...corners), maxX = Math.max(...corners);
+  const hullA = (0.32 * (1 - dayF) + 0.95 * dayF) * Math.max(atten, dayF ? 0.6 : 0);
+  ctx.fillStyle = css(mix(hex('#0e1a29'), hex('#27313b'), dayF), hullA);
+  const top = Y(spec.deck);
+  ctx.beginPath(); ctx.moveTo(minX, yW); ctx.lineTo(maxX, yW); ctx.lineTo(maxX + (maxX - minX) * 0.04, top); ctx.lineTo(minX - (maxX - minX) * 0.04, top); ctx.closePath(); ctx.fill();
+  if (spec.cab) {
+    const [ca, cl, ch] = spec.cab;
+    const cxs = [X(ca + cl / 2, spec.B / 3), X(ca + cl / 2, -spec.B / 3), X(ca - cl / 2, spec.B / 3), X(ca - cl / 2, -spec.B / 3)];
+    ctx.fillRect(Math.min(...cxs), Y(spec.deck + ch), Math.max(...cxs) - Math.min(...cxs), (spec.deck + ch - spec.deck) * sV);
+  }
+  if (spec.mastH) { ctx.strokeStyle = css(mix(hex('#0e1a29'), hex('#27313b'), dayF), hullA); ctx.lineWidth = Math.max(1, 0.3 * sH); const mx = X(spec.mastA || 0, 0); ctx.beginPath(); ctx.moveTo(mx, top); ctx.lineTo(mx, Y(spec.mastH)); ctx.stroke(); }
+
+  // day shapes (Rule 20: shapes by day)
+  if (spec.shapes && dayF > 0.3) {
+    const z = clamp(sV * 1.7, 6 * DPR, 11 * DPR);
+    ctx.fillStyle = css([8, 10, 14], Math.min(1, (dayF - 0.3) * 2));
+    for (const s of spec.shapes) {
+      const x = X(s.a, s.b || 0), y = Y(s.h);
+      ctx.beginPath();
+      if (s.k === 'ball') ctx.arc(x, y, z / 2, 0, Math.PI * 2);
+      else if (s.k === 'diamond') { ctx.moveTo(x, y - z * 0.65); ctx.lineTo(x + z / 2, y); ctx.lineTo(x, y + z * 0.65); ctx.lineTo(x - z / 2, y); }
+      ctx.fill();
+    }
+  }
+
+  // lights: only those whose arc faces you (Rule 21)
+  const lightsA = (1 - Math.min(1, dayF * 1.6)) * atten;
+  if (lightsA < 0.02) return;
+  if (spec.torch && d > spec.torch) return;
+  const aspect = wrap180(brg(P.x - v.x, P.y - v.y) - v.hdg);
+  const rad = clamp(4.2 - d / 450, 1.8, 4.2) * DPR;
+  for (const l of spec.lights) {
+    if (!arcVisible(l.arc, aspect)) continue;
+    glow(X(l.a, l.b), Y(l.h), NAV[l.c], lightsA, rad);
+  }
+}
+
+function glow(x, y, c, a, r) {
+  const g = ctx.createRadialGradient(x, y, 0, x, y, r * 4.5);
+  g.addColorStop(0, css(c, 0.85 * a)); g.addColorStop(0.22, css(c, 0.4 * a)); g.addColorStop(1, css(c, 0));
+  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r * 4.5, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = css(mix(c, [255, 255, 255], 0.35), a); ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+}
+
+function renderMini() {
+  const w = mini.width, h = mini.height; mctx.clearRect(0, 0, w, h);
+  const bx0 = -250, bx1 = 2450, by0 = -1950, by1 = 350;
+  const s = Math.min((w - 16 * DPR) / (bx1 - bx0), (h - 16 * DPR) / (by1 - by0));
+  const ox = (w - (bx1 - bx0) * s) / 2, oy = (h - (by1 - by0) * s) / 2;
+  const M = p => [ox + (p.x - bx0) * s, oy + (p.y - by0) * s];
+  // channel
+  mctx.fillStyle = 'rgba(77,179,255,0.10)';
+  const c0 = M({ x: CHANNEL.x0, y: CHANNEL.yN }), c1 = M({ x: CHANNEL.x1, y: CHANNEL.yS });
+  mctx.fillRect(c0[0], c0[1], c1[0] - c0[0], c1[1] - c0[1]);
+  // course
+  mctx.strokeStyle = 'rgba(157,178,200,0.45)'; mctx.lineWidth = DPR; mctx.setLineDash([3 * DPR, 3 * DPR]);
+  mctx.beginPath(); G.forEach((p, i) => { const [x, y] = M(p); i ? mctx.lineTo(x, y) : mctx.moveTo(x, y); }); mctx.closePath(); mctx.stroke(); mctx.setLineDash([]);
+  G.forEach((p, i) => {
+    if (!i) return; const [x, y] = M(p);
+    mctx.fillStyle = i < st.gate ? 'rgba(245,197,66,0.55)' : i === st.gate ? '#4DB3FF' : 'rgba(157,178,200,0.6)';
+    mctx.beginPath(); mctx.arc(x, y, (i === st.gate ? 3.5 : 2) * DPR, 0, Math.PI * 2); mctx.fill();
+  });
+  const [sx, sy] = M(G[0]); mctx.fillStyle = st.gate === 16 ? '#4DB3FF' : '#EAF2FA'; mctx.fillRect(sx - 4 * DPR, sy - 1 * DPR, 8 * DPR, 2 * DPR);
+  // hazards
+  for (const v of st.vessels) {
+    if (v.shoal) { const [x, y] = M(v.shoal); mctx.strokeStyle = 'rgba(180,140,255,0.8)'; mctx.beginPath(); mctx.arc(x, y, v.shoal.r * s, 0, Math.PI * 2); mctx.stroke(); }
+    if (v.pipe) { const a = M(v), b = M(v.pipe); mctx.strokeStyle = 'rgba(180,140,255,0.8)'; mctx.beginPath(); mctx.moveTo(a[0], a[1]); mctx.lineTo(b[0], b[1]); mctx.stroke(); }
+  }
+  // radar contacts (no identity, like a real radar blip)
+  for (const v of st.vessels) { if (dist(P, v) > 1500) continue; const [x, y] = M(v); mctx.fillStyle = 'rgba(234,242,250,0.8)'; mctx.beginPath(); mctx.arc(x, y, 2 * DPR, 0, Math.PI * 2); mctx.fill(); }
+  // own boat
+  const [px, py] = M(P); const pf = fwd(P.hdg), ps = stbd(P.hdg), k = 6 * DPR;
+  mctx.fillStyle = '#F5C542'; mctx.beginPath();
+  mctx.moveTo(px + pf.x * k, py + pf.y * k); mctx.lineTo(px - pf.x * k * 0.7 + ps.x * k * 0.6, py - pf.y * k * 0.7 + ps.y * k * 0.6); mctx.lineTo(px - pf.x * k * 0.7 - ps.x * k * 0.6, py - pf.y * k * 0.7 - ps.y * k * 0.6); mctx.fill();
+}
+
+/* ---------- HUD ---------- */
+function fmtTime(t, tenths = true) { const m = Math.floor(t / 60), s = t - m * 60; return `${m}:${(tenths ? s.toFixed(1) : Math.floor(s).toString()).padStart(tenths ? 4 : 2, '0')}`; }
+function hud() {
+  $('hTime').textContent = fmtTime(st.time);
+  $('hGate').textContent = st.gate <= 15 ? `${st.gate}/15` : 'Finish';
+  $('hScore').textContent = st.score;
+  $('hSpd').textContent = (P.spd * 1.944).toFixed(1) + ' kn';
+  $('hHdg').textContent = String(Math.round(P.hdg) % 360).padStart(3, '0') + '°';
+  $('legname').textContent = st.gate <= 15 ? `Leg ${st.gate}: ${LEG_NAMES[st.gate]}` : 'Final leg: back to the start line';
+  $('call').disabled = !(st.running && !st.paused && callable());
+}
+function updateThr() { $('thrv').textContent = Math.round(P.thr * 100) + '%'; }
+
+/* ---------- Loop ---------- */
+let last = performance.now();
+function frame(now) {
+  const dt = Math.min(0.05, (now - last) / 1000); last = now;
+  update(dt); render(); hud();
+  requestAnimationFrame(frame);
+}
+
+/* ---------- Input ---------- */
+function holdBtn(el, key) {
+  const on = e => { e.preventDefault(); input[key] = true; el.classList.add('held'); try { el.setPointerCapture(e.pointerId); } catch (_) {} };
+  const off = () => { input[key] = false; el.classList.remove('held'); };
+  el.addEventListener('pointerdown', on); el.addEventListener('pointerup', off); el.addEventListener('pointercancel', off); el.addEventListener('lostpointercapture', off);
+}
+holdBtn($('bL'), 'l'); holdBtn($('bR'), 'r');
+$('tUp').addEventListener('click', () => { P.thr = clamp(P.thr + 0.125, 0, 1); updateThr(); });
+$('tDn').addEventListener('click', () => { P.thr = clamp(P.thr - 0.125, 0, 1); updateThr(); });
+$('call').addEventListener('click', callIt);
+$('qnext').addEventListener('click', nextStep);
+$('tAssist').addEventListener('click', e => { assist = !assist; e.currentTarget.setAttribute('aria-pressed', assist); toast(assist ? 'Auto-helm on: steering for the next gate' : 'Auto-helm off'); });
+$('tVoice').addEventListener('click', e => { voice = !voice; e.currentTarget.setAttribute('aria-pressed', voice); if (!voice && 'speechSynthesis' in window) speechSynthesis.cancel(); });
+window.addEventListener('keydown', e => {
+  const k = e.key.toLowerCase();
+  if (st.quiz || !st.running) return;
+  if (k === 'arrowleft' || k === 'a') { input.kl = true; e.preventDefault(); }
+  else if (k === 'arrowright' || k === 'd') { input.kr = true; e.preventDefault(); }
+  else if (k === 'arrowup' || k === 'w') { P.thr = clamp(P.thr + 0.125, 0, 1); updateThr(); e.preventDefault(); }
+  else if (k === 'arrowdown' || k === 's') { P.thr = clamp(P.thr - 0.125, 0, 1); updateThr(); e.preventDefault(); }
+  else if (k === ' ') { e.preventDefault(); callIt(); }
+  else if (k === 'h') { $('tAssist').click(); }
+});
+window.addEventListener('keyup', e => {
+  const k = e.key.toLowerCase();
+  if (k === 'arrowleft' || k === 'a') input.kl = false;
+  if (k === 'arrowright' || k === 'd') input.kr = false;
+});
+window.addEventListener('resize', resize);
+window.addEventListener('blur', () => { input.kl = input.kr = input.l = input.r = false; });
+
+function begin() {
+  audio();
+  $('start').hidden = true; $('end').hidden = true;
+  reset(); st.running = true;
+  toast('Leg 1: Open water. Watch the horizon.');
+}
+$('go').addEventListener('click', begin);
+$('again').addEventListener('click', begin);
+
+reset(); resize();
+requestAnimationFrame(t => { last = t; frame(t); });
+})();
+</script>

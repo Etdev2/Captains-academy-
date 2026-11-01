@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#90",
-  "sourceDigest": "sha256:ebf7bc7222c1beda5c1921d355baebd5a7afbd52cba78937dc1f34e50887a3c5",
-  "capturedAt": "2026-11-01T21:48:59Z",
+  "ticket": "Etdev2/Captains-academy-#89",
+  "sourceDigest": "sha256:4f73b27498e54da3f19cdd2444a9815932a74fdac4f751ae0bc5d335b15abac3",
+  "capturedAt": "2026-11-01T22:29:27Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "Docs-only change, merged with main at e4e9f99"
+    "fixture": "PR #89 with the font-CDN fix (system font stacks, no fonts.googleapis.com/gstatic) merged with main at 79ca0d0. Full repository checks under Node 22; play pages loaded at 390x844 in Playwright with zero external requests"
   },
   "commands": [
     {
@@ -18,13 +18,12 @@
       "exitCode": 0
     }
   ],
-  "behaviorChanged": false,
+  "behaviorChanged": true,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh and its tests pass with the Prototype Studio plan and time card, merged with main e4e9f99"
+      "shows": "verify.test.sh and verify.sh (tsc, eslint, prettier, vitest incl. prototype inventory and decision board tests, vite build, playwright smoke) pass on the merged tree"
     }
-  ],
-  "noBehaviorReason": "Adds a product plan and a time card only; no app code or workflow changes"
+  ]
 }
