@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#89",
-  "sourceDigest": "sha256:b4e547811d2cfea9cfbce74599c1e1e3616e83a3872a21877b1390eafbcf202f",
-  "capturedAt": "2026-11-01T22:00:20Z",
+  "sourceDigest": "sha256:4f73b27498e54da3f19cdd2444a9815932a74fdac4f751ae0bc5d335b15abac3",
+  "capturedAt": "2026-11-01T22:29:27Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "PR #89's arcade handoff board entries merged with main at e4e9f99 (inventory unioned, INVENTORY.md regenerated with scripts/prototype-inventory.ts, decision-board.md per Et's Nov 1 ruling). Full repository checks under Node 22; the earlier /play drive run was not repeated"
+    "fixture": "PR #89 with the font-CDN fix (system font stacks, no fonts.googleapis.com/gstatic) merged with main at 79ca0d0. Full repository checks under Node 22; play pages loaded at 390x844 in Playwright with zero external requests"
   },
   "commands": [
     {
