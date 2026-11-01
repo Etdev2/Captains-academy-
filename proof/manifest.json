@@ -1,44 +1,20 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#91",
-  "sourceDigest": "sha256:16505044f426c3e925067f063ced656df248545d19391bdff51a4e7bafc9fb34",
-  "capturedAt": "2026-10-31T18:23:13Z",
+  "ticket": "Etdev2/Captains-academy-#90",
+  "sourceDigest": "sha256:ebf7bc7222c1beda5c1921d355baebd5a7afbd52cba78937dc1f34e50887a3c5",
+  "capturedAt": "2026-11-01T21:48:59Z",
   "result": "PASS",
   "verification": {
-    "command": "npx --no-install tsc --noEmit",
-    "fixture": "prototype/infrastructure on main fc15d4d: docs/prototypes/infrastructure/ (page, PDFs, CSV, prompts, build scripts), four Reference items in docs/prototypes/inventory.json with INVENTORY.md and one thumbnail, two README rows and a count in decision-board.md, and the verify job pinned to ubuntu-24.04"
+    "command": "bash scripts/verify.sh",
+    "fixture": "Docs-only change, merged with main at e4e9f99"
   },
   "commands": [
     {
-      "command": "npx --no-install tsc --noEmit",
+      "command": "bash scripts/verify.test.sh",
       "exitCode": 0
     },
     {
-      "command": "npx --no-install eslint . --max-warnings=0",
-      "exitCode": 0
-    },
-    {
-      "command": "npx --no-install prettier --check .",
-      "exitCode": 0
-    },
-    {
-      "command": "npm run --silent validate:missions",
-      "exitCode": 0
-    },
-    {
-      "command": "npx --no-install vitest run",
-      "exitCode": 0
-    },
-    {
-      "command": "npx --no-install vite build",
-      "exitCode": 0
-    },
-    {
-      "command": "npx --no-install playwright test e2e/prototypes.spec.ts --workers=2 --retries=1",
-      "exitCode": 0
-    },
-    {
-      "command": "npm audit --omit=dev",
+      "command": "bash scripts/verify.sh",
       "exitCode": 0
     }
   ],
@@ -47,8 +23,8 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "Type check, lint, Prettier, mission validation, every unit test, the production build and the decision board browser tests all pass with the new inventory items, and npm audit finds nothing. The infrastructure folder is docs; no app code changed"
+      "shows": "verify.sh and its tests pass with the Prototype Studio plan and time card, merged with main e4e9f99"
     }
   ],
-  "noBehaviorReason": "Docs, inventory and the CI runner image only. The decision board gains four Reference items that nobody dots; no screen, rule, mission or replay changed"
+  "noBehaviorReason": "Adds a product plan and a time card only; no app code or workflow changes"
 }
