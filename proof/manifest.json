@@ -1,54 +1,29 @@
 {
   "schemaVersion": 1,
-  "ticket": "Etdev2/Captains-academy-#91",
-  "sourceDigest": "sha256:16505044f426c3e925067f063ced656df248545d19391bdff51a4e7bafc9fb34",
-  "capturedAt": "2026-10-31T18:23:13Z",
+  "ticket": "Etdev2/Captains-academy-#74",
+  "sourceDigest": "sha256:8ba76938ccec1257a981c7016302bf1410f60cf30cff075469475921a1cb2c43",
+  "capturedAt": "2026-11-01T21:53:08Z",
   "result": "PASS",
   "verification": {
-    "command": "npx --no-install tsc --noEmit",
-    "fixture": "prototype/infrastructure on main fc15d4d: docs/prototypes/infrastructure/ (page, PDFs, CSV, prompts, build scripts), four Reference items in docs/prototypes/inventory.json with INVENTORY.md and one thumbnail, two README rows and a count in decision-board.md, and the verify job pinned to ubuntu-24.04"
+    "command": "bash scripts/verify.sh",
+    "fixture": "PR #75's Supabase migration source, SQL test and generated types, merged with main at e4e9f99. Repository checks only: the SQL test was not rerun against the Supabase project from this session, which has no database access"
   },
   "commands": [
     {
-      "command": "npx --no-install tsc --noEmit",
+      "command": "bash scripts/verify.test.sh",
       "exitCode": 0
     },
     {
-      "command": "npx --no-install eslint . --max-warnings=0",
-      "exitCode": 0
-    },
-    {
-      "command": "npx --no-install prettier --check .",
-      "exitCode": 0
-    },
-    {
-      "command": "npm run --silent validate:missions",
-      "exitCode": 0
-    },
-    {
-      "command": "npx --no-install vitest run",
-      "exitCode": 0
-    },
-    {
-      "command": "npx --no-install vite build",
-      "exitCode": 0
-    },
-    {
-      "command": "npx --no-install playwright test e2e/prototypes.spec.ts --workers=2 --retries=1",
-      "exitCode": 0
-    },
-    {
-      "command": "npm audit --omit=dev",
+      "command": "bash scripts/verify.sh",
       "exitCode": 0
     }
   ],
-  "behaviorChanged": false,
+  "behaviorChanged": true,
   "evidence": [
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "Type check, lint, Prettier, mission validation, every unit test, the production build and the decision board browser tests all pass with the new inventory items, and npm audit finds nothing. The infrastructure folder is docs; no app code changed"
+      "shows": "verify.test.sh and verify.sh pass with the supabase/ files added; no app code imports them yet"
     }
-  ],
-  "noBehaviorReason": "Docs, inventory and the CI runner image only. The decision board gains four Reference items that nobody dots; no screen, rule, mission or replay changed"
+  ]
 }
