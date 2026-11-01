@@ -8,8 +8,6 @@
 <!-- Prototype from Elliott's design session of 20 October 2026, copied from his
      Claude page for the decision board. Design input, not a decision. Three.js
      r128 is vendored next to this file (MIT, three-r128.min.js). -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
 /* Layout: one shared boat drives three night-harbor views side by side; a sticky helm bar below holds the controls and an overhead chart. */
 :root {
@@ -23,8 +21,8 @@
   --night: #06121f;
   --ok: #1d7a4a;
   --bad: #b3261e;
-  --display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
-  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: "Barlow Condensed", "Roboto Condensed", "Arial Narrow", "Helvetica Neue", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
   color-scheme: light;
 }
@@ -431,7 +429,7 @@ function renderM7(now) {
   const q = proj(SLIP.cx, SLIP.cy, 4);
   if (q) {
     const sc = W / LW;
-    o1.font = `600 ${Math.max(10, Math.min(22, 200 / q.fw * sc))}px "Barlow Condensed", sans-serif`;
+    o1.font = `600 ${Math.max(10, Math.min(22, 200 / q.fw * sc))}px "Barlow Condensed", "Roboto Condensed", "Arial Narrow", system-ui, sans-serif`;
     o1.fillStyle = '#f4d06f'; o1.textAlign = 'center'; o1.fillText('DOCK HERE', q.x * sc, q.y * sc);
   }
 }

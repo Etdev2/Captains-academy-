@@ -4,13 +4,12 @@
 <title>Night Harbor Run</title>
 <!-- Playable prototype from 21 to 22 October 2026, copied from docs/prototypes/rules-of-the-road/playable/ for the decision board. Design input, not a decision. -->
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap">
 <style>
 /* Layout: full-screen bridge view (canvas), HUD strip on top, radar minimap top-right, helm controls along the bottom, quiz sheet rises from the bottom. Single dark look: it is a night bridge. */
 :root{
   --bg:#050C17; --panel:#0F2236; --panel2:#07111F; --line:#2C4A68; --ink:#EAF2FA; --mute:#9DB2C8;
   --gold:#F5C542; --blue:#4DB3FF; --blue2:#8FD0FF; --miss:#B48CFF; --miss2:#C9B3FF;
-  --display:'Barlow Condensed','Arial Narrow',sans-serif; --body:Barlow,'Segoe UI',system-ui,sans-serif;
+  --display:'Barlow Condensed','Roboto Condensed','Arial Narrow','Helvetica Neue',system-ui,sans-serif; --body:Barlow,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
   color-scheme:dark;
 }
 [hidden]{display:none!important}
@@ -100,7 +99,8 @@ button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
   #mini{width:120px;height:110px}
   .stat b{font-size:17px}
   #legname{display:none}
-  .toggles{display:none}
+  #controls > .grp:last-child{flex-direction:column;align-items:flex-end}
+  .toggles{flex-direction:row}
 }
 @media (prefers-reduced-motion:reduce){ #blasts i.on{box-shadow:none} }
 </style>
@@ -722,7 +722,7 @@ function render() {
         ctx.beginPath(); ctx.moveTo(x, yW); ctx.lineTo(x, yW - ph); ctx.stroke();
         xs.push({ x, y: yW - ph });
       }
-      ctx.fillStyle = css(hex('#8FD0FF'), 0.95); ctx.font = `600 ${12 * DPR}px Barlow, sans-serif`; ctx.textAlign = 'center';
+      ctx.fillStyle = css(hex('#8FD0FF'), 0.95); ctx.font = `600 ${12 * DPR}px Barlow, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif`; ctx.textAlign = 'center';
       ctx.fillText(st.gate <= 15 ? `GATE ${st.gate} · ${Math.round(dC)} m` : `FINISH · ${Math.round(dC)} m`, (xs[0].x + xs[1].x) / 2, Math.min(xs[0].y, xs[1].y) - 8 * DPR);
     } else {
       const left = relC < 0, ex = left ? 28 * DPR : w - 28 * DPR, ey = hy - 26 * DPR;
@@ -731,7 +731,7 @@ function render() {
       if (left) { ctx.moveTo(ex - 10 * DPR, ey); ctx.lineTo(ex + 6 * DPR, ey - 10 * DPR); ctx.lineTo(ex + 6 * DPR, ey + 10 * DPR); }
       else { ctx.moveTo(ex + 10 * DPR, ey); ctx.lineTo(ex - 6 * DPR, ey - 10 * DPR); ctx.lineTo(ex - 6 * DPR, ey + 10 * DPR); }
       ctx.fill();
-      ctx.font = `600 ${11 * DPR}px Barlow, sans-serif`; ctx.textAlign = left ? 'left' : 'right';
+      ctx.font = `600 ${11 * DPR}px Barlow, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif`; ctx.textAlign = left ? 'left' : 'right';
       ctx.fillText(st.gate <= 15 ? `GATE ${st.gate}` : 'FINISH', left ? ex - 8 * DPR : ex + 8 * DPR, ey + 24 * DPR);
     }
   }
