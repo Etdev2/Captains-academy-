@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "ticket": "Etdev2/Captains-academy-#90",
-  "sourceDigest": "sha256:090803c46128664dc8743d7c91f986459efad7f719d02a3d2180da752a7eca12",
-  "capturedAt": "2026-10-28T19:37:06Z",
+  "sourceDigest": "sha256:ebf7bc7222c1beda5c1921d355baebd5a7afbd52cba78937dc1f34e50887a3c5",
+  "capturedAt": "2026-11-01T21:48:59Z",
   "result": "PASS",
   "verification": {
     "command": "bash scripts/verify.sh",
-    "fixture": "Docs-only change on main ba090b1"
+    "fixture": "Docs-only change, merged with main at e4e9f99"
   },
   "commands": [
     {
@@ -23,7 +23,7 @@
     {
       "path": "proof/verification.txt",
       "kind": "terminal",
-      "shows": "verify.sh and its tests pass with the Prototype Studio plan and time card"
+      "shows": "verify.sh and its tests pass with the Prototype Studio plan and time card, merged with main e4e9f99"
     }
   ],
   "noBehaviorReason": "Adds a product plan and a time card only; no app code or workflow changes"
